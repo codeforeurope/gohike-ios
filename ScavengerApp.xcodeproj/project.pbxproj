@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
+		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
+		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
 		AC4542AE174BAD81005F5DDE /* PlayerProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A5174BAD81005F5DDE /* PlayerProgress.m */; };
 		AC4542B0174BAD81005F5DDE /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A9174BAD81005F5DDE /* Route.m */; };
 		AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542AB174BAD81005F5DDE /* RouteProfiles.m */; };
@@ -41,6 +44,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
+		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
+		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		AC4542A3174BAD81005F5DDE /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		AC4542A4174BAD81005F5DDE /* PlayerProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProgress.h; sourceTree = "<group>"; };
 		AC4542A5174BAD81005F5DDE /* PlayerProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerProgress.m; sourceTree = "<group>"; };
@@ -97,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */,
 				ACDD9BEA1743EBAB00D64682 /* QuartzCore.framework in Frameworks */,
 				ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */,
 				ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */,
@@ -128,6 +136,7 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
+				1CB18468174BC0A500D71DA4 /* CoreLocation.framework */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
 				ACDD9B711743B20200D64682 /* ScavengerApp */,
 				ACDD9B6A1743B20200D64682 /* Frameworks */,
@@ -162,6 +171,8 @@
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				ACDD9B831743B20200D64682 /* ViewController.h */,
 				ACDD9B841743B20200D64682 /* ViewController.m */,
+				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
+				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
 				AC5133FD17452D7400472022 /* SelectionCell.h */,
@@ -198,6 +209,7 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1CB18466174BB81800D71DA4 /* arrow.png */,
 				ACDD9BE01743E8D700D64682 /* closebox.png */,
 				ACDD9BE11743E8D700D64682 /* closebox@2x.png */,
 			);
@@ -282,6 +294,7 @@
 				ACDD9C151744DFE500D64682 /* routeprofiles.plist in Resources */,
 				AC5133F01744EC3800472022 /* routes.json in Resources */,
 				AC5133FA174512E600472022 /* playerprogress.json in Resources */,
+				1CB18467174BB81800D71DA4 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +317,7 @@
 				AC4542B0174BAD81005F5DDE /* Route.m in Sources */,
 				AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */,
 				AC4542B2174BAD81005F5DDE /* Routes.m in Sources */,
+				1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +416,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/ScavengerApp-Prefix.pch";
 				INFOPLIST_FILE = "ScavengerApp/ScavengerApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -413,6 +428,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/ScavengerApp-Prefix.pch";
 				INFOPLIST_FILE = "ScavengerApp/ScavengerApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

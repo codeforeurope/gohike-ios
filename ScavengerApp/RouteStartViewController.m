@@ -7,6 +7,7 @@
 //
 
 #import "RouteStartViewController.h"
+#include "CompassViewController.h"
 
 @interface RouteStartViewController ()
 
@@ -156,6 +157,9 @@
 - (void)StartRoute
 {
     NSLog(@"Start Route Called");
+    CompassViewController *compass = [[CompassViewController alloc] init];
+    [self.navigationController pushViewController:compass animated:YES];
+    
 }
 
 @end
