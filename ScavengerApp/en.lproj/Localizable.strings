@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  ScavengerApp
+
+  Created by Giovanni on 5/15/13.
+  Copyright (c) 2013 Code for Europe. All rights reserved.
+*/
+
+/* SelectionViewController */
+
+"Choose profile" = "Choose profile";
+
+/* RouteStartViewController */

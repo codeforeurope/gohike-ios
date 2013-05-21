@@ -1,0 +1,15 @@
+{
+	"profiles" : [{
+                  "profileId" : 1,
+                  "name" : "Shopping",
+                  "picture" : "Shopping.png"
+                  
+                  },
+                  {
+                  "profileId" : 2,
+                  "name" : "Architecture",
+                  "picture" : "Architecture.png"
+                  }
+                  ],
+	"lastupdate" : "2011-07-14T19:43:37+0100"
+}
