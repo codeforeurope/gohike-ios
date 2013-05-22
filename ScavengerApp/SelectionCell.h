@@ -10,4 +10,7 @@
 
 @interface SelectionCell : UICollectionViewCell
 
+@property (nonatomic, weak) IBOutlet UIImageView *profileImage;
+@property (nonatomic, weak) IBOutlet UILabel *profileLabel;
+
 @end

@@ -10,6 +10,7 @@
 #import "RouteStartViewController.h"
 #import "OverlayView.h"
 #import "DataModels.h"
+#import "SelectionCell.h"
 
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -38,7 +39,10 @@
     
     [self loadData];
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
+//    Use only with default collectionviewcells
+//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
+//    [self.collectionView registerClass:[SelectionCell class] forCellWithReuseIdentifier:@"SelectionCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SelectionCell" bundle:nil] forCellWithReuseIdentifier:@"SelectionCell"];
     
     
     //How to play screen
@@ -100,8 +104,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionViewCell" forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"SelectionCell";
 
+    
+    SelectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        
+    }
+    
+    cell.profileImage.image = [UIImage imageNamed:@"default-profile"]; // = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default-profile.png"]];
+    cell.profileLabel.text = [NSString stringWithFormat: @"%@", [[_routeProfiles.profiles objectAtIndex:indexPath.row] name]];
     cell.backgroundColor = [UIColor whiteColor];
 
     return cell;

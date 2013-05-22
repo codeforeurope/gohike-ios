@@ -18,6 +18,8 @@
 		AC5133F01744EC3800472022 /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = AC5133EF1744EC3800472022 /* routes.json */; };
 		AC5133FA174512E600472022 /* playerprogress.json in Resources */ = {isa = PBXBuildFile; fileRef = AC5133F9174512E600472022 /* playerprogress.json */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
+		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
+		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -63,6 +65,8 @@
 		AC5133F9174512E600472022 /* playerprogress.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = playerprogress.json; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionCell.h; sourceTree = "<group>"; };
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionCell.m; sourceTree = "<group>"; };
+		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionCell.xib; sourceTree = "<group>"; };
+		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* ScavengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScavengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -136,7 +140,6 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
-				1CB18468174BC0A500D71DA4 /* CoreLocation.framework */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
 				ACDD9B711743B20200D64682 /* ScavengerApp */,
 				ACDD9B6A1743B20200D64682 /* Frameworks */,
@@ -155,6 +158,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CB18468174BC0A500D71DA4 /* CoreLocation.framework */,
 				ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */,
 				ACDD9B6B1743B20200D64682 /* UIKit.framework */,
 				ACDD9B6D1743B20200D64682 /* Foundation.framework */,
@@ -177,6 +181,7 @@
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
 				AC5133FD17452D7400472022 /* SelectionCell.h */,
 				AC5133FE17452D7400472022 /* SelectionCell.m */,
+				AC5BEDA6174CC5970067F08F /* SelectionCell.xib */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
 				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
@@ -209,6 +214,7 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				AC5BEDA8174CC82D0067F08F /* default-profile.png */,
 				1CB18466174BB81800D71DA4 /* arrow.png */,
 				ACDD9BE01743E8D700D64682 /* closebox.png */,
 				ACDD9BE11743E8D700D64682 /* closebox@2x.png */,
@@ -295,6 +301,8 @@
 				AC5133F01744EC3800472022 /* routes.json in Resources */,
 				AC5133FA174512E600472022 /* playerprogress.json in Resources */,
 				1CB18467174BB81800D71DA4 /* arrow.png in Resources */,
+				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
+				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
