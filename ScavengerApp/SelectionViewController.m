@@ -108,11 +108,11 @@
 
     
     SelectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-        
-    }
+//    if (cell == nil) {
+//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
+//        cell = [nib objectAtIndex:0];
+//        
+//    }
     
     cell.profileImage.image = [UIImage imageNamed:@"default-profile"]; // = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default-profile.png"]];
     cell.profileLabel.text = [NSString stringWithFormat: @"%@", [[_routeProfiles.profiles objectAtIndex:indexPath.row] name]];
