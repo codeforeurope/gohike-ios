@@ -14,7 +14,6 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
-		AC10168A174D6F0F00761AC2 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AC101685174D6F0F00761AC2 /* README.markdown */; };
 		AC4542AE174BAD81005F5DDE /* PlayerProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A5174BAD81005F5DDE /* PlayerProgress.m */; };
 		AC4542B0174BAD81005F5DDE /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A9174BAD81005F5DDE /* Route.m */; };
 		AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542AB174BAD81005F5DDE /* RouteProfiles.m */; };
@@ -65,7 +64,6 @@
 		AC101682174D6F0F00761AC2 /* CLLocationDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDispatch.h; sourceTree = "<group>"; };
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
-		AC101685174D6F0F00761AC2 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		AC4542A3174BAD81005F5DDE /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		AC4542A4174BAD81005F5DDE /* PlayerProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProgress.h; sourceTree = "<group>"; };
 		AC4542A5174BAD81005F5DDE /* PlayerProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerProgress.m; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				AC10167B174D6F0F00761AC2 /* CoreLocationUtils */,
-				AC101685174D6F0F00761AC2 /* README.markdown */,
 			);
 			path = CoreLocationUtils;
 			sourceTree = SOURCE_ROOT;
@@ -348,7 +345,6 @@
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
-				AC10168A174D6F0F00761AC2 /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

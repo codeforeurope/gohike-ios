@@ -10,6 +10,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "CLLocation+measuring.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
@@ -52,25 +54,43 @@
         
         float heading = -1.0f * M_PI * newHeading.magneticHeading / 180.0f;
         
-        [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.1 delay:0.0 options:
+//         UIViewAnimationOptionBeginFromCurrentState |
+         UIViewAnimationOptionCurveLinear animations:^{
             CGAffineTransform transform = CGAffineTransformMakeRotation(heading);
             compass.transform = transform;
         } completion:NULL];
         
 //        compass.transform = CGAffineTransformMakeRotation(heading);
+        
+        
+        CLLocationDirection directionToGo = [locationManager.location directionToLocation:_destinationLocation];
+        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
+
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    NSLog(@"New user location: %@", currentLocation);
+//    NSLog(@"New user location: %@", currentLocation);
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
         // If the event is recent, do something with it.
         double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
         _distanceLabel.text = [NSString stringWithFormat:@"%f meters", distanceFromDestination];
+        
+        
+        CLLocationDirection directionToGo = [currentLocation directionToLocation:_destinationLocation];
+        // [CLLocation distanceFromCoordinate:[currentLocation coordinate] toCoordinate:[_destinationLocation coordinate]];
+        NSLog(@"Direction To Go: %f", directionToGo);
+        
+//        [UIView animateWithDuration:0.1 delay:0.0 options: UIViewAnimationOptionCurveLinear animations:^{
+//            CGAffineTransform transform = CGAffineTransformMakeRotation(directionToGo);
+//            arrow.transform = transform;
+//        } completion:NULL];
+        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
 
     }
     
