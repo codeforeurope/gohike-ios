@@ -1,0 +1,3 @@
+[submodule "CoreLocationUtils"]
+	path = CoreLocationUtils
+	url = https://github.com/100grams/CoreLocationUtils.git

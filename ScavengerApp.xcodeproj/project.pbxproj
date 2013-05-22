@@ -10,6 +10,11 @@
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
+		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
+		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
+		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
+		AC10168A174D6F0F00761AC2 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AC101685174D6F0F00761AC2 /* README.markdown */; };
 		AC4542AE174BAD81005F5DDE /* PlayerProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A5174BAD81005F5DDE /* PlayerProgress.m */; };
 		AC4542B0174BAD81005F5DDE /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A9174BAD81005F5DDE /* Route.m */; };
 		AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542AB174BAD81005F5DDE /* RouteProfiles.m */; };
@@ -51,6 +56,16 @@
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
+		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
+		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
+		AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+routeInfo.m"; sourceTree = "<group>"; };
+		AC101680174D6F0F00761AC2 /* CLLocationDeadReckoning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDeadReckoning.h; sourceTree = "<group>"; };
+		AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDeadReckoning.m; sourceTree = "<group>"; };
+		AC101682174D6F0F00761AC2 /* CLLocationDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDispatch.h; sourceTree = "<group>"; };
+		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
+		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
+		AC101685174D6F0F00761AC2 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		AC4542A3174BAD81005F5DDE /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		AC4542A4174BAD81005F5DDE /* PlayerProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProgress.h; sourceTree = "<group>"; };
 		AC4542A5174BAD81005F5DDE /* PlayerProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerProgress.m; sourceTree = "<group>"; };
@@ -121,6 +136,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC10167A174D6F0F00761AC2 /* CoreLocationUtils */ = {
+			isa = PBXGroup;
+			children = (
+				AC10167B174D6F0F00761AC2 /* CoreLocationUtils */,
+				AC101685174D6F0F00761AC2 /* README.markdown */,
+			);
+			path = CoreLocationUtils;
+			sourceTree = SOURCE_ROOT;
+		};
+		AC10167B174D6F0F00761AC2 /* CoreLocationUtils */ = {
+			isa = PBXGroup;
+			children = (
+				AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */,
+				AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */,
+				AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */,
+				AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */,
+				AC101680174D6F0F00761AC2 /* CLLocationDeadReckoning.h */,
+				AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */,
+				AC101682174D6F0F00761AC2 /* CLLocationDispatch.h */,
+				AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */,
+				AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */,
+			);
+			path = CoreLocationUtils;
+			sourceTree = "<group>";
+		};
 		AC4542A2174BAD81005F5DDE /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +182,7 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
+				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
 				ACDD9B711743B20200D64682 /* ScavengerApp */,
 				ACDD9B6A1743B20200D64682 /* Frameworks */,
@@ -307,6 +348,7 @@
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
+				AC10168A174D6F0F00761AC2 /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +372,10 @@
 				AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */,
 				AC4542B2174BAD81005F5DDE /* Routes.m in Sources */,
 				1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */,
+				AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */,
+				AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */,
+				AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */,
+				AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
