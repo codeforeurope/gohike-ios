@@ -14,7 +14,8 @@
 
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
-#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
+//#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
 @interface CompassViewController ()
 @property (nonatomic, strong) UIImageView *arrow;
@@ -52,20 +53,25 @@
         //magneticHeadingLabel.text = [NSString stringWithFormat:@"%f", magneticHeading];
         //trueHeadingLabel.text = [NSString stringWithFormat:@"%f", trueHeading];
         
-        float heading = -1.0f * M_PI * newHeading.magneticHeading / 180.0f;
+        //current heading in degrees and radians
+        float heading = newHeading.magneticHeading;
+//        heading = 300;
+        float heading_radians = DEGREES_TO_RADIANS(heading);
         
-        [UIView animateWithDuration:0.1 delay:0.0 options:
-//         UIViewAnimationOptionBeginFromCurrentState |
-         UIViewAnimationOptionCurveLinear animations:^{
-            CGAffineTransform transform = CGAffineTransformMakeRotation(heading);
-            compass.transform = transform;
-        } completion:NULL];
+        compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
         
-//        compass.transform = CGAffineTransformMakeRotation(heading);
+//        [UIView animateWithDuration:0.1 delay:0.0 options:
+////         UIViewAnimationOptionBeginFromCurrentState |
+//         UIViewAnimationOptionCurveLinear animations:^{
+//            CGAffineTransform transform = CGAffineTransformMakeRotation(heading);
+//            compass.transform = transform;
+//        } completion:NULL];
         
-        
-        CLLocationDirection directionToGo = [locationManager.location directionToLocation:_destinationLocation];
-        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
+        CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
+        NSLog(@"Destination heading: %f",destinationHeading);
+        float adjusted_heading = destinationHeading - heading;
+        float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
+        arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
 
     }
 }
@@ -90,7 +96,9 @@
 //            CGAffineTransform transform = CGAffineTransformMakeRotation(directionToGo);
 //            arrow.transform = transform;
 //        } completion:NULL];
-        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
+        
+        
+//        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
 
     }
     
@@ -150,11 +158,12 @@
     _distanceLabel.textColor = [UIColor redColor];
     _distanceLabel.textAlignment = NSTextAlignmentCenter;
     _distanceLabel.center = CGPointMake(self.view.frame.size.width/2, 40);
-    _distanceLabel.font = [UIFont systemFontOfSize:44.0];
+    _distanceLabel.font = [UIFont systemFontOfSize:22.0];
     
     [self.view addSubview:arrow];
     [self.view addSubview:compass];
     [self.view addSubview:_distanceLabel];
+    [self.view setBackgroundColor:[UIColor lightGrayColor]];
     
     _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
     

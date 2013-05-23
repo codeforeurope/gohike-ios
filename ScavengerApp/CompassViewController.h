@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#define DUMMY_LATITUDE 52.33716
-#define DUMMY_LONGITUDE 4.890407
+#define DUMMY_LATITUDE 52.34444
+#define DUMMY_LONGITUDE 4.91667
 
 @interface CompassViewController : UIViewController <CLLocationManagerDelegate>
 
