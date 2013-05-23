@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C1684F3174E3B3100A77192 /* CheckinView.xib */; };
+		1C1684F7174E3BAF00A77192 /* CheckinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684F6174E3BAF00A77192 /* CheckinView.m */; };
+		1C1684FA174E4DBB00A77192 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684F9174E4DBB00A77192 /* AppState.m */; };
+		1C1684FD174E53B900A77192 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684FC174E53B900A77192 /* Location.m */; };
+		1C168500174E54A600A77192 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684FF174E54A600A77192 /* Checkin.m */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
@@ -51,6 +56,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C1684F3174E3B3100A77192 /* CheckinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinView.xib; sourceTree = "<group>"; };
+		1C1684F5174E3BAF00A77192 /* CheckinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinView.h; sourceTree = "<group>"; };
+		1C1684F6174E3BAF00A77192 /* CheckinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinView.m; sourceTree = "<group>"; };
+		1C1684F8174E4DBB00A77192 /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppState.h; sourceTree = "<group>"; };
+		1C1684F9174E4DBB00A77192 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
+		1C1684FB174E53B900A77192 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		1C1684FC174E53B900A77192 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		1C1684FE174E54A600A77192 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkin.h; sourceTree = "<group>"; };
+		1C1684FF174E54A600A77192 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin.m; sourceTree = "<group>"; };
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -172,6 +186,10 @@
 				AC4542AB174BAD81005F5DDE /* RouteProfiles.m */,
 				AC4542AC174BAD81005F5DDE /* Routes.h */,
 				AC4542AD174BAD81005F5DDE /* Routes.m */,
+				1C1684FB174E53B900A77192 /* Location.h */,
+				1C1684FC174E53B900A77192 /* Location.m */,
+				1C1684FE174E54A600A77192 /* Checkin.h */,
+				1C1684FF174E54A600A77192 /* Checkin.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -231,6 +249,11 @@
 				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
 				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
+				1C1684F3174E3B3100A77192 /* CheckinView.xib */,
+				1C1684F5174E3BAF00A77192 /* CheckinView.h */,
+				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
+				1C1684F8174E4DBB00A77192 /* AppState.h */,
+				1C1684F9174E4DBB00A77192 /* AppState.m */,
 			);
 			path = ScavengerApp;
 			sourceTree = "<group>";
@@ -345,6 +368,7 @@
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
+				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +396,10 @@
 				AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */,
 				AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */,
 				AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */,
+				1C1684F7174E3BAF00A77192 /* CheckinView.m in Sources */,
+				1C1684FA174E4DBB00A77192 /* AppState.m in Sources */,
+				1C1684FD174E53B900A77192 /* Location.m in Sources */,
+				1C168500174E54A600A77192 /* Checkin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,12 @@
               "touchedExtraPointsIds" : [
               
               ],
-              "touchedPointsIds" : [
+              "checkins" : [
+              {
+                "locationId": 1,
+                "timestamp": ,
+                "uploaded": false /*placeholder */
+              }
               
               ],
               "routeId" : 1,

@@ -8,6 +8,7 @@
 
 #import "RouteStartViewController.h"
 #include "CompassViewController.h"
+#import "AppDelegate.h"
 
 @interface RouteStartViewController ()
 
@@ -33,7 +34,25 @@
     self.navigationItem.rightBarButtonItem = startRouteButton;
 
     
+    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
+
+    Location *loc1 = [[Location alloc] init];
+    loc1.locationId = 1;
+    loc1.locationName = @"Rembrandtoren";
+    loc1.locationPicture = @"";
+    loc1.latitude = 52.34444;
+    loc1.longitude = 4.91667;
     
+    Location *loc2 = [[Location alloc] init];
+    loc2.locationId = 2;
+    loc2.locationName = @"RAI Congress Center";
+    loc2.locationPicture = @"";
+    loc2.latitude = 52.34123;
+    loc2.longitude = 4.92;
+    
+    state.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+    state.activeTarget = [state.locations objectAtIndex:0];
+    state.activeTargetId = state.activeTarget.locationId;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -156,7 +175,7 @@
 
 - (void)StartRoute
 {
-    NSLog(@"Start Route Called");
+    //TODO: set active route in AppState
     CompassViewController *compass = [[CompassViewController alloc] init];
     [self.navigationController pushViewController:compass animated:YES];
     

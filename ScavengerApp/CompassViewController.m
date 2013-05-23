@@ -11,23 +11,27 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "CLLocation+measuring.h"
+#import "CheckinView.h"
+#import "AppDelegate.h"
 
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
+#define CHECKIN_DISTANCE 3650 //meters
 //#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
 @interface CompassViewController ()
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
+@property (nonatomic, weak) CheckinView * checkinView;
 @property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
-
+@property (nonatomic, assign) BOOL checkinPending;
 @end
 
 @implementation CompassViewController
-@synthesize arrow, compass;
+@synthesize arrow, compass, checkinView;
 @synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,6 +39,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.checkinPending = NO;
     }
     return self;
 }
@@ -47,14 +52,12 @@
         float magneticHeading = newHeading.magneticHeading;
         float trueHeading = newHeading.trueHeading;
 #if DEBUG
-        NSLog(@"magnetic heading %f",magneticHeading);
-        NSLog(@"true heading: %f",trueHeading);
+        //NSLog(@"magnetic heading %f",magneticHeading);
+        //NSLog(@"true heading: %f",trueHeading);
 #endif
-        //magneticHeadingLabel.text = [NSString stringWithFormat:@"%f", magneticHeading];
-        //trueHeadingLabel.text = [NSString stringWithFormat:@"%f", trueHeading];
-        
         //current heading in degrees and radians
-        float heading = newHeading.magneticHeading;
+        //use true heading if it is available
+        float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
 //        heading = 300;
         float heading_radians = DEGREES_TO_RADIANS(heading);
         
@@ -68,7 +71,7 @@
 //        } completion:NULL];
         
         CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
-        NSLog(@"Destination heading: %f",destinationHeading);
+        //NSLog(@"Destination heading: %f",destinationHeading);
         float adjusted_heading = destinationHeading - heading;
         float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
         arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
@@ -76,8 +79,27 @@
     }
 }
 
+-(IBAction)checkIn
+{
+    NSLog(@"CHECK IN");
+    
+    //1. record the checkin as done
+    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
+    [state checkIn];
+    
+    //2. change the active target
+    [state nextTarget];
+    _destinationLocation = [[CLLocation alloc] initWithLatitude:state.activeTarget.latitude longitude:state.activeTarget.longitude];
+    
+   
+    [self.checkinView removeFromSuperview];
+    self.checkinPending = NO;
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
+    NSLog(@"did update with destination: %@", state.activeTarget.locationName );
     CLLocation *currentLocation = [locations lastObject];
 //    NSLog(@"New user location: %@", currentLocation);
     NSDate* eventDate = currentLocation.timestamp;
@@ -87,19 +109,17 @@
         double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
         _distanceLabel.text = [NSString stringWithFormat:@"%f meters", distanceFromDestination];
         
-        
-        CLLocationDirection directionToGo = [currentLocation directionToLocation:_destinationLocation];
-        // [CLLocation distanceFromCoordinate:[currentLocation coordinate] toCoordinate:[_destinationLocation coordinate]];
-        NSLog(@"Direction To Go: %f", directionToGo);
-        
-//        [UIView animateWithDuration:0.1 delay:0.0 options: UIViewAnimationOptionCurveLinear animations:^{
-//            CGAffineTransform transform = CGAffineTransformMakeRotation(directionToGo);
-//            arrow.transform = transform;
-//        } completion:NULL];
-        
-        
-//        arrow.transform = CGAffineTransformMakeRotation(directionToGo);
-
+        if (distanceFromDestination < CHECKIN_DISTANCE) {
+            NSLog(@"within distance");
+            if(!self.checkinPending)
+            {
+                self.checkinPending = YES;
+                UIView *aCheckinView = [[[NSBundle mainBundle] loadNibNamed:@"CheckinView" owner:self options:nil] objectAtIndex:0];
+                self.checkinView = (CheckinView*)aCheckinView;
+                [self.view addSubview:checkinView];
+                NSLog(@"add checkin view");
+            }
+        }
     }
     
 }
@@ -165,7 +185,11 @@
     [self.view addSubview:_distanceLabel];
     [self.view setBackgroundColor:[UIColor lightGrayColor]];
     
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
+    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
+    
+//    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
+    
+    _destinationLocation = [[CLLocation alloc] initWithLatitude:state.activeTarget.latitude longitude:state.activeTarget.longitude];
     
     //get user location
     

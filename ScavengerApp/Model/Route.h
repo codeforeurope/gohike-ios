@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *picture;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *internalBaseClassDescription;
+@property (nonatomic, strong) NSArray *locations;
 
 + (Route *)modelObjectWithDictionary:(NSDictionary *)dict;
 - (id)initWithDictionary:(NSDictionary *)dict;

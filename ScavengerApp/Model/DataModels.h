@@ -8,4 +8,7 @@
 #import "PlayerProgress.h"
 #import "Routes.h"
 #import "RouteProfiles.h"
-#import "Route.h" 
+#import "Route.h"
+#import "Location.h"
+#import "Checkin.h"
+#import "Profiles.h"

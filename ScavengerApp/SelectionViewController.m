@@ -142,6 +142,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //TODO: set active profile in AppState
+    
     RouteStartViewController *routeStartVC = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
     routeStartVC.routeID = 1;
     routeStartVC.routeTitle = @"The Green Trail";

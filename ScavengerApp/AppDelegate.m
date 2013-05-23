@@ -17,6 +17,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
+    self.appState = [[AppState alloc] init];
+    
     SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
     

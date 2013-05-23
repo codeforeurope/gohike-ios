@@ -19,6 +19,7 @@
 @synthesize profileid = _profileid;
 @synthesize picture = _picture;
 @synthesize name = _name;
+@synthesize locations = _locations;
 @synthesize internalBaseClassDescription = _internalBaseClassDescription;
 
 
@@ -38,6 +39,7 @@
             self.profileid = [[dict objectForKey:@"profileid"] doubleValue];
             self.picture = [self objectOrNilForKey:@"picture" fromDictionary:dict];
             self.name = [self objectOrNilForKey:@"name" fromDictionary:dict];
+            self.locations = [self objectOrNilForKey:@"locations" fromDictionary:dict];
             self.internalBaseClassDescription = [self objectOrNilForKey:@"description" fromDictionary:dict];
 
     }
@@ -52,6 +54,7 @@
     [mutableDict setValue:[NSNumber numberWithDouble:self.profileid] forKey:@"profileid"];
     [mutableDict setValue:self.picture forKey:@"picture"];
     [mutableDict setValue:self.name forKey:@"name"];
+    [mutableDict setValue:self.locations forKey:@"locations"];
     [mutableDict setValue:self.internalBaseClassDescription forKey:@"description"];
 
     return [NSDictionary dictionaryWithDictionary:mutableDict];
@@ -79,6 +82,7 @@
     self.profileid = [aDecoder decodeDoubleForKey:@"profileid"];
     self.picture = [aDecoder decodeObjectForKey:@"picture"];
     self.name = [aDecoder decodeObjectForKey:@"name"];
+    self.locations = [aDecoder decodeObjectForKey:@"locations"];
     self.internalBaseClassDescription = [aDecoder decodeObjectForKey:@"internalBaseClassDescription"];
     return self;
 }
@@ -89,6 +93,7 @@
     [aCoder encodeDouble:_profileid forKey:@"profileid"];
     [aCoder encodeObject:_picture forKey:@"picture"];
     [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:_locations forKey:@"locations"];
     [aCoder encodeObject:_internalBaseClassDescription forKey:@"internalBaseClassDescription"];
 }
 
