@@ -143,6 +143,8 @@
         locationManager.delegate = self;
         locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
         locationManager.headingFilter = 5;  // 5 degrees
+//        locationManager.distanceFilter = 2; //2 meters
+    
 
     if( [CLLocationManager locationServicesEnabled]
        &&  [CLLocationManager headingAvailable]) {
