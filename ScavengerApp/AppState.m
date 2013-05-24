@@ -10,7 +10,6 @@
 
 @implementation AppState
 
-//TODO: use the shared instance implementation
 +(AppState *)sharedInstance {
     static dispatch_once_t pred;
     static AppState *shared = nil;
@@ -52,6 +51,12 @@
 
 
 - (void)save
+{
+    //todo
+}
+
+
+- (void)restore
 {
     //todo
 }

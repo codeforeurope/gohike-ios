@@ -142,13 +142,33 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO: set active profile in AppState
+    Profiles *selectedProfile = [_routeProfiles.profiles objectAtIndex:indexPath.row];
+       
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"routes" ofType:@"json"];
+    NSData* data = [NSData dataWithContentsOfFile:path];
+    __autoreleasing NSError* error = nil;
+    NSArray *allRoutes = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    NSIndexSet *indexesOfProfileRoutes = [allRoutes indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ([[obj objectForKey:@"profileId"] integerValue] == selectedProfile.profileId);
+    }];
+    NSArray *routesForProfile = [allRoutes objectsAtIndexes:indexesOfProfileRoutes];
     
-    RouteStartViewController *routeStartVC = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
-    routeStartVC.routeID = 1;
-    routeStartVC.routeTitle = @"The Green Trail";
-    routeStartVC.routeDescription = @"Come with me explore Amsterdam!";
-    [self.navigationController pushViewController:routeStartVC animated:YES];
+    if (!error) {
+        NSLog(@"%@", allRoutes);
+        NSLog(@"%@", routesForProfile);
+
+        [AppState sharedInstance].activeProfile = selectedProfile;       
+        
+        
+        RouteStartViewController *routeStartVC = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+        routeStartVC.routeID = [[[routesForProfile objectAtIndex:0] objectForKey:@"routeId"] integerValue];
+        routeStartVC.routeTitle = [[routesForProfile objectAtIndex:0] objectForKey:@"name"]; // @"The Green Trail";
+        routeStartVC.routeDescription = [[routesForProfile objectAtIndex:0] objectForKey:@"description"]; // @"Come with me explore Amsterdam!";
+        [self.navigationController pushViewController:routeStartVC animated:YES];
+    }
+    
+    
+
 }
 
 

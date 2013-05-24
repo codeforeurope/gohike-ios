@@ -1,0 +1,32 @@
+ [
+  {
+  "id" : 1,
+  "created_at" : "2013-05-24T11:21:49Z",
+  "longitude" : "4.8901176",
+  "description_en" : "The Amsterdam RAI Exhibition and Convention Centre (Dutch: RAI Congrescentrum), or RAI for short, is a complex of conference and exhibition halls in the Zuidas business district of Amsterdam, the Netherlands. The complex gives its name to the nearby Amsterdam RAI railway station. In 1970 the Eurovision Song Contest was held at the RAI.",
+  "latitude" : "52.3393117",
+  "address" : "Amsterdam RAI Europaplein",
+  "name_nl" : "RAI Congrescentrum",
+  "city" : " Amsterdam",
+  "description_nl" : "Amsterdam RAI (Rijwiel- en Automobiel-Industrie) is een evenementenorganisatie en een beurscomplex in Amsterdam Zuid.\r\nDe RAI Vereniging verhuisde in 1922 van het Paleis voor Volksvlijt naar een eigen pand, een semi-permanente tentoonstellingshal aan de Ferdinand Bolstraat te Amsterdam, dat op 31 oktober 1922 werd geopend. Dit pand werd in 1961 vervangen door het huidige RAI-gebouw aan het Europaplein. Na de oplevering van de nieuwe RAI deed het oude gebouw tot de sloop in 1975 dienst als sporthal. Op dit terrein zijn daarna onder meer gebouwd: het Okura-hotel, de Sporthal De Pijp en een woongebouw voor ouderen met de naam \"\"De Oude Raai\"\". Tussen deze gebouwen bevindt zich een kinderboerderij.",
+  "gmaps" : null,
+  "postal_code" : "1078 GZ",
+  "updated_at" : "2013-05-24T11:21:49Z",
+  "name_en" : "RAI Congress Center"
+  },
+  {
+  "id" : 2,
+  "created_at" : "2013-05-24T11:25:31Z",
+  "longitude" : "4.9119478",
+  "description_en" : "",
+  "latitude" : "52.359838386",
+  "address" : "Zuidelijke Wandelweg 41",
+  "name_nl" : "Liberal Jewish Community Synagogue",
+  "city" : "Amsterdam",
+  "description_nl" : "",
+  "gmaps" : null,
+  "postal_code" : "1079 RK",
+  "updated_at" : "2013-05-24T11:26:04Z",
+  "name_en" : "Synagoge Liberaal Joodse Gemeente"
+  }
+  ]

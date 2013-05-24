@@ -11,8 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "CLLocation+measuring.h"
+
 #import "CheckinView.h"
-#import "AppDelegate.h"
 
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
@@ -84,12 +84,11 @@
     NSLog(@"CHECK IN");
     
     //1. record the checkin as done
-    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
-    [state checkIn];
+    [[AppState sharedInstance] checkIn];
     
     //2. change the active target
-    [state nextTarget];
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:state.activeTarget.latitude longitude:state.activeTarget.longitude];
+    [[AppState sharedInstance] nextTarget];
+    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
     
    
     [self.checkinView removeFromSuperview];
@@ -98,8 +97,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
-    NSLog(@"did update with destination: %@", state.activeTarget.locationName );
+    NSLog(@"did update with destination: %@", [AppState sharedInstance].activeTarget.locationName );
     CLLocation *currentLocation = [locations lastObject];
 //    NSLog(@"New user location: %@", currentLocation);
     NSDate* eventDate = currentLocation.timestamp;
@@ -186,12 +184,10 @@
     [self.view addSubview:compass];
     [self.view addSubview:_distanceLabel];
     [self.view setBackgroundColor:[UIColor lightGrayColor]];
-    
-    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
-    
+        
 //    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
     
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:state.activeTarget.latitude longitude:state.activeTarget.longitude];
+    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
     
     //get user location
     

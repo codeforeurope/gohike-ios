@@ -16,8 +16,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-
-    self.appState = [[AppState alloc] init];
+    
+    [[AppState sharedInstance] restore];
+    if ([[AppState sharedInstance] playerIsInCompass]) {
+        //TODO: load the compass view directly
+    }
     
     SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
@@ -52,6 +55,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [[AppState sharedInstance] save];
 }
 
 @end

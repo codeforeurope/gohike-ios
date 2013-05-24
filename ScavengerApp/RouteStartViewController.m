@@ -33,8 +33,6 @@
     UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Route", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
     self.navigationItem.rightBarButtonItem = startRouteButton;
 
-    
-    AppState *state = [(AppDelegate*)[[UIApplication sharedApplication] delegate] appState];
 
     Location *loc1 = [[Location alloc] init];
     loc1.locationId = 1;
@@ -50,9 +48,9 @@
     loc2.latitude = 52.34123;
     loc2.longitude = 4.92;
     
-    state.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-    state.activeTarget = [state.locations objectAtIndex:0];
-    state.activeTargetId = state.activeTarget.locationId;
+    [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+    [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
+    [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

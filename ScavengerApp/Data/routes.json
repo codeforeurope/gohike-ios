@@ -1,17 +1,24 @@
-{
-    [
-     {
-     "profileid" : 1,
-     "name" : "The Green Trail",
-     "picture" : "greentrail",
-     "description" : "Hello, World!"
-     },
-     {
-     "profileid" : 1,
-     "name" : "The Green Trail - Reloaded",
-     "picture" : "greentrail",
-     "description" : "Hello, World - Reloaded!"
-     }
-    
-    ]
-}
+[
+ {
+ "profileId" : 1,
+ "routeId" : 1,
+ "name" : "The Green Trail",
+ "picture" : "greentrail",
+ "description" : "Ready to explore the green?"
+ },
+ {
+ "profileId" : 1,
+ "routeId" : 2,
+ "name" : "The Green Trail - Reloaded",
+ "picture" : "greentrail",
+ "description" : "Hello, World - Reloaded!"
+ },
+ {
+ "profileId" : 2,
+ "routeId" : 3,
+ "name" : "The Expensive Shopping Trail",
+ "picture" : "shoppingtrail",
+ "description" : "Let's go and spend some money!"
+ }
+
+]
