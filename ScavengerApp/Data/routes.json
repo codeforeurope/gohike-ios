@@ -1,24 +1,31 @@
 [
  {
- "profileId" : 1,
- "routeId" : 1,
+ "profile_id" : 1,
+ "id" : 1,
  "name" : "The Green Trail",
  "picture" : "greentrail",
- "description" : "Ready to explore the green?"
+ "description" : "Ready to explore the green?",
+ "duration" : 60, /* in minutes */
+ "length": 5.5, /* KM */
  },
  {
- "profileId" : 1,
- "routeId" : 2,
+ "profile_id" : 1,
+ "id" : 2,
  "name" : "The Green Trail - Reloaded",
  "picture" : "greentrail",
- "description" : "Hello, World - Reloaded!"
+ "description" : "Hello, World - Reloaded!",
+ "duration" : 50, /* in minutes */
+ "length": 2.5, /* KM */
  },
  {
- "profileId" : 2,
- "routeId" : 3,
+ "profile_id" : 2,
+ "id" : 3,
  "name" : "The Expensive Shopping Trail",
  "picture" : "shoppingtrail",
- "description" : "Let's go and spend some money!"
+ "description" : "Let's go and spend some money!",
+ "duration" : 45, /* in minutes */
+ "length": 3.5, /* KM */
+
  }
 
 ]

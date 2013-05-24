@@ -11,6 +11,7 @@
 @interface Checkin : NSObject
 
 @property (nonatomic, assign) int locationId;
+@property (nonatomic, assign) int routeId;
 @property (nonatomic, strong) NSDate *timestamp;
 @property (nonatomic, assign) BOOL uploaded;
 

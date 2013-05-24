@@ -17,10 +17,26 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSLog(@"The app was started with the language: %@", language);
+    
+    
     [[AppState sharedInstance] restore];
+    NSLog(@"I restored the active Profile: %f", [[[AppState sharedInstance] activeProfile] profileId]);
     if ([[AppState sharedInstance] playerIsInCompass]) {
         //TODO: load the compass view directly
     }
+    
+    
+    
+    BOOL needSetup = [[[NSUserDefaults standardUserDefaults] objectForKey:@"setupDone"] boolValue];
+    if(needSetup)
+    {
+        //TODO: setup everything from the .json file included in the app. Unzip images, etc.
+        //Then set "setupDone" as TRUE
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"setupDone"];
+    }
+    
     
     SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DataModels.h"
 
-@interface AppState : NSObject
+@interface AppState : NSObject <NSCoding>
 
 //@property (nonatomic, strong)
 
@@ -24,7 +24,7 @@
 
 +(AppState *)sharedInstance;
 - (void)checkIn;
-- (void)save;
+- (BOOL)save;
 - (void)restore;
 - (void)nextTarget;
 

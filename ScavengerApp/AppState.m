@@ -50,15 +50,96 @@
 }
 
 
-- (void)save
+- (BOOL)save
 {
-    //todo
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"myFile.plist"];
+    NSMutableData *data = [NSMutableData data];
+    NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+
+    
+//    NSCoder *encoder = [[NSCoder alloc] init];
+    [encoder encodeObject:self.locations forKey:@"locations"];
+    [encoder encodeObject:self.checkins forKey:@"checkins"];
+    [encoder encodeObject:self.activeRoute forKey:@"activeRoute"];
+    [encoder encodeObject:self.activeProfile forKey:@"activeProfile"];
+    [encoder encodeInteger:self.activeTargetId forKey:@"activeTargetId"];
+    [encoder encodeObject:self.activeTarget forKey:@"activeTarget"];
+    [encoder encodeBool:[self playerIsInCompass] forKey:@"playerIsInCompass"];
+    [encoder encodeObject:self.waypoints forKey:@"waypoints"];
+    
+    [encoder finishEncoding];
+
+    
+//    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *filename = [docsPath stringByAppendingPathComponent:@"save"];
+//    NSString *archivePath = filename;
+//    NSMutableData *data = [NSMutableData data];
+//    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+//    [archiver encodeObject:state forKey:@"appState"];
+//    [archiver finishEncoding];
+    
+    NSURL *archiveURL = [NSURL URLWithString:filePath];
+    BOOL result = [data writeToURL:archiveURL atomically:YES];
+    
+    return result;
 }
 
 
 - (void)restore
 {
-    //todo
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"myFile.plist"];
+    NSURL *archiveURL = [NSURL URLWithString:filePath];
+    NSData *data = [NSData dataWithContentsOfURL:archiveURL];
+    
+
+    NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+//    NSCoder *decoder = [[NSCoder alloc] init];
+    self.locations = [decoder decodeObjectForKey:@"locations"];
+    self.checkins = [decoder decodeObjectForKey:@"checkins"];
+    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
+    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
+    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
+    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
+    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
+
+    
+    // Customize the unarchiver.
+//    Person *aPerson = [unarchiver decodeObjectForKey:ASCPersonKey];
+    [decoder finishDecoding];
+    
 }
+
+
+#pragma mark - NSCoding
+//
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+//
+//    self.locations = [decoder decodeObjectForKey:@"locations"];
+//    self.checkins = [decoder decodeObjectForKey:@"checkins"];
+//    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
+//    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
+//    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
+//    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
+//    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+//    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
+//    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+//    [encoder encodeObject:self.title forKey:@"title"];
+//    [encoder encodeObject:self.author forKey:@"author"];
+//    [encoder encodeInteger:self.pageCount forKey:@"pageCount"];
+//    [encoder encodeObject:self.categories forKey:@"categories"];
+//    [encoder encodeBool:[self isAvailable] forKey:@"available"];
+}
+
 
 @end
