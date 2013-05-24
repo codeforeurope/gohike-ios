@@ -21,6 +21,8 @@
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
 		AC101695174F875900761AC2 /* locations.json in Resources */ = {isa = PBXBuildFile; fileRef = AC101694174F875900761AC2 /* locations.json */; };
 		AC101698174F945500761AC2 /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101697174F945400761AC2 /* Waypoint.m */; };
+		AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */; };
+		AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */; };
 		AC4542AE174BAD81005F5DDE /* PlayerProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A5174BAD81005F5DDE /* PlayerProgress.m */; };
 		AC4542B0174BAD81005F5DDE /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542A9174BAD81005F5DDE /* Route.m */; };
 		AC4542B1174BAD81005F5DDE /* RouteProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4542AB174BAD81005F5DDE /* RouteProfiles.m */; };
@@ -83,6 +85,9 @@
 		AC101694174F875900761AC2 /* locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locations.json; sourceTree = "<group>"; };
 		AC101696174F945400761AC2 /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
 		AC101697174F945400761AC2 /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
+		AC101699174FB07400761AC2 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
+		AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
+		AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailsViewController.xib; sourceTree = "<group>"; };
 		AC4542A3174BAD81005F5DDE /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		AC4542A4174BAD81005F5DDE /* PlayerProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProgress.h; sourceTree = "<group>"; };
 		AC4542A5174BAD81005F5DDE /* PlayerProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerProgress.m; sourceTree = "<group>"; };
@@ -260,6 +265,9 @@
 				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
 				1C1684F8174E4DBB00A77192 /* AppState.h */,
 				1C1684F9174E4DBB00A77192 /* AppState.m */,
+				AC101699174FB07400761AC2 /* LocationDetailsViewController.h */,
+				AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */,
+				AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
 			);
 			path = ScavengerApp;
@@ -379,6 +387,7 @@
 				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 				AC101695174F875900761AC2 /* locations.json in Resources */,
+				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +436,7 @@
 				1C1684FD174E53B900A77192 /* Location.m in Sources */,
 				1C168500174E54A600A77192 /* Checkin.m in Sources */,
 				AC101698174F945500761AC2 /* Waypoint.m in Sources */,
+				AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

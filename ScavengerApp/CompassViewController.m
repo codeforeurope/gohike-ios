@@ -40,9 +40,19 @@
     if (self) {
         // Custom initialization
         self.checkinPending = NO;
+        
+//    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
+        _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
     }
     return self;
 }
+
+-(IBAction)BackButtonPressed:(id)sender
+{
+    NSLog(@"BackButtonPressed");
+    [[AppState sharedInstance] setPlayerIsInCompass:NO];
+}
+
 
 #pragma mark - CLLocation
 
@@ -58,17 +68,19 @@
         //current heading in degrees and radians
         //use true heading if it is available
         float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
-//        heading = 300;
         float heading_radians = DEGREES_TO_RADIANS(heading);
+
         
         compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
-        
+
 //        [UIView animateWithDuration:0.1 delay:0.0 options:
 ////         UIViewAnimationOptionBeginFromCurrentState |
 //         UIViewAnimationOptionCurveLinear animations:^{
-//            CGAffineTransform transform = CGAffineTransformMakeRotation(heading);
+//            CGAffineTransform transform = CGAffineTransformMakeRotation(-1 * heading_radians);
 //            compass.transform = transform;
-//        } completion:NULL];
+//        } completion:nil];
+        
+        
         
         CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
         //NSLog(@"Destination heading: %f",destinationHeading);
@@ -76,6 +88,14 @@
         float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
         arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
 
+        
+//        [UIView animateWithDuration:0.1 delay:0.0 options:
+////         UIViewAnimationOptionBeginFromCurrentState |
+//         UIViewAnimationOptionCurveLinear animations:^{
+//            CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+//            arrow.transform = transform;
+//        } completion:nil];
+        
     }
 }
 
@@ -134,13 +154,26 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Exit"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:@selector(BackButtonPressed:)];
+    
+    self.navigationItem.rightBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Map"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+    
+    
     if(locationManager == nil)
     {
         locationManager = [[CLLocationManager alloc] init];
     }
-        locationManager.delegate = self;
-        locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
-        locationManager.headingFilter = 5;  // 5 degrees
+    locationManager.delegate = self;
+    locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
+    locationManager.headingFilter = 5;  // 5 degrees
 //        locationManager.distanceFilter = 2; //2 meters
     
 
@@ -184,13 +217,9 @@
     [self.view addSubview:compass];
     [self.view addSubview:_distanceLabel];
     [self.view setBackgroundColor:[UIColor lightGrayColor]];
+    
+    
         
-//    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
-    
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
-    
-    //get user location
-    
 }
 
 - (void)didReceiveMemoryWarning

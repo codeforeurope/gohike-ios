@@ -7,8 +7,8 @@
 //
 
 #import "RouteStartViewController.h"
-#include "CompassViewController.h"
-#import "AppDelegate.h"
+#import "CompassViewController.h"
+#import "LocationDetailsViewController.h"
 
 @interface RouteStartViewController ()
 
@@ -21,6 +21,25 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
+        Location *loc1 = [[Location alloc] init];
+        loc1.locationId = 1;
+        loc1.locationName = @"Rembrandtoren";
+        loc1.locationPicture = @"";
+        loc1.latitude = 52.34444;
+        loc1.longitude = 4.91667;
+        
+        Location *loc2 = [[Location alloc] init];
+        loc2.locationId = 2;
+        loc2.locationName = @"RAI Congress Center";
+        loc2.locationPicture = @"";
+        loc2.latitude = 52.34123;
+        loc2.longitude = 4.92;
+        
+        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
+        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
     }
     return self;
 }
@@ -33,24 +52,6 @@
     UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Route", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
     self.navigationItem.rightBarButtonItem = startRouteButton;
 
-
-    Location *loc1 = [[Location alloc] init];
-    loc1.locationId = 1;
-    loc1.locationName = @"Rembrandtoren";
-    loc1.locationPicture = @"";
-    loc1.latitude = 52.34444;
-    loc1.longitude = 4.91667;
-    
-    Location *loc2 = [[Location alloc] init];
-    loc2.locationId = 2;
-    loc2.locationName = @"RAI Congress Center";
-    loc2.locationPicture = @"";
-    loc2.latitude = 52.34123;
-    loc2.longitude = 4.92;
-    
-    [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-    [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
-    [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -69,14 +70,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     int number;
     // Return the number of rows in the section.
     switch (section) {
@@ -84,7 +83,7 @@
             number = 2;
             break;
         default:
-            number = 1;
+            number = [_currentRoute.locations count];
             break;
     }
     return number;
@@ -97,26 +96,49 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+        
     switch (indexPath.section) {
         case 0:
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = self.routeTitle;
-
+                    cell.textLabel.text = _currentRoute.name;
                     break;
                 case 1:
-                    cell.textLabel.text = self.routeDescription;
+                    cell.textLabel.text = _currentRoute.description;
                 default:
                     break;
             }
             break;
-            
+        case 1:
+        {
+            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
+            cell.textLabel.text = loc.locationName;
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+            break;
         default:
             break;
     }
         
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *retString;
+    switch (section) {
+        case 0:
+            retString =  NSLocalizedString(@"Route Information", nil);
+            break;
+        case 1:
+            retString =  NSLocalizedString(@"Locations in Route", nil);
+            break;
+        default:
+            break;
+    }
+    
+    return retString;
 }
 
 /*
@@ -162,6 +184,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    //TODO: open the location details (if it has already been visited)
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -173,9 +198,16 @@
 
 - (void)StartRoute
 {
-    //TODO: set active route in AppState
+    //TODO: handle the case when we are resuming the current route
+    [[AppState sharedInstance] setActiveRoute:_currentRoute];
+    Location *target = [_currentRoute.locations objectAtIndex:0]; //this is OK only if we start from first location
+    [[AppState sharedInstance] setActiveTarget:target];
+    [[AppState sharedInstance] setActiveTargetId:target.locationId];
+    [[AppState sharedInstance] setPlayerIsInCompass:YES];
+    
     CompassViewController *compass = [[CompassViewController alloc] init];
     [self.navigationController pushViewController:compass animated:YES];
+    
     
 }
 

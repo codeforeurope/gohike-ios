@@ -11,7 +11,8 @@
 
 @interface Route : NSObject <NSCoding>
 
-@property (nonatomic, assign) double profileid;
+@property (nonatomic, assign) NSInteger profileid;
+@property (nonatomic, assign) NSInteger routeId;
 @property (nonatomic, strong) NSString *picture;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *internalBaseClassDescription;

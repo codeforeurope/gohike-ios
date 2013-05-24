@@ -161,9 +161,10 @@
         
         
         RouteStartViewController *routeStartVC = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
-        routeStartVC.routeID = [[[routesForProfile objectAtIndex:0] objectForKey:@"routeId"] integerValue];
-        routeStartVC.routeTitle = [[routesForProfile objectAtIndex:0] objectForKey:@"name"]; // @"The Green Trail";
-        routeStartVC.routeDescription = [[routesForProfile objectAtIndex:0] objectForKey:@"description"]; // @"Come with me explore Amsterdam!";
+        routeStartVC.currentRoute = [routesForProfile objectAtIndex:0];
+//        routeStartVC.routeID = [[[routesForProfile objectAtIndex:0] objectForKey:@"routeId"] integerValue];
+//        routeStartVC.routeTitle = [[routesForProfile objectAtIndex:0] objectForKey:@"name"]; // @"The Green Trail";
+//        routeStartVC.routeDescription = [[routesForProfile objectAtIndex:0] objectForKey:@"description"]; // @"Come with me explore Amsterdam!";
         [self.navigationController pushViewController:routeStartVC animated:YES];
     }
     

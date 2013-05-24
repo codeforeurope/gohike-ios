@@ -11,8 +11,6 @@
 
 @interface RouteStartViewController : UITableViewController
 
-@property (nonatomic, assign) int routeID;
-@property (nonatomic, strong) NSString *routeTitle;
-@property (nonatomic, strong) NSString *routeDescription;
+@property (nonatomic, strong) Route *currentRoute;
 
 @end
