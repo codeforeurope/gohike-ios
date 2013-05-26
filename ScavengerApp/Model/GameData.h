@@ -9,12 +9,12 @@
 
 
 
-@interface RouteProfiles : NSObject <NSCoding>
+@interface GameData : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *lastupdate;
 @property (nonatomic, strong) NSArray *profiles;
 
-+ (RouteProfiles *)modelObjectWithDictionary:(NSDictionary *)dict;
++ (GameData *)modelObjectWithDictionary:(NSDictionary *)dict;
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
 

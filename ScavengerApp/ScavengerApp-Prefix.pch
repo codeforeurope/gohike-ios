@@ -12,4 +12,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "AppState.h"
+    #import "DataModels.h"
+    #import "APIDataModels.h"
 #endif

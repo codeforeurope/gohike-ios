@@ -15,6 +15,7 @@
     static AppState *shared = nil;
     dispatch_once(&pred, ^{
         shared = [[AppState alloc] init];
+        //Data restore could be here, see http://stackoverflow.com/questions/1148853/loading-a-singletons-state-from-nskeyedarchiver
     });
     return shared;
 }
@@ -53,7 +54,7 @@
 - (BOOL)save
 {
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [docsPath stringByAppendingPathComponent: @"myFile.plist"];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"AppData"];
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 
@@ -79,8 +80,9 @@
 //    [archiver encodeObject:state forKey:@"appState"];
 //    [archiver finishEncoding];
     
-    NSURL *archiveURL = [NSURL URLWithString:filePath];
-    BOOL result = [data writeToURL:archiveURL atomically:YES];
+//    NSURL *archiveURL = [NSURL URLWithString:filePath];
+    
+    BOOL result = [data writeToFile:filePath atomically:YES];
     
     return result;
 }
@@ -89,13 +91,12 @@
 - (void)restore
 {
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [docsPath stringByAppendingPathComponent: @"myFile.plist"];
-    NSURL *archiveURL = [NSURL URLWithString:filePath];
-    NSData *data = [NSData dataWithContentsOfURL:archiveURL];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"AppData"];
+//    NSURL *archiveURL = [NSURL URLWithString:filePath];
+    NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:filePath]; // [NSData dataWithContentsOfFile:filePath];  //[NSData dataWithContentsOfURL:archiveURL];
     
-
+    if (data){
     NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-//    NSCoder *decoder = [[NSCoder alloc] init];
     self.locations = [decoder decodeObjectForKey:@"locations"];
     self.checkins = [decoder decodeObjectForKey:@"checkins"];
     self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
@@ -105,21 +106,23 @@
     self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
     self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
 
-    
-    // Customize the unarchiver.
-//    Person *aPerson = [unarchiver decodeObjectForKey:ASCPersonKey];
     [decoder finishDecoding];
+    }
+    else
+    {
+        NSLog(@"Data for restoring is NULL");
+    }
     
 }
 
 
 #pragma mark - NSCoding
 //
-- (id)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (!self) {
-        return nil;
-    }
+//- (id)initWithCoder:(NSCoder *)decoder {
+//    self = [super init];
+//    if (!self) {
+//        return nil;
+//    }
 //
 //    self.locations = [decoder decodeObjectForKey:@"locations"];
 //    self.checkins = [decoder decodeObjectForKey:@"checkins"];
@@ -130,16 +133,16 @@
 //    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
 //    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
 //    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
+//    return self;
+//}
+//
+//- (void)encodeWithCoder:(NSCoder *)encoder {
 //    [encoder encodeObject:self.title forKey:@"title"];
 //    [encoder encodeObject:self.author forKey:@"author"];
 //    [encoder encodeInteger:self.pageCount forKey:@"pageCount"];
 //    [encoder encodeObject:self.categories forKey:@"categories"];
 //    [encoder encodeBool:[self isAvailable] forKey:@"available"];
-}
+//}
 
 
 @end

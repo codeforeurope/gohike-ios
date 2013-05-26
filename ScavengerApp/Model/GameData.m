@@ -5,25 +5,25 @@
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
 //
 
-#import "RouteProfiles.h"
+#import "GameData.h"
 #import "Profiles.h"
 
 
-@interface RouteProfiles ()
+@interface GameData ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation RouteProfiles
+@implementation GameData
 
 @synthesize lastupdate = _lastupdate;
 @synthesize profiles = _profiles;
 
 
-+ (RouteProfiles *)modelObjectWithDictionary:(NSDictionary *)dict
++ (GameData *)modelObjectWithDictionary:(NSDictionary *)dict
 {
-    RouteProfiles *instance = [[RouteProfiles alloc] initWithDictionary:dict];
+    GameData *instance = [[GameData alloc] initWithDictionary:dict];
     return instance;
 }
 

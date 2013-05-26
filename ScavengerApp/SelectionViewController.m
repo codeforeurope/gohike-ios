@@ -15,7 +15,7 @@
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) RouteProfiles *routeProfiles;
+@property (nonatomic, strong) GameData *routeProfiles;
 
 
 @end
@@ -67,7 +67,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"routeprofiles" ofType:@"json"];
     NSData* data = [NSData dataWithContentsOfFile:path];
     __autoreleasing NSError* error = nil;
-    _routeProfiles = [RouteProfiles modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+    _routeProfiles = [GameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
     
     if (!error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -159,13 +159,15 @@
 
         [AppState sharedInstance].activeProfile = selectedProfile;       
         
+        [[AppState sharedInstance] save]; 
         
         RouteStartViewController *routeStartVC = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
         routeStartVC.currentRoute = [routesForProfile objectAtIndex:0];
-//        routeStartVC.routeID = [[[routesForProfile objectAtIndex:0] objectForKey:@"routeId"] integerValue];
-//        routeStartVC.routeTitle = [[routesForProfile objectAtIndex:0] objectForKey:@"name"]; // @"The Green Trail";
-//        routeStartVC.routeDescription = [[routesForProfile objectAtIndex:0] objectForKey:@"description"]; // @"Come with me explore Amsterdam!";
         [self.navigationController pushViewController:routeStartVC animated:YES];
+    }
+    else
+    {
+        NSLog(@"Error in parsing routes: %@", error.description);
     }
     
     

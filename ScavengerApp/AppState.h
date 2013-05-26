@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DataModels.h"
 
-@interface AppState : NSObject <NSCoding>
+@interface AppState : NSObject
 
 //@property (nonatomic, strong)
 
