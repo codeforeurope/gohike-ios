@@ -211,8 +211,11 @@
     {
         NSDictionary *waypoint = [waypoints objectAtIndex:0];
         [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
+        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"rank"] intValue]];
+        [[AppState sharedInstance] save];
         
-        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"route_id"] intValue]];
+        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+        
         CompassViewController *compass = [[CompassViewController alloc] init];
         [self.navigationController pushViewController:compass animated:YES];
         

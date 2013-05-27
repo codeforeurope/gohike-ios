@@ -12,6 +12,10 @@
 
 #import "NSData+MD5.h"
 
+#import "RouteStartViewController.h"
+
+#import "CompassViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -22,27 +26,50 @@
     NSString * language = [[AppState sharedInstance] language];
     NSLog(@"The app was started with the language: %@", language);
     
+
     
+    //Load Game Data
+    __autoreleasing NSError* error = nil;
+    GHGameData *gameData;
+
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
+    NSData* data = [NSData dataWithContentsOfFile:bundlePath];
+//    NSString *gameDataChecksum = [data MD5];
+    
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+    NSMutableData *downloadedData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+    if(downloadedData)
+    {
+        GHGameData *downloadedGameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:downloadedData options:0 error:&error]];
+        [[AppState sharedInstance] setGame:[downloadedGameData dictionaryRepresentation]];
+    }
+    else{
+        gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+        [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
+    }
+
+    
+    //Restore game state
     [[AppState sharedInstance] restore];
     NSLog(@"I restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     if ([[AppState sharedInstance] playerIsInCompass]) {
+        NSLog(@"We were in compass when we quit!");
         //TODO: load the compass view directly
+        SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
+        RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+        rvc.route = [[AppState sharedInstance] activeRoute];
+        CompassViewController *cvc = [[CompassViewController alloc] init];
+        self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+        [self.navigationController pushViewController:rvc animated:NO];
+        [self.navigationController pushViewController:cvc animated:NO];
+        
     }
-    
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
-    NSData* data = [NSData dataWithContentsOfFile:path];
-    NSString *gameDataChecksum = [data MD5];
-    //check if md5 of content.json is different from the last md5 checksum of our game content
-    
-    
-    __autoreleasing NSError* error = nil;
-    GHGameData *gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
-    NSDictionary *gameDataDict = [gameData dictionaryRepresentation];
-    [[AppState sharedInstance] setGame:gameDataDict];
-    
-    SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+    else{
+        SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
+        self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+    }
+
     
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
@@ -75,7 +102,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-    [[AppState sharedInstance] save];
+    // We already save everywhere in the app, so I am not using this
 }
 
 @end

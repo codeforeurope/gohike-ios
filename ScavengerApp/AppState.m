@@ -26,28 +26,33 @@
     Checkin *thisCheckIn = [[Checkin alloc] init];
     thisCheckIn.timestamp = [NSDate date];
     thisCheckIn.uploaded = NO;
-    thisCheckIn.locationId = self.activeTargetId;
+    thisCheckIn.locationId = _activeTargetId;
+    thisCheckIn.routeId = _activeRouteId;
     
     [self.checkins addObject:thisCheckIn];
+    [self save];
     
 }
 
-- (void)nextTarget
+- (BOOL)nextTarget
 {
-    int index =  [self.locations indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return ((Location*)obj).locationId ==  self.activeTargetId+1;
+    NSInteger nextTarget = _activeTargetId + 1;
+    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
+    NSDictionary *next;
+    NSInteger nextWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"rank"] integerValue] == nextTarget;
     }];
-
-    Location *next;
-    if(index < 0){
-    //TODO: mark end of route
+    if (index < 0) {
+        return NO;
+        //TODO: mark end of route
     }
     else{
-        next = [self.locations objectAtIndex:index];
-        NSLog(@"Next: %@", next);
-        self.activeTarget = next;
-
+        next = [waypoints objectAtIndex:nextWPIndex];
+        _activeTargetId = [[next objectForKey:@"rank"] integerValue];
+        [self save];
+        return YES;
     }
+    
 }
 
 
@@ -58,29 +63,16 @@
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 
+    [encoder encodeObject:_checkins forKey:@"checkins"];
+    [encoder encodeInt:_activeProfileId forKey:@"activeProfileId"];
+    [encoder encodeInt:_activeRouteId forKey:@"activeRouteId"];
+    [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
+    [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
+//    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
     
-//    NSCoder *encoder = [[NSCoder alloc] init];
-    [encoder encodeObject:self.locations forKey:@"locations"];
-    [encoder encodeObject:self.checkins forKey:@"checkins"];
-    [encoder encodeObject:self.activeRoute forKey:@"activeRoute"];
-    [encoder encodeObject:self.activeProfile forKey:@"activeProfile"];
-    [encoder encodeInteger:self.activeTargetId forKey:@"activeTargetId"];
-    [encoder encodeObject:self.activeTarget forKey:@"activeTarget"];
-    [encoder encodeBool:[self playerIsInCompass] forKey:@"playerIsInCompass"];
-    [encoder encodeObject:self.waypoints forKey:@"waypoints"];
     
     [encoder finishEncoding];
 
-    
-//    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *filename = [docsPath stringByAppendingPathComponent:@"save"];
-//    NSString *archivePath = filename;
-//    NSMutableData *data = [NSMutableData data];
-//    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-//    [archiver encodeObject:state forKey:@"appState"];
-//    [archiver finishEncoding];
-    
-//    NSURL *archiveURL = [NSURL URLWithString:filePath];
     
     BOOL result = [data writeToFile:filePath atomically:YES];
     
@@ -92,19 +84,16 @@
 {
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [docsPath stringByAppendingPathComponent: @"AppData"];
-//    NSURL *archiveURL = [NSURL URLWithString:filePath];
-    NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:filePath]; // [NSData dataWithContentsOfFile:filePath];  //[NSData dataWithContentsOfURL:archiveURL];
+    NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     
     if (data){
     NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-//    self.locations = [decoder decodeObjectForKey:@"locations"];
-//    self.checkins = [decoder decodeObjectForKey:@"checkins"];
-//    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
-//    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
-//    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
-//    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
-//    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
-//    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
+    _checkins = [decoder decodeObjectForKey:@"checkins"];
+    _activeProfileId = [decoder decodeIntegerForKey:@"activeProfileId"];
+    _activeRouteId = [decoder decodeIntegerForKey:@"activeRouteId"];
+    _activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
+    _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+//    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
 
     [decoder finishDecoding];
     }
@@ -129,16 +118,39 @@
 
 - (NSDictionary*)activeProfile
 {
-    //TODO
-    return [[NSDictionary alloc] init];
+    NSArray *profiles = [_game objectForKey:@"profiles"];
+    NSUInteger index = [profiles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"id"] integerValue] == _activeProfileId;
+    }];
+
+    return [profiles objectAtIndex:index];
     
 }
 
 - (NSDictionary*)activeRoute
 {
-    //TODO
-    return [[NSDictionary alloc] init];
+    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
+    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"id"] integerValue] == _activeRouteId;
+    }];
+    
+    return [routes objectAtIndex:index];
 }
+
+- (NSDictionary*)activeWaypoint
+{
+    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
+    NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"rank"] integerValue] == _activeTargetId;
+    }];
+    if (index > 0) {
+        return  [waypoints objectAtIndex:index];
+    }
+    else {
+        return nil;
+    }
+}
+
 
 
 

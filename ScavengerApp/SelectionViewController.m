@@ -11,6 +11,7 @@
 #import "OverlayView.h"
 #import "DataModels.h"
 #import "SelectionCell.h"
+#import "NSDataAdditions.h"
 
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -110,24 +111,25 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SelectionCell";
-
     
     SelectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-//    if (cell == nil) {
-//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
-//        cell = [nib objectAtIndex:0];
-//        
-//    }
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        
+    }
     
 //    cell.profileImage.image = [UIImage imageNamed:@"default-profile"]; // = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default-profile.png"]];
 //    cell.profileLabel.text = [NSString stringWithFormat: @"%@", [[_routeProfiles.profiles objectAtIndex:indexPath.row] name]];
 //    cell.backgroundColor = [UIColor whiteColor];
 
     NSDictionary *profile = [_profiles objectAtIndex:indexPath.row];
-    NSLog(@"profile: %@", profile);
-    cell.profileImage.image = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[profile objectForKey:@"icon_data"]]]];
+//    NSLog(@"profile: %@", profile);
+//    cell.profileImage.image = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[profile objectForKey:@"icon_data"]]]];
+    cell.profileImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[profile objectForKey:@"image_data"]]];
     NSString *nameKey = [NSString stringWithFormat:@"name_%@", [[AppState sharedInstance] language]];
     cell.profileLabel.text = [profile objectForKey:nameKey];
+    cell.backgroundColor = [UIColor whiteColor];
 
     return cell;
 
@@ -182,6 +184,9 @@
 //    }
     
     NSDictionary *selectedProfile = [_profiles objectAtIndex:indexPath.row];
+    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
+    [[AppState sharedInstance] save];
+    
     NSArray *routes = [selectedProfile objectForKey:@"routes"];
     if ([routes count] > 0) {
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];

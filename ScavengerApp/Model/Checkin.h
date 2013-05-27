@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Checkin : NSObject <NSCoding> //TODO: save to disk to a file called "SaveGame"
+@interface Checkin : NSObject <NSCoding> 
 
 @property (nonatomic, assign) int locationId;
 @property (nonatomic, assign) int routeId;
 @property (nonatomic, strong) NSDate *timestamp;
 @property (nonatomic, assign) BOOL uploaded;
+
+- (NSDictionary *)dictionaryRepresentation;
 
 
 @end

@@ -11,6 +11,7 @@
 
 @interface GHGameData : NSObject <NSCoding>
 
+@property (nonatomic, strong) NSString *version;
 @property (nonatomic, strong) NSArray *profiles;
 
 + (GHGameData *)modelObjectWithDictionary:(NSDictionary *)dict;

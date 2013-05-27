@@ -42,7 +42,12 @@
         self.checkinPending = NO;
         
 //    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
-        _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
+//        _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
+        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
+        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+        _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+        NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
     }
     return self;
 }
@@ -51,8 +56,14 @@
 {
     NSLog(@"BackButtonPressed");
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
+    [[AppState sharedInstance] save];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [[AppState sharedInstance] setPlayerIsInCompass:YES];
+    [[AppState sharedInstance] save];
+}
 
 #pragma mark - CLLocation
 
@@ -108,16 +119,22 @@
     
     //2. change the active target
     [[AppState sharedInstance] nextTarget];
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
+//    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
+  
+    float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
+    float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+    _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+    NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
     
-   
+    
     [self.checkinView removeFromSuperview];
     self.checkinPending = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"did update with destination: %@", [AppState sharedInstance].activeTarget.locationName );
+    NSLog(@"did update with destination: %@", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"] );
     CLLocation *currentLocation = [locations lastObject];
 //    NSLog(@"New user location: %@", currentLocation);
     NSDate* eventDate = currentLocation.timestamp;

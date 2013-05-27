@@ -17,6 +17,7 @@
 
 @implementation GHGameData
 
+@synthesize version = _version;
 @synthesize profiles = _profiles;
 
 
@@ -33,6 +34,7 @@
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
+            self.version = [self objectOrNilForKey:@"version" fromDictionary:dict];
     NSObject *receivedGHProfiles = [dict objectForKey:@"profiles"];
     NSMutableArray *parsedGHProfiles = [NSMutableArray array];
     if ([receivedGHProfiles isKindOfClass:[NSArray class]]) {
@@ -56,6 +58,7 @@
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:self.version forKey:@"version"];
 NSMutableArray *tempArrayForProfiles = [NSMutableArray array];
     for (NSObject *subArrayObject in self.profiles) {
         if([subArrayObject respondsToSelector:@selector(dictionaryRepresentation)]) {
@@ -90,6 +93,7 @@ NSMutableArray *tempArrayForProfiles = [NSMutableArray array];
 {
     self = [super init];
 
+    self.version = [aDecoder decodeObjectForKey:@"version"];
     self.profiles = [aDecoder decodeObjectForKey:@"profiles"];
     return self;
 }
@@ -97,6 +101,7 @@ NSMutableArray *tempArrayForProfiles = [NSMutableArray array];
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 
+    [aCoder encodeObject:_version forKey:@"version"];
     [aCoder encodeObject:_profiles forKey:@"profiles"];
 }
 
