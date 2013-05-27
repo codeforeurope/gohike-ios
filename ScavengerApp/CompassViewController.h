@@ -13,5 +13,10 @@
 #define DUMMY_LONGITUDE 4.91667
 
 @interface CompassViewController : UIViewController <CLLocationManagerDelegate>
-   -(IBAction) checkIn;
+
+
+-(IBAction) checkIn;
+-(IBAction) finishRoute:(id)sender;
+-(IBAction) goToReward:(id)sender;
+
 @end

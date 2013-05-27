@@ -16,10 +16,6 @@
 @property (nonatomic, assign) int activeRouteId; //ID of the active route
 @property (nonatomic, assign) int activeTargetId;   //ID of the active Target where we are navigating to
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
-//@property (nonatomic, strong) NSArray *waypoints; //Array of waypoints to visit
-
-
-//2013-05-27
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 
 
@@ -32,7 +28,7 @@
 - (NSDictionary*)activeProfile;
 - (NSDictionary*)activeRoute;
 - (NSDictionary*)activeWaypoint;
-
+- (NSArray*)checkinsForRoute:(int)routeId;
 
 
 @end

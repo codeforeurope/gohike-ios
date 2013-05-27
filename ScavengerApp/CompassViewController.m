@@ -14,9 +14,11 @@
 
 #import "CheckinView.h"
 
+#import "RouteFinishedView.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
-#define CHECKIN_DISTANCE 3650 //meters
+#define CHECKIN_DISTANCE 5000 //meters
 //#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
@@ -24,6 +26,7 @@
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
 @property (nonatomic, weak) CheckinView * checkinView;
+@property (nonatomic, weak) RouteFinishedView *routeFinishedView;
 @property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
@@ -118,18 +121,34 @@
     [[AppState sharedInstance] checkIn];
     
     //2. change the active target
-    [[AppState sharedInstance] nextTarget];
+    BOOL continueRoute =  [[AppState sharedInstance] nextTarget];
+    if (continueRoute) {
+        
+        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
+        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+        _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+        NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
+        
+        
+        [self.checkinView removeFromSuperview];
+        self.checkinPending = NO;
+    }
+    else { 
+        
+    }
 //    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
-  
-    float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
-    float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
-    _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    NSLog(@"Destination: lat: %f long %f", latitude, longitude);
-    NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
-    
-    
-    [self.checkinView removeFromSuperview];
-    self.checkinPending = NO;
+
+}
+
+-(IBAction) finishRoute:(id)sender
+{
+    [_routeFinishedView removeFromSuperview];
+}
+
+-(IBAction) goToReward:(id)sender
+{
+    [_routeFinishedView removeFromSuperview];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations

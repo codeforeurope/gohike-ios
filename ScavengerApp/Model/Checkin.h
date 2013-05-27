@@ -17,5 +17,4 @@
 
 - (NSDictionary *)dictionaryRepresentation;
 
-
 @end

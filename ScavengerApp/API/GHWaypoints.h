@@ -12,11 +12,13 @@
 @interface GHWaypoints : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *nameEn;
+@property (nonatomic, strong) NSString *longitude;
 @property (nonatomic, strong) NSString *nameNl;
+@property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, assign) double locationId;
 @property (nonatomic, assign) double rank;
-@property (nonatomic, assign) double routeId;
 @property (nonatomic, strong) NSString *descriptionNl;
+@property (nonatomic, assign) double routeId;
 @property (nonatomic, strong) NSString *descriptionEn;
 
 + (GHWaypoints *)modelObjectWithDictionary:(NSDictionary *)dict;

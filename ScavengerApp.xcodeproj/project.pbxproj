@@ -41,6 +41,10 @@
 		ACA60BB8175357BC00EA4D53 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
 		ACA60BBD175365A700EA4D53 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */; };
+		ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */; };
+		ACA60BC817539EEB00EA4D53 /* RouteFinishedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */; };
+		ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BCA17539FC600EA4D53 /* RewardViewController.m */; };
+		ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -50,7 +54,6 @@
 		ACDD9B7E1743B20200D64682 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7D1743B20200D64682 /* Default.png */; };
 		ACDD9B801743B20200D64682 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7F1743B20200D64682 /* Default@2x.png */; };
 		ACDD9B821743B20200D64682 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B811743B20200D64682 /* Default-568h@2x.png */; };
-		ACDD9B851743B20200D64682 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9B841743B20200D64682 /* ViewController.m */; };
 		ACDD9B881743B20200D64682 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B861743B20200D64682 /* ViewController.xib */; };
 		ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */; };
 		ACDD9BD11743CA8F00D64682 /* SelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */; };
@@ -127,6 +130,12 @@
 		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		ACA60BBB175365A700EA4D53 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteFinishedView.xib; sourceTree = "<group>"; };
+		ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteFinishedView.h; sourceTree = "<group>"; };
+		ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteFinishedView.m; sourceTree = "<group>"; };
+		ACA60BC917539FC600EA4D53 /* RewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardViewController.h; sourceTree = "<group>"; };
+		ACA60BCA17539FC600EA4D53 /* RewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardViewController.m; sourceTree = "<group>"; };
+		ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RewardViewController.xib; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* ScavengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScavengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -140,8 +149,6 @@
 		ACDD9B7D1743B20200D64682 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACDD9B7F1743B20200D64682 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ACDD9B811743B20200D64682 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ACDD9B831743B20200D64682 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		ACDD9B841743B20200D64682 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		ACDD9B871743B20200D64682 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
 		ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
@@ -254,6 +261,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		ACA60BC017539E1D00EA4D53 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
@@ -288,13 +302,12 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				ACA60BC017539E1D00EA4D53 /* Cells */,
 				ACA60BB51753574800EA4D53 /* Extensions */,
 				AC10170F1752B2DE00761AC2 /* API */,
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
-				ACDD9B831743B20200D64682 /* ViewController.h */,
-				ACDD9B841743B20200D64682 /* ViewController.m */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
@@ -318,6 +331,12 @@
 				AC101699174FB07400761AC2 /* LocationDetailsViewController.h */,
 				AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */,
 				AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */,
+				ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */,
+				ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */,
+				ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */,
+				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
+				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
+				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
 			);
 			path = ScavengerApp;
@@ -440,6 +459,8 @@
 				AC101695174F875900761AC2 /* locations.json in Resources */,
 				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
+				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
+				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +489,6 @@
 			files = (
 				ACDD9B781743B20200D64682 /* main.m in Sources */,
 				ACDD9B7C1743B20200D64682 /* AppDelegate.m in Sources */,
-				ACDD9B851743B20200D64682 /* ViewController.m in Sources */,
 				ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */,
 				ACDD9BD51743CDCE00D64682 /* RouteStartViewController.m in Sources */,
 				ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */,
@@ -495,6 +515,8 @@
 				AC1017291752D18B00761AC2 /* GHWaypoints.m in Sources */,
 				ACA60BB8175357BC00EA4D53 /* NSData+MD5.m in Sources */,
 				ACA60BBD175365A700EA4D53 /* NSDataAdditions.m in Sources */,
+				ACA60BC817539EEB00EA4D53 /* RouteFinishedView.m in Sources */,
+				ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

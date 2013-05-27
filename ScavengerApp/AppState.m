@@ -20,6 +20,18 @@
     return shared;
 }
 
+#pragma mark - Game methods
+
+- (NSString*)language
+{
+    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
+    if([locale isEqualToString:@"nl"]){
+        return @"nl";
+    }
+    else{
+        return @"en";
+    }
+}
 
 - (void)checkIn
 {
@@ -29,22 +41,32 @@
     thisCheckIn.locationId = _activeTargetId;
     thisCheckIn.routeId = _activeRouteId;
     
-    [self.checkins addObject:thisCheckIn];
+    if(_checkins == nil){
+        _checkins = [[NSMutableArray alloc] init];
+    }
+    
+    [_checkins addObject:thisCheckIn];
+    NSLog(@"Checkin added. Check-ins list: %@", _checkins);
     [self save];
     
 }
 
 - (BOOL)nextTarget
 {
-    NSInteger nextTarget = _activeTargetId + 1;
+//    NSInteger nextTarget = _activeTargetId + 1;
     NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
+    NSUInteger thisWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
+    }];
+    int thisWaypointRank = [[[waypoints objectAtIndex:thisWPIndex] objectForKey:@"rank"] integerValue];
+    int nextTarget = thisWaypointRank + 1;
+    
     NSDictionary *next;
-    NSInteger nextWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger nextWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"rank"] integerValue] == nextTarget;
     }];
-    if (index < 0) {
+    if (nextWPIndex == NSNotFound) {
         return NO;
-        //TODO: mark end of route
     }
     else{
         next = [waypoints objectAtIndex:nextWPIndex];
@@ -55,6 +77,53 @@
     
 }
 
+- (NSDictionary*)activeProfile
+{
+    NSArray *profiles = [_game objectForKey:@"profiles"];
+    NSUInteger index = [profiles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"id"] integerValue] == _activeProfileId;
+    }];
+
+    return [profiles objectAtIndex:index];
+}
+
+- (NSDictionary*)activeRoute
+{
+    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
+    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"id"] integerValue] == _activeRouteId;
+    }];
+
+    return [routes objectAtIndex:index];
+}
+
+- (NSDictionary*)activeWaypoint
+{
+    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
+    NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
+    }];
+    NSLog(@"index %d", index);
+    if (index == NSNotFound) {
+        return nil;
+    }
+    else {
+        return  [waypoints objectAtIndex:index];
+    }
+}
+
+
+- (NSArray*)checkinsForRoute:(int)routeId
+{
+    NSIndexSet *indexes = [_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ((Checkin*)obj).routeId == routeId ;
+    }];
+    
+    return [_checkins objectsAtIndexes:indexes];
+}
+
+
+#pragma mark - Save and restore
 
 - (BOOL)save
 {
@@ -62,17 +131,17 @@
     NSString *filePath = [docsPath stringByAppendingPathComponent: @"AppData"];
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-
+    
     [encoder encodeObject:_checkins forKey:@"checkins"];
     [encoder encodeInt:_activeProfileId forKey:@"activeProfileId"];
     [encoder encodeInt:_activeRouteId forKey:@"activeRouteId"];
     [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
-//    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
+    //    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
     
     
     [encoder finishEncoding];
-
+    
     
     BOOL result = [data writeToFile:filePath atomically:YES];
     
@@ -87,15 +156,15 @@
     NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     
     if (data){
-    NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    _checkins = [decoder decodeObjectForKey:@"checkins"];
-    _activeProfileId = [decoder decodeIntegerForKey:@"activeProfileId"];
-    _activeRouteId = [decoder decodeIntegerForKey:@"activeRouteId"];
-    _activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
-    _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
-//    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
-
-    [decoder finishDecoding];
+        NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        _checkins = [decoder decodeObjectForKey:@"checkins"];
+        _activeProfileId = [decoder decodeIntegerForKey:@"activeProfileId"];
+        _activeRouteId = [decoder decodeIntegerForKey:@"activeRouteId"];
+        _activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
+        _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+        //    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
+        
+        [decoder finishDecoding];
     }
     else
     {
@@ -103,55 +172,5 @@
     }
     
 }
-
-- (NSString*)language
-{
-    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    if([locale isEqualToString:@"nl"]){
-        return @"nl";
-    }
-    else{
-        return @"en";
-    }
-}
-
-
-- (NSDictionary*)activeProfile
-{
-    NSArray *profiles = [_game objectForKey:@"profiles"];
-    NSUInteger index = [profiles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"id"] integerValue] == _activeProfileId;
-    }];
-
-    return [profiles objectAtIndex:index];
-    
-}
-
-- (NSDictionary*)activeRoute
-{
-    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
-    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"id"] integerValue] == _activeRouteId;
-    }];
-    
-    return [routes objectAtIndex:index];
-}
-
-- (NSDictionary*)activeWaypoint
-{
-    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
-    NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"rank"] integerValue] == _activeTargetId;
-    }];
-    if (index > 0) {
-        return  [waypoints objectAtIndex:index];
-    }
-    else {
-        return nil;
-    }
-}
-
-
-
 
 @end

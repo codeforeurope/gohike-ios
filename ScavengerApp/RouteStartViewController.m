@@ -13,6 +13,10 @@
 
 @interface RouteStartViewController ()
 
+//@property (nonatomic, strong) NSArray *checkins;
+
+@property (nonatomic, assign) BOOL routeComplete;
+
 @end
 
 @implementation RouteStartViewController
@@ -49,10 +53,9 @@
 {
     [super viewDidLoad];
     
-    
     UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
     self.navigationItem.rightBarButtonItem = startRouteButton;
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -83,7 +86,6 @@
             number = 2;
             break;
         default:
-//            number = [_currentRoute.locations count];
             number = [[_route objectForKey:@"waypoints"] count];
             break;
     }
@@ -104,11 +106,9 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             switch (indexPath.row) {
                 case 0:
-//                    cell.textLabel.text = _currentRoute.name;
                     cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
                     break;
                 case 1:
-//                    cell.textLabel.text = _currentRoute.description;
                     cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
                 default:
                     break;
@@ -116,11 +116,31 @@
             break;
         case 1:
         {
+            NSLog(@"indexpath row %d", indexPath.row);
             NSDictionary *waypoint = [[_route objectForKey:@"waypoints"] objectAtIndex:indexPath.row];
+            NSLog(@"waypoint: %@", waypoint);
+            //We check if the current waypoint has a check-in from the user
+            NSArray *checkinsForRoute = [[AppState sharedInstance] checkinsForRoute:[[_route objectForKey:@"id"] integerValue]] ;
+            NSLog(@"checkins for route: %@", checkinsForRoute);
+            NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                NSLog(@"checkin %@", [obj dictionaryRepresentation]);
+                return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
+            }];
+            
+            //[[_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+              //  return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId;
+//            }] count] > 0;
+            if(!(isCheckedIn == NSNotFound) ){
+                //Means that the player checked in already
+                [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            }
+            else{
+                
+            }
 //            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
 //            cell.textLabel.text = loc.locationName;
             cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            
         }
             break;
         default:
@@ -211,7 +231,7 @@
     {
         NSDictionary *waypoint = [waypoints objectAtIndex:0];
         [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
-        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"rank"] intValue]];
+        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"location_id"] intValue]];
         [[AppState sharedInstance] save];
         
         NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);

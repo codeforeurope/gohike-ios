@@ -52,10 +52,10 @@
     
     //Restore game state
     [[AppState sharedInstance] restore];
-    NSLog(@"I restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
+    NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
+    NSLog(@"Stored checkins: %@", [[AppState sharedInstance] checkins]);
     if ([[AppState sharedInstance] playerIsInCompass]) {
-        NSLog(@"We were in compass when we quit!");
-        //TODO: load the compass view directly
+        // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
         SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
         rvc.route = [[AppState sharedInstance] activeRoute];
