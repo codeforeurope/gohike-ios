@@ -10,6 +10,8 @@
 
 #import "SelectionViewController.h"
 
+#import "NSData+MD5.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -17,26 +19,27 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString * language = [[AppState sharedInstance] language];
     NSLog(@"The app was started with the language: %@", language);
     
     
     [[AppState sharedInstance] restore];
-    NSLog(@"I restored the active Profile: %f", [[[AppState sharedInstance] activeProfile] profileId]);
+    NSLog(@"I restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     if ([[AppState sharedInstance] playerIsInCompass]) {
         //TODO: load the compass view directly
     }
     
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
+    NSData* data = [NSData dataWithContentsOfFile:path];
+    NSString *gameDataChecksum = [data MD5];
+    //check if md5 of content.json is different from the last md5 checksum of our game content
     
-    BOOL needSetup = [[[NSUserDefaults standardUserDefaults] objectForKey:@"setupDone"] boolValue];
-    if(needSetup)
-    {
-        //TODO: setup everything from the .json file included in the app. Unzip images, etc.
-        //Then set "setupDone" as TRUE
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"setupDone"];
-    }
     
+    __autoreleasing NSError* error = nil;
+    GHGameData *gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+    NSDictionary *gameDataDict = [gameData dictionaryRepresentation];
+    [[AppState sharedInstance] setGame:gameDataDict];
     
     SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];

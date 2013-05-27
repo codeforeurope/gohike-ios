@@ -11,6 +11,7 @@
 
 @interface RouteStartViewController : UITableViewController
 
-@property (nonatomic, strong) Route *currentRoute;
+//@property (nonatomic, strong) Route *currentRoute;
+@property (nonatomic, strong) NSDictionary *route;
 
 @end

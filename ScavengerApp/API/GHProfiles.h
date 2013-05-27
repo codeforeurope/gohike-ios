@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSArray *routes;
 @property (nonatomic, strong) NSString *nameEn;
 @property (nonatomic, assign) double profilesIdentifier;
-@property (nonatomic, assign) id iconData;
+@property (nonatomic, assign) NSString *iconData;
 @property (nonatomic, strong) NSString *nameNl;
 @property (nonatomic, strong) NSString *imageData;
 @property (nonatomic, strong) NSString *descriptionNl;

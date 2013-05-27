@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Checkin : NSObject
+@interface Checkin : NSObject <NSCoding> //TODO: save to disk to a file called "SaveGame"
 
 @property (nonatomic, assign) int locationId;
 @property (nonatomic, assign) int routeId;

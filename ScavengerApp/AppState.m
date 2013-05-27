@@ -97,14 +97,14 @@
     
     if (data){
     NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    self.locations = [decoder decodeObjectForKey:@"locations"];
-    self.checkins = [decoder decodeObjectForKey:@"checkins"];
-    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
-    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
-    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
-    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
-    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
-    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
+//    self.locations = [decoder decodeObjectForKey:@"locations"];
+//    self.checkins = [decoder decodeObjectForKey:@"checkins"];
+//    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
+//    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
+//    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
+//    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
+//    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+//    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
 
     [decoder finishDecoding];
     }
@@ -115,34 +115,31 @@
     
 }
 
+- (NSString*)language
+{
+    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
+    if([locale isEqualToString:@"nl"]){
+        return @"nl";
+    }
+    else{
+        return @"en";
+    }
+}
 
-#pragma mark - NSCoding
-//
-//- (id)initWithCoder:(NSCoder *)decoder {
-//    self = [super init];
-//    if (!self) {
-//        return nil;
-//    }
-//
-//    self.locations = [decoder decodeObjectForKey:@"locations"];
-//    self.checkins = [decoder decodeObjectForKey:@"checkins"];
-//    self.activeRoute = [decoder decodeObjectForKey:@"activeRoute"];
-//    self.activeProfile = [decoder decodeObjectForKey:@"activeProfile"];
-//    self.activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
-//    self.activeTarget = [decoder decodeObjectForKey:@"activeTarget"];
-//    self.playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
-//    self.waypoints = [decoder decodeObjectForKey:@"waypoints"];
-//    
-//    return self;
-//}
-//
-//- (void)encodeWithCoder:(NSCoder *)encoder {
-//    [encoder encodeObject:self.title forKey:@"title"];
-//    [encoder encodeObject:self.author forKey:@"author"];
-//    [encoder encodeInteger:self.pageCount forKey:@"pageCount"];
-//    [encoder encodeObject:self.categories forKey:@"categories"];
-//    [encoder encodeBool:[self isAvailable] forKey:@"available"];
-//}
+
+- (NSDictionary*)activeProfile
+{
+    //TODO
+    return [[NSDictionary alloc] init];
+    
+}
+
+- (NSDictionary*)activeRoute
+{
+    //TODO
+    return [[NSDictionary alloc] init];
+}
+
 
 
 @end

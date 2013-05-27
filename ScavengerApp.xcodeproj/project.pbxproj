@@ -38,6 +38,9 @@
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
 		AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDB7174CD8B40067F08F /* ring_compas.png */; };
+		ACA60BB8175357BC00EA4D53 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */; };
+		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
+		ACA60BBD175365A700EA4D53 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -119,6 +122,11 @@
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
 		AC5BEDB7174CD8B40067F08F /* ring_compas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_compas.png; sourceTree = "<group>"; };
+		ACA60BB61753577E00EA4D53 /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
+		ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
+		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
+		ACA60BBB175365A700EA4D53 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* ScavengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScavengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -235,6 +243,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		ACA60BB51753574800EA4D53 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ACA60BBB175365A700EA4D53 /* NSDataAdditions.h */,
+				ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */,
+				ACA60BB61753577E00EA4D53 /* NSData+MD5.h */,
+				ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +288,7 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				ACA60BB51753574800EA4D53 /* Extensions */,
 				AC10170F1752B2DE00761AC2 /* API */,
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
@@ -334,6 +354,7 @@
 		ACDD9C111744CB6500D64682 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				ACA60BB917535BEF00EA4D53 /* content.json */,
 				ACDD9C121744CB6600D64682 /* routeprofiles.json */,
 				ACDD9C141744DFE500D64682 /* routeprofiles.plist */,
 				AC5133EF1744EC3800472022 /* routes.json */,
@@ -418,6 +439,7 @@
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 				AC101695174F875900761AC2 /* locations.json in Resources */,
 				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
+				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +493,8 @@
 				AC1017271752D18B00761AC2 /* GHProfiles.m in Sources */,
 				AC1017281752D18B00761AC2 /* GHRoutes.m in Sources */,
 				AC1017291752D18B00761AC2 /* GHWaypoints.m in Sources */,
+				ACA60BB8175357BC00EA4D53 /* NSData+MD5.m in Sources */,
+				ACA60BBD175365A700EA4D53 /* NSDataAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

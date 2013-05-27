@@ -9,6 +9,7 @@
 #import "RouteStartViewController.h"
 #import "CompassViewController.h"
 #import "LocationDetailsViewController.h"
+#import "NSDataAdditions.h"
 
 @interface RouteStartViewController ()
 
@@ -22,24 +23,24 @@
     if (self) {
         // Custom initialization
         
-        Location *loc1 = [[Location alloc] init];
-        loc1.locationId = 1;
-        loc1.locationName = @"Rembrandtoren";
-        loc1.locationPicture = @"";
-        loc1.latitude = 52.34444;
-        loc1.longitude = 4.91667;
-        
-        Location *loc2 = [[Location alloc] init];
-        loc2.locationId = 2;
-        loc2.locationName = @"RAI Congress Center";
-        loc2.locationPicture = @"";
-        loc2.latitude = 52.34123;
-        loc2.longitude = 4.92;
-        
-        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
-        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
+//        Location *loc1 = [[Location alloc] init];
+//        loc1.locationId = 1;
+//        loc1.locationName = @"Rembrandtoren";
+//        loc1.locationPicture = @"";
+//        loc1.latitude = 52.34444;
+//        loc1.longitude = 4.91667;
+//        
+//        Location *loc2 = [[Location alloc] init];
+//        loc2.locationId = 2;
+//        loc2.locationName = @"RAI Congress Center";
+//        loc2.locationPicture = @"";
+//        loc2.latitude = 52.34123;
+//        loc2.longitude = 4.92;
+//        
+//        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+//        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+//        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
+//        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
     }
     return self;
 }
@@ -49,9 +50,8 @@
     [super viewDidLoad];
     
     
-    UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Route", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
+    UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
     self.navigationItem.rightBarButtonItem = startRouteButton;
-
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -83,7 +83,8 @@
             number = 2;
             break;
         default:
-            number = [_currentRoute.locations count];
+//            number = [_currentRoute.locations count];
+            number = [[_route objectForKey:@"waypoints"] count];
             break;
     }
     return number;
@@ -96,24 +97,29 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-        
+    
+    NSString *langKey = [[AppState sharedInstance] language];
     switch (indexPath.section) {
         case 0:
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = _currentRoute.name;
+//                    cell.textLabel.text = _currentRoute.name;
+                    cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
                     break;
                 case 1:
-                    cell.textLabel.text = _currentRoute.description;
+//                    cell.textLabel.text = _currentRoute.description;
+                    cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
                 default:
                     break;
             }
             break;
         case 1:
         {
-            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
-            cell.textLabel.text = loc.locationName;
+            NSDictionary *waypoint = [[_route objectForKey:@"waypoints"] objectAtIndex:indexPath.row];
+//            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
+//            cell.textLabel.text = loc.locationName;
+            cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
             break;
@@ -199,14 +205,27 @@
 - (void)StartRoute
 {
     //TODO: handle the case when we are resuming the current route
-    [[AppState sharedInstance] setActiveRoute:_currentRoute];
-    Location *target = [_currentRoute.locations objectAtIndex:0]; //this is OK only if we start from first location
-    [[AppState sharedInstance] setActiveTarget:target];
-    [[AppState sharedInstance] setActiveTargetId:target.locationId];
-    [[AppState sharedInstance] setPlayerIsInCompass:YES];
     
-    CompassViewController *compass = [[CompassViewController alloc] init];
-    [self.navigationController pushViewController:compass animated:YES];
+    NSArray *waypoints = [_route objectForKey:@"waypoints"];
+    if([waypoints count] > 0)
+    {
+        NSDictionary *waypoint = [waypoints objectAtIndex:0];
+        [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
+        
+        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"route_id"] intValue]];
+        CompassViewController *compass = [[CompassViewController alloc] init];
+        [self.navigationController pushViewController:compass animated:YES];
+        
+    }
+    
+//    [[AppState sharedInstance] setActiveRoute:_currentRoute];
+//    Location *target = [_currentRoute.locations objectAtIndex:0]; //this is OK only if we start from first location
+//    [[AppState sharedInstance] setActiveTarget:target];
+//    [[AppState sharedInstance] setActiveTargetId:target.locationId];
+//    [[AppState sharedInstance] setPlayerIsInCompass:YES];
+    
+//    CompassViewController *compass = [[CompassViewController alloc] init];
+//    [self.navigationController pushViewController:compass animated:YES];
     
     
 }
