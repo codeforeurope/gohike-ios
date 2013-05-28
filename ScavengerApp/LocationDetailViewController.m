@@ -1,18 +1,18 @@
 //
-//  LocationDetailsViewController.m
+//  LocationDetailViewController.m
 //  ScavengerApp
 //
-//  Created by Giovanni on 5/24/13.
+//  Created by Giovanni on 5/28/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
-#import "LocationDetailsViewController.h"
+#import "LocationDetailViewController.h"
 
-@interface LocationDetailsViewController ()
+@interface LocationDetailViewController ()
 
 @end
 
-@implementation LocationDetailsViewController
+@implementation LocationDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

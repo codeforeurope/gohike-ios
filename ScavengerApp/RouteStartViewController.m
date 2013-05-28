@@ -8,8 +8,9 @@
 
 #import "RouteStartViewController.h"
 #import "CompassViewController.h"
-#import "LocationDetailsViewController.h"
+#import "LocationDetailViewController.h"
 #import "NSDataAdditions.h"
+#import "RouteDetailTitleCell.h"
 
 @interface RouteStartViewController ()
 
@@ -26,25 +27,25 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        
-//        Location *loc1 = [[Location alloc] init];
-//        loc1.locationId = 1;
-//        loc1.locationName = @"Rembrandtoren";
-//        loc1.locationPicture = @"";
-//        loc1.latitude = 52.34444;
-//        loc1.longitude = 4.91667;
-//        
-//        Location *loc2 = [[Location alloc] init];
-//        loc2.locationId = 2;
-//        loc2.locationName = @"RAI Congress Center";
-//        loc2.locationPicture = @"";
-//        loc2.latitude = 52.34123;
-//        loc2.longitude = 4.92;
-//        
-//        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-//        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-//        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
-//        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
+//
+////        Location *loc1 = [[Location alloc] init];
+////        loc1.locationId = 1;
+////        loc1.locationName = @"Rembrandtoren";
+////        loc1.locationPicture = @"";
+////        loc1.latitude = 52.34444;
+////        loc1.longitude = 4.91667;
+////        
+////        Location *loc2 = [[Location alloc] init];
+////        loc2.locationId = 2;
+////        loc2.locationName = @"RAI Congress Center";
+////        loc2.locationPicture = @"";
+////        loc2.latitude = 52.34123;
+////        loc2.longitude = 4.92;
+////        
+////        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+////        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
+////        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
+////        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
     }
     return self;
 }
@@ -83,7 +84,7 @@
     // Return the number of rows in the section.
     switch (section) {
         case 0:
-            number = 2;
+            number = 1;
             break;
         default:
             number = [[_route objectForKey:@"waypoints"] count];
@@ -94,78 +95,98 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
+   
     NSString *langKey = [[AppState sharedInstance] language];
     switch (indexPath.section) {
         case 0:
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-                    break;
-                case 1:
-                    cell.textLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
-                default:
-                    break;
+        {
+            static NSString *CellIdentifier = @"GHRouteDetailTitleCell";
+           RouteDetailTitleCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+//                cell = [[RouteDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RouteDetailTitleCell" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
             }
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            
+            cell.routeImage.image = [UIImage imageNamed:@"default-profile"];
+            cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+            
+            return cell;
+
+        }
             break;
         case 1:
         {
-            NSLog(@"indexpath row %d", indexPath.row);
+            static NSString *CellIdentifier = @"Cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+
+            
             NSDictionary *waypoint = [[_route objectForKey:@"waypoints"] objectAtIndex:indexPath.row];
-            NSLog(@"waypoint: %@", waypoint);
             //We check if the current waypoint has a check-in from the user
             NSArray *checkinsForRoute = [[AppState sharedInstance] checkinsForRoute:[[_route objectForKey:@"id"] integerValue]] ;
-            NSLog(@"checkins for route: %@", checkinsForRoute);
             NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                NSLog(@"checkin %@", [obj dictionaryRepresentation]);
                 return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
             }];
-            
-            //[[_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-              //  return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId;
-//            }] count] > 0;
+
             if(!(isCheckedIn == NSNotFound) ){
                 //Means that the player checked in already
-                [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.imageView.image = [UIImage imageNamed:@"target-checked"];
             }
             else{
-                
+                cell.imageView.image = [UIImage imageNamed:@"target"];
             }
 //            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
 //            cell.textLabel.text = loc.locationName;
             cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-            
+                     return cell;
         }
+            
+   
             break;
         default:
             break;
     }
-        
-    return cell;
+    return  [[UITableViewCell alloc] init]; //fix compiler warning
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *retString;
-    switch (section) {
-        case 0:
-            retString =  NSLocalizedString(@"Route Information", nil);
-            break;
-        case 1:
-            retString =  NSLocalizedString(@"Locations in Route", nil);
-            break;
-        default:
-            break;
+    if (indexPath.section == 0) {
+        return 289;
     }
-    
-    return retString;
+    else {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
 }
+
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    
+//}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *retString;
+//    switch (section) {
+//        case 0:
+//            retString =  NSLocalizedString(@"Route Information", nil);
+//            break;
+//        case 1:
+//            retString =  NSLocalizedString(@"Locations in Route", nil);
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    return retString;
+//}
 
 /*
 // Override to support conditional editing of the table view.
