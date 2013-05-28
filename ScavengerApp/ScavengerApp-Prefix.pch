@@ -16,4 +16,5 @@
     #import "AppState.h"
     #import "DataModels.h"
     #import "APIDataModels.h"
+    #import "NSDataAdditions.h"
 #endif

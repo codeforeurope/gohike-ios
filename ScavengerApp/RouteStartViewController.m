@@ -54,8 +54,25 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(StartRoute)];
-    self.navigationItem.rightBarButtonItem = startRouteButton;
+    NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
+    
+    NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"visited"] boolValue] == YES;  
+    }];
+    
+    if (firstUncheckedIndex == NSNotFound) {
+        // Route is complete
+        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
+        self.navigationItem.rightBarButtonItem = viewRewardButton;
+    }
+    else{
+        // Route is not complete
+        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
+        self.navigationItem.rightBarButtonItem = startRouteButton;
+    }
+    
+    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+    [self.tableView setBackgroundView:tablebgView];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -109,7 +126,7 @@
             }
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-            cell.routeImage.image = [UIImage imageNamed:@"default-profile"];
+            cell.routeImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_route objectForKey:@"image_data"]]];
             cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
             
             return cell;
@@ -123,36 +140,39 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
-            
-
-            
-            NSDictionary *waypoint = [[_route objectForKey:@"waypoints"] objectAtIndex:indexPath.row];
+                       
+            NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];  // [[AppState sharedInstance] waypointsWithCheckinsForRoute:1 objectAtIndex:indexPath.row];
             //We check if the current waypoint has a check-in from the user
-            NSArray *checkinsForRoute = [[AppState sharedInstance] checkinsForRoute:[[_route objectForKey:@"id"] integerValue]] ;
-            NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
-            }];
-
-            if(!(isCheckedIn == NSNotFound) ){
+//            NSArray *checkinsForRoute = [[AppState sharedInstance] checkinsForRoute:[[_route objectForKey:@"id"] integerValue]] ;
+//            NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+//                return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
+//            }];
+            NSLog(@"waypoint %@", waypoint);
+            if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.imageView.image = [UIImage imageNamed:@"target-checked"];
             }
             else{
                 cell.imageView.image = [UIImage imageNamed:@"target"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-//            Location *loc = [_currentRoute.locations objectAtIndex:indexPath.row];
-//            cell.textLabel.text = loc.locationName;
             cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-                     return cell;
+            return cell;
         }
-            
-   
+
             break;
         default:
             break;
     }
     return  [[UITableViewCell alloc] init]; //fix compiler warning
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section ==1){
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+    }
 }
 
 
@@ -166,10 +186,6 @@
     }
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    
-//}
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 //{
@@ -234,33 +250,70 @@
     
     //TODO: open the location details (if it has already been visited)
     
+    if(indexPath.section == 1)
+    {
+        NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+        if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
+            //Means that the player checked in already
+            LocationDetailViewController *lvc = [[LocationDetailViewController alloc] initWithNibName:@"LocationDetailViewController" bundle:nil];
+            lvc.location = waypoint;
+            [self.navigationController pushViewController:lvc animated:YES];
+        }
+        else{
+            
+        }
+
+        
+    }
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     DetailViewController *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
 
-- (void)StartRoute
+- (void)startRoute
 {
-    //TODO: handle the case when we are resuming the current route
+   
+    NSLog(@"Start route!");
+//    NSArray *waypoints = [_route objectForKey:@"waypoints"];
+    NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
+    NSDictionary *nextWaypoint;
     
-    NSArray *waypoints = [_route objectForKey:@"waypoints"];
-    if([waypoints count] > 0)
-    {
-        NSDictionary *waypoint = [waypoints objectAtIndex:0];
-        [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
-        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"location_id"] intValue]];
-        [[AppState sharedInstance] save];
+    NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"visited"] boolValue] == YES;
         
-        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-        
-        CompassViewController *compass = [[CompassViewController alloc] init];
-        [self.navigationController pushViewController:compass animated:YES];
-        
-    }
+    }];
+    
+    nextWaypoint = [waypoints objectAtIndex:firstUncheckedIndex];
+    
+    [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
+    [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
+    [[AppState sharedInstance] save];
+    
+    NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+    
+    CompassViewController *compass = [[CompassViewController alloc] init];
+    [self.navigationController pushViewController:compass animated:YES];
+
+    
+    
+//    if([waypoints count] > 0)
+//    {
+//        NSDictionary *waypoint = [waypoints objectAtIndex:0];
+//        [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
+//        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"location_id"] intValue]];
+//        [[AppState sharedInstance] save];
+//        
+//        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+//        
+//        CompassViewController *compass = [[CompassViewController alloc] init];
+//        [self.navigationController pushViewController:compass animated:YES];
+//        
+//    }
     
 //    [[AppState sharedInstance] setActiveRoute:_currentRoute];
 //    Location *target = [_currentRoute.locations objectAtIndex:0]; //this is OK only if we start from first location
@@ -271,6 +324,12 @@
 //    CompassViewController *compass = [[CompassViewController alloc] init];
 //    [self.navigationController pushViewController:compass animated:YES];
     
+    
+}
+
+
+- (void)viewReward
+{
     
 }
 

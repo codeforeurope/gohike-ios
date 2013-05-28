@@ -46,7 +46,9 @@
     }
     
     [_checkins addObject:thisCheckIn];
+#if DEBUG
     NSLog(@"Checkin added. Check-ins list: %@", _checkins);
+#endif
     [self save];
     
 }
@@ -103,7 +105,6 @@
     NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
     }];
-    NSLog(@"index %d", index);
     if (index == NSNotFound) {
         return nil;
     }
@@ -112,7 +113,6 @@
     }
 }
 
-
 - (NSArray*)checkinsForRoute:(int)routeId
 {
     NSIndexSet *indexes = [_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -120,6 +120,51 @@
     }];
     
     return [_checkins objectsAtIndexes:indexes];
+}
+
+- (NSDictionary*)routeWithId:(int)routeId
+{
+    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
+    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"id"] integerValue] == routeId;
+    }];
+    
+    return [routes objectAtIndex:index];
+}
+
+// Returns an array of waypoints for the route, adding a "visited" BOOL value for convenience
+- (NSArray*)waypointsWithCheckinsForRoute:(int)routeId
+{
+    NSArray *waypoints = [[self routeWithId:routeId] objectForKey:@"waypoints"];
+    NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
+    NSMutableArray *waypointsWithVisit = [[NSMutableArray alloc] init];
+    
+    [waypoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+        NSMutableDictionary *wp = [[NSMutableDictionary alloc] initWithDictionary:obj];
+        NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [[wp objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
+        }];
+        if(isCheckedIn != NSNotFound){
+            [wp setObject:[NSNumber numberWithBool:YES] forKey:@"visited"];
+        }
+        else{
+            [wp setObject:[NSNumber numberWithBool:NO] forKey:@"visited"];
+        }
+        [waypointsWithVisit addObject:wp];
+        
+    }];
+    
+    // order by rank to be sure
+     waypointsWithVisit = [NSMutableArray arrayWithArray: [waypointsWithVisit sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSNumber *id1 = [NSNumber numberWithDouble: [[obj1 valueForKey:@"rank"] intValue]];
+        NSNumber *id2 = [NSNumber numberWithDouble: [[obj2 valueForKey:@"rank"] intValue]];
+        return [id1 compare:id2];
+    }]];
+    
+//    NSLog(@"waypoints with visited %@", waypointsWithVisit);
+    
+    return waypointsWithVisit;
 }
 
 

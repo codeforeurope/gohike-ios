@@ -26,11 +26,14 @@
 - (void)restore;
 - (BOOL)nextTarget;
 - (NSString*)language;
+
 - (NSDictionary*)activeProfile;
 - (NSDictionary*)activeRoute;
 - (NSDictionary*)activeWaypoint;
-- (NSArray*)checkinsForRoute:(int)routeId;
 
+- (NSArray*)checkinsForRoute:(int)routeId;
+- (NSDictionary*)routeWithId:(int)routeId;
+- (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
 
 @end
 

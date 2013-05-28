@@ -11,7 +11,6 @@
 #import "OverlayView.h"
 #import "DataModels.h"
 #import "SelectionCell.h"
-#import "NSDataAdditions.h"
 
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -38,6 +37,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = NSLocalizedString(@"Choose profile", nil);
+    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+    [self.collectionView setBackgroundView:tablebgView];
+    
     
     [self loadData];
     
@@ -189,7 +191,7 @@
     
     NSArray *routes = [selectedProfile objectForKey:@"routes"];
     if ([routes count] > 0) {
-        RouteStartViewController *rvc = [[RouteStartViewController alloc] init];
+        RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
         rvc.route = [routes objectAtIndex:0];
         [self.navigationController pushViewController:rvc animated:YES];
         

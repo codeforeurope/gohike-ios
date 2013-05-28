@@ -40,6 +40,12 @@
 		AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */; };
 		AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */; };
 		AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */; };
+		AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4951754D51D00B766E0 /* TableBackground.xib */; };
+		AC0AF4981754D54200B766E0 /* viewbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4971754D54200B766E0 /* viewbackground.png */; };
+		AC0AF49A1754ED5800B766E0 /* cellbackground1.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4991754ED5800B766E0 /* cellbackground1.png */; };
+		AC0AF49C1754ED8500B766E0 /* cellbackground2.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF49B1754ED8500B766E0 /* cellbackground2.png */; };
+		AC0AF49E1754ED8A00B766E0 /* cellbackground3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF49D1754ED8A00B766E0 /* cellbackground3.png */; };
+		AC0AF4A01754FB5700B766E0 /* overlay-background.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF49F1754FB5700B766E0 /* overlay-background.png */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
@@ -129,6 +135,12 @@
 		AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteDetailTitleCell.m; sourceTree = "<group>"; };
 		AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteDetailTitleCell.xib; sourceTree = "<group>"; };
 		AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteStartViewController.xib; sourceTree = "<group>"; };
+		AC0AF4951754D51D00B766E0 /* TableBackground.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableBackground.xib; sourceTree = "<group>"; };
+		AC0AF4971754D54200B766E0 /* viewbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewbackground.png; sourceTree = "<group>"; };
+		AC0AF4991754ED5800B766E0 /* cellbackground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellbackground1.png; sourceTree = "<group>"; };
+		AC0AF49B1754ED8500B766E0 /* cellbackground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellbackground2.png; sourceTree = "<group>"; };
+		AC0AF49D1754ED8A00B766E0 /* cellbackground3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellbackground3.png; sourceTree = "<group>"; };
+		AC0AF49F1754FB5700B766E0 /* overlay-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay-background.png"; sourceTree = "<group>"; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -148,9 +160,9 @@
 		AC1017231752D18B00761AC2 /* GHRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRoutes.m; sourceTree = "<group>"; };
 		AC1017241752D18B00761AC2 /* GHWaypoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHWaypoints.h; sourceTree = "<group>"; };
 		AC1017251752D18B00761AC2 /* GHWaypoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHWaypoints.m; sourceTree = "<group>"; };
-		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionCell.h; sourceTree = "<group>"; };
-		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionCell.m; sourceTree = "<group>"; };
-		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionCell.xib; sourceTree = "<group>"; };
+		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
+		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
+		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
 		ACA60BB61753577E00EA4D53 /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
 		ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
@@ -304,6 +316,9 @@
 				AC0AF48A1754BC0000B766E0 /* RouteDetailTitleCell.h */,
 				AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */,
 				AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */,
+				AC5133FD17452D7400472022 /* SelectionCell.h */,
+				AC5133FE17452D7400472022 /* SelectionCell.m */,
+				AC5BEDA6174CC5970067F08F /* SelectionCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -359,14 +374,12 @@
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
 				AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */,
 				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
-				AC5133FD17452D7400472022 /* SelectionCell.h */,
-				AC5133FE17452D7400472022 /* SelectionCell.m */,
-				AC5BEDA6174CC5970067F08F /* SelectionCell.xib */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
 				AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */,
 				AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */,
 				AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */,
+				AC0AF4951754D51D00B766E0 /* TableBackground.xib */,
 				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
 				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
@@ -413,6 +426,14 @@
 				1C8053B91754BF3B00900C54 /* grid.png */,
 				1C8053B71754BCDC00900C54 /* background.png */,
 				1C8053B51754B58400900C54 /* compass.png */,
+				AC0AF49F1754FB5700B766E0 /* overlay-background.png */,
+				AC0AF4991754ED5800B766E0 /* cellbackground1.png */,
+				AC0AF49B1754ED8500B766E0 /* cellbackground2.png */,
+				AC0AF49D1754ED8A00B766E0 /* cellbackground3.png */,
+				AC0AF4971754D54200B766E0 /* viewbackground.png */,
+				AC0AF48F1754BFFD00B766E0 /* target-checked.png */,
+				AC0AF4901754BFFD00B766E0 /* target.png */,
+				AC5BEDB7174CD8B40067F08F /* ring_compas.png */,
 				AC5BEDA8174CC82D0067F08F /* default-profile.png */,
 				1CB18466174BB81800D71DA4 /* arrow.png */,
 				ACDD9BE01743E8D700D64682 /* closebox.png */,
@@ -511,6 +532,12 @@
 				AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */,
 				1C8053CA175502D100900C54 /* target-checked.png in Resources */,
 				1C8053CB175502D100900C54 /* target.png in Resources */,
+				AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */,
+				AC0AF4981754D54200B766E0 /* viewbackground.png in Resources */,
+				AC0AF49A1754ED5800B766E0 /* cellbackground1.png in Resources */,
+				AC0AF49C1754ED8500B766E0 /* cellbackground2.png in Resources */,
+				AC0AF49E1754ED8A00B766E0 /* cellbackground3.png in Resources */,
+				AC0AF4A01754FB5700B766E0 /* overlay-background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
