@@ -17,6 +17,7 @@
 @property (nonatomic, assign) int activeTargetId;   //ID of the active Target where we are navigating to
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
+@property (nonatomic, strong) NSString *secret; //For contacting the API
 
 
 +(AppState *)sharedInstance;

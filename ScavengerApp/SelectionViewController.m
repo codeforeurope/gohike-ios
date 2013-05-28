@@ -189,7 +189,7 @@
     
     NSArray *routes = [selectedProfile objectForKey:@"routes"];
     if ([routes count] > 0) {
-        RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+        RouteStartViewController *rvc = [[RouteStartViewController alloc] init];
         rvc.route = [routes objectAtIndex:0];
         [self.navigationController pushViewController:rvc animated:YES];
         

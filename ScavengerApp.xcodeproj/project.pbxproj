@@ -18,6 +18,8 @@
 		1C8053BF1754DB9400900C54 /* nav-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053BE1754DB9400900C54 /* nav-bottom.png */; };
 		1C8053C61754F94500900C54 /* target-checked-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C41754F94500900C54 /* target-checked-white.png */; };
 		1C8053C71754F94500900C54 /* target-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C51754F94500900C54 /* target-white.png */; };
+		1C8053CA175502D100900C54 /* target-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C8175502D100900C54 /* target-checked.png */; };
+		1C8053CB175502D100900C54 /* target.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C9175502D100900C54 /* target.png */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
@@ -31,12 +33,17 @@
 		AC0AF47B1754AB4600B766E0 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4701754AB4600B766E0 /* AFURLConnectionOperation.m */; };
 		AC0AF47C1754AB4600B766E0 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4721754AB4600B766E0 /* AFXMLRequestOperation.m */; };
 		AC0AF47D1754AB4600B766E0 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4741754AB4600B766E0 /* UIImageView+AFNetworking.m */; };
+		AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */; };
+		AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */; };
+		AC0AF4871754BA6300B766E0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */; };
+		AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */; };
+		AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */; };
+		AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */; };
+		AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
-		AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */; };
-		AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */; };
 		AC1017261752D18B00761AC2 /* GHGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10171F1752D18B00761AC2 /* GHGameData.m */; };
 		AC1017271752D18B00761AC2 /* GHProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017211752D18B00761AC2 /* GHProfiles.m */; };
 		AC1017281752D18B00761AC2 /* GHRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017231752D18B00761AC2 /* GHRoutes.m */; };
@@ -60,11 +67,9 @@
 		ACDD9B7E1743B20200D64682 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7D1743B20200D64682 /* Default.png */; };
 		ACDD9B801743B20200D64682 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7F1743B20200D64682 /* Default@2x.png */; };
 		ACDD9B821743B20200D64682 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B811743B20200D64682 /* Default-568h@2x.png */; };
-		ACDD9B881743B20200D64682 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B861743B20200D64682 /* ViewController.xib */; };
 		ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */; };
 		ACDD9BD11743CA8F00D64682 /* SelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */; };
 		ACDD9BD51743CDCE00D64682 /* RouteStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */; };
-		ACDD9BD61743CDCE00D64682 /* RouteStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BD41743CDCE00D64682 /* RouteStartViewController.xib */; };
 		ACDD9BDB1743D1D700D64682 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BDD1743D1D700D64682 /* Localizable.strings */; };
 		ACDD9BE21743E8D700D64682 /* closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BE01743E8D700D64682 /* closebox.png */; };
 		ACDD9BE31743E8D700D64682 /* closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BE11743E8D700D64682 /* closebox@2x.png */; };
@@ -89,6 +94,8 @@
 		1C8053BE1754DB9400900C54 /* nav-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-bottom.png"; sourceTree = "<group>"; };
 		1C8053C41754F94500900C54 /* target-checked-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-checked-white.png"; sourceTree = "<group>"; };
 		1C8053C51754F94500900C54 /* target-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white.png"; sourceTree = "<group>"; };
+		1C8053C8175502D100900C54 /* target-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-checked.png"; sourceTree = "<group>"; };
+		1C8053C9175502D100900C54 /* target.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target.png; sourceTree = "<group>"; };
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -113,6 +120,15 @@
 		AC0AF4721754AB4600B766E0 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		AC0AF4731754AB4600B766E0 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		AC0AF4741754AB4600B766E0 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailViewController.h; sourceTree = "<group>"; };
+		AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailViewController.m; sourceTree = "<group>"; };
+		AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailViewController.xib; sourceTree = "<group>"; };
+		AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		AC0AF48A1754BC0000B766E0 /* RouteDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDetailTitleCell.h; sourceTree = "<group>"; };
+		AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteDetailTitleCell.m; sourceTree = "<group>"; };
+		AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteDetailTitleCell.xib; sourceTree = "<group>"; };
+		AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteStartViewController.xib; sourceTree = "<group>"; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -122,9 +138,6 @@
 		AC101682174D6F0F00761AC2 /* CLLocationDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDispatch.h; sourceTree = "<group>"; };
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
-		AC101699174FB07400761AC2 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
-		AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
-		AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailsViewController.xib; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		AC10171D1752D18B00761AC2 /* APIDataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIDataModels.h; sourceTree = "<group>"; };
 		AC10171E1752D18B00761AC2 /* GHGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGameData.h; sourceTree = "<group>"; };
@@ -163,14 +176,11 @@
 		ACDD9B7D1743B20200D64682 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACDD9B7F1743B20200D64682 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ACDD9B811743B20200D64682 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ACDD9B871743B20200D64682 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
 		ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 		ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionViewController.xib; sourceTree = "<group>"; };
 		ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStartViewController.h; sourceTree = "<group>"; };
 		ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStartViewController.m; sourceTree = "<group>"; };
-		ACDD9BD41743CDCE00D64682 /* RouteStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteStartViewController.xib; sourceTree = "<group>"; };
-		ACDD9BD71743D0E600D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/ViewController.xib; sourceTree = "<group>"; };
 		ACDD9BD81743D0E600D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACDD9BDC1743D1D700D64682 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ACDD9BDE1743D1DB00D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -187,6 +197,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */,
+				AC0AF4871754BA6300B766E0 /* SystemConfiguration.framework in Frameworks */,
 				1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */,
 				ACDD9BEA1743EBAB00D64682 /* QuartzCore.framework in Frameworks */,
 				ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */,
@@ -289,6 +301,9 @@
 		ACA60BC017539E1D00EA4D53 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				AC0AF48A1754BC0000B766E0 /* RouteDetailTitleCell.h */,
+				AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */,
+				AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -316,6 +331,8 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */,
+				AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */,
 				1CB18468174BC0A500D71DA4 /* CoreLocation.framework */,
 				ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */,
 				ACDD9B6B1743B20200D64682 /* UIKit.framework */,
@@ -340,14 +357,16 @@
 				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
+				AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */,
+				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
 				AC5133FD17452D7400472022 /* SelectionCell.h */,
 				AC5133FE17452D7400472022 /* SelectionCell.m */,
 				AC5BEDA6174CC5970067F08F /* SelectionCell.xib */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
-				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
-				ACDD9B861743B20200D64682 /* ViewController.xib */,
-				ACDD9BD41743CDCE00D64682 /* RouteStartViewController.xib */,
+				AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */,
+				AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */,
+				AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */,
 				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
 				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
@@ -356,9 +375,6 @@
 				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
 				1C1684F8174E4DBB00A77192 /* AppState.h */,
 				1C1684F9174E4DBB00A77192 /* AppState.m */,
-				AC101699174FB07400761AC2 /* LocationDetailsViewController.h */,
-				AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */,
-				AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */,
 				ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */,
 				ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */,
 				ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */,
@@ -389,6 +405,8 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1C8053C8175502D100900C54 /* target-checked.png */,
+				1C8053C9175502D100900C54 /* target.png */,
 				1C8053C41754F94500900C54 /* target-checked-white.png */,
 				1C8053C51754F94500900C54 /* target-white.png */,
 				1C8053BE1754DB9400900C54 /* nav-bottom.png */,
@@ -469,9 +487,7 @@
 				ACDD9B7E1743B20200D64682 /* Default.png in Resources */,
 				ACDD9B801743B20200D64682 /* Default@2x.png in Resources */,
 				ACDD9B821743B20200D64682 /* Default-568h@2x.png in Resources */,
-				ACDD9B881743B20200D64682 /* ViewController.xib in Resources */,
 				ACDD9BD11743CA8F00D64682 /* SelectionViewController.xib in Resources */,
-				ACDD9BD61743CDCE00D64682 /* RouteStartViewController.xib in Resources */,
 				ACDD9BDB1743D1D700D64682 /* Localizable.strings in Resources */,
 				ACDD9BE21743E8D700D64682 /* closebox.png in Resources */,
 				ACDD9BE31743E8D700D64682 /* closebox@2x.png in Resources */,
@@ -480,7 +496,6 @@
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
-				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
@@ -491,6 +506,11 @@
 				1C8053BF1754DB9400900C54 /* nav-bottom.png in Resources */,
 				1C8053C61754F94500900C54 /* target-checked-white.png in Resources */,
 				1C8053C71754F94500900C54 /* target-white.png in Resources */,
+				AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */,
+				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
+				AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */,
+				1C8053CA175502D100900C54 /* target-checked.png in Resources */,
+				1C8053CB175502D100900C54 /* target.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +551,6 @@
 				1C1684F7174E3BAF00A77192 /* CheckinView.m in Sources */,
 				1C1684FA174E4DBB00A77192 /* AppState.m in Sources */,
 				1C168500174E54A600A77192 /* Checkin.m in Sources */,
-				AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */,
 				AC1017261752D18B00761AC2 /* GHGameData.m in Sources */,
 				AC1017271752D18B00761AC2 /* GHProfiles.m in Sources */,
 				AC1017281752D18B00761AC2 /* GHRoutes.m in Sources */,
@@ -550,6 +569,8 @@
 				AC0AF47C1754AB4600B766E0 /* AFXMLRequestOperation.m in Sources */,
 				AC0AF47D1754AB4600B766E0 /* UIImageView+AFNetworking.m in Sources */,
 				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
+				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
+				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,15 +584,6 @@
 				ACDD9BD81743D0E600D64682 /* nl */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		ACDD9B861743B20200D64682 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ACDD9B871743B20200D64682 /* en */,
-				ACDD9BD71743D0E600D64682 /* nl */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 		ACDD9BDD1743D1D700D64682 /* Localizable.strings */ = {

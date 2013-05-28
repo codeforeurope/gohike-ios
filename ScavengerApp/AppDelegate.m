@@ -23,12 +23,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    NSString * language = [[AppState sharedInstance] language];
-    NSLog(@"The app was started with the language: %@", language);
     
+    // load the secret
+    __autoreleasing NSError* secretError = nil;
+    NSString *secretPath = [[NSBundle mainBundle] pathForResource:@"secret" ofType:@""];
+    [[AppState sharedInstance] setSecret:[NSString stringWithContentsOfFile:secretPath encoding:NSUTF8StringEncoding error:&secretError]];
 
-    
-    //Load Game Data
+    // Load Game Data
     __autoreleasing NSError* error = nil;
     GHGameData *gameData;
 
@@ -50,11 +51,12 @@
     }
 
     
-    //Restore game state
+    // Restore game state
     [[AppState sharedInstance] restore];
     NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     NSLog(@"Stored checkins: %@", [[AppState sharedInstance] checkins]);
     if ([[AppState sharedInstance] playerIsInCompass]) {
+        
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
         SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
@@ -66,6 +68,7 @@
         
     }
     else{
+        // We were not in compass view, so just load first screen
         SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
     }
@@ -102,7 +105,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-    // We already save everywhere in the app, so I am not using this
+    // We already save everywhere in the app, so not using this
 }
 
 @end
