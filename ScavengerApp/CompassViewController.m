@@ -16,25 +16,29 @@
 
 #import "RouteFinishedView.h"
 
+#import "NavigationStatusView.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #define CHECKIN_DISTANCE 5000 //meters
 //#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+#define STATUS_HEIGHT 50
+#define NAVBAR_HEIGHT 44
 
 @interface CompassViewController ()
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
 @property (nonatomic, weak) CheckinView * checkinView;
 @property (nonatomic, weak) RouteFinishedView *routeFinishedView;
-@property (nonatomic, strong) UILabel *distanceLabel;
+@property (nonatomic,strong) NavigationStatusView *statusView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
 @property (nonatomic, assign) BOOL checkinPending;
 @end
 
 @implementation CompassViewController
-@synthesize arrow, compass, checkinView;
+@synthesize arrow, compass, checkinView, statusView;
 @synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -100,17 +104,26 @@
         //NSLog(@"Destination heading: %f",destinationHeading);
         float adjusted_heading = destinationHeading - heading;
         float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
-        arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+        //arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
 
         
-//        [UIView animateWithDuration:0.1 delay:0.0 options:
-////         UIViewAnimationOptionBeginFromCurrentState |
-//         UIViewAnimationOptionCurveLinear animations:^{
-//            CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
-//            arrow.transform = transform;
-//        } completion:nil];
+        [UIView animateWithDuration:0.1 delay:0.0 options:
+//         UIViewAnimationOptionBeginFromCurrentState |
+         UIViewAnimationOptionCurveLinear animations:^{
+            CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+            arrow.transform = transform;
+        } completion:nil];
         
     }
+}
+
+//updates the statusview checkin display
+-(void) updateCheckinStatus
+{
+    //1b. update the statusview
+    NSArray *waypoints = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
+    NSArray *checkins = [[AppState sharedInstance] checkinsForRoute:[AppState sharedInstance].activeRouteId];
+    [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
 }
 
 -(IBAction)checkIn
@@ -119,6 +132,7 @@
     
     //1. record the checkin as done
     [[AppState sharedInstance] checkIn];
+    [self updateCheckinStatus];
     
     //2. change the active target
     BOOL continueRoute =  [[AppState sharedInstance] nextTarget];
@@ -153,18 +167,23 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"did update with destination: %@", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"] );
+    
+    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"];
+    NSLog(@"did update with destination: %@",destinationName);
+    
     CLLocation *currentLocation = [locations lastObject];
 //    NSLog(@"New user location: %@", currentLocation);
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
+        
         // If the event is recent, do something with it.
         double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
-        _distanceLabel.text = [NSString stringWithFormat:@"%f meters", distanceFromDestination];
+        [self.statusView update:destinationName withDistance:distanceFromDestination];
         
         if (distanceFromDestination < CHECKIN_DISTANCE) {
             NSLog(@"within distance");
+            
             if(!self.checkinPending)
             {
                 self.checkinPending = YES;
@@ -202,6 +221,9 @@
                                     target:nil
                                     action:nil];
     
+    CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
+    self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
+    [self updateCheckinStatus];
     
     if(locationManager == nil)
     {
@@ -223,39 +245,41 @@
         NSLog(@"Can't report heading");
     }
     
+    CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
+    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass.png"]];
+    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
+    [compass setFrame:compassRect];
+    [compass setCenter:screenCenter];
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
+    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
+    background.contentMode = UIViewContentModeScaleAspectFit;
+    [background setFrame:self.view.bounds];
+    [self.view addSubview:background];
+    
+    UIImage *gridImage = [UIImage imageNamed:@"grid.png"];
+    UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
+    grid.contentMode = UIViewContentModeScaleAspectFit;
+    [grid setFrame:self.view.bounds];
+    [grid setCenter:screenCenter];
+    
+    
     UIImage * arrowImage = [UIImage imageNamed:@"arrow.png"];
     arrow = [[UIImageView alloc] initWithImage:arrowImage];
-    [arrow.layer setBorderColor:[UIColor redColor].CGColor];
-    [arrow.layer setBorderWidth:1];
+    arrow.contentMode = UIViewContentModeScaleAspectFit;
     
     //[arrow setFrame:CGRectMake(20, 20, 100, 100)];
     CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
     [arrow setFrame:arrowRect];
-    [arrow setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
+    [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
     
-    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ring_compas.png"]];
-    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
-    [compass setFrame:compassRect];
-    [compass setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
-//    [compass setCenter:self.view.center];
-
-    
-    CGRect distanceLabelRect = CGRectMake(0, 0, 400, 50);
-    _distanceLabel = [[UILabel alloc] initWithFrame:distanceLabelRect];
-    _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.text = @"Calculating...";
-    _distanceLabel.textColor = [UIColor redColor];
-    _distanceLabel.textAlignment = NSTextAlignmentCenter;
-    _distanceLabel.center = CGPointMake(self.view.frame.size.width/2, 40);
-    _distanceLabel.font = [UIFont systemFontOfSize:22.0];
-    
-    [self.view addSubview:arrow];
+    [self.view addSubview:grid];
     [self.view addSubview:compass];
-    [self.view addSubview:_distanceLabel];
-    [self.view setBackgroundColor:[UIColor lightGrayColor]];
+    [self.view addSubview:arrow];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:self.statusView];
     
-    
-        
 }
 
 - (void)didReceiveMemoryWarning

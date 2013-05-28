@@ -11,6 +11,13 @@
 		1C1684F7174E3BAF00A77192 /* CheckinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684F6174E3BAF00A77192 /* CheckinView.m */; };
 		1C1684FA174E4DBB00A77192 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684F9174E4DBB00A77192 /* AppState.m */; };
 		1C168500174E54A600A77192 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1684FF174E54A600A77192 /* Checkin.m */; };
+		1C8053B61754B58400900C54 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053B51754B58400900C54 /* compass.png */; };
+		1C8053B81754BCDC00900C54 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053B71754BCDC00900C54 /* background.png */; };
+		1C8053BA1754BF3B00900C54 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053B91754BF3B00900C54 /* grid.png */; };
+		1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8053BC1754D30900900C54 /* NavigationStatusView.m */; };
+		1C8053BF1754DB9400900C54 /* nav-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053BE1754DB9400900C54 /* nav-bottom.png */; };
+		1C8053C61754F94500900C54 /* target-checked-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C41754F94500900C54 /* target-checked-white.png */; };
+		1C8053C71754F94500900C54 /* target-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8053C51754F94500900C54 /* target-white.png */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
@@ -37,7 +44,6 @@
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
-		AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDB7174CD8B40067F08F /* ring_compas.png */; };
 		ACA60BB8175357BC00EA4D53 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
 		ACA60BBD175365A700EA4D53 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BBC175365A700EA4D53 /* NSDataAdditions.m */; };
@@ -75,6 +81,14 @@
 		1C1684F9174E4DBB00A77192 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
 		1C1684FE174E54A600A77192 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkin.h; sourceTree = "<group>"; };
 		1C1684FF174E54A600A77192 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin.m; sourceTree = "<group>"; };
+		1C8053B51754B58400900C54 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
+		1C8053B71754BCDC00900C54 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		1C8053B91754BF3B00900C54 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		1C8053BB1754D30900900C54 /* NavigationStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationStatusView.h; sourceTree = "<group>"; };
+		1C8053BC1754D30900900C54 /* NavigationStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationStatusView.m; sourceTree = "<group>"; };
+		1C8053BE1754DB9400900C54 /* nav-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-bottom.png"; sourceTree = "<group>"; };
+		1C8053C41754F94500900C54 /* target-checked-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-checked-white.png"; sourceTree = "<group>"; };
+		1C8053C51754F94500900C54 /* target-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white.png"; sourceTree = "<group>"; };
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -125,7 +139,6 @@
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
-		AC5BEDB7174CD8B40067F08F /* ring_compas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_compas.png; sourceTree = "<group>"; };
 		ACA60BB61753577E00EA4D53 /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
 		ACA60BB7175357BC00EA4D53 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
 		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
@@ -323,6 +336,8 @@
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
+				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
+				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
 				AC5133FD17452D7400472022 /* SelectionCell.h */,
@@ -374,7 +389,12 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				AC5BEDB7174CD8B40067F08F /* ring_compas.png */,
+				1C8053C41754F94500900C54 /* target-checked-white.png */,
+				1C8053C51754F94500900C54 /* target-white.png */,
+				1C8053BE1754DB9400900C54 /* nav-bottom.png */,
+				1C8053B91754BF3B00900C54 /* grid.png */,
+				1C8053B71754BCDC00900C54 /* background.png */,
+				1C8053B51754B58400900C54 /* compass.png */,
 				AC5BEDA8174CC82D0067F08F /* default-profile.png */,
 				1CB18466174BB81800D71DA4 /* arrow.png */,
 				ACDD9BE01743E8D700D64682 /* closebox.png */,
@@ -459,13 +479,18 @@
 				1CB18467174BB81800D71DA4 /* arrow.png in Resources */,
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
-				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
 				AC0AF4601754AA1D00B766E0 /* secret in Resources */,
+				1C8053B61754B58400900C54 /* compass.png in Resources */,
+				1C8053B81754BCDC00900C54 /* background.png in Resources */,
+				1C8053BA1754BF3B00900C54 /* grid.png in Resources */,
+				1C8053BF1754DB9400900C54 /* nav-bottom.png in Resources */,
+				1C8053C61754F94500900C54 /* target-checked-white.png in Resources */,
+				1C8053C71754F94500900C54 /* target-white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +549,7 @@
 				AC0AF47B1754AB4600B766E0 /* AFURLConnectionOperation.m in Sources */,
 				AC0AF47C1754AB4600B766E0 /* AFXMLRequestOperation.m in Sources */,
 				AC0AF47D1754AB4600B766E0 /* UIImageView+AFNetworking.m in Sources */,
+				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
