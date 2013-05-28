@@ -14,26 +14,17 @@
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18467174BB81800D71DA4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB18466174BB81800D71DA4 /* arrow.png */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		AC0AF4601754AA1D00B766E0 /* secret in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF45F1754AA1D00B766E0 /* secret */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
-		AC101695174F875900761AC2 /* locations.json in Resources */ = {isa = PBXBuildFile; fileRef = AC101694174F875900761AC2 /* locations.json */; };
 		AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */; };
 		AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */; };
-		AC1017081752B2D100761AC2 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1016FB1752B2CF00761AC2 /* Location.m */; };
-		AC1017091752B2D100761AC2 /* PlayerProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1016FD1752B2D000761AC2 /* PlayerProgress.m */; };
-		AC10170A1752B2D100761AC2 /* Profiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1016FF1752B2D000761AC2 /* Profiles.m */; };
-		AC10170B1752B2D100761AC2 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017011752B2D000761AC2 /* Route.m */; };
-		AC10170C1752B2D100761AC2 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017031752B2D000761AC2 /* GameData.m */; };
-		AC10170D1752B2D100761AC2 /* Routes.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017051752B2D100761AC2 /* Routes.m */; };
-		AC10170E1752B2D100761AC2 /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017071752B2D100761AC2 /* Waypoint.m */; };
 		AC1017261752D18B00761AC2 /* GHGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10171F1752D18B00761AC2 /* GHGameData.m */; };
 		AC1017271752D18B00761AC2 /* GHProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017211752D18B00761AC2 /* GHProfiles.m */; };
 		AC1017281752D18B00761AC2 /* GHRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017231752D18B00761AC2 /* GHRoutes.m */; };
 		AC1017291752D18B00761AC2 /* GHWaypoints.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1017251752D18B00761AC2 /* GHWaypoints.m */; };
-		AC5133F01744EC3800472022 /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = AC5133EF1744EC3800472022 /* routes.json */; };
-		AC5133FA174512E600472022 /* playerprogress.json in Resources */ = {isa = PBXBuildFile; fileRef = AC5133F9174512E600472022 /* playerprogress.json */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
@@ -65,8 +56,6 @@
 		ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BE51743E93C00D64682 /* OverlayView.m */; };
 		ACDD9BE81743E93C00D64682 /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BE61743E93C00D64682 /* OverlayView.xib */; };
 		ACDD9BEA1743EBAB00D64682 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */; };
-		ACDD9C131744CB6600D64682 /* routeprofiles.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9C121744CB6600D64682 /* routeprofiles.json */; };
-		ACDD9C151744DFE500D64682 /* routeprofiles.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9C141744DFE500D64682 /* routeprofiles.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +70,7 @@
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18466174BB81800D71DA4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AC0AF45F1754AA1D00B766E0 /* secret */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = secret; path = ScavengerApp/secret; sourceTree = SOURCE_ROOT; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -90,25 +80,10 @@
 		AC101682174D6F0F00761AC2 /* CLLocationDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDispatch.h; sourceTree = "<group>"; };
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
-		AC101694174F875900761AC2 /* locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locations.json; sourceTree = "<group>"; };
 		AC101699174FB07400761AC2 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
 		AC10169A174FB07400761AC2 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
 		AC10169B174FB07500761AC2 /* LocationDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailsViewController.xib; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
-		AC1016FA1752B2CF00761AC2 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		AC1016FB1752B2CF00761AC2 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		AC1016FC1752B2CF00761AC2 /* PlayerProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProgress.h; sourceTree = "<group>"; };
-		AC1016FD1752B2D000761AC2 /* PlayerProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerProgress.m; sourceTree = "<group>"; };
-		AC1016FE1752B2D000761AC2 /* Profiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profiles.h; sourceTree = "<group>"; };
-		AC1016FF1752B2D000761AC2 /* Profiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profiles.m; sourceTree = "<group>"; };
-		AC1017001752B2D000761AC2 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
-		AC1017011752B2D000761AC2 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
-		AC1017021752B2D000761AC2 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
-		AC1017031752B2D000761AC2 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
-		AC1017041752B2D100761AC2 /* Routes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Routes.h; sourceTree = "<group>"; };
-		AC1017051752B2D100761AC2 /* Routes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Routes.m; sourceTree = "<group>"; };
-		AC1017061752B2D100761AC2 /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
-		AC1017071752B2D100761AC2 /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		AC10171D1752D18B00761AC2 /* APIDataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIDataModels.h; sourceTree = "<group>"; };
 		AC10171E1752D18B00761AC2 /* GHGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGameData.h; sourceTree = "<group>"; };
 		AC10171F1752D18B00761AC2 /* GHGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGameData.m; sourceTree = "<group>"; };
@@ -118,8 +93,6 @@
 		AC1017231752D18B00761AC2 /* GHRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRoutes.m; sourceTree = "<group>"; };
 		AC1017241752D18B00761AC2 /* GHWaypoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHWaypoints.h; sourceTree = "<group>"; };
 		AC1017251752D18B00761AC2 /* GHWaypoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHWaypoints.m; sourceTree = "<group>"; };
-		AC5133EF1744EC3800472022 /* routes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = routes.json; sourceTree = "<group>"; };
-		AC5133F9174512E600472022 /* playerprogress.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = playerprogress.json; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionCell.h; sourceTree = "<group>"; };
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionCell.xib; sourceTree = "<group>"; };
@@ -166,8 +139,6 @@
 		ACDD9BE51743E93C00D64682 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		ACDD9BE61743E93C00D64682 /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		ACDD9C121744CB6600D64682 /* routeprofiles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = routeprofiles.json; sourceTree = "<group>"; };
-		ACDD9C141744DFE500D64682 /* routeprofiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = routeprofiles.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,20 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				AC1016F91752B2CF00761AC2 /* DataModels.h */,
-				AC1016FA1752B2CF00761AC2 /* Location.h */,
-				AC1016FB1752B2CF00761AC2 /* Location.m */,
-				AC1016FC1752B2CF00761AC2 /* PlayerProgress.h */,
-				AC1016FD1752B2D000761AC2 /* PlayerProgress.m */,
-				AC1016FE1752B2D000761AC2 /* Profiles.h */,
-				AC1016FF1752B2D000761AC2 /* Profiles.m */,
-				AC1017001752B2D000761AC2 /* Route.h */,
-				AC1017011752B2D000761AC2 /* Route.m */,
-				AC1017021752B2D000761AC2 /* GameData.h */,
-				AC1017031752B2D000761AC2 /* GameData.m */,
-				AC1017041752B2D100761AC2 /* Routes.h */,
-				AC1017051752B2D100761AC2 /* Routes.m */,
-				AC1017061752B2D100761AC2 /* Waypoint.h */,
-				AC1017071752B2D100761AC2 /* Waypoint.m */,
 				1C1684FE174E54A600A77192 /* Checkin.h */,
 				1C1684FF174E54A600A77192 /* Checkin.m */,
 			);
@@ -373,12 +330,8 @@
 		ACDD9C111744CB6500D64682 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AC0AF45F1754AA1D00B766E0 /* secret */,
 				ACA60BB917535BEF00EA4D53 /* content.json */,
-				ACDD9C121744CB6600D64682 /* routeprofiles.json */,
-				ACDD9C141744DFE500D64682 /* routeprofiles.plist */,
-				AC5133EF1744EC3800472022 /* routes.json */,
-				AC5133F9174512E600472022 /* playerprogress.json */,
-				AC101694174F875900761AC2 /* locations.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -447,20 +400,16 @@
 				ACDD9BE21743E8D700D64682 /* closebox.png in Resources */,
 				ACDD9BE31743E8D700D64682 /* closebox@2x.png in Resources */,
 				ACDD9BE81743E93C00D64682 /* OverlayView.xib in Resources */,
-				ACDD9C131744CB6600D64682 /* routeprofiles.json in Resources */,
-				ACDD9C151744DFE500D64682 /* routeprofiles.plist in Resources */,
-				AC5133F01744EC3800472022 /* routes.json in Resources */,
-				AC5133FA174512E600472022 /* playerprogress.json in Resources */,
 				1CB18467174BB81800D71DA4 /* arrow.png in Resources */,
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				AC5BEDB8174CD8B40067F08F /* ring_compas.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
-				AC101695174F875900761AC2 /* locations.json in Resources */,
 				AC10169D174FB07500761AC2 /* LocationDetailsViewController.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
+				AC0AF4601754AA1D00B766E0 /* secret in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,13 +451,6 @@
 				1C1684FA174E4DBB00A77192 /* AppState.m in Sources */,
 				1C168500174E54A600A77192 /* Checkin.m in Sources */,
 				AC10169C174FB07500761AC2 /* LocationDetailsViewController.m in Sources */,
-				AC1017081752B2D100761AC2 /* Location.m in Sources */,
-				AC1017091752B2D100761AC2 /* PlayerProgress.m in Sources */,
-				AC10170A1752B2D100761AC2 /* Profiles.m in Sources */,
-				AC10170B1752B2D100761AC2 /* Route.m in Sources */,
-				AC10170C1752B2D100761AC2 /* GameData.m in Sources */,
-				AC10170D1752B2D100761AC2 /* Routes.m in Sources */,
-				AC10170E1752B2D100761AC2 /* Waypoint.m in Sources */,
 				AC1017261752D18B00761AC2 /* GHGameData.m in Sources */,
 				AC1017271752D18B00761AC2 /* GHProfiles.m in Sources */,
 				AC1017281752D18B00761AC2 /* GHRoutes.m in Sources */,
