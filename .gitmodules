@@ -1,3 +1,6 @@
 [submodule "CoreLocationUtils"]
 	path = CoreLocationUtils
 	url = https://github.com/100grams/CoreLocationUtils.git
+[submodule "AFNetworking"]
+	path = AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git
