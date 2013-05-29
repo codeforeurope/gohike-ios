@@ -118,7 +118,6 @@
     NSIndexSet *indexes = [_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return ((Checkin*)obj).routeId == routeId ;
     }];
-    
     return [_checkins objectsAtIndexes:indexes];
 }
 
@@ -137,14 +136,18 @@
 {
     NSArray *waypoints = [[self routeWithId:routeId] objectForKey:@"waypoints"];
     NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
+    NSLog(@"checkinsforRoute %@", checkinsForRoute);
     NSMutableArray *waypointsWithVisit = [[NSMutableArray alloc] init];
     
     [waypoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
         NSMutableDictionary *wp = [[NSMutableDictionary alloc] initWithDictionary:obj];
         NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            NSLog(@" ((Checkin*)obj).locationId  %d",  ((Checkin*)obj).locationId );
             return [[wp objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
         }];
+        NSLog(@"ischeckedin %d", isCheckedIn);
+        NSLog(@"NSNotFound %d", NSNotFound);
         if(isCheckedIn != NSNotFound){
             [wp setObject:[NSNumber numberWithBool:YES] forKey:@"visited"];
         }
@@ -183,10 +186,8 @@
     [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
     //    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
-    
-    
+
     [encoder finishEncoding];
-    
     
     BOOL result = [data writeToFile:filePath atomically:YES];
     

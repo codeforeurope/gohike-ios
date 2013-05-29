@@ -11,6 +11,7 @@
 #import "LocationDetailViewController.h"
 #import "NSDataAdditions.h"
 #import "RouteDetailTitleCell.h"
+#import "RewardViewController.h"
 
 @interface RouteStartViewController ()
 
@@ -27,25 +28,6 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-//
-////        Location *loc1 = [[Location alloc] init];
-////        loc1.locationId = 1;
-////        loc1.locationName = @"Rembrandtoren";
-////        loc1.locationPicture = @"";
-////        loc1.latitude = 52.34444;
-////        loc1.longitude = 4.91667;
-////        
-////        Location *loc2 = [[Location alloc] init];
-////        loc2.locationId = 2;
-////        loc2.locationName = @"RAI Congress Center";
-////        loc2.locationPicture = @"";
-////        loc2.latitude = 52.34123;
-////        loc2.longitude = 4.92;
-////        
-////        [AppState sharedInstance].locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-////        _currentRoute.locations = [NSArray arrayWithObjects:loc1, loc2, nil];
-////        [AppState sharedInstance].activeTarget = [[AppState sharedInstance].locations objectAtIndex:0];
-////        [AppState sharedInstance].activeTargetId = [AppState sharedInstance].activeTarget.locationId;
     }
     return self;
 }
@@ -61,13 +43,13 @@
     }];
     
     if (firstUncheckedIndex == NSNotFound) {
-        // Route is complete
+        // Route is complete, put reward button
         UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
         self.navigationItem.rightBarButtonItem = viewRewardButton;
     }
     else{
-        // Route is not complete
-        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
+        // Route is not complete, put "go hike" button
+        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
         self.navigationItem.rightBarButtonItem = startRouteButton;
     }
     
@@ -118,9 +100,8 @@
         case 0:
         {
             static NSString *CellIdentifier = @"GHRouteDetailTitleCell";
-           RouteDetailTitleCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            RouteDetailTitleCell  *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
-//                cell = [[RouteDetailTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RouteDetailTitleCell" owner:self options:nil];
                 cell = [nib objectAtIndex:0];
             }
@@ -130,7 +111,6 @@
             cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
             
             return cell;
-
         }
             break;
         case 1:
@@ -141,12 +121,8 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
                        
-            NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];  // [[AppState sharedInstance] waypointsWithCheckinsForRoute:1 objectAtIndex:indexPath.row];
-            //We check if the current waypoint has a check-in from the user
-//            NSArray *checkinsForRoute = [[AppState sharedInstance] checkinsForRoute:[[_route objectForKey:@"id"] integerValue]] ;
-//            NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-//                return [[waypoint objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
-//            }];
+            NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+            
             NSLog(@"waypoint %@", waypoint);
             if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
@@ -160,7 +136,6 @@
             cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
             return cell;
         }
-
             break;
         default:
             break;
@@ -246,10 +221,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    //TODO: open the location details (if it has already been visited)
-    
+{   
     if(indexPath.section == 1)
     {
         NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
@@ -262,8 +234,7 @@
         else{
             
         }
-
-        
+   
     }
     
     // Navigation logic may go here. Create and push another view controller.
@@ -275,17 +246,15 @@
      */
 }
 
+#pragma mark - Actions
+
 - (void)startRoute
 {
-   
-    NSLog(@"Start route!");
-//    NSArray *waypoints = [_route objectForKey:@"waypoints"];
     NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
     NSDictionary *nextWaypoint;
     
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"visited"] boolValue] == YES;
-        
     }];
     
     nextWaypoint = [waypoints objectAtIndex:firstUncheckedIndex];
@@ -298,8 +267,6 @@
     
     CompassViewController *compass = [[CompassViewController alloc] init];
     [self.navigationController pushViewController:compass animated:YES];
-
-    
     
 //    if([waypoints count] > 0)
 //    {
@@ -324,13 +291,14 @@
 //    CompassViewController *compass = [[CompassViewController alloc] init];
 //    [self.navigationController pushViewController:compass animated:YES];
     
-    
 }
 
 
 - (void)viewReward
 {
-    
+    //TODO: finish the display of the reward!
+    RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
+    [self.navigationController pushViewController:rvc animated:YES];
 }
 
 @end
