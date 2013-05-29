@@ -16,6 +16,8 @@
 
 #import "CompassViewController.h"
 
+#import "AFNetworking.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,6 +37,14 @@
 
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
     NSData* data = [NSData dataWithContentsOfFile:bundlePath];
+
+
+//    
+//    [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser) {
+//        XMLParser.delegate = self;
+//        [XMLParser parse];
+//    } failure:nil];
+//    [operation start];
 //    NSString *gameDataChecksum = [data MD5];
     
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -73,6 +83,46 @@
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
     }
 
+    // Update
+    
+    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
+    NSLog(@"current version %@", currentVersion);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://gohike.herokuapp.com/api/ping?version=%@", currentVersion]]];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"%@", [JSON objectForKey:@"status"]);
+        if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
+        {
+            NSMutableURLRequest *contentRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://gohike.herokuapp.com/api/content"]];
+            [contentRequest setHTTPMethod:@"GET"];
+            AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                
+                NSLog(@"saving new data to disk");
+                NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+                __autoreleasing NSError* contentError = nil;
+                [JSON writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&contentError];
+                if(!contentError)
+                {
+                    NSLog(@"Updated ok");
+                }
+                
+            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                NSLog(@"download of new content failed");
+            }];
+            [contentOperation start];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Update request failed with error: %@", [error description]);
+    }];
+    [operation start];
+    
+    
+    
+    //Start app
     
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
