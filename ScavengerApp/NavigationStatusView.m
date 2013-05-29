@@ -72,8 +72,8 @@
 //update the collection of completed checkins
 -(void) setCheckinsComplete:(int)complete ofTotal:(int)total
 {
-    UIImage * targetImage = [UIImage imageNamed:@"target-white.png"];
-    UIImage * targetCompleteImage = [UIImage imageNamed:@"target-checked-white.png"];
+    UIImage * targetImage = [UIImage imageNamed:@"target-white-small.png"];
+    UIImage * targetCompleteImage = [UIImage imageNamed:@"target-checked-white-small.png"];
     
     float side = self.checkinsView.bounds.size.height - 2;
     

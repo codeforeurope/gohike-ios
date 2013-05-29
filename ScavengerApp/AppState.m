@@ -142,14 +142,19 @@
     [waypoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
         NSMutableDictionary *wp = [[NSMutableDictionary alloc] initWithDictionary:obj];
-        NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@" ((Checkin*)obj).locationId  %d",  ((Checkin*)obj).locationId );
-            return [[wp objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
-        }];
-        NSLog(@"ischeckedin %d", isCheckedIn);
-        NSLog(@"NSNotFound %d", NSNotFound);
-        if(isCheckedIn != NSNotFound){
-            [wp setObject:[NSNumber numberWithBool:YES] forKey:@"visited"];
+        if (checkinsForRoute) {
+            NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                NSLog(@" ((Checkin*)obj).locationId  %d",  ((Checkin*)obj).locationId );
+                return [[wp objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
+            }];
+            NSLog(@"ischeckedin %d", isCheckedIn);
+            NSLog(@"NSNotFound %d", NSNotFound);
+            if(isCheckedIn != NSNotFound){
+                [wp setObject:[NSNumber numberWithBool:YES] forKey:@"visited"];
+            }
+            else{
+                [wp setObject:[NSNumber numberWithBool:NO] forKey:@"visited"];
+            }
         }
         else{
             [wp setObject:[NSNumber numberWithBool:NO] forKey:@"visited"];

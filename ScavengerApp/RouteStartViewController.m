@@ -44,13 +44,13 @@
     
     if (firstUncheckedIndex == NSNotFound) {
         // Route is complete, put reward button
-        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
-        self.navigationItem.rightBarButtonItem = viewRewardButton;
+        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
+        self.navigationItem.rightBarButtonItem = startRouteButton;
     }
     else{
         // Route is not complete, put "go hike" button
-        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
-        self.navigationItem.rightBarButtonItem = startRouteButton;
+        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
+        self.navigationItem.rightBarButtonItem = viewRewardButton;
     }
     
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
@@ -254,7 +254,7 @@
     NSDictionary *nextWaypoint;
     
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == YES;
+        return [[obj objectForKey:@"visited"] boolValue] == NO;
     }];
     
     nextWaypoint = [waypoints objectAtIndex:firstUncheckedIndex];
