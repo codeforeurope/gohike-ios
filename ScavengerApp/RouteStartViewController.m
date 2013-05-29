@@ -41,16 +41,16 @@
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"visited"] boolValue] == YES;  
     }];
-    
+    NSLog(@"firstUncheckedIndex %d", firstUncheckedIndex);
     if (firstUncheckedIndex == NSNotFound) {
         // Route is complete, put reward button
-        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
-        self.navigationItem.rightBarButtonItem = startRouteButton;
+        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
+        self.navigationItem.rightBarButtonItem = viewRewardButton;
     }
     else{
         // Route is not complete, put "go hike" button
-        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
-        self.navigationItem.rightBarButtonItem = viewRewardButton;
+        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
+        self.navigationItem.rightBarButtonItem = startRouteButton;
     }
     
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];

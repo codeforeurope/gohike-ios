@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSString *nameEn;
 @property (nonatomic, assign) double routesIdentifier;
-@property (nonatomic, assign) id iconData;
+@property (nonatomic, strong) NSString *iconData;
 @property (nonatomic, strong) NSString *nameNl;
 @property (nonatomic, strong) NSString *imageData;
 @property (nonatomic, assign) double profileId;

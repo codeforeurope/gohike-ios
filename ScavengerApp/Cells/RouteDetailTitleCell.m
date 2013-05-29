@@ -7,6 +7,7 @@
 //
 
 #import "RouteDetailTitleCell.h"
+#import "QuartzCore/CALayer.h"
 
 @implementation RouteDetailTitleCell
 
@@ -17,6 +18,14 @@
         // Initialization code
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    _routeImage.layer.shadowColor = [UIColor blackColor].CGColor;
+    _routeImage.layer.shadowOffset = CGSizeMake(0, 2);
+    _routeImage.layer.shadowOpacity = 1;
+    _routeImage.layer.shadowRadius = 1.0;
+    _routeImage.clipsToBounds = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

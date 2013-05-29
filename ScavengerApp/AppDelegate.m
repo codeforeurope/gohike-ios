@@ -55,7 +55,7 @@
     [[AppState sharedInstance] restore];
     NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     NSLog(@"Stored checkins: %@", [[AppState sharedInstance] checkins]);
-    if ([[AppState sharedInstance] playerIsInCompass]) {
+    if ([[AppState sharedInstance] playerIsInCompass] == YES) {
         
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
         SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];

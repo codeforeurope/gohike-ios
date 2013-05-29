@@ -12,5 +12,6 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView *profileImage;
 @property (nonatomic, weak) IBOutlet UILabel *profileLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bottomLabel;
 
 @end

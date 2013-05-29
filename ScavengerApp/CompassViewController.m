@@ -59,9 +59,9 @@
     return self;
 }
 
--(IBAction)BackButtonPressed:(id)sender
+-(void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"BackButtonPressed");
+    NSLog(@"Bye!");
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
 }
