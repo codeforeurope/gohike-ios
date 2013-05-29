@@ -20,9 +20,9 @@
         [self addSubview:backImage];
         
         //add text vertical mid after 
-        NSString *labelText = @"Back";
+        NSString *labelText = NSLocalizedString(@"Back", nil);
         float padding = 10;
-        UIFont *font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]]; //[UIFont systemFontOfSize:[UIFont systemFontSize]];
         CGSize labelSize = [labelText sizeWithFont:font];
         UILabel *backLabel = [[UILabel alloc] initWithFrame:CGRectMake(backImage.frame.size.width + padding, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
         backLabel.font = font;

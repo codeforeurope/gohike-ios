@@ -10,18 +10,60 @@
 
 #import "SelectionViewController.h"
 
-#import "NSData+MD5.h"
-
 #import "RouteStartViewController.h"
 
 #import "CompassViewController.h"
 
 #import "AFNetworking.h"
 
+#import "BackButtonView.h"
+
 @implementation AppDelegate
+
+- (void)customizeAppearance
+{
+    // Create resizable images
+    UIImage *topNavbarImage = [[UIImage imageNamed:@"navigation-top-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    UIImage *gradientImage44 = [[UIImage imageNamed:@"surf_gradient_textured_44"]
+//                                resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    UIImage *gradientImage32 = [[UIImage imageNamed:@"surf_gradient_textured_32"]
+//                                resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
+    // Set the background image for *all* UINavigationBars
+    [[UINavigationBar appearance] setBackgroundImage:topNavbarImage
+                                       forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:gradientImage32
+//                                       forBarMetrics:UIBarMetricsLandscapePhone];
+    
+    // Customize the title text for *all* UINavigationBars
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+      UITextAttributeTextColor,
+      [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
+      UITextAttributeTextShadowColor,
+      [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
+      UITextAttributeTextShadowOffset,
+      [UIFont fontWithName:@"HelveticaNeue" size:0.0],
+      UITextAttributeFont,
+      nil]];
+    
+    
+//    UIImage *buttonBack30 = [[UIImage imageNamed:@"button_back_textured_30"]
+//                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 5)];
+//    UIImage *buttonBack24 = [[UIImage imageNamed:@"button_back_textured_24"]
+//                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 5)];
+//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:buttonBack30
+//                                                      forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:buttonBack24
+//                                                      forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self customizeAppearance];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
@@ -33,7 +75,7 @@
     
     // Get device UDID
     NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-    
+    //TODO: Get a proper device ID
 
     // Load Game Data
     __autoreleasing NSError* error = nil;

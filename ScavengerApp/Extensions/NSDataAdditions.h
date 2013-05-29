@@ -23,4 +23,6 @@
 - (BOOL) hasSuffix:(NSData *) suffix;
 - (BOOL) hasSuffixBytes:(const void *) suffix length:(NSUInteger) length;
 
+- (NSString *)MD5;
+
 @end

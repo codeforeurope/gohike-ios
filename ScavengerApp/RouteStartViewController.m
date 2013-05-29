@@ -13,6 +13,8 @@
 #import "RouteDetailTitleCell.h"
 #import "RewardViewController.h"
 
+#import "BackButtonView.h"
+
 @interface RouteStartViewController ()
 
 //@property (nonatomic, strong) NSArray *checkins;
@@ -35,11 +37,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
     
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == YES;  
+        return [[obj objectForKey:@"visited"] boolValue] == NO;
     }];
     NSLog(@"firstUncheckedIndex %d", firstUncheckedIndex);
     if (firstUncheckedIndex == NSNotFound) {
@@ -123,7 +125,6 @@
                        
             NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
             
-            NSLog(@"waypoint %@", waypoint);
             if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
