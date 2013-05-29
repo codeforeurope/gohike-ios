@@ -32,7 +32,8 @@
     [[AppState sharedInstance] setSecret:[NSString stringWithContentsOfFile:secretPath encoding:NSUTF8StringEncoding error:&secretError]];
     
     // Get device UDID
-
+    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
+    
 
     // Load Game Data
     __autoreleasing NSError* error = nil;
@@ -80,43 +81,77 @@
 
     // Update
     
+    NSURL *url = [NSURL URLWithString:@"http://gohike.herokuapp.com/api"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
     NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
     NSLog(@"current version %@", currentVersion);
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://gohike.herokuapp.com/api/ping?version=%@", currentVersion]]];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:@"POST"];
+    if ([httpClient networkReachabilityStatus] == AFNetworkReachabilityStatusReachableViaWiFi) {
+        //We try to download new content only if we are on wifi
+        NSMutableURLRequest *pingRequest = [httpClient requestWithMethod:@"POST" path:@"/ping" parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentVersion, @"version", nil]];
+        [pingRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"%@", [JSON objectForKey:@"status"]);
-        if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:pingRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            NSLog(@"Status: %@", [JSON objectForKey:@"status"]);
+            if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
+            {
+                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/content" parameters:nil];
+            
+                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
+                    NSLog(@"Saving new data to disk");
+                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+                    __autoreleasing NSError* contentError = nil;
+                   
+                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
+                                                                       options:kNilOptions
+                                                                         error:&contentError];
+                    if([jsonData writeToFile:filePath atomically:YES])
+                    {
+                        NSLog(@"Updated ok");
+                    }
+                    
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                    NSLog(@"Download of new content failed");
+                }];
+                [contentOperation start];
+            }
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSLog(@"Update request failed with error: %@", [error description]);
+        }];
+        [operation start];
+    }
+    
+    // Try to push checkins, if network is reachable
+
+    if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
+    {
+        NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return ((Checkin*)obj).uploaded == NO;
+        }];
+        NSArray *checkinsToPush = [[[AppState sharedInstance] checkins] objectsAtIndexes:indexes];
+        if([checkinsToPush count] > 0)
         {
-            NSMutableURLRequest *contentRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://gohike.herokuapp.com/api/content"]];
-            [contentRequest setHTTPMethod:@"GET"];
-            AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                
-                NSLog(@"saving new data to disk");
-                NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-                __autoreleasing NSError* contentError = nil;
-                [JSON writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&contentError];
-                if(!contentError)
-                {
-                    NSLog(@"Updated ok");
-                }
+            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/checkin" parameters:[NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil]];
+            [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [checkinRequest setValue:[[AppState sharedInstance] secret] forHTTPHeaderField:@"Take-A-Hike-Secret"];
+            AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                NSLog(@"Pushed checkins OK!");
+                // Set checkin to uploaded
+                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    ((Checkin*)obj).uploaded = YES;
+                }];
                 
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                NSLog(@"download of new content failed");
+                NSLog(@"Failed to update checkins: %@",[error description]);
             }];
-            [contentOperation start];
+            
+            [httpClient enqueueHTTPRequestOperation:checkinOperation];
         }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Update request failed with error: %@", [error description]);
-    }];
-    [operation start];
-    
-    
-    
+
+    }
     //Start app
     
     self.window.rootViewController = self.navigationController;
@@ -152,5 +187,8 @@
     
     // We already save everywhere in the app, so not using this
 }
+
+//static NSString *serviceName = @"net.codeforeurope.gohike";
+//[[NSBundle mainBundle] bundleIdentifier]
 
 @end

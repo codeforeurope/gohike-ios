@@ -51,6 +51,8 @@
 		AC0AF4AC1756323D00B766E0 /* icon-map.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4A71756323D00B766E0 /* icon-map.png */; };
 		AC0AF4AD1756323D00B766E0 /* navigation-bottom-background.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4A81756323D00B766E0 /* navigation-bottom-background.png */; };
 		AC0AF4AE1756323D00B766E0 /* navigation-top-background.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4A91756323D00B766E0 /* navigation-top-background.png */; };
+		AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4AF175633B600B766E0 /* Security.framework */; };
+		AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4B2175637EE00B766E0 /* KeychainManager.m */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
@@ -151,6 +153,9 @@
 		AC0AF4A71756323D00B766E0 /* icon-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-map.png"; sourceTree = "<group>"; };
 		AC0AF4A81756323D00B766E0 /* navigation-bottom-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-bottom-background.png"; sourceTree = "<group>"; };
 		AC0AF4A91756323D00B766E0 /* navigation-top-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-top-background.png"; sourceTree = "<group>"; };
+		AC0AF4AF175633B600B766E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AC0AF4B1175637ED00B766E0 /* KeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainManager.h; sourceTree = "<group>"; };
+		AC0AF4B2175637EE00B766E0 /* KeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainManager.m; sourceTree = "<group>"; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */,
 				AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */,
 				AC0AF4871754BA6300B766E0 /* SystemConfiguration.framework in Frameworks */,
 				1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */,
@@ -356,6 +362,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC0AF4AF175633B600B766E0 /* Security.framework */,
 				AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */,
 				AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */,
 				1CB18468174BC0A500D71DA4 /* CoreLocation.framework */,
@@ -404,6 +411,8 @@
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
+				AC0AF4B1175637ED00B766E0 /* KeychainManager.h */,
+				AC0AF4B2175637EE00B766E0 /* KeychainManager.m */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
 			);
 			path = ScavengerApp;
@@ -615,6 +624,7 @@
 				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
 				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
+				AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -47,7 +47,11 @@
 //    [self.collectionView registerClass:[SelectionCell class] forCellWithReuseIdentifier:@"SelectionCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"SelectionCell" bundle:nil] forCellWithReuseIdentifier:@"SelectionCell"];
     
-    
+}
+
+
+-(void) viewDidAppear:(BOOL)animated
+{
     //How to play screen
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"howtoplay_displayed"] == nil) {
         OverlayView *overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
@@ -59,10 +63,9 @@
                             [self.view addSubview:overlayView];
                         }
                         completion:nil];
-//        [[NSUserDefaults standardUserDefaults] setObject:YES forKey:@"howtoplay_displayed"];
+        //        [[NSUserDefaults standardUserDefaults] setObject:YES forKey:@"howtoplay_displayed"];
     }
 }
-
 
 - (void)loadData
 {
