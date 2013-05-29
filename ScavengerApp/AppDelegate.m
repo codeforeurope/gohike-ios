@@ -30,6 +30,9 @@
     __autoreleasing NSError* secretError = nil;
     NSString *secretPath = [[NSBundle mainBundle] pathForResource:@"secret" ofType:@""];
     [[AppState sharedInstance] setSecret:[NSString stringWithContentsOfFile:secretPath encoding:NSUTF8StringEncoding error:&secretError]];
+    
+    // Get device UDID
+
 
     // Load Game Data
     __autoreleasing NSError* error = nil;
@@ -38,14 +41,6 @@
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
     NSData* data = [NSData dataWithContentsOfFile:bundlePath];
 
-
-//    
-//    [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser) {
-//        XMLParser.delegate = self;
-//        [XMLParser parse];
-//    } failure:nil];
-//    [operation start];
-//    NSString *gameDataChecksum = [data MD5];
     
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
