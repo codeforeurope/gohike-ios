@@ -10,4 +10,7 @@
 
 @interface CheckinView : UIView
 
+@property (nonatomic, weak) IBOutlet UITextView *locationTextView;
+@property (nonatomic, weak) IBOutlet UILabel *checkInLabel;
+
 @end

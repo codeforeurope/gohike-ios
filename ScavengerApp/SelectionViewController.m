@@ -9,7 +9,6 @@
 #import "SelectionViewController.h"
 #import "RouteStartViewController.h"
 #import "OverlayView.h"
-#import "DataModels.h"
 #import "SelectionCell.h"
 
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

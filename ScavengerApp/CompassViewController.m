@@ -20,7 +20,11 @@
 
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
+#if DEBUG
 #define CHECKIN_DISTANCE 5000 //meters
+#else
+#define CHECKIN_DISTANCE 50 //meters
+#endif
 //#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 #define STATUS_HEIGHT 50
@@ -54,14 +58,12 @@
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
-        NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
     }
     return self;
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"Bye!");
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
 }
@@ -142,7 +144,6 @@
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
-        NSLog(@"Active waypoint: %@", [[AppState sharedInstance] activeWaypoint]);
         
         
         [self.checkinView removeFromSuperview];
@@ -187,7 +188,14 @@
             if(!self.checkinPending)
             {
                 self.checkinPending = YES;
-                UIView *aCheckinView = [[[NSBundle mainBundle] loadNibNamed:@"CheckinView" owner:self options:nil] objectAtIndex:0];
+//                UIView *aCheckinView = [[[NSBundle mainBundle] loadNibNamed:@"CheckinView" owner:self options:nil] objectAtIndex:0];
+                //Begin - Added by Giovanni 2013-05-28
+                //TODO: to test
+                NSString *langKey = [[AppState sharedInstance] language];
+                CheckinView *aCheckinView = [[CheckinView alloc] init];
+                aCheckinView.locationTextView.text = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
+                aCheckinView.checkInLabel.text = NSLocalizedString(@"You can check-in!", nil);
+                //End - Added by Giovanni 2013-05-28
                 self.checkinView = (CheckinView*)aCheckinView;
                 [self.view addSubview:checkinView];
                 NSLog(@"add checkin view");
@@ -210,13 +218,13 @@
 	// Do any additional setup after loading the view.
     
     self.navigationItem.backBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Exit"
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Exit", nil)
                                      style:UIBarButtonItemStyleBordered
                                     target:nil
                                     action:@selector(BackButtonPressed:)];
     
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Map"
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Map", nil)
                                      style:UIBarButtonItemStyleBordered
                                     target:nil
                                     action:nil];

@@ -14,7 +14,6 @@
 
 @interface CompassViewController : UIViewController <CLLocationManagerDelegate>
 
-
 -(IBAction) checkIn;
 -(IBAction) finishRoute:(id)sender;
 -(IBAction) goToReward:(id)sender;

@@ -27,12 +27,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share on Facebook!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonTapped)];
+    self.navigationItem.rightBarButtonItem = shareButton;
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)shareButtonTapped
+{
+    //TODO: Share on Facebook using the integrated facebook 
 }
 
 @end

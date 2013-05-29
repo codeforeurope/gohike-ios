@@ -36,10 +36,24 @@
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:[NSNumber numberWithDouble:self.locationId] forKey:@"locationId"];
     [mutableDict setValue:[NSNumber numberWithDouble:self.routeId] forKey:@"routeId"];
-    [mutableDict setValue:self.timestamp forKey:@"timestamp"];
+    
+    //Use the string for correct conversion to JSON
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss Z"]; 
+    NSString *dateToString = [formatter stringFromDate:self.timestamp];
+    [mutableDict setValue:dateToString forKey:@"timestamp"];
+    
+    // Default implementation, not ok with JSON
+//    [mutableDict setValue:self.timestamp forKey:@"timestamp"];
     [mutableDict setValue:[NSNumber numberWithBool:self.uploaded] forKey:@"uploaded"];
     
     return [NSDictionary dictionaryWithDictionary:mutableDict];
+}
+
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
 }
 
 @end

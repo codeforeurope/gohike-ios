@@ -16,7 +16,7 @@
 
 #import "AFNetworking.h"
 
-#import "BackButtonView.h"
+#define kGOHIKEAPIURL @"http://gohike.herokuapp.com/api"
 
 @implementation AppDelegate
 
@@ -40,10 +40,10 @@
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
       UITextAttributeTextColor,
-      [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
-      UITextAttributeTextShadowColor,
-      [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
-      UITextAttributeTextShadowOffset,
+      //[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
+      //UITextAttributeTextShadowColor,
+      //[NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
+      //UITextAttributeTextShadowOffset,
       [UIFont fontWithName:@"HelveticaNeue" size:0.0],
       UITextAttributeFont,
       nil]];
@@ -75,7 +75,7 @@
     
     // Get device UDID
     NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-    //TODO: Get a proper device ID
+    //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
 
     // Load Game Data
     __autoreleasing NSError* error = nil;
@@ -101,8 +101,10 @@
     
     // Restore game state
     [[AppState sharedInstance] restore];
+#if DEBUG
     NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     NSLog(@"Stored checkins: %@", [[AppState sharedInstance] checkins]);
+#endif
     if ([[AppState sharedInstance] playerIsInCompass] == YES) {
         
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
@@ -123,7 +125,7 @@
 
     // Update
     
-    NSURL *url = [NSURL URLWithString:@"http://gohike.herokuapp.com/api"];
+    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
@@ -170,21 +172,35 @@
 
     if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
     {
+        //TODO: It does not work
+        // Get the indexes of the checkins that have not been uploaded yet
         NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return ((Checkin*)obj).uploaded == NO;
         }];
-        NSArray *checkinsToPush = [[[AppState sharedInstance] checkins] objectsAtIndexes:indexes];
+        // Prepare an empty array
+        NSMutableArray *checkinsToPush = [[NSMutableArray alloc] init];
+        
+        //Get the dictionary representation of all check-ins
+        [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
+        }];
+#if DEBUG
+        NSLog(@"json data: %@", checkinsToPush);
+#endif
         if([checkinsToPush count] > 0)
         {
             NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/checkin" parameters:[NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil]];
             [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [checkinRequest setValue:[[AppState sharedInstance] secret] forHTTPHeaderField:@"Take-A-Hike-Secret"];
             AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+#if DEBUG
                 NSLog(@"Pushed checkins OK!");
-                // Set checkin to uploaded
+#endif
+                // Set all checkins to uploaded and save to disk
                 [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     ((Checkin*)obj).uploaded = YES;
                 }];
+                [[AppState sharedInstance] save];
                 
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                 NSLog(@"Failed to update checkins: %@",[error description]);
@@ -194,6 +210,7 @@
         }
 
     }
+    
     //Start app
     
     self.window.rootViewController = self.navigationController;
