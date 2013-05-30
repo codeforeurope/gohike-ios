@@ -52,7 +52,7 @@
     NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
     
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == YES;
+        return [[obj objectForKey:@"visited"] boolValue] == FALSE;
     }];
     NSLog(@"firstUncheckedIndex %d", firstUncheckedIndex);
     if (firstUncheckedIndex == NSNotFound) {
