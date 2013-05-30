@@ -103,7 +103,7 @@
     [[AppState sharedInstance] restore];
 #if DEBUG
     NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
-    NSLog(@"Stored checkins: %@", [[AppState sharedInstance] checkins]);
+    NSLog(@"Stored checkins count: %d", [[[AppState sharedInstance] checkins] count]);
 #endif
     if ([[AppState sharedInstance] playerIsInCompass] == YES) {
         
