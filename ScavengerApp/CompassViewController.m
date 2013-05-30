@@ -18,6 +18,8 @@
 
 #import "NavigationStatusView.h"
 
+#import "CustomBarButtonView.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #if DEBUG
@@ -215,20 +217,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    self.navigationItem.backBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Exit", nil)
-                                     style:UIBarButtonItemStyleBordered
-                                    target:nil
-                                    action:@selector(BackButtonPressed:)];
+    //custom back button
+    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                       imageName:@"icon-back"
+                                                                            text:@"Back"
+                                                                          target:self
+                                                                          action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Map", nil)
-                                     style:UIBarButtonItemStyleBordered
-                                    target:nil
-                                    action:nil];
     
+    //custom map button
+    CustomBarButtonView *mapButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                      imageName:@"icon-map"
+                                                                           text:nil
+                                                                          target:self
+                                                                          action:@selector(onMapButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
+    
+    
+    //
     CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
     self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
     [self updateCheckinStatus];
@@ -295,5 +303,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - CustomButtonHandlers
+- (void)onBackButton
+{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (void)onMapButton
+{
+    NSLog(@"show map");
+}
+
 
 @end

@@ -14,6 +14,7 @@
 		1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8053BC1754D30900900C54 /* NavigationStatusView.m */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonView.m */; };
 		AC0AF4601754AA1D00B766E0 /* secret in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF45F1754AA1D00B766E0 /* secret */; };
 		AC0AF4751754AB4600B766E0 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */; };
 		AC0AF4761754AB4600B766E0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4651754AB4600B766E0 /* AFHTTPRequestOperation.m */; };
@@ -88,7 +89,6 @@
 		ACB534F8175654390065D72D /* target-white-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CE175654390065D72D /* target-white-small@2x.png */; };
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
-		ACB534FD175657E80065D72D /* BackButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB534FC175657E80065D72D /* BackButtonView.m */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -127,6 +127,8 @@
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A7E846231757486300944FF6 /* CustomBarButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonView.h; sourceTree = "<group>"; };
+		A7E846241757486300944FF6 /* CustomBarButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonView.m; sourceTree = "<group>"; };
 		AC0AF45F1754AA1D00B766E0 /* secret */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = secret; path = ScavengerApp/secret; sourceTree = SOURCE_ROOT; };
 		AC0AF4621754AB4600B766E0 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
@@ -223,8 +225,6 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
-		ACB534FB175657E80065D72D /* BackButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButtonView.h; sourceTree = "<group>"; };
-		ACB534FC175657E80065D72D /* BackButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackButtonView.m; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* ScavengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScavengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -485,6 +485,8 @@
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
+				A7E846231757486300944FF6 /* CustomBarButtonView.h */,
+				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
 				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
 				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
@@ -503,8 +505,6 @@
 				1C1684F5174E3BAF00A77192 /* CheckinView.h */,
 				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
 				1C1684F3174E3B3100A77192 /* CheckinView.xib */,
-				ACB534FB175657E80065D72D /* BackButtonView.h */,
-				ACB534FC175657E80065D72D /* BackButtonView.m */,
 				1C1684F8174E4DBB00A77192 /* AppState.h */,
 				1C1684F9174E4DBB00A77192 /* AppState.m */,
 				ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */,
@@ -727,12 +727,12 @@
 				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
 				AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */,
-				ACB534FD175657E80065D72D /* BackButtonView.m in Sources */,
 				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
 				ACECFB9917565EBC0074EBBE /* GHGameData.m in Sources */,
 				ACECFB9A17565EBC0074EBBE /* GHProfiles.m in Sources */,
 				ACECFB9B17565EBC0074EBBE /* GHRoutes.m in Sources */,
 				ACECFB9C17565EBC0074EBBE /* GHWaypoints.m in Sources */,
+				A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
