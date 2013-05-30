@@ -7,6 +7,7 @@
 //
 
 #import "RewardViewController.h"
+#import "CustomBarButtonView.h"
 
 @interface RewardViewController ()
 
@@ -26,9 +27,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Share on Facebook!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonTapped)];
-    self.navigationItem.rightBarButtonItem = shareButton;
+    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                       imageName:@"icon-back"
+                                                                            text:@"Back"
+                                                                          target:self
+                                                                          action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    CustomBarButtonView *shareButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                         imageName:@"icon-facebook"
+                                                                              text:nil
+                                                                            target:self
+                                                                            action:@selector(onShareButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
 }
 
@@ -38,9 +49,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)shareButtonTapped
+- (void)onShareButton
 {
     //TODO: Share on Facebook using the integrated facebook 
+}
+
+- (void)onBackButton
+{
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 @end

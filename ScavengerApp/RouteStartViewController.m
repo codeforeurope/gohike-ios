@@ -16,7 +16,7 @@
 
 #import "RewardViewController.h"
 
-#import "BackButtonView.h"
+#import "CustomBarButtonView.h"
 
 @interface RouteStartViewController ()
 
@@ -41,21 +41,37 @@
 {
     [super viewDidLoad];
         
+    //change back button
+    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                       imageName:@"icon-back"
+                                                                            text:@"Back"
+                                                                          target:self
+                                                                          action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
     NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
     
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == NO;
+        return [[obj objectForKey:@"visited"] boolValue] == YES;
     }];
     NSLog(@"firstUncheckedIndex %d", firstUncheckedIndex);
     if (firstUncheckedIndex == NSNotFound) {
         // Route is complete, put reward button
-        UIBarButtonItem *viewRewardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"View Reward!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(viewReward)];
-        self.navigationItem.rightBarButtonItem = viewRewardButton;
+        CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                             imageName:@"icon-trophy"
+                                                                                  text:nil
+                                                                                target:self
+                                                                                action:@selector(onViewRewardButton)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
     }
     else{
         // Route is not complete, put "go hike" button
-        UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(startRoute)];
-        self.navigationItem.rightBarButtonItem = startRouteButton;
+        CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                           imageName:@"icon-compass"
+                                                                                text:nil
+                                                                              target:self
+                                                                              action:@selector(onGoHikeButton)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
     }
     
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
@@ -303,6 +319,27 @@
     //TODO: finish the display of the reward!
     RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
     [self.navigationController pushViewController:rvc animated:YES];
+}
+
+#pragma mark - CustomButtonHandlers
+- (void)onBackButton
+{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (void)onMapButton
+{
+    NSLog(@"show map");
+}
+
+- (void)onGoHikeButton
+{
+    [self startRoute];
+}
+
+- (void)onViewRewardButton
+{
+    [self viewReward];
 }
 
 @end
