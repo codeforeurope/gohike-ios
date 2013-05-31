@@ -20,10 +20,14 @@
 
 #import "CustomBarButtonView.h"
 
+#import "CloudView.h"
+
+#import "DestinationRadarView.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #if DEBUG
-#define CHECKIN_DISTANCE 5000 //meters
+#define CHECKIN_DISTANCE 50 //meters
 #else
 #define CHECKIN_DISTANCE 50 //meters
 #endif
@@ -40,11 +44,14 @@
 @property (nonatomic,strong) NavigationStatusView *statusView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
+@property (nonatomic, strong) CLLocation *previousLocation;
 @property (nonatomic, assign) BOOL checkinPending;
+@property (nonatomic, strong) CloudView *cloudView;
+@property (nonatomic, strong) DestinationRadarView *destinationRadarView;
 @end
 
 @implementation CompassViewController
-@synthesize arrow, compass, checkinView, statusView;
+@synthesize arrow, compass, checkinView, statusView, cloudView, destinationRadarView;
 @synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,6 +66,7 @@
         float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        self.previousLocation = nil;
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
     }
     return self;
@@ -66,12 +74,14 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
+    [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
 }
@@ -116,6 +126,7 @@
          UIViewAnimationOptionCurveLinear animations:^{
             CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
             arrow.transform = transform;
+            destinationRadarView.transform = transform;
         } completion:nil];
         
     }
@@ -175,7 +186,8 @@
     NSLog(@"did update with destination: %@",destinationName);
     
     CLLocation *currentLocation = [locations lastObject];
-//    NSLog(@"New user location: %@", currentLocation);
+    
+    
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
@@ -203,6 +215,22 @@
                 NSLog(@"add checkin view");
             }
         }
+    
+        //if we have a previous location, determine sort of proximation speed
+        if(self.previousLocation)
+        {
+            double previousDistanceFromDestination = [self.previousLocation distanceFromLocation:_destinationLocation];
+            
+            float pSpeed = (previousDistanceFromDestination - distanceFromDestination) / ([currentLocation.timestamp timeIntervalSinceNow] - [self.previousLocation.timestamp timeIntervalSinceNow]);
+            cloudView.speed = pSpeed;
+        }
+        
+        //update radar
+        destinationRadarView.activeDestination = [[AppState sharedInstance] activeWaypoint];
+        destinationRadarView.currentLocation = currentLocation;
+        [destinationRadarView setNeedsDisplay];
+        
+        self.previousLocation = currentLocation;
     }
     
 }
@@ -262,19 +290,19 @@
     }
     
     CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
-    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass.png"]];
+    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];
     CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
     [compass setFrame:compassRect];
     [compass setCenter:screenCenter];
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
+    UIImage *backgroundImage = [UIImage imageNamed:@"viewbackground"];
     UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
     background.contentMode = UIViewContentModeScaleAspectFit;
     [background setFrame:self.view.bounds];
     [self.view addSubview:background];
     
-    UIImage *gridImage = [UIImage imageNamed:@"grid.png"];
+    UIImage *gridImage = [UIImage imageNamed:@"compassbackground"];
     UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
     grid.contentMode = UIViewContentModeScaleAspectFit;
     [grid setFrame:self.view.bounds];
@@ -285,17 +313,32 @@
     arrow = [[UIImageView alloc] initWithImage:arrowImage];
     arrow.contentMode = UIViewContentModeScaleAspectFit;
     
-    //[arrow setFrame:CGRectMake(20, 20, 100, 100)];
+    //add arrow
     CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
     [arrow setFrame:arrowRect];
     [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
     
+    //add clouds
+    cloudView = [[CloudView alloc] initWithFrame:grid.frame];
+    
+    //add radar make it square (bigger than frame) so it overlaps the whole grid always (also when rotated)
+    float s = sqrtf(grid.bounds.size.width*grid.bounds.size.width+grid.bounds.size.height*grid.bounds.size.height);
+    destinationRadarView = [[DestinationRadarView alloc] initWithFrame:CGRectMake(0, 0, s, s)];
+    destinationRadarView.destinations = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
+    destinationRadarView.center = arrow.center;
+    destinationRadarView.radius = 1500; //1.5 km
+    destinationRadarView.checkinRadiusInPixels = 85; //radius of check in area in pix (edge of compass circle)
+    destinationRadarView.checkinRadiusInMeters = CHECKIN_DISTANCE;
+    
     [self.view addSubview:grid];
     [self.view addSubview:compass];
     [self.view addSubview:arrow];
+    [self.view addSubview:destinationRadarView];
+    [self.view addSubview:cloudView];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];
     
+    [cloudView startAnimation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -303,6 +346,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Timer
+- (void)onTimerTick:(id)something
+{
+    
+    
+    //NSLog(@"timer");
+}
+
+
 
 #pragma mark - CustomButtonHandlers
 - (void)onBackButton

@@ -28,7 +28,7 @@
         //[self setBackgroundColor:[UIColor redColor]];
         
         //add background
-        UIImage *backgroundImage = [UIImage imageNamed:@"nav-bottom.png"];
+        UIImage *backgroundImage = [UIImage imageNamed:@"navigation-bottom-background"];
         UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
         background.contentMode = UIViewContentModeScaleToFill;
         [background setFrame:self.bounds];

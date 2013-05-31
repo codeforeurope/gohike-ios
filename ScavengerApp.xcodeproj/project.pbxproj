@@ -14,6 +14,8 @@
 		1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8053BC1754D30900900C54 /* NavigationStatusView.m */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		A7DABF021757994800A0315E /* CloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DABF011757994800A0315E /* CloudView.m */; };
+		A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */; };
 		A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonView.m */; };
 		A7E846271757591400944FF6 /* icon-trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846261757591300944FF6 /* icon-trophy.png */; };
 		A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846281757591B00944FF6 /* icon-trophy@2x.png */; };
@@ -131,6 +133,10 @@
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A7DABF001757994800A0315E /* CloudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudView.h; sourceTree = "<group>"; };
+		A7DABF011757994800A0315E /* CloudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudView.m; sourceTree = "<group>"; };
+		A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationRadarView.h; sourceTree = "<group>"; };
+		A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationRadarView.m; sourceTree = "<group>"; };
 		A7E846231757486300944FF6 /* CustomBarButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonView.h; sourceTree = "<group>"; };
 		A7E846241757486300944FF6 /* CustomBarButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonView.m; sourceTree = "<group>"; };
 		A7E846261757591300944FF6 /* icon-trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy.png"; sourceTree = "<group>"; };
@@ -497,6 +503,8 @@
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
+				A7DABF001757994800A0315E /* CloudView.h */,
+				A7DABF011757994800A0315E /* CloudView.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonView.h */,
 				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
 				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
@@ -528,6 +536,8 @@
 				AC0AF4B1175637ED00B766E0 /* KeychainManager.h */,
 				AC0AF4B2175637EE00B766E0 /* KeychainManager.m */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
+				A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */,
+				A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */,
 			);
 			path = ScavengerApp;
 			sourceTree = "<group>";
@@ -749,6 +759,8 @@
 				ACECFB9B17565EBC0074EBBE /* GHRoutes.m in Sources */,
 				ACECFB9C17565EBC0074EBBE /* GHWaypoints.m in Sources */,
 				A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */,
+				A7DABF021757994800A0315E /* CloudView.m in Sources */,
+				A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
