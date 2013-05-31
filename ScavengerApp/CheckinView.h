@@ -12,5 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet UITextView *locationTextView;
 @property (nonatomic, weak) IBOutlet UILabel *checkInLabel;
+@property (nonatomic, assign) id target;
+@property (nonatomic) SEL action;
 
 @end

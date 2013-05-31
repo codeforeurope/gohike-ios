@@ -29,7 +29,7 @@
 #if DEBUG
 #define CHECKIN_DISTANCE 50 //meters
 #else
-#define CHECKIN_DISTANCE 50 //meters
+#define CHECKIN_DISTANCE 60 //meters
 #endif
 //#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
@@ -39,7 +39,6 @@
 @interface CompassViewController ()
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
-@property (nonatomic, weak) CheckinView * checkinView;
 @property (nonatomic, weak) RouteFinishedView *routeFinishedView;
 @property (nonatomic,strong) NavigationStatusView *statusView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -51,7 +50,7 @@
 @end
 
 @implementation CompassViewController
-@synthesize arrow, compass, checkinView, statusView, cloudView, destinationRadarView;
+@synthesize arrow, compass, statusView, cloudView, destinationRadarView;
 @synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -141,42 +140,31 @@
     [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
 }
 
--(IBAction)checkIn
-{
-    NSLog(@"CHECK IN");
-    
-    //1. record the checkin as done
-    [[AppState sharedInstance] checkIn];
-    [self updateCheckinStatus];
-    
-    //2. change the active target
-    BOOL continueRoute =  [[AppState sharedInstance] nextTarget];
-    if (continueRoute) {
-        
-        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
-        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
-        _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-        NSLog(@"Destination: lat: %f long %f", latitude, longitude);
-        
-        
-        [self.checkinView removeFromSuperview];
-        self.checkinPending = NO;
-    }
-    else { 
-        
-    }
-//    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
-
-}
 
 -(IBAction) finishRoute:(id)sender
 {
     [_routeFinishedView removeFromSuperview];
 }
 
--(IBAction) goToReward:(id)sender
+- (IBAction)goToReward:(id)sender
 {
     [_routeFinishedView removeFromSuperview];
+}
+
+- (void)addCheckInView
+{
+    NSString *langKey = [[AppState sharedInstance] language];
+    CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
+    CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
+    checkinView.locationTextView.text = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
+    checkinView.checkInLabel.text = NSLocalizedString(@"You can check-in!", nil);
+    checkinView.target = self;
+    checkinView.action = @selector(onCheckIn);
+    
+    //End - Added by Giovanni 2013-05-28
+    
+    [self.view addSubview:checkinView];
+    NSLog(@"add checkin view");
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -205,14 +193,7 @@
 //                UIView *aCheckinView = [[[NSBundle mainBundle] loadNibNamed:@"CheckinView" owner:self options:nil] objectAtIndex:0];
                 //Begin - Added by Giovanni 2013-05-28
                 //TODO: to test
-                NSString *langKey = [[AppState sharedInstance] language];
-                CheckinView *aCheckinView = [[CheckinView alloc] init];
-                aCheckinView.locationTextView.text = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
-                aCheckinView.checkInLabel.text = NSLocalizedString(@"You can check-in!", nil);
-                //End - Added by Giovanni 2013-05-28
-                self.checkinView = (CheckinView*)aCheckinView;
-                [self.view addSubview:checkinView];
-                NSLog(@"add checkin view");
+                [self addCheckInView];
             }
         }
     
@@ -302,10 +283,11 @@
     [background setFrame:self.view.bounds];
     [self.view addSubview:background];
     
+    CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     UIImage *gridImage = [UIImage imageNamed:@"compassbackground"];
     UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
-    grid.contentMode = UIViewContentModeScaleAspectFit;
-    [grid setFrame:self.view.bounds];
+    grid.contentMode = UIViewContentModeScaleToFill;
+    [grid setFrame:gridRect];
     [grid setCenter:screenCenter];
     
     
@@ -319,10 +301,10 @@
     [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
     
     //add clouds
-    cloudView = [[CloudView alloc] initWithFrame:grid.frame];
+    cloudView = [[CloudView alloc] initWithFrame:gridRect];
     
     //add radar make it square (bigger than frame) so it overlaps the whole grid always (also when rotated)
-    float s = sqrtf(grid.bounds.size.width*grid.bounds.size.width+grid.bounds.size.height*grid.bounds.size.height);
+    float s = sqrtf(gridRect.size.width*gridRect.size.width+gridRect.size.height*gridRect.size.height);
     destinationRadarView = [[DestinationRadarView alloc] initWithFrame:CGRectMake(0, 0, s, s)];
     destinationRadarView.destinations = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
     destinationRadarView.center = arrow.center;
@@ -367,6 +349,32 @@
 {
     NSLog(@"show map");
 }
+
+-(void)onCheckIn
+{
+    NSLog(@"CHECK IN");
+    
+    //1. record the checkin as done
+    [[AppState sharedInstance] checkIn];
+    [self updateCheckinStatus];
+    
+    //2. change the active target
+    BOOL continueRoute =  [[AppState sharedInstance] nextTarget];
+    if (continueRoute) {
+        
+        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
+        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+        _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+        self.checkinPending = NO;
+    }
+    else {
+        
+    }
+    //    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
+    
+}
+
 
 
 @end
