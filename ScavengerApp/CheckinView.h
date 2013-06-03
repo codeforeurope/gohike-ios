@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface CheckinView : UIView
+{
+    UITextView *bodyTextView;
+    UILabel *titleLabel;
+}
 
-@property (nonatomic, weak) IBOutlet UITextView *locationTextView;
-@property (nonatomic, weak) IBOutlet UILabel *checkInLabel;
-@property (nonatomic, assign) id target;
-@property (nonatomic) SEL action;
+- (void)setTitle:(NSString*)text;
+- (void)setBodyText:(NSString*)text;
+
+@property (nonatomic, assign) id closeTarget;
+@property (nonatomic) SEL closeAction;
+@property (nonatomic, assign) id buttonTarget;
+@property (nonatomic) SEL buttonAction;
 
 @end

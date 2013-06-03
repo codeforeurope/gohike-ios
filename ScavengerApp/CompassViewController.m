@@ -83,6 +83,9 @@
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
+#if DEBUG
+    [self addCheckInView];
+#endif
 }
 
 #pragma mark - CLLocation
@@ -156,12 +159,14 @@
     NSString *langKey = [[AppState sharedInstance] language];
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
-    checkinView.locationTextView.text = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
-    checkinView.checkInLabel.text = NSLocalizedString(@"You can check-in!", nil);
-    checkinView.target = self;
-    checkinView.action = @selector(onCheckIn);
+    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
+    [checkinView setTitle:NSLocalizedString(@"You can check-in!", nil)];
     
-    //End - Added by Giovanni 2013-05-28
+    checkinView.closeTarget = self;
+    checkinView.closeAction = @selector(onCancelCheckIn);
+    
+    checkinView.buttonTarget = self;
+    checkinView.buttonAction = @selector(onAcceptCheckIn);
     
     [self.view addSubview:checkinView];
     NSLog(@"add checkin view");
@@ -186,13 +191,9 @@
         
         if (distanceFromDestination < CHECKIN_DISTANCE) {
             NSLog(@"within distance");
-            
             if(!self.checkinPending)
             {
                 self.checkinPending = YES;
-//                UIView *aCheckinView = [[[NSBundle mainBundle] loadNibNamed:@"CheckinView" owner:self options:nil] objectAtIndex:0];
-                //Begin - Added by Giovanni 2013-05-28
-                //TODO: to test
                 [self addCheckInView];
             }
         }
@@ -350,31 +351,33 @@
     NSLog(@"show map");
 }
 
--(void)onCheckIn
+- (void)onCancelCheckIn
 {
-    NSLog(@"CHECK IN");
+    self.checkinPending = FALSE;
+}
+
+- (void)onAcceptCheckIn
+{
+    self.checkinPending = NO;
     
     //1. record the checkin as done
     [[AppState sharedInstance] checkIn];
     [self updateCheckinStatus];
     
     //2. change the active target
-    BOOL continueRoute =  [[AppState sharedInstance] nextTarget];
-    if (continueRoute) {
-        
+    if ([[AppState sharedInstance] setNextTarget])
+    {        
         float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
-        self.checkinPending = NO;
-    }
-    else {
         
     }
-    //    _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
-    
+    else
+    {
+        [self.navigationController popViewControllerAnimated:false];
+        [self.delegate onRouteFinished];
+    }
 }
-
-
 
 @end

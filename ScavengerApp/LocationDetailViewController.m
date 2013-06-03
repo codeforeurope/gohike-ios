@@ -9,6 +9,7 @@
 #import "LocationDetailViewController.h"
 #import "CompassViewController.h"
 #import "QuartzCore/CALayer.h"
+#import "CustomBarButtonView.h"
 
 @interface LocationDetailViewController ()
 
@@ -36,11 +37,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    //custom back button
+    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                       imageName:@"icon-back"
+                                                                            text:@"Back"
+                                                                          target:self
+                                                                          action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    UIBarButtonItem *startRouteButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Hike!", nil) style:UIBarButtonItemStylePlain target:self action:@selector(replayLocation)];
-    self.navigationItem.rightBarButtonItem = startRouteButton;
     
+    //route info
     NSString *langKey = [[AppState sharedInstance] language];
     self.locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
     self.locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
@@ -84,5 +91,9 @@
     }
 }
 
+- (void)onBackButton
+{
+    [self.navigationController popViewControllerAnimated:TRUE];
+}
 
 @end

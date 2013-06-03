@@ -41,6 +41,19 @@
 {
     [super viewDidLoad];
         
+    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+    [self.tableView setBackgroundView:tablebgView];
+    
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     //change back button
     CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
@@ -49,13 +62,21 @@
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
-    
-    NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == FALSE;
-    }];
-    NSLog(@"firstUncheckedIndex %d", firstUncheckedIndex);
-    if (firstUncheckedIndex == NSNotFound) {
+    //set the right button to lead to compass or reward
+    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
+    if (nextWaypoint)
+    {
+        // Route is not complete, put "go hike" button
+        CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                             imageName:@"icon-compass"
+                                                                                  text:nil
+                                                                                target:self
+                                                                                action:@selector(onGoHikeButton)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
+       
+    }
+    else
+    {
         // Route is complete, put reward button
         CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                              imageName:@"icon-trophy"
@@ -64,24 +85,9 @@
                                                                                 action:@selector(onViewRewardButton)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
     }
-    else{
-        // Route is not complete, put "go hike" button
-        CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                           imageName:@"icon-compass"
-                                                                                text:nil
-                                                                              target:self
-                                                                              action:@selector(onGoHikeButton)];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
-    }
     
-    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
-    [self.tableView setBackgroundView:tablebgView];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //update the table
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,6 +149,7 @@
             }
                        
             NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+            NSLog(@"cell wp %@",waypoint);
             
             if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
@@ -270,23 +277,24 @@
 
 - (void)startRoute
 {
-    NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] intValue]];
-    NSDictionary *nextWaypoint;
+    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
     
-    NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == NO;
-    }];
-    
-    nextWaypoint = [waypoints objectAtIndex:firstUncheckedIndex];
-    
-    [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
-    [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
-    [[AppState sharedInstance] save];
-    
-    NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-    
-    CompassViewController *compass = [[CompassViewController alloc] init];
-    [self.navigationController pushViewController:compass animated:YES];
+    if(nextWaypoint)
+    {
+        [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
+        [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
+        [[AppState sharedInstance] save];
+        
+        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+        
+        CompassViewController *compass = [[CompassViewController alloc] init];
+        compass.delegate = self;
+        [self.navigationController pushViewController:compass animated:YES];
+    }
+    else
+    {
+        @throw [NSException exceptionWithName:@"no waypoint" reason:@"no waypoints found/left on route" userInfo:nil];
+    }
     
 //    if([waypoints count] > 0)
 //    {
@@ -341,5 +349,13 @@
 {
     [self viewReward];
 }
+
+#pragma mark - CompassViewControllerDelegate
+
+- (void)onRouteFinished
+{
+    [self viewReward];    
+}
+
 
 @end

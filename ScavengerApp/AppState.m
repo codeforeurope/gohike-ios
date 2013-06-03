@@ -53,30 +53,16 @@
     
 }
 
-- (BOOL)nextTarget
+- (BOOL)setNextTarget
 {
-//    NSInteger nextTarget = _activeTargetId + 1;
-    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
-    NSUInteger thisWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
-    }];
-    int thisWaypointRank = [[[waypoints objectAtIndex:thisWPIndex] objectForKey:@"rank"] integerValue];
-    int nextTarget = thisWaypointRank + 1;
-    
-    NSDictionary *next;
-    NSUInteger nextWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"rank"] integerValue] == nextTarget;
-    }];
-    if (nextWPIndex == NSNotFound) {
-        return NO;
-    }
-    else{
-        next = [waypoints objectAtIndex:nextWPIndex];
-        _activeTargetId = [[next objectForKey:@"rank"] integerValue];
+    NSDictionary *nextTarget = [self nextCheckinForRoute:self.activeRouteId];
+    if(nextTarget)
+    {
+        _activeTargetId = [[nextTarget objectForKey:@"rank"] integerValue];
         [self save];
-        return YES;
+        return YES; 
     }
-    
+    return NO;
 }
 
 - (NSDictionary*)activeProfile
@@ -99,6 +85,8 @@
     return [routes objectAtIndex:index];
 }
 
+
+
 - (NSDictionary*)activeWaypoint
 {
     NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
@@ -111,6 +99,20 @@
     else {
         return  [waypoints objectAtIndex:index];
     }
+}
+
+- (NSDictionary*)nextCheckinForRoute:(int)routeId
+{
+    NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
+    
+    NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj objectForKey:@"visited"] boolValue] == NO;
+    }];
+    
+    if (firstUncheckedIndex != NSNotFound) {
+        return  [waypoints objectAtIndex:firstUncheckedIndex];
+    }
+    return nil;
 }
 
 - (NSArray*)checkinsForRoute:(int)routeId

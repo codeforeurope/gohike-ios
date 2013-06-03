@@ -12,10 +12,24 @@
 #define DUMMY_LATITUDE 52.34444
 #define DUMMY_LONGITUDE 4.91667
 
+@protocol CompassViewControllerDelegate;
+
 @interface CompassViewController : UIViewController <CLLocationManagerDelegate>
 
+
+@property (nonatomic,assign) id<CompassViewControllerDelegate> delegate;
+
+/* still needed?
 -(IBAction) checkIn;
 -(IBAction) finishRoute:(id)sender;
 -(IBAction) goToReward:(id)sender;
+*/
+
+
+@end
+
+@protocol CompassViewControllerDelegate
+
+- (void)onRouteFinished;
 
 @end

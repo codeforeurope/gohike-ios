@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CompassViewController.h"
 
-@interface RouteStartViewController : UITableViewController // <UITableViewDataSource, UITableViewDelegate>
+
+@interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate> // <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSDictionary *route;
 

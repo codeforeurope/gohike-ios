@@ -24,13 +24,14 @@
 - (void)checkIn;
 - (BOOL)save;
 - (void)restore;
-- (BOOL)nextTarget;
+- (BOOL)setNextTarget;
 - (NSString*)language;
 
 - (NSDictionary*)activeProfile;
 - (NSDictionary*)activeRoute;
 - (NSDictionary*)activeWaypoint;
 
+- (NSDictionary*)nextCheckinForRoute:(int)routeId;
 - (NSArray*)checkinsForRoute:(int)routeId;
 - (NSDictionary*)routeWithId:(int)routeId;
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
