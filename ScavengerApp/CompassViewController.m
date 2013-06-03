@@ -84,7 +84,7 @@
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
 #if DEBUG
-    [self addCheckInView];
+    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
 #endif
 }
 
@@ -208,7 +208,6 @@
         }
         
         //update radar
-        destinationRadarView.activeDestination = [[AppState sharedInstance] activeWaypoint];
         destinationRadarView.currentLocation = currentLocation;
         [destinationRadarView setNeedsDisplay];
         
@@ -307,7 +306,6 @@
     //add radar make it square (bigger than frame) so it overlaps the whole grid always (also when rotated)
     float s = sqrtf(gridRect.size.width*gridRect.size.width+gridRect.size.height*gridRect.size.height);
     destinationRadarView = [[DestinationRadarView alloc] initWithFrame:CGRectMake(0, 0, s, s)];
-    destinationRadarView.destinations = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
     destinationRadarView.center = arrow.center;
     destinationRadarView.radius = 1500; //1.5 km
     destinationRadarView.checkinRadiusInPixels = 85; //radius of check in area in pix (edge of compass circle)

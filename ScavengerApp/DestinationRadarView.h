@@ -11,8 +11,6 @@
 
 @interface DestinationRadarView : UIView
 
-@property (nonatomic,strong) NSArray *destinations; //array of waypoints (dictionaries)
-@property (nonatomic,strong) NSDictionary *activeDestination; //array of waypoints (dictionaries)
 @property (nonatomic,strong) CLLocation *currentLocation; 
 @property (nonatomic) float radius; //radius of this view in meters
 @property (nonatomic) float checkinRadiusInMeters;

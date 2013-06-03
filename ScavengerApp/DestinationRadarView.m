@@ -16,9 +16,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.destinations = nil;
         self.currentLocation = nil;
-        self.activeDestination = nil;
         self.radius = 5000;
         self.checkinRadiusInMeters = 10;
         self.checkinRadiusInPixels = 200;
@@ -30,22 +28,22 @@
 
 - (void)drawRect:(CGRect)rect
 {
-
+    
     //active destination allways has to be "in line" with the arrow
     //give it always an angle of -PI/2 
-    if(self.currentLocation && self.activeDestination)
+    if(self.currentLocation)
     {
+        NSArray *destinations = [[AppState sharedInstance] waypointsWithCheckinsForRoute: [[AppState sharedInstance] activeRouteId]];
         
-        
-        float zeroAngle = -M_PI / 2;
-        
-        float lat1 = [[self.activeDestination objectForKey:@"latitude"] floatValue];
-        float lon1 = [[self.activeDestination objectForKey:@"longitude"] floatValue];
-        CLLocation *activeDestintationLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lon1];
+        NSDictionary *activeDestination = [[AppState sharedInstance] activeWaypoint];
+        float lat = [[activeDestination objectForKey:@"latitude"] floatValue];
+        float lon = [[activeDestination objectForKey:@"longitude"] floatValue];
+        CLLocation *activeDestintationLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
         CLLocationDirection activeDestintationAngle = [activeDestintationLocation directionToLocation:self.currentLocation];
         float activeDestintationRad = DEGREES_TO_RADIANS(activeDestintationAngle);
+        float zeroAngle = -M_PI / 2;
         
-        for(NSDictionary *waypoint in self.destinations)
+        for(NSDictionary *waypoint in destinations)
         {
             float latitude = [[waypoint objectForKey:@"latitude"] floatValue];
             float longitude = [[waypoint objectForKey:@"longitude"] floatValue];
@@ -53,19 +51,6 @@
             CLLocationDistance dist = [destintation distanceFromLocation:self.currentLocation];
             CLLocationDirection a = [destintation directionToLocation:self.currentLocation];
             float rad = DEGREES_TO_RADIANS(a) - activeDestintationRad + zeroAngle;
-            
-            
-            
-            if(self.activeDestination == waypoint)
-            {
-                [[UIColor greenColor] setFill];
-            }
-            else
-            {
-                
-                [[UIColor colorWithWhite:0.9 alpha:1] setFill];
-            }
-            
             float pixR = 0;
             if(dist > self.checkinRadiusInMeters) //if a point is outside the mid circle, use the border of the circle as "zero"
             {
@@ -77,14 +62,31 @@
                 float pixPerMeter = self.checkinRadiusInPixels / self.checkinRadiusInMeters;
                 pixR = pixPerMeter * dist;
             }
-            
             float x = pixR * cos(rad) + self.bounds.size.width / 2;
             float y = pixR * sin(rad) + self.bounds.size.height / 2;
             
-            UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:CGPointMake(x, y) radius:10 startAngle:0 endAngle:M_PI * 2 clockwise:true];
-            [[UIColor colorWithWhite:0.3 alpha:0.5] setStroke];
-            [bezier fill];
-            [bezier stroke];            
+            if([[waypoint objectForKey:@"location_id"] intValue] == [[AppState sharedInstance] activeTargetId])
+            {
+                [[[UIColor greenColor] colorWithAlphaComponent:0.9] setFill];
+            }
+            else
+            {
+                [[UIColor colorWithWhite:0.9 alpha:1] setFill];
+            }
+            
+            if([[waypoint objectForKey:@"visited"] intValue] == 1)
+            {
+                UIImage *targetImage = [UIImage imageNamed:@"target"];
+                [targetImage drawAtPoint:CGPointMake(x-targetImage.size.width/2, y-targetImage.size.height/2)];
+            }
+            else
+            {
+                UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:CGPointMake(x, y) radius:10 startAngle:0 endAngle:M_PI * 2 clockwise:true];
+                [[UIColor colorWithWhite:0.3 alpha:0.5] setStroke];
+                [bezier fill];
+                [bezier stroke];
+            }
+                        
         }
     }
 
