@@ -18,7 +18,6 @@
 
 #import "Secret.h"
 
-    //@"http://10.1.11.148:3000"
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
 
@@ -72,12 +71,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    
-    // load the secret
-    __autoreleasing NSError* secretError = nil;
-    NSString *secretPath = [[NSBundle mainBundle] pathForResource:@"secret" ofType:@""];
-    [[AppState sharedInstance] setSecret:[NSString stringWithContentsOfFile:secretPath encoding:NSUTF8StringEncoding error:&secretError]];
-    
+   
     // Get device UDID
     NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
     //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
@@ -248,11 +242,7 @@
             NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
             NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
 
-            NSLog(@"Secret: %@",[[AppState sharedInstance] secret] );
-            NSString *s = [NSString stringWithFormat:@"%@", [[AppState sharedInstance] secret]];
-            NSString *t = [NSString stringWithFormat:@"%@",@"bla"];
             [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
-            [checkinRequest addValue:t forHTTPHeaderField:@"b"];
             [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
             [checkinRequest setHTTPBody:postBodyData];

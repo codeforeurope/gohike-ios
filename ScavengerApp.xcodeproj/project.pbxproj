@@ -22,7 +22,6 @@
 		A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846281757591B00944FF6 /* icon-trophy@2x.png */; };
 		A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462A17575CA100944FF6 /* icon-facebook.png */; };
 		A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */; };
-		AC0AF4601754AA1D00B766E0 /* secret in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF45F1754AA1D00B766E0 /* secret */; };
 		AC0AF4751754AB4600B766E0 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */; };
 		AC0AF4761754AB4600B766E0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4651754AB4600B766E0 /* AFHTTPRequestOperation.m */; };
 		AC0AF4771754AB4600B766E0 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4671754AB4600B766E0 /* AFImageRequestOperation.m */; };
@@ -145,7 +144,6 @@
 		A7E846281757591B00944FF6 /* icon-trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy@2x.png"; sourceTree = "<group>"; };
 		A7E8462A17575CA100944FF6 /* icon-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook.png"; sourceTree = "<group>"; };
 		A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook@2x.png"; sourceTree = "<group>"; };
-		AC0AF45F1754AA1D00B766E0 /* secret */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = secret; path = ScavengerApp/secret; sourceTree = SOURCE_ROOT; };
 		AC0AF4621754AB4600B766E0 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		AC0AF4641754AB4600B766E0 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -579,7 +577,6 @@
 		ACDD9C111744CB6500D64682 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AC0AF45F1754AA1D00B766E0 /* secret */,
 				ACA60BB917535BEF00EA4D53 /* content.json */,
 			);
 			path = Data;
@@ -651,7 +648,6 @@
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
-				AC0AF4601754AA1D00B766E0 /* secret in Resources */,
 				AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */,
 				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
 				AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */,
