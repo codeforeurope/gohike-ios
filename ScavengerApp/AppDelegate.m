@@ -16,7 +16,12 @@
 
 #import "AFNetworking.h"
 
-#define kGOHIKEAPIURL @"http://gohike.herokuapp.com/api"
+#import "Secret.h"
+
+    //@"http://10.1.11.148:3000"
+#define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
+
+
 
 @implementation AppDelegate
 
@@ -131,24 +136,24 @@
     NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
     NSLog(@"current version %@", currentVersion);
     
-    if ([httpClient networkReachabilityStatus] == AFNetworkReachabilityStatusReachableViaWiFi) {
+    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
         //We try to download new content only if we are on wifi
-        NSMutableURLRequest *pingRequest = [httpClient requestWithMethod:@"POST" path:@"/ping" parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentVersion, @"version", nil]];
-        [pingRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:pingRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            NSLog(@"Status: %@", [JSON objectForKey:@"status"]);
-            if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
+        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
+        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            __autoreleasing NSError* pingError = nil;
+            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
+            NSLog(@"Status: %@", [r objectForKey:@"status"]);
+            if([[r objectForKey:@"status"] isEqualToString:@"update"])
             {
-                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/content" parameters:nil];
-            
+                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
+                
                 AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                     NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
                     NSLog(@"Saving new data to disk");
                     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                     NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
                     __autoreleasing NSError* contentError = nil;
-                   
+                    
                     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
                                                                        options:kNilOptions
                                                                          error:&contentError];
@@ -158,21 +163,54 @@
                     }
                     
                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                    NSLog(@"Download of new content failed");
+                    NSLog(@"Download of new content failed with error: %@", [error description]);
                 }];
                 [contentOperation start];
             }
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Update request failed with error: %@", [error description]);
         }];
-        [operation start];
+
+        
+//        NSMutableURLRequest *pingRequest = [httpClient requestWithMethod:@"POST" path:@"/ping" parameters:versionDictionary];
+//        [pingRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//
+//        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:pingRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//            NSLog(@"Status: %@", [JSON objectForKey:@"status"]);
+//            if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
+//            {
+//                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/content" parameters:nil];
+//            
+//                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
+//                    NSLog(@"Saving new data to disk");
+//                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+//                    __autoreleasing NSError* contentError = nil;
+//                   
+//                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
+//                                                                       options:kNilOptions
+//                                                                         error:&contentError];
+//                    if([jsonData writeToFile:filePath atomically:YES])
+//                    {
+//                        NSLog(@"Updated ok");
+//                    }
+//                    
+//                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                    NSLog(@"Download of new content failed");
+//                }];
+//                [contentOperation start];
+//            }
+//        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//            NSLog(@"Update request failed with error: %@", [error description]);
+//        }];
+//        [operation start];
     }
     
     // Try to push checkins, if network is reachable
 
     if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
     {
-        //TODO: It does not work
         // Get the indexes of the checkins that have not been uploaded yet
         NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return ((Checkin*)obj).uploaded == NO;
@@ -182,16 +220,43 @@
         
         //Get the dictionary representation of all check-ins
         [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
             [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
         }];
 #if DEBUG
-        NSLog(@"json data: %@", checkinsToPush);
+        NSLog(@"checkins data: %@", checkinsToPush);
 #endif
-        if([checkinsToPush count] > 0)
+        if(YES) //[checkinsToPush count] > 0
         {
-            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/checkin" parameters:[NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil]];
+            NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];
+            
+            
+            
+//            [httpClient postPath:@"/api/checkin" parameters:checkinsDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//#if DEBUG
+//                NSLog(@"Pushed checkins OK!");
+//#endif
+//                // Set all checkins to uploaded and save to disk
+//                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//                    ((Checkin*)obj).uploaded = YES;
+//                }];
+//                [[AppState sharedInstance] save];
+//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                NSLog(@"Failed to update checkins: %@",[error description]);
+//            }];
+            __autoreleasing NSError *checkinsError;
+            NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
+            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
+
+            NSLog(@"Secret: %@",[[AppState sharedInstance] secret] );
+            NSString *s = [NSString stringWithFormat:@"%@", [[AppState sharedInstance] secret]];
+            NSString *t = [NSString stringWithFormat:@"%@",@"bla"];
+            [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
+            [checkinRequest addValue:t forHTTPHeaderField:@"b"];
             [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [checkinRequest setValue:[[AppState sharedInstance] secret] forHTTPHeaderField:@"Take-A-Hike-Secret"];
+        
+            [checkinRequest setHTTPBody:postBodyData];
+            
             AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 #if DEBUG
                 NSLog(@"Pushed checkins OK!");

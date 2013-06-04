@@ -266,6 +266,7 @@
 		ACDD9BE51743E93C00D64682 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		ACDD9BE61743E93C00D64682 /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ACE31CF3175E23A1009916EE /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Secret.h; path = ScavengerApp/Secret.h; sourceTree = "<group>"; };
 		ACECFB8C17565CCC0074EBBE /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		ACECFB9017565EBC0074EBBE /* APIDataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIDataModels.h; sourceTree = "<group>"; };
@@ -463,6 +464,7 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
+				ACE31CF3175E23A1009916EE /* Secret.h */,
 				AC0AF4611754AB4600B766E0 /* AFNetworking */,
 				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
