@@ -76,6 +76,9 @@
     [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
+    
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -328,6 +331,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Timer
 - (void)onTimerTick:(id)something
 {
@@ -358,11 +362,11 @@
 {
     self.checkinPending = NO;
     
-    //1. record the checkin as done
+    //record the checkin as done
     [[AppState sharedInstance] checkIn];
     [self updateCheckinStatus];
     
-    //2. change the active target
+    //change the active target
     if ([[AppState sharedInstance] setNextTarget])
     {        
         float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
@@ -373,8 +377,10 @@
     }
     else
     {
-        [self.navigationController popViewControllerAnimated:false];
+        //remove the compas, notify the delegate that route was done
+        //so it can show the reward
         [self.delegate onRouteFinished];
+        [self.navigationController popViewControllerAnimated:true];
     }
 }
 

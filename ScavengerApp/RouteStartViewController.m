@@ -54,6 +54,14 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    if(showRewardOnAppear)
+    {
+        [self viewReward];
+        showRewardOnAppear = FALSE;
+        return;
+    }
+    
     //change back button
     CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
@@ -149,7 +157,6 @@
             }
                        
             NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
-            NSLog(@"cell wp %@",waypoint);
             
             if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
@@ -354,7 +361,7 @@
 
 - (void)onRouteFinished
 {
-    [self viewReward];    
+    showRewardOnAppear = TRUE;
 }
 
 

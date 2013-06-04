@@ -14,6 +14,7 @@
 		1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8053BC1754D30900900C54 /* NavigationStatusView.m */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A726AA72175DEA9F00C7F8E6 /* Social.framework */; };
 		A7DABF021757994800A0315E /* CloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DABF011757994800A0315E /* CloudView.m */; };
 		A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */; };
 		A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonView.m */; };
@@ -133,6 +134,7 @@
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A726AA72175DEA9F00C7F8E6 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A7DABF001757994800A0315E /* CloudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudView.h; sourceTree = "<group>"; };
 		A7DABF011757994800A0315E /* CloudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudView.m; sourceTree = "<group>"; };
 		A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationRadarView.h; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */,
 				ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */,
 				ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */,
+				A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +483,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A726AA72175DEA9F00C7F8E6 /* Social.framework */,
 				AC0AF4AF175633B600B766E0 /* Security.framework */,
 				AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */,
 				AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */,

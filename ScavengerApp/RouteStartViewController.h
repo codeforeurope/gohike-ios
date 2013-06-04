@@ -10,8 +10,9 @@
 #import "CompassViewController.h"
 
 
-@interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate> // <UITableViewDataSource, UITableViewDelegate>
-
+@interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate>
+{
+    BOOL showRewardOnAppear;
+}
 @property (nonatomic, strong) NSDictionary *route;
-
 @end

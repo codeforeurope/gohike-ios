@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
+#import <Social/Social.h>
 #import "RewardViewController.h"
 #import "CustomBarButtonView.h"
 
@@ -51,7 +52,11 @@
 
 - (void)onShareButton
 {
-    //TODO: Share on Facebook using the integrated facebook 
+    SLComposeViewController*fvc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    [fvc setInitialText:NSLocalizedString(@"I've completed the go-hike Amsterdam experience", nil)];
+    [fvc addImage:[UIImage imageNamed:@"pin"]];
+    [self presentViewController:fvc animated:YES completion:nil];
 }
 
 - (void)onBackButton
