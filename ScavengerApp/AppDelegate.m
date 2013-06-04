@@ -165,40 +165,6 @@
             NSLog(@"Update request failed with error: %@", [error description]);
         }];
 
-        
-//        NSMutableURLRequest *pingRequest = [httpClient requestWithMethod:@"POST" path:@"/ping" parameters:versionDictionary];
-//        [pingRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//
-//        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:pingRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//            NSLog(@"Status: %@", [JSON objectForKey:@"status"]);
-//            if([[JSON objectForKey:@"status"] isEqualToString:@"update"])
-//            {
-//                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/content" parameters:nil];
-//            
-//                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
-//                    NSLog(@"Saving new data to disk");
-//                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-//                    __autoreleasing NSError* contentError = nil;
-//                   
-//                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
-//                                                                       options:kNilOptions
-//                                                                         error:&contentError];
-//                    if([jsonData writeToFile:filePath atomically:YES])
-//                    {
-//                        NSLog(@"Updated ok");
-//                    }
-//                    
-//                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//                    NSLog(@"Download of new content failed");
-//                }];
-//                [contentOperation start];
-//            }
-//        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//            NSLog(@"Update request failed with error: %@", [error description]);
-//        }];
-//        [operation start];
     }
     
     // Try to push checkins, if network is reachable
@@ -220,24 +186,10 @@
 #if DEBUG
         NSLog(@"checkins data: %@", checkinsToPush);
 #endif
-        if(YES) //[checkinsToPush count] > 0
+        if([checkinsToPush count] > 0)
         {
             NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];
-            
-            
-            
-//            [httpClient postPath:@"/api/checkin" parameters:checkinsDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//#if DEBUG
-//                NSLog(@"Pushed checkins OK!");
-//#endif
-//                // Set all checkins to uploaded and save to disk
-//                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//                    ((Checkin*)obj).uploaded = YES;
-//                }];
-//                [[AppState sharedInstance] save];
-//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                NSLog(@"Failed to update checkins: %@",[error description]);
-//            }];
+        
             __autoreleasing NSError *checkinsError;
             NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
             NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
@@ -266,8 +218,8 @@
 
     }
     
-    //Start app
     
+    //Start app
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
