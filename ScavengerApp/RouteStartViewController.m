@@ -44,6 +44,7 @@
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.tableView setBackgroundView:tablebgView];
     
+    [self updateNavigationButtons];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -62,6 +63,14 @@
         return;
     }
     
+    [self updateNavigationButtons];
+    
+    //update the table
+    [self.tableView reloadData];
+}
+
+- (void)updateNavigationButtons
+{
     //change back button
     CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
@@ -81,7 +90,7 @@
                                                                                 target:self
                                                                                 action:@selector(onGoHikeButton)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
-       
+        
     }
     else
     {
@@ -94,9 +103,8 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
     }
     
-    //update the table
-    [self.tableView reloadData];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -331,7 +339,6 @@
 
 - (void)viewReward
 {
-    //TODO: finish the display of the reward!
     RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
     [self.navigationController pushViewController:rvc animated:YES];
 }
@@ -340,11 +347,6 @@
 - (void)onBackButton
 {
     [self.navigationController popViewControllerAnimated:true];
-}
-
-- (void)onMapButton
-{
-    NSLog(@"show map");
 }
 
 - (void)onGoHikeButton

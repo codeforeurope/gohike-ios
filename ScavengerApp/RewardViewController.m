@@ -42,6 +42,7 @@
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
+    //TODO:load the route its batch instead of the hardcoded batch
 }
 
 - (void)didReceiveMemoryWarning

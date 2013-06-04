@@ -14,6 +14,8 @@
 		1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8053BC1754D30900900C54 /* NavigationStatusView.m */; };
 		1CB18465174BB55600D71DA4 /* CompassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB18464174BB55600D71DA4 /* CompassViewController.m */; };
 		1CB18469174BC0A500D71DA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB18468174BC0A500D71DA4 /* CoreLocation.framework */; };
+		A71CF120175E35F700FA2168 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A71CF11F175E35F700FA2168 /* MapViewController.m */; };
+		A71CF122175E3BEB00FA2168 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A71CF121175E3BEB00FA2168 /* MapKit.framework */; };
 		A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A726AA72175DEA9F00C7F8E6 /* Social.framework */; };
 		A7DABF021757994800A0315E /* CloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DABF011757994800A0315E /* CloudView.m */; };
 		A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */; };
@@ -133,6 +135,9 @@
 		1CB18463174BB55600D71DA4 /* CompassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassViewController.h; sourceTree = "<group>"; };
 		1CB18464174BB55600D71DA4 /* CompassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassViewController.m; sourceTree = "<group>"; };
 		1CB18468174BC0A500D71DA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A71CF11E175E35F700FA2168 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		A71CF11F175E35F700FA2168 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		A71CF121175E3BEB00FA2168 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A726AA72175DEA9F00C7F8E6 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		A7DABF001757994800A0315E /* CloudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudView.h; sourceTree = "<group>"; };
 		A7DABF011757994800A0315E /* CloudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudView.m; sourceTree = "<group>"; };
@@ -294,6 +299,7 @@
 				ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */,
 				ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */,
 				A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */,
+				A71CF122175E3BEB00FA2168 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +489,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A71CF121175E3BEB00FA2168 /* MapKit.framework */,
 				A726AA72175DEA9F00C7F8E6 /* Social.framework */,
 				AC0AF4AF175633B600B766E0 /* Security.framework */,
 				AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */,
@@ -511,6 +518,8 @@
 				A7DABF011757994800A0315E /* CloudView.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonView.h */,
 				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
+				A71CF11E175E35F700FA2168 /* MapViewController.h */,
+				A71CF11F175E35F700FA2168 /* MapViewController.m */,
 				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
 				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
@@ -763,6 +772,7 @@
 				A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */,
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,
 				A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */,
+				A71CF120175E35F700FA2168 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

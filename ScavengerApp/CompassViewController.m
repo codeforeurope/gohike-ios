@@ -24,6 +24,8 @@
 
 #import "DestinationRadarView.h"
 
+#import "MapViewController.h"
+
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #if DEBUG
@@ -56,12 +58,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self)
+    {
         self.checkinPending = NO;
-        
-//    _destinationLocation = [[CLLocation alloc] initWithLatitude:DUMMY_LATITUDE longitude:DUMMY_LONGITUDE];
-//        _destinationLocation = [[CLLocation alloc] initWithLatitude:[AppState sharedInstance].activeTarget.latitude longitude:[AppState sharedInstance].activeTarget.longitude];
         float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
@@ -76,9 +75,6 @@
     [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
-    
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -98,10 +94,7 @@
     if (newHeading.headingAccuracy > 0) {
         float magneticHeading = newHeading.magneticHeading;
         float trueHeading = newHeading.trueHeading;
-#if DEBUG
-        //NSLog(@"magnetic heading %f",magneticHeading);
-        //NSLog(@"true heading: %f",trueHeading);
-#endif
+
         //current heading in degrees and radians
         //use true heading if it is available
         float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
@@ -109,30 +102,17 @@
 
         
         compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
-
-//        [UIView animateWithDuration:0.1 delay:0.0 options:
-////         UIViewAnimationOptionBeginFromCurrentState |
-//         UIViewAnimationOptionCurveLinear animations:^{
-//            CGAffineTransform transform = CGAffineTransformMakeRotation(-1 * heading_radians);
-//            compass.transform = transform;
-//        } completion:nil];
-        
-        
         
         CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
-        //NSLog(@"Destination heading: %f",destinationHeading);
         float adjusted_heading = destinationHeading - heading;
         float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
-        //arrow.transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
-
         
         [UIView animateWithDuration:0.1 delay:0.0 options:
-//         UIViewAnimationOptionBeginFromCurrentState |
-         UIViewAnimationOptionCurveLinear animations:^{
-            CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
-            arrow.transform = transform;
-            destinationRadarView.transform = transform;
-        } completion:nil];
+            UIViewAnimationOptionCurveLinear animations:^{
+                CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+                arrow.transform = transform;
+                destinationRadarView.transform = transform;
+            } completion:nil];
         
     }
 }
@@ -140,7 +120,7 @@
 //updates the statusview checkin display
 -(void) updateCheckinStatus
 {
-    //1b. update the statusview
+    //update the statusview
     NSArray *waypoints = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
     NSArray *checkins = [[AppState sharedInstance] checkinsForRoute:[AppState sharedInstance].activeRouteId];
     [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
@@ -332,16 +312,6 @@
 }
 
 
-#pragma mark - Timer
-- (void)onTimerTick:(id)something
-{
-    
-    
-    //NSLog(@"timer");
-}
-
-
-
 #pragma mark - CustomButtonHandlers
 - (void)onBackButton
 {
@@ -350,7 +320,8 @@
 
 - (void)onMapButton
 {
-    NSLog(@"show map");
+    MapViewController *mvc = [[MapViewController alloc] init];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 - (void)onCancelCheckIn
