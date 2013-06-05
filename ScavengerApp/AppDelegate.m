@@ -66,6 +66,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //TestFlight
+//    [TestFlight takeOff:@"d87bd083-b278-47da-b160-6eb803551740"];
+    
     [self customizeAppearance];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -136,7 +140,7 @@
         [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             __autoreleasing NSError* pingError = nil;
             NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
-            NSLog(@"Status: %@", [r objectForKey:@"status"]);
+            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
             if([[r objectForKey:@"status"] isEqualToString:@"update"])
             {
                 NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
@@ -160,6 +164,10 @@
                     NSLog(@"Download of new content failed with error: %@", [error description]);
                 }];
                 [contentOperation start];
+            }
+            else
+            {
+                NSLog(@"Already on latest content version");
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Update request failed with error: %@", [error description]);

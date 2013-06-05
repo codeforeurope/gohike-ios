@@ -244,14 +244,14 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
-		ACDD9B681743B20200D64682 /* ScavengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScavengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		ACDD9B731743B20200D64682 /* ScavengerApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScavengerApp-Info.plist"; sourceTree = "<group>"; };
+		ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoHikeAmsterdam-Info.plist"; sourceTree = "<group>"; };
 		ACDD9B751743B20200D64682 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACDD9B771743B20200D64682 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		ACDD9B791743B20200D64682 /* ScavengerApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScavengerApp-Prefix.pch"; sourceTree = "<group>"; };
+		ACDD9B791743B20200D64682 /* GoHikeAmsterdam-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GoHikeAmsterdam-Prefix.pch"; sourceTree = "<group>"; };
 		ACDD9B7A1743B20200D64682 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ACDD9B7B1743B20200D64682 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		ACDD9B7D1743B20200D64682 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -481,7 +481,7 @@
 		ACDD9B691743B20200D64682 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ACDD9B681743B20200D64682 /* ScavengerApp.app */,
+				ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -559,10 +559,10 @@
 			isa = PBXGroup;
 			children = (
 				ACDD9C111744CB6500D64682 /* Data */,
-				ACDD9B731743B20200D64682 /* ScavengerApp-Info.plist */,
+				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
 				ACDD9B771743B20200D64682 /* main.m */,
-				ACDD9B791743B20200D64682 /* ScavengerApp-Prefix.pch */,
+				ACDD9B791743B20200D64682 /* GoHikeAmsterdam-Prefix.pch */,
 				ACDD9B7D1743B20200D64682 /* Default.png */,
 				ACDD9B7F1743B20200D64682 /* Default@2x.png */,
 				ACDD9B811743B20200D64682 /* Default-568h@2x.png */,
@@ -594,9 +594,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ACDD9B671743B20200D64682 /* ScavengerApp */ = {
+		ACDD9B671743B20200D64682 /* GoHikeAmsterdam */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ACDD9B8B1743B20200D64682 /* Build configuration list for PBXNativeTarget "ScavengerApp" */;
+			buildConfigurationList = ACDD9B8B1743B20200D64682 /* Build configuration list for PBXNativeTarget "GoHikeAmsterdam" */;
 			buildPhases = (
 				ACDD9B641743B20200D64682 /* Sources */,
 				ACDD9B651743B20200D64682 /* Frameworks */,
@@ -607,9 +607,9 @@
 			);
 			dependencies = (
 			);
-			name = ScavengerApp;
+			name = GoHikeAmsterdam;
 			productName = ScavengerApp;
-			productReference = ACDD9B681743B20200D64682 /* ScavengerApp.app */;
+			productReference = ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -621,7 +621,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Code for Europe";
 			};
-			buildConfigurationList = ACDD9B631743B20200D64682 /* Build configuration list for PBXProject "ScavengerApp" */;
+			buildConfigurationList = ACDD9B631743B20200D64682 /* Build configuration list for PBXProject "GoHikeAmsterdam" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -634,7 +634,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ACDD9B671743B20200D64682 /* ScavengerApp */,
+				ACDD9B671743B20200D64682 /* GoHikeAmsterdam */,
 			);
 		};
 /* End PBXProject section */
@@ -860,10 +860,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ScavengerApp/ScavengerApp-Prefix.pch";
-				INFOPLIST_FILE = "ScavengerApp/ScavengerApp-Info.plist";
+				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
+				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GoHikeAmsterdam;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -872,10 +872,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ScavengerApp/ScavengerApp-Prefix.pch";
-				INFOPLIST_FILE = "ScavengerApp/ScavengerApp-Info.plist";
+				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
+				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GoHikeAmsterdam;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -883,7 +883,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ACDD9B631743B20200D64682 /* Build configuration list for PBXProject "ScavengerApp" */ = {
+		ACDD9B631743B20200D64682 /* Build configuration list for PBXProject "GoHikeAmsterdam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ACDD9B891743B20200D64682 /* Debug */,
@@ -892,7 +892,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ACDD9B8B1743B20200D64682 /* Build configuration list for PBXNativeTarget "ScavengerApp" */ = {
+		ACDD9B8B1743B20200D64682 /* Build configuration list for PBXNativeTarget "GoHikeAmsterdam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ACDD9B8C1743B20200D64682 /* Debug */,
