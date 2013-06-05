@@ -152,6 +152,7 @@
             
             cell.routeImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_route objectForKey:@"image_data"]]];
             cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+            cell.routeHighlightsLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
             
             return cell;
         }
@@ -276,7 +277,6 @@
         else{
             
         }
-   
     }
     
     // Navigation logic may go here. Create and push another view controller.
@@ -310,30 +310,6 @@
     {
         @throw [NSException exceptionWithName:@"no waypoint" reason:@"no waypoints found/left on route" userInfo:nil];
     }
-    
-//    if([waypoints count] > 0)
-//    {
-//        NSDictionary *waypoint = [waypoints objectAtIndex:0];
-//        [[AppState sharedInstance] setActiveRouteId: [[waypoint objectForKey:@"route_id"] intValue]];
-//        [[AppState sharedInstance] setActiveTargetId:[[waypoint objectForKey:@"location_id"] intValue]];
-//        [[AppState sharedInstance] save];
-//        
-//        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-//        
-//        CompassViewController *compass = [[CompassViewController alloc] init];
-//        [self.navigationController pushViewController:compass animated:YES];
-//        
-//    }
-    
-//    [[AppState sharedInstance] setActiveRoute:_currentRoute];
-//    Location *target = [_currentRoute.locations objectAtIndex:0]; //this is OK only if we start from first location
-//    [[AppState sharedInstance] setActiveTarget:target];
-//    [[AppState sharedInstance] setActiveTargetId:target.locationId];
-//    [[AppState sharedInstance] setPlayerIsInCompass:YES];
-    
-//    CompassViewController *compass = [[CompassViewController alloc] init];
-//    [self.navigationController pushViewController:compass animated:YES];
-    
 }
 
 

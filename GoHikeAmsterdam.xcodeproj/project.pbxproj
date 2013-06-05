@@ -102,6 +102,8 @@
 		ACC893B3175F7742002AC636 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ACC893AF175F7742002AC636 /* README.md */; };
 		ACC893B4175F7742002AC636 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B0175F7742002AC636 /* release_notes.md */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
+		ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B7175F83DE002AC636 /* no-picture@2x.png */; };
+		ACC893BA175F83E3002AC636 /* no-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B9175F83E3002AC636 /* no-picture.png */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -256,6 +258,8 @@
 		ACC893B0175F7742002AC636 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		ACC893B1175F7742002AC636 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		ACC893B5175F7A3C002AC636 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		ACC893B7175F83DE002AC636 /* no-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-picture@2x.png"; sourceTree = "<group>"; };
+		ACC893B9175F83E3002AC636 /* no-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-picture.png"; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -422,6 +426,7 @@
 		ACB534A5175654390065D72D /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				ACC893B9175F83E3002AC636 /* no-picture.png */,
 				ACB534A6175654390065D72D /* arrow.png */,
 				ACB534A7175654390065D72D /* cellbackground1.png */,
 				ACB534A8175654390065D72D /* cellbackground2.png */,
@@ -452,6 +457,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				ACC893B7175F83DE002AC636 /* no-picture@2x.png */,
 				ACB534BC175654390065D72D /* arrow@2x.png */,
 				ACB534BD175654390065D72D /* cellbackground1@2x.png */,
 				ACB534BE175654390065D72D /* cellbackground2@2x.png */,
@@ -740,6 +746,8 @@
 				A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */,
 				ACC893B3175F7742002AC636 /* README.md in Resources */,
 				ACC893B4175F7742002AC636 /* release_notes.md in Resources */,
+				ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */,
+				ACC893BA175F83E3002AC636 /* no-picture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

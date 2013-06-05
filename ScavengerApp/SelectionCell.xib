@@ -92,6 +92,10 @@
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">no-picture.png</string>
+								</object>
 							</object>
 							<object class="IBUILabel" id="650501299">
 								<reference key="NSNextResponder" ref="913275034"/>
@@ -722,7 +726,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">78</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -787,6 +791,7 @@
 			<string key="cellbackground1.png">{133, 133}</string>
 			<string key="cellbackground2.png">{133, 133}</string>
 			<string key="cellbackground3.png">{133, 133}</string>
+			<string key="no-picture.png">{280, 150}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
