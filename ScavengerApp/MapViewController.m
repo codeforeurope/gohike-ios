@@ -9,7 +9,7 @@
 #import "MapViewController.h"
 #import "CustomBarButtonView.h"
 #import "CLLocation+measuring.h"
-
+#import "MapPoint.h"
 
 @interface MapViewController ()
 
@@ -27,18 +27,16 @@
                                                                             text:@"Back"
                                                                           target:self
                                                                           action:@selector(onBackButton)];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //map view
     map = [[MKMapView alloc] initWithFrame:self.view.bounds];
+    [map setShowsUserLocation:YES];
+    map.delegate = self;
     //map.userTrackingMode = MKUserTrackingModeFollowWithHeading;
     
-    
-    
-    
     [self.view addSubview:map];
-    
-    
     
     //NSLog(@"s %@",NSStringFromCGRect(self.view.bounds));
     
@@ -60,9 +58,24 @@
         CLLocation *destintation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         [locations addObject:destintation];
         
-        //TODO: color pin for active dest
-        MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+        MapPoint *pin = [[MapPoint alloc] init];
+        NSString *langKey = [[AppState sharedInstance] language];
+        [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"title_%@", langKey]]];
         pin.coordinate = destintation.coordinate;
+        if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue]) {
+            pin.current = YES;
+        }
+        else{
+            pin.current = NO;
+        }
+        if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue]) {
+            pin.visited = NO;
+        }
+        else{
+            pin.visited = YES;
+        }
+        
+        
         [map addAnnotation:pin];
     }
     CLCoordinateRect mapBounds = [CLLocation boundingBoxContainingLocations:locations];
@@ -117,5 +130,53 @@
     
     return bounds;
 }
+
+
+#pragma mark - Mapview delegates
+
+-(MKAnnotationView*)mapView:(MKMapView *)mapView viewForAnnotation:(id<GHAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;  //return nil to use default blue dot view
+    
+    //create annotation
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pinView"];
+    if (!pinView) {
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pinView"];
+        pinView.animatesDrop = FALSE;
+        pinView.canShowCallout = YES;
+
+        
+        //details button
+        //UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        //pinView.rightCalloutAccessoryView = rightButton;
+        
+    } else {
+        pinView.annotation = annotation;
+    }
+    
+    //Color
+    if ([annotation current] == YES) {
+        pinView.pinColor = MKPinAnnotationColorRed;
+    }
+    else{
+        if ([annotation visited] == YES) {
+            pinView.pinColor = MKPinAnnotationColorGreen;
+        }
+        else{
+            pinView.pinColor = MKPinAnnotationColorPurple;
+        }
+    }
+    
+    return pinView;
+}
+
+
+//Required method
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
+{
+    
+}
+
 
 @end

@@ -65,7 +65,9 @@
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         self.previousLocation = nil;
+#if DEBUG
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+#endif
     }
     return self;
 }
@@ -152,14 +154,18 @@
     checkinView.buttonAction = @selector(onAcceptCheckIn);
     
     [self.view addSubview:checkinView];
+#if DEBUG
     NSLog(@"add checkin view");
+#endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
     NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"];
+#if DEBUG
     NSLog(@"did update with destination: %@",destinationName);
+#endif
     
     CLLocation *currentLocation = [locations lastObject];
     
@@ -173,7 +179,9 @@
         [self.statusView update:destinationName withDistance:distanceFromDestination];
         
         if (distanceFromDestination < CHECKIN_DISTANCE) {
+#if DEBUG
             NSLog(@"within distance");
+#endif
             if(!self.checkinPending)
             {
                 self.checkinPending = YES;
@@ -245,7 +253,9 @@
 
     if( [CLLocationManager locationServicesEnabled]
        &&  [CLLocationManager headingAvailable]) {
+#if DEBUG
         NSLog(@"heading available");
+#endif
         [locationManager startUpdatingLocation];
         [locationManager startUpdatingHeading];
         
@@ -343,7 +353,9 @@
         float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+#if DEBUG
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+#endif
         
     }
     else

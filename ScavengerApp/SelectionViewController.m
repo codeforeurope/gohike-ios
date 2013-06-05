@@ -11,6 +11,8 @@
 #import "OverlayView.h"
 #import "SelectionCell.h"
 
+#define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
+
 @interface SelectionViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
@@ -35,7 +37,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = NSLocalizedString(@"Choose profile", nil);
+//    self.title = NSLocalizedString(@"Choose profile", nil);
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.collectionView setBackgroundView:tablebgView];
  
@@ -46,6 +48,7 @@
 //    [self.collectionView registerClass:[SelectionCell class] forCellWithReuseIdentifier:@"SelectionCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"SelectionCell" bundle:nil] forCellWithReuseIdentifier:@"SelectionCell"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HandleAppHasFinishedContentUpdate:) name:kAppHasFinishedContentUpdate object:nil];
 }
 
 
@@ -106,7 +109,7 @@
     NSString *nameKey = [NSString stringWithFormat:@"name_%@", [[AppState sharedInstance] language]];
     cell.profileLabel.text = [profile objectForKey:nameKey];
     cell.bottomLabel.text = [NSString stringWithFormat:@"%d Routes", [[profile objectForKey:@"routes"] count]]; //[NSString stringWithFormat:NSLocalizedString(@"%@ Routes",nil), [[profile objectForKey:@"routes"] count]];
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
 
     return cell;
 }
@@ -149,6 +152,14 @@
 }
 
 
+#pragma mark - Notification Center Actions
+
+- (void)HandleAppHasFinishedContentUpdate:(NSNotification*)pNotification
+{
+    NSLog(@"reloading data");
+    [self loadData];
+    [self.collectionView reloadData];
+}
 
 
 

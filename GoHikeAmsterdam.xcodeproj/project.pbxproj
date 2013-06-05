@@ -97,6 +97,7 @@
 		ACB534F8175654390065D72D /* target-white-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CE175654390065D72D /* target-white-small@2x.png */; };
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
+		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -244,6 +245,8 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
+		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
+		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -520,6 +523,8 @@
 				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
 				A71CF11E175E35F700FA2168 /* MapViewController.h */,
 				A71CF11F175E35F700FA2168 /* MapViewController.m */,
+				ACC893A9175F67B5002AC636 /* MapPoint.h */,
+				ACC893AA175F67B5002AC636 /* MapPoint.m */,
 				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
 				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
@@ -773,6 +778,7 @@
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,
 				A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */,
 				A71CF120175E35F700FA2168 /* MapViewController.m in Sources */,
+				ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

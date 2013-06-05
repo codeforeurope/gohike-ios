@@ -49,6 +49,11 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="664915874"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor" id="543044752">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MCAwAA</bytes>
+								</object>
+								<float key="IBUIAlpha">0.0</float>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -64,9 +69,14 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="453493202"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<reference key="IBUIBackgroundColor" ref="543044752"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">cellbackground3.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">cellbackground2.png</string>
 								</object>
@@ -155,10 +165,7 @@
 						<reference key="NSSuperview" ref="647159519"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="856735269"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="543044752">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="543044752"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
@@ -777,8 +784,9 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="cellbackground1.png">{265, 265}</string>
-			<string key="cellbackground2.png">{265, 265}</string>
+			<string key="cellbackground1.png">{133, 133}</string>
+			<string key="cellbackground2.png">{133, 133}</string>
+			<string key="cellbackground3.png">{133, 133}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

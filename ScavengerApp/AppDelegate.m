@@ -20,7 +20,7 @@
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
-
+#define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
 
 @implementation AppDelegate
 
@@ -76,10 +76,7 @@
     // Override point for customization after application launch.
     
    
-    // Get device UDID
-    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-    //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
-
+    
     // Load Game Data
     __autoreleasing NSError* error = nil;
     GHGameData *gameData;
@@ -128,103 +125,11 @@
 
     // Update
     
-    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
-    NSLog(@"current version %@", currentVersion);
-    
-    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
-        //We try to download new content only if we are on wifi
-        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
-        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            __autoreleasing NSError* pingError = nil;
-            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
-            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
-            if([[r objectForKey:@"status"] isEqualToString:@"update"])
-            {
-                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
-                
-                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
-                    NSLog(@"Saving new data to disk");
-                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-                    __autoreleasing NSError* contentError = nil;
-                    
-                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
-                                                                       options:kNilOptions
-                                                                         error:&contentError];
-                    if([jsonData writeToFile:filePath atomically:YES])
-                    {
-                        NSLog(@"Updated ok");
-                    }
-                    
-                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                    NSLog(@"Download of new content failed with error: %@", [error description]);
-                }];
-                [contentOperation start];
-            }
-            else
-            {
-                NSLog(@"Already on latest content version");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Update request failed with error: %@", [error description]);
-        }];
-
-    }
+    [self updateContent];
     
     // Try to push checkins, if network is reachable
 
-    if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
-    {
-        // Get the indexes of the checkins that have not been uploaded yet
-        NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return ((Checkin*)obj).uploaded == NO;
-        }];
-        // Prepare an empty array
-        NSMutableArray *checkinsToPush = [[NSMutableArray alloc] init];
-        
-        //Get the dictionary representation of all check-ins
-        [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
-            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
-        }];
-#if DEBUG
-        NSLog(@"checkins data: %@", checkinsToPush);
-#endif
-        if([checkinsToPush count] > 0)
-        {
-            NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];
-        
-            __autoreleasing NSError *checkinsError;
-            NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
-            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
-
-            [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
-            [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-            [checkinRequest setHTTPBody:postBodyData];
-            
-            AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-#if DEBUG
-                NSLog(@"Pushed checkins OK!");
-#endif
-                // Set all checkins to uploaded and save to disk
-                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    ((Checkin*)obj).uploaded = YES;
-                }];
-                [[AppState sharedInstance] save];
-                
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                NSLog(@"Failed to update checkins: %@",[error description]);
-            }];
-            
-            [httpClient enqueueHTTPRequestOperation:checkinOperation];
-        }
-
-    }
+    [self pushCheckins];
     
     
     //Start app
@@ -262,7 +167,118 @@
     // We already save everywhere in the app, so not using this
 }
 
-//static NSString *serviceName = @"net.codeforeurope.gohike";
-//[[NSBundle mainBundle] bundleIdentifier]
+-(void)updateContent
+{
+    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
+    NSLog(@"current version %@", currentVersion);
+    
+    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
+        //We try to download new content only if we are on wifi
+        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
+        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            __autoreleasing NSError* pingError = nil;
+            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
+            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
+            if([[r objectForKey:@"status"] isEqualToString:@"update"])
+            {
+                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
+                
+                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
+                    NSLog(@"Saving new data to disk");
+                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+                    __autoreleasing NSError* contentError = nil;
+                    
+                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
+                                                                       options:kNilOptions
+                                                                         error:&contentError];
+                    if([jsonData writeToFile:filePath atomically:YES])
+                    {
+                        NSLog(@"Updated ok");
+                        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&contentError]];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kAppHasFinishedContentUpdate object:nil];
+                        
+                    }
+                    
+                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                    NSLog(@"Download of new content failed with error: %@", [error description]);
+                }];
+                [contentOperation start];
+            }
+            else
+            {
+                NSLog(@"Already on latest content version");
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Update request failed with error: %@", [error description]);
+        }];
+        
+    }
+}
+
+-(void)pushCheckins
+{
+    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    // Get device UDID
+    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
+    //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
+
+   
+    if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
+    {
+        // Get the indexes of the checkins that have not been uploaded yet
+        NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return ((Checkin*)obj).uploaded == NO;
+        }];
+        // Prepare an empty array
+        NSMutableArray *checkinsToPush = [[NSMutableArray alloc] init];
+        
+        //Get the dictionary representation of all check-ins
+        [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            //            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
+            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
+        }];
+#if DEBUG
+        NSLog(@"checkins data: %@", checkinsToPush);
+#endif
+        if([checkinsToPush count] > 0)
+        {
+            NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];
+            
+            __autoreleasing NSError *checkinsError;
+            NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
+            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
+            
+            [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
+            [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            [checkinRequest setHTTPBody:postBodyData];
+            
+            AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+#if DEBUG
+                NSLog(@"Pushed checkins OK!");
+#endif
+                // Set all checkins to uploaded and save to disk
+                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    ((Checkin*)obj).uploaded = YES;
+                }];
+                [[AppState sharedInstance] save];
+                
+            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                NSLog(@"Failed to update checkins: %@",[error description]);
+            }];
+            
+            [httpClient enqueueHTTPRequestOperation:checkinOperation];
+        }
+        
+    }
+}
+
 
 @end
