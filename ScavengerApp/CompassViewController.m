@@ -312,7 +312,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];
     
-    [cloudView startAnimation];
+//    [cloudView startAnimation]; //it is already started when viewDidAppear
 }
 
 - (void)didReceiveMemoryWarning
