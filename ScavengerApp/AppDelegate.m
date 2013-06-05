@@ -7,16 +7,13 @@
 //
 
 #import "AppDelegate.h"
-
 #import "SelectionViewController.h"
-
 #import "RouteStartViewController.h"
-
 #import "CompassViewController.h"
-
 #import "AFNetworking.h"
-
 #import "Secret.h"
+#import "TestFlight.h"
+
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -68,7 +65,7 @@
 {
     
     //TestFlight
-//    [TestFlight takeOff:@"d87bd083-b278-47da-b160-6eb803551740"];
+    [TestFlight takeOff:kTestFlightAPIKey];
     
     [self customizeAppearance];
     
