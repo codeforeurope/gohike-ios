@@ -55,7 +55,7 @@
 {
     SLComposeViewController*fvc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
     
-    [fvc setInitialText:NSLocalizedString(@"I've completed the go-hike Amsterdam experience", nil)];
+    [fvc setInitialText:NSLocalizedString(@"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/", nil)];
     [fvc addImage:[UIImage imageNamed:@"pin"]];
     [self presentViewController:fvc animated:YES completion:nil];
 }

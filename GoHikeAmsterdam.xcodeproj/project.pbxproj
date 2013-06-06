@@ -47,6 +47,8 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
+		AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973D1760B20800D349D0 /* c4eu-badge.png */; };
+		AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
@@ -114,6 +116,12 @@
 		ACC893CE17609E0F002AC636 /* help2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CA17609E0F002AC636 /* help2.png */; };
 		ACC893CF17609E0F002AC636 /* help3.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CB17609E0F002AC636 /* help3.png */; };
 		ACC893D017609E0F002AC636 /* help4.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CC17609E0F002AC636 /* help4.png */; };
+		ACC893D81760AE71002AC636 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D21760AE71002AC636 /* Icon-Small.png */; };
+		ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D31760AE71002AC636 /* Icon-Small@2x.png */; };
+		ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D61760AE71002AC636 /* iTunesArtwork.png */; };
+		ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */; };
+		ACC893DF1760AE86002AC636 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893DE1760AE86002AC636 /* Icon.png */; };
+		ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893E01760AE92002AC636 /* Icon@2x.png */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -208,6 +216,8 @@
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
+		AC47973D1760B20800D349D0 /* c4eu-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge.png"; sourceTree = "<group>"; };
+		AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge@2x.png"; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
@@ -281,6 +291,12 @@
 		ACC893CA17609E0F002AC636 /* help2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help2.png; sourceTree = "<group>"; };
 		ACC893CB17609E0F002AC636 /* help3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help3.png; sourceTree = "<group>"; };
 		ACC893CC17609E0F002AC636 /* help4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help4.png; sourceTree = "<group>"; };
+		ACC893D21760AE71002AC636 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		ACC893D31760AE71002AC636 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		ACC893D61760AE71002AC636 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		ACC893DE1760AE86002AC636 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		ACC893E01760AE92002AC636 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -535,6 +551,19 @@
 			path = HelpViews;
 			sourceTree = "<group>";
 		};
+		ACC893D11760AE69002AC636 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				ACC893E01760AE92002AC636 /* Icon@2x.png */,
+				ACC893DE1760AE86002AC636 /* Icon.png */,
+				ACC893D21760AE71002AC636 /* Icon-Small.png */,
+				ACC893D31760AE71002AC636 /* Icon-Small@2x.png */,
+				ACC893D61760AE71002AC636 /* iTunesArtwork.png */,
+				ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +662,7 @@
 		ACDD9B721743B20200D64682 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ACC893D11760AE69002AC636 /* Icons */,
 				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
@@ -649,6 +679,8 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				AC47973D1760B20800D349D0 /* c4eu-badge.png */,
+				AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */,
 				ACECFB9D1756A8D70074EBBE /* pin@2x.png */,
 				ACECFB9E1756A8D70074EBBE /* pin.png */,
 				ACB534A5175654390065D72D /* 1x */,
@@ -797,6 +829,14 @@
 				ACC893CE17609E0F002AC636 /* help2.png in Resources */,
 				ACC893CF17609E0F002AC636 /* help3.png in Resources */,
 				ACC893D017609E0F002AC636 /* help4.png in Resources */,
+				ACC893D81760AE71002AC636 /* Icon-Small.png in Resources */,
+				ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */,
+				ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */,
+				ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */,
+				ACC893DF1760AE86002AC636 /* Icon.png in Resources */,
+				ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */,
+				AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */,
+				AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +989,8 @@
 		ACDD9B8C1743B20200D64682 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giovanni Maggini (54P6X97536)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
 				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
@@ -958,6 +1000,8 @@
 					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
+				PROVISIONING_PROFILE = "99A949B1-BF83-4407-B293-6461F1662378";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "99A949B1-BF83-4407-B293-6461F1662378";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -965,6 +1009,8 @@
 		ACDD9B8D1743B20200D64682 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giovanni Maggini";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giovanni Maggini";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
 				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
@@ -974,6 +1020,8 @@
 					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
+				PROVISIONING_PROFILE = "5C96DAE5-9E29-4EA2-B963-C59B1FFACE09";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C96DAE5-9E29-4EA2-B963-C59B1FFACE09";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
