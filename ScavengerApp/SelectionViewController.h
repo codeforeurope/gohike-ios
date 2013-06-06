@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectionViewController : UIViewController
+@interface SelectionViewController : UIViewController <UIScrollViewDelegate>
 
 @end

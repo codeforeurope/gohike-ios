@@ -10,6 +10,7 @@
 #import "RouteStartViewController.h"
 #import "OverlayView.h"
 #import "SelectionCell.h"
+#import "HelpView.h"
 
 #define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
 
@@ -18,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 //@property (nonatomic, strong) GameData *routeProfiles;
 @property (nonatomic, strong) NSArray *profiles;
+@property (nonatomic, strong) OverlayView *overlayView;
 
 
 @end
@@ -49,6 +51,58 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"SelectionCell" bundle:nil] forCellWithReuseIdentifier:@"SelectionCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HandleAppHasFinishedContentUpdate:) name:kAppHasFinishedContentUpdate object:nil];
+    
+//    CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64);
+//    NSLog(@"%@",NSStringFromCGRect(gridRect));
+
+    _overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
+    
+    NSArray *subvArray = [NSArray arrayWithObjects:
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Choose your route", nil), @"label", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"help2",@"image",NSLocalizedString(@"Follow the arrow", nil), @"label", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Check-in to places", nil), @"label", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"help4",@"image",NSLocalizedString(@"Get reward!", nil), @"label", nil],
+                          nil];
+    
+    //Set the content size of our scrollview according to the total width of our imageView objects.
+    _overlayView.scrollView.contentSize = CGSizeMake(_overlayView.scrollView.frame.size.width * 4, _overlayView.scrollView.frame.size.height);
+
+    
+    for (int i = 0; i < 4; i++) {
+        //We'll create a view object in every 'page' of our scrollView.
+        CGRect frame;
+        frame.origin.x = _overlayView.scrollView.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = _overlayView.scrollView.frame.size;
+        
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        
+        HelpView *help1 = [[NSBundle mainBundle] loadNibNamed:@"HelpView"owner:self options:nil][0]; //[[HelpView alloc] initWithFrame:frame];
+        [help1 setFrame:frame];
+        help1.label.text = [[subvArray objectAtIndex:i] objectForKey:@"label"];
+        help1.imageView.image = [UIImage imageNamed:[[subvArray objectAtIndex:i] objectForKey:@"image"]];
+        
+//        HelpView *help2 = [[HelpView alloc] initWithFrame:frame];
+//        help2.label.text = NSLocalizedString(@"Follow the arrow", nil);
+//        help2.imageView.image = [UIImage imageNamed:@"help2"];
+//        
+//        HelpView *help3 = [[HelpView alloc] initWithFrame:frame];
+//        help3.label.text = NSLocalizedString(@"Check-in to places", nil);
+//        help3.imageView.image = [UIImage imageNamed:@"help3"];
+//        
+//        HelpView *help4 = [[HelpView alloc] initWithFrame:frame];
+//        help4.label.text = NSLocalizedString(@"Get reward!", nil);
+//        help4.imageView.image = [UIImage imageNamed:@"help4"];
+        
+        
+        [_overlayView.scrollView addSubview:help1];
+//        [_overlayView.scrollView addSubview:help2];
+//        [_overlayView.scrollView addSubview:help3];
+//        [_overlayView.scrollView addSubview:help4];
+    }
+
+    
+    
 }
 
 
@@ -56,13 +110,13 @@
 {
     //How to play screen
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"howtoplay_displayed"] == nil) {
-        OverlayView *overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
+
         
         [UIView transitionWithView:self.view
                           duration:0.5
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            [self.view addSubview:overlayView];
+                            [self.view addSubview:_overlayView];
                         }
                         completion:nil];
         //        [[NSUserDefaults standardUserDefaults] setObject:YES forKey:@"howtoplay_displayed"];
@@ -162,6 +216,15 @@
 }
 
 
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    // Update the page when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = _overlayView.scrollView.frame.size.width;
+    int page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    _overlayView.pageControl.currentPage = page;
+}
 
 
 @end
