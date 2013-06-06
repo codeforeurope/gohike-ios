@@ -356,7 +356,7 @@
 #if DEBUG
         NSLog(@"Destination: lat: %f long %f", latitude, longitude);
 #endif
-        
+        [destinationRadarView setNeedsDisplay];
     }
     else
     {

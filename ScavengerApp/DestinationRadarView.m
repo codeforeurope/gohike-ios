@@ -65,28 +65,25 @@
             float x = pixR * cos(rad) + self.bounds.size.width / 2;
             float y = pixR * sin(rad) + self.bounds.size.height / 2;
             
+            //draw the point as a target, checked target or a gray dot
             if([[waypoint objectForKey:@"location_id"] intValue] == [[AppState sharedInstance] activeTargetId])
             {
-                [[[UIColor greenColor] colorWithAlphaComponent:0.9] setFill];
-            }
-            else
-            {
-                [[UIColor colorWithWhite:0.9 alpha:1] setFill];
-            }
-            
-            if([[waypoint objectForKey:@"visited"] intValue] == 1)
-            {
                 UIImage *targetImage = [UIImage imageNamed:@"target"];
+                [targetImage drawAtPoint:CGPointMake(x-targetImage.size.width/2, y-targetImage.size.height/2)];
+            }
+            else if([[waypoint objectForKey:@"visited"] intValue] == 1)
+            {
+                UIImage *targetImage = [UIImage imageNamed:@"target-checked"];
                 [targetImage drawAtPoint:CGPointMake(x-targetImage.size.width/2, y-targetImage.size.height/2)];
             }
             else
             {
                 UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:CGPointMake(x, y) radius:10 startAngle:0 endAngle:M_PI * 2 clockwise:true];
+                [[UIColor colorWithWhite:0.9 alpha:0.75] setFill];
                 [[UIColor colorWithWhite:0.3 alpha:0.5] setStroke];
                 [bezier fill];
                 [bezier stroke];
-            }
-                        
+            }                        
         }
     }
 

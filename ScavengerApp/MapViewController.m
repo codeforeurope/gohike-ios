@@ -47,52 +47,65 @@
     //bounding rect containing waypoint locations and user location
     NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute: [[AppState sharedInstance] activeRouteId]];
     NSMutableArray *locations = [[NSMutableArray alloc] initWithCapacity:0];
-    if(map.userLocation.location)
-    {
-        [locations addObject:map.userLocation.location];
-    }
+    CLLocation *currentDestination = nil;
+    
     for(NSDictionary *waypoint in waypoints)
     {
+        //add destinations to array
         float latitude = [[waypoint objectForKey:@"latitude"] floatValue];
         float longitude = [[waypoint objectForKey:@"longitude"] floatValue];
         CLLocation *destintation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         [locations addObject:destintation];
         
+        //add annotation pins
         MapPoint *pin = [[MapPoint alloc] init];
         NSString *langKey = [[AppState sharedInstance] language];
         [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"title_%@", langKey]]];
         pin.coordinate = destintation.coordinate;
-        if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue]) {
+        if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+        {
             pin.current = YES;
+            currentDestination = destintation;
         }
-        else{
+        else
+        {
             pin.current = NO;
         }
-        if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue]) {
+        if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+        {
             pin.visited = NO;
         }
-        else{
+        else
+        {
             pin.visited = YES;
         }
         
-        
-        [map addAnnotation:pin];
+        //only add current and visited locations
+        if(pin.visited || pin.current)
+        {
+            [map addAnnotation:pin];
+        }        
     }
-    CLCoordinateRect mapBounds = [CLLocation boundingBoxContainingLocations:locations];
     
-    //coordinate span for setting zoom level
-    CLLocationDegrees spanLat = fabs(mapBounds.topLeft.latitude - mapBounds.bottomRight.latitude);
-    CLLocationDegrees spanLon = fabs(mapBounds.topLeft.longitude - mapBounds.bottomRight.longitude);
-    MKCoordinateSpan span = MKCoordinateSpanMake(spanLat, spanLon);
-    
-    if(map.userLocation.location)
+    if(map.userLocation.location && currentDestination)
     {
+        //make span big enough to contain current destination, use current location as center
+        CLLocationDegrees spanLat = 2.5 * fabs(map.userLocation.location.coordinate.latitude - currentDestination.coordinate.latitude);
+        CLLocationDegrees spanLon = 2.5 * fabs(map.userLocation.location.coordinate.longitude - currentDestination.coordinate.longitude);
+        MKCoordinateSpan span = MKCoordinateSpanMake(spanLat, spanLon);
         [map setRegion:MKCoordinateRegionMake(map.userLocation.location.coordinate, span)];
+        [map setCenterCoordinate:map.userLocation.location.coordinate];
     }
-    else
+    else if([locations count])
     {
+        CLCoordinateRect mapBounds = [CLLocation boundingBoxContainingLocations:locations];
+        CLLocationDegrees spanLat = 2.2 * fabs(mapBounds.topLeft.latitude - mapBounds.bottomRight.latitude);
+        CLLocationDegrees spanLon = 2.2 * fabs(mapBounds.topLeft.longitude - mapBounds.bottomRight.longitude);
+        MKCoordinateSpan span = MKCoordinateSpanMake(spanLat, spanLon);
+        CLLocationDegrees centerLat = (mapBounds.topLeft.latitude + mapBounds.bottomRight.latitude) / 2;
+        CLLocationDegrees centerLon = (mapBounds.topLeft.longitude + mapBounds.bottomRight.longitude) / 2;
         [map setRegion:MKCoordinateRegionMake(map.userLocation.location.coordinate, span)];
-        [map setCenterCoordinate:((CLLocation*)[locations objectAtIndex:0]).coordinate];
+        [map setCenterCoordinate:CLLocationCoordinate2DMake(centerLat, centerLon)];
     }
 }
 
@@ -139,36 +152,16 @@
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;  //return nil to use default blue dot view
     
-    //create annotation
-    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pinView"];
-    if (!pinView) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pinView"];
-        pinView.animatesDrop = FALSE;
-        pinView.canShowCallout = YES;
-
-        
-        //details button
-        //UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        //pinView.rightCalloutAccessoryView = rightButton;
-        
-    } else {
-        pinView.annotation = annotation;
+    MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, 0 , 0)];
+    if ([annotation current] == YES)
+    {
+        annotationView.image = [UIImage imageNamed:@"target"];
     }
-    
-    //Color
-    if ([annotation current] == YES) {
-        pinView.pinColor = MKPinAnnotationColorRed;
+    else if ([annotation visited] == YES)
+    {
+        annotationView.image = [UIImage imageNamed:@"target-checked"];
     }
-    else{
-        if ([annotation visited] == YES) {
-            pinView.pinColor = MKPinAnnotationColorGreen;
-        }
-        else{
-            pinView.pinColor = MKPinAnnotationColorPurple;
-        }
-    }
-    
-    return pinView;
+    return annotationView;
 }
 
 
