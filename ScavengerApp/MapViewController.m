@@ -54,7 +54,7 @@
         //add annotation pins
         MapPoint *pin = [[MapPoint alloc] init];
         NSString *langKey = [[AppState sharedInstance] language];
-        [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"title_%@", langKey]]];
+        [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]];
         pin.coordinate = destintation.coordinate;
         if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
         {
@@ -120,20 +120,26 @@
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;  //return nil to use default blue dot view
     
-    MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, 0 , 0)];
-    //annotationView.canShowCallout = YES;
-    //annotationView.annotation = annotation;
-    
-    if ([annotation current] == YES)
+    if([annotation isKindOfClass:[MapPoint class]])
     {
-        annotationView.image = [UIImage imageNamed:@"target"];
+        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, 0 , 0)];
+        annotationView.canShowCallout = YES;
+        annotationView.annotation = annotation;
+        
+        if ([annotation current] == YES)
+        {
+            annotationView.image = [UIImage imageNamed:@"target"];
+        }
+        else if ([annotation visited] == YES)
+        {
+            annotationView.image = [UIImage imageNamed:@"target-checked"];
+        }
+        return annotationView;
     }
-    else if ([annotation visited] == YES)
-    {
-        annotationView.image = [UIImage imageNamed:@"target-checked"];
-    }
-    return annotationView;
+    return nil;
 }
+
+
 
 
 //Required method
