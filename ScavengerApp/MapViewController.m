@@ -32,24 +32,18 @@
     
     //map view
     map = [[MKMapView alloc] initWithFrame:self.view.bounds];
-    [map setShowsUserLocation:YES];
+    map.showsUserLocation = YES;
     map.delegate = self;
-    //map.userTrackingMode = MKUserTrackingModeFollowWithHeading;
-    
-    [self.view addSubview:map];
-    
-    //NSLog(@"s %@",NSStringFromCGRect(self.view.bounds));
-    
+    [self.view addSubview:map];    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     //bounding rect containing waypoint locations and user location
-    NSArray *waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute: [[AppState sharedInstance] activeRouteId]];
     NSMutableArray *locations = [[NSMutableArray alloc] initWithCapacity:0];
     CLLocation *currentDestination = nil;
     
-    for(NSDictionary *waypoint in waypoints)
+    for(NSDictionary *waypoint in self.waypoints)
     {
         //add destinations to array
         float latitude = [[waypoint objectForKey:@"latitude"] floatValue];
@@ -112,38 +106,12 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)onBackButton
 {
     [self.navigationController popViewControllerAnimated:TRUE];
 }
-
-- (CGRect)boundsFittingAvailableScreenSpace;
-{
-    // start with applicationFrame's bounds
-    CGRect bounds = [[UIScreen mainScreen] applicationFrame];
-    bounds.origin.y = 0;
-    
-    // subtract space taken by navigation controller
-    if (self.navigationController) {
-        if (self.navigationController.navigationBarHidden == NO) {
-            bounds.size.height -= self.navigationController.navigationBar.bounds.size.height;
-        }
-        if (self.navigationController.toolbarHidden == NO) {
-            bounds.size.height -= self.navigationController.toolbar.bounds.size.height;
-        }
-    }
-    
-    // subtract space taken by tab bar controller
-    if (self.tabBarController) {
-        bounds.size.height -= self.tabBarController.tabBar.bounds.size.height;
-    }
-    
-    return bounds;
-}
-
 
 #pragma mark - Mapview delegates
 
@@ -153,6 +121,9 @@
         return nil;  //return nil to use default blue dot view
     
     MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithFrame:CGRectMake(0, 0, 0 , 0)];
+    //annotationView.canShowCallout = YES;
+    //annotationView.annotation = annotation;
+    
     if ([annotation current] == YES)
     {
         annotationView.image = [UIImage imageNamed:@"target"];

@@ -10,6 +10,7 @@
 #import "CompassViewController.h"
 #import "QuartzCore/CALayer.h"
 #import "CustomBarButtonView.h"
+#import "MapViewController.h"
 
 @interface LocationDetailViewController ()
 
@@ -46,10 +47,18 @@
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    //custom map button
+    CustomBarButtonView *mapButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                      imageName:@"icon-map"
+                                                                           text:nil
+                                                                         target:self
+                                                                         action:@selector(onMapButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
     
     //route info
     NSString *langKey = [[AppState sharedInstance] language];
-    self.locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
+    if([_location objectForKey:@"image_data"])
+        self.locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
     self.locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
     self.locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
     
@@ -89,6 +98,13 @@
         [self.navigationController pushViewController:compass animated:YES];
         
     }
+}
+
+- (void)onMapButton
+{
+    MapViewController *mvc = [[MapViewController alloc] init];
+    mvc.waypoints = [NSArray arrayWithObject:self.location];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 - (void)onBackButton

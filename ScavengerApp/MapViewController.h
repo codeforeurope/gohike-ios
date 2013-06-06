@@ -14,4 +14,6 @@
     MKMapView *map;
 }
 
+@property (nonatomic,strong) NSArray *waypoints;
+
 @end

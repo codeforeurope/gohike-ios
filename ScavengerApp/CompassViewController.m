@@ -331,6 +331,7 @@
 - (void)onMapButton
 {
     MapViewController *mvc = [[MapViewController alloc] init];
+    mvc.waypoints = [[AppState sharedInstance] waypointsWithCheckinsForRoute: [[AppState sharedInstance] activeRouteId]];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 
