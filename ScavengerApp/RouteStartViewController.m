@@ -18,6 +18,8 @@
 
 #import "CustomBarButtonView.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface RouteStartViewController ()
 
 //@property (nonatomic, strong) NSArray *checkins;
@@ -177,6 +179,8 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+            
             return cell;
         }
             break;

@@ -49,7 +49,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //button with gradient
         UIButton *checkinButton = [UIButton buttonWithType:UIButtonTypeCustom];
         checkinButton.frame = CGRectMake((self.bounds.size.width - BUTTON_WIDTH)/2, self.bounds.size.height - BUTTON_HEIGHT - 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-        checkinButton.titleLabel.text = @"CHECK IN";
+        checkinButton.titleLabel.text = NSLocalizedString(@"Found!", nil);
         // Draw a custom gradient
         UIColor *blueColor = UIColorFromRGB(0x83CEE4);
         CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -60,7 +60,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [checkinButton.layer insertSublayer:gradient atIndex:0];
         checkinButton.layer.cornerRadius = 5;
         checkinButton.layer.masksToBounds = YES;
-        [checkinButton setTitle:NSLocalizedString(@"CHECK IN", nil) forState:UIControlStateNormal];
+        [checkinButton setTitle:NSLocalizedString(@"Found!", nil) forState:UIControlStateNormal];
         [checkinButton addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:checkinButton];
         

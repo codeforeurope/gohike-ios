@@ -1,11 +1,12 @@
 //
 //  GHRoutes.m
 //
-//  Created by Giovanni Maggini on 5/27/13
+//  Created by Giovanni Maggini on 6/6/13
 //  Copyright (c) 2013 gixWorks. All rights reserved.
 //
 
 #import "GHRoutes.h"
+#import "GHReward.h"
 #import "GHWaypoints.h"
 
 
@@ -17,6 +18,8 @@
 
 @implementation GHRoutes
 
+@synthesize reward = _reward;
+@synthesize myProperty1 = _myProperty1;
 @synthesize nameEn = _nameEn;
 @synthesize routesIdentifier = _routesIdentifier;
 @synthesize iconData = _iconData;
@@ -41,6 +44,8 @@
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
+            self.reward = [GHReward modelObjectWithDictionary:[dict objectForKey:@"reward"]];
+            self.myProperty1 = [self objectOrNilForKey:@"" fromDictionary:dict];
             self.nameEn = [self objectOrNilForKey:@"name_en" fromDictionary:dict];
             self.routesIdentifier = [[dict objectForKey:@"id"] doubleValue];
             self.iconData = [self objectOrNilForKey:@"icon_data" fromDictionary:dict];
@@ -72,6 +77,8 @@
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:[self.reward dictionaryRepresentation] forKey:@"reward"];
+    [mutableDict setValue:self.myProperty1 forKey:@""];
     [mutableDict setValue:self.nameEn forKey:@"name_en"];
     [mutableDict setValue:[NSNumber numberWithDouble:self.routesIdentifier] forKey:@"id"];
     [mutableDict setValue:self.iconData forKey:@"icon_data"];
@@ -114,6 +121,8 @@ NSMutableArray *tempArrayForWaypoints = [NSMutableArray array];
 {
     self = [super init];
 
+    self.reward = [aDecoder decodeObjectForKey:@"reward"];
+    self.myProperty1 = [aDecoder decodeObjectForKey:@"myProperty1"];
     self.nameEn = [aDecoder decodeObjectForKey:@"nameEn"];
     self.routesIdentifier = [aDecoder decodeDoubleForKey:@"routesIdentifier"];
     self.iconData = [aDecoder decodeObjectForKey:@"iconData"];
@@ -129,6 +138,8 @@ NSMutableArray *tempArrayForWaypoints = [NSMutableArray array];
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 
+    [aCoder encodeObject:_reward forKey:@"reward"];
+    [aCoder encodeObject:_myProperty1 forKey:@"myProperty1"];
     [aCoder encodeObject:_nameEn forKey:@"nameEn"];
     [aCoder encodeDouble:_routesIdentifier forKey:@"routesIdentifier"];
     [aCoder encodeObject:_iconData forKey:@"iconData"];

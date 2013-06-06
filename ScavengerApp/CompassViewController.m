@@ -29,7 +29,7 @@
 #define ARROW_SIZE 150
 #define COMPASS_SIZE 300
 #if DEBUG
-#define CHECKIN_DISTANCE 50 //meters
+#define CHECKIN_DISTANCE 20 //meters
 #else
 #define CHECKIN_DISTANCE 60 //meters
 #endif

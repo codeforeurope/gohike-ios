@@ -119,7 +119,7 @@
                             [self.view addSubview:_overlayView];
                         }
                         completion:nil];
-        //        [[NSUserDefaults standardUserDefaults] setObject:YES forKey:@"howtoplay_displayed"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"howtoplay_displayed"];
     }
 }
 

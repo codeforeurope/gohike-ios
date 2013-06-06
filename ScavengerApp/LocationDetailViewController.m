@@ -59,6 +59,10 @@
     NSString *langKey = [[AppState sharedInstance] language];
     if([_location objectForKey:@"image_data"])
         self.locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
+    else{
+        self.locationImageView.image = [UIImage imageNamed:@"no-picture"];
+        NSLog(@"No image for %@", [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]);
+    }
     self.locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
     self.locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
     
@@ -94,7 +98,6 @@
         NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
         
         CompassViewController *compass = [[CompassViewController alloc] init];
-//        [compass setReplay:YES]; //TODO: set we are replaying
         [self.navigationController pushViewController:compass animated:YES];
         
     }

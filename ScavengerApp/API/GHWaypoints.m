@@ -1,7 +1,7 @@
 //
 //  GHWaypoints.m
 //
-//  Created by Giovanni Maggini on 5/27/13
+//  Created by Giovanni Maggini on 6/6/13
 //  Copyright (c) 2013 gixWorks. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 
 @synthesize nameEn = _nameEn;
 @synthesize longitude = _longitude;
+@synthesize imageData = _imageData;
 @synthesize nameNl = _nameNl;
 @synthesize latitude = _latitude;
 @synthesize locationId = _locationId;
@@ -42,6 +43,7 @@
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.nameEn = [self objectOrNilForKey:@"name_en" fromDictionary:dict];
             self.longitude = [self objectOrNilForKey:@"longitude" fromDictionary:dict];
+            self.imageData = [self objectOrNilForKey:@"image_data" fromDictionary:dict];
             self.nameNl = [self objectOrNilForKey:@"name_nl" fromDictionary:dict];
             self.latitude = [self objectOrNilForKey:@"latitude" fromDictionary:dict];
             self.locationId = [[dict objectForKey:@"location_id"] doubleValue];
@@ -61,6 +63,7 @@
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.nameEn forKey:@"name_en"];
     [mutableDict setValue:self.longitude forKey:@"longitude"];
+    [mutableDict setValue:self.imageData forKey:@"image_data"];
     [mutableDict setValue:self.nameNl forKey:@"name_nl"];
     [mutableDict setValue:self.latitude forKey:@"latitude"];
     [mutableDict setValue:[NSNumber numberWithDouble:self.locationId] forKey:@"location_id"];
@@ -93,6 +96,7 @@
 
     self.nameEn = [aDecoder decodeObjectForKey:@"nameEn"];
     self.longitude = [aDecoder decodeObjectForKey:@"longitude"];
+    self.imageData = [aDecoder decodeObjectForKey:@"imageData"];
     self.nameNl = [aDecoder decodeObjectForKey:@"nameNl"];
     self.latitude = [aDecoder decodeObjectForKey:@"latitude"];
     self.locationId = [aDecoder decodeDoubleForKey:@"locationId"];
@@ -108,6 +112,7 @@
 
     [aCoder encodeObject:_nameEn forKey:@"nameEn"];
     [aCoder encodeObject:_longitude forKey:@"longitude"];
+    [aCoder encodeObject:_imageData forKey:@"imageData"];
     [aCoder encodeObject:_nameNl forKey:@"nameNl"];
     [aCoder encodeObject:_latitude forKey:@"latitude"];
     [aCoder encodeDouble:_locationId forKey:@"locationId"];

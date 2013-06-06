@@ -1,7 +1,7 @@
 //
 //  GHWaypoints.h
 //
-//  Created by Giovanni Maggini on 5/27/13
+//  Created by Giovanni Maggini on 6/6/13
 //  Copyright (c) 2013 gixWorks. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSString *nameEn;
 @property (nonatomic, strong) NSString *longitude;
+@property (nonatomic, strong) NSString *imageData;
 @property (nonatomic, strong) NSString *nameNl;
 @property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, assign) double locationId;

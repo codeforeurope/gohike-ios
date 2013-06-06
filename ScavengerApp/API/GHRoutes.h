@@ -1,16 +1,18 @@
 //
 //  GHRoutes.h
 //
-//  Created by Giovanni Maggini on 5/27/13
+//  Created by Giovanni Maggini on 6/6/13
 //  Copyright (c) 2013 gixWorks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-
+@class GHReward;
 
 @interface GHRoutes : NSObject <NSCoding>
 
+@property (nonatomic, strong) GHReward *reward;
+@property (nonatomic, assign) id myProperty1;
 @property (nonatomic, strong) NSString *nameEn;
 @property (nonatomic, assign) double routesIdentifier;
 @property (nonatomic, strong) NSString *iconData;
