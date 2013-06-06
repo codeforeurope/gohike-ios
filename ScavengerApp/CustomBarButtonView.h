@@ -10,6 +10,10 @@
 
 @interface CustomBarButtonView : UIView
 
+
 - (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName text:(NSString*)text target:(id)target action:(SEL)selector;
+
+@property (nonatomic) SEL action;
+@property (nonatomic,assign) id target;
 
 @end
