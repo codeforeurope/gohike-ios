@@ -12,7 +12,7 @@
 #import "CompassViewController.h"
 #import "AFNetworking.h"
 #import "Secret.h"
-#import "OpenUDID.h"
+#import "M"
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -225,8 +225,10 @@
     NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
+
     // Get device UDID
-    NSString* deviceID = [OpenUDID value];
+    NSString *deviceID = [MCSMApplicationUUIDKeychainItem applicationUUID];
+//    NSString* deviceID = [OpenUDID value];
     //replaced the old way with this OpenUDID
 //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
 
