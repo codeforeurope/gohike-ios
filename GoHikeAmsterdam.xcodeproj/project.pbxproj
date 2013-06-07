@@ -145,6 +145,7 @@
 		ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BE51743E93C00D64682 /* OverlayView.m */; };
 		ACDD9BE81743E93C00D64682 /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BE61743E93C00D64682 /* OverlayView.xib */; };
 		ACDD9BEA1743EBAB00D64682 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */; };
+		ACE2AD4017628D94004C6AF8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE2AD3F17628D94004C6AF8 /* AdSupport.framework */; };
 		ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */; };
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
@@ -339,6 +340,7 @@
 		ACDD9BE51743E93C00D64682 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		ACDD9BE61743E93C00D64682 /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ACE2AD3F17628D94004C6AF8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		ACE31CF3175E23A1009916EE /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Secret.h; path = ScavengerApp/Secret.h; sourceTree = "<group>"; };
 		ACECFB8C17565CCC0074EBBE /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACE2AD4017628D94004C6AF8 /* AdSupport.framework in Frameworks */,
 				AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */,
 				ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */,
 				AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */,
@@ -638,6 +641,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACE2AD3F17628D94004C6AF8 /* AdSupport.framework */,
 				AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */,
 				ACC893B5175F7A3C002AC636 /* libz.dylib */,
 				A71CF121175E3BEB00FA2168 /* MapKit.framework */,
@@ -1095,8 +1099,8 @@
 		ACDD9B8D1743B20200D64682 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giovanni Maggini (54P6X97536)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
@@ -1107,7 +1111,7 @@
 					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
-				PROVISIONING_PROFILE = "99A949B1-BF83-4407-B293-6461F1662378";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};

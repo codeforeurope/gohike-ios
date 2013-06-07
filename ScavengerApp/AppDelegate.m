@@ -12,7 +12,8 @@
 #import "CompassViewController.h"
 #import "AFNetworking.h"
 #import "Secret.h"
-#import "MCSMKeychainItem.h"
+#import <AdSupport/AdSupport.h>
+
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -64,6 +65,7 @@
 {
     
     //TestFlight
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //!!! Remove for App Store
     [TestFlight takeOff:kTestFlightAPIKey];
     
     [self customizeAppearance];
@@ -224,14 +226,22 @@
 {
     NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+
     
-
     // Get device UDID
-    NSString *deviceID = [MCSMApplicationUUIDKeychainItem applicationUUID];
-//    NSString* deviceID = [OpenUDID value];
-    //replaced the old way with this OpenUDID
-//    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-
+    //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
+    
+    NSString *deviceID;
+    ASIdentifierManager *adMgr =  [[ASIdentifierManager alloc] init];
+    if ([adMgr isAdvertisingTrackingEnabled] == YES)  //User may have opted out from tracking the Ad Identifier in Settings -> General -> Advertising
+    {
+        deviceID = [[adMgr advertisingIdentifier] UUIDString];
+    }
+    else{
+        deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    }
+    NSLog(@"DeviceID %@", deviceID);
+    
    
     if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
     {

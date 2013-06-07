@@ -345,6 +345,7 @@
 
 - (void)onRouteFinished
 {
+    [TestFlight passCheckpoint:@"UserHasFinishedRoute"];
     showRewardOnAppear = TRUE;
 }
 
