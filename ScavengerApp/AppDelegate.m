@@ -12,7 +12,7 @@
 #import "CompassViewController.h"
 #import "AFNetworking.h"
 #import "Secret.h"
-#import "M"
+#import "MCSMKeychainItem.h"
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 

@@ -107,6 +107,7 @@
 		ACB534F8175654390065D72D /* target-white-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CE175654390065D72D /* target-white-small@2x.png */; };
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
+		ACB5F71217627EF8008096AC /* MCSMKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B2175F7742002AC636 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893AE175F7742002AC636 /* libTestFlight.a */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
@@ -287,11 +288,11 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
+		ACB5F70C17627EF8008096AC /* MCSMKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSMKeychainItem.h; sourceTree = "<group>"; };
+		ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSMKeychainItem.m; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		ACC893AE175F7742002AC636 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		ACC893AF175F7742002AC636 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		ACC893B0175F7742002AC636 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		ACC893B1175F7742002AC636 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		ACC893B5175F7A3C002AC636 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		ACC893B7175F83DE002AC636 /* no-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-picture@2x.png"; sourceTree = "<group>"; };
@@ -569,12 +570,19 @@
 			path = 2x;
 			sourceTree = "<group>";
 		};
+		ACB5F70917627EF8008096AC /* MCSMKeychainItem */ = {
+			isa = PBXGroup;
+			children = (
+				ACB5F70C17627EF8008096AC /* MCSMKeychainItem.h */,
+				ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */,
+			);
+			path = MCSMKeychainItem;
+			sourceTree = "<group>";
+		};
 		ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */ = {
 			isa = PBXGroup;
 			children = (
 				ACC893AE175F7742002AC636 /* libTestFlight.a */,
-				ACC893AF175F7742002AC636 /* README.md */,
-				ACC893B0175F7742002AC636 /* release_notes.md */,
 				ACC893B1175F7742002AC636 /* TestFlight.h */,
 			);
 			path = TestFlightSDK1.2.5;
@@ -608,6 +616,7 @@
 			children = (
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
+				ACB5F70917627EF8008096AC /* MCSMKeychainItem */,
 				ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */,
 				AC0AF4611754AB4600B766E0 /* AFNetworking */,
 				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
@@ -933,6 +942,7 @@
 				AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */,
 				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
+				ACB5F71217627EF8008096AC /* MCSMKeychainItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
