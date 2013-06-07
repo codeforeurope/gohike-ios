@@ -122,10 +122,6 @@
     
     [self updateContent];
     
-    // Try to push checkins, if network is reachable
-
-    [self pushCheckins];
-    
     
     //Start app
     self.window.rootViewController = self.navigationController;
@@ -138,7 +134,10 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
-    NSLog(@"Resigned active, setup fence");
+//    NSLog(@"Resigned active, setup fence");
+    //TODO: setup geofencing, notifications, etc.
+    //This method is called also when the user clicks on the "lock" screen on the iPhone
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -157,7 +156,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self pushCheckins];
     
-    NSLog(@"back to active, delete fence");
+//    NSLog(@"back to active, delete fence");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -11,7 +11,7 @@
 #import "OverlayView.h"
 #import "SelectionCell.h"
 #import "HelpView.h"
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
 
 #define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
 
@@ -89,10 +89,9 @@
         [_overlayView.scrollView addSubview:help1];
     }
 
-    CustomBarButtonView *helpButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *helpButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                          imageName:@"help2"
-                                                                         textRight:nil
-                                                                          textLeft:nil
+                                                                         text:nil
                                                                             target:self
                                                                             action:@selector(onHelpButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];

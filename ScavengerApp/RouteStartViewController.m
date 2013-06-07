@@ -16,7 +16,8 @@
 
 #import "RewardViewController.h"
 
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
+#import "CustomBarButtonViewRight.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -74,10 +75,9 @@
 - (void)updateNavigationButtons
 {
     //change back button
-    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                        textRight:NSLocalizedString(@"Back", nil)
-                                                                        textLeft:nil
+                                                                        text:NSLocalizedString(@"Back", nil)
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -87,10 +87,9 @@
     if (nextWaypoint)
     {
         // Route is not complete, put "go hike" button
-        CustomBarButtonView *goHikeButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+        CustomBarButtonViewRight *goHikeButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
                                                                              imageName:@"icon-compass"
-                                                                             textRight:nil
-                                                                              textLeft:NSLocalizedString(@"Start Hike!", nil)
+                                                                              text:NSLocalizedString(@"Go Hike!", nil)
                                                                                 target:self
                                                                                 action:@selector(onGoHikeButton)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
@@ -99,10 +98,9 @@
     else
     {
         // Route is complete, put reward button
-        CustomBarButtonView *showTrophyButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+        CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
                                                                              imageName:@"icon-trophy"
-                                                                             textRight:nil
-                                                                              textLeft:NSLocalizedString(@"View Trophy", nil)
+                                                                              text:NSLocalizedString(@"View Reward", nil)
                                                                                 target:self
                                                                                 action:@selector(onViewRewardButton)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:showTrophyButton];

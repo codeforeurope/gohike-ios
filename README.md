@@ -83,3 +83,13 @@ The check-ins of the players are an NSArray stored in the AppState. They are upl
 Styling
 -------
 App has a flat, consistent and professional looking style. However, we don't have to forget that it's a game. 
+
+
+Copyrights, Licenses, etc
+------
+"fanfare.mp3" is CC-BY-NC "timbre" on freesound.org (110317__timbre__remix-of-62176-fanfare-before-after)
+"success.mp3" is CC-0 "fins" on Freesound.org  (171670__fins__success-2)
+Some pictures are from the http://beeldbank.amsterdam.nl/ (published under Open Data License)
+Some pictures may come from Creative-Commons licensed content on Flickr
+
+

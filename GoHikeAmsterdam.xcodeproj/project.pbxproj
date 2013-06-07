@@ -19,7 +19,7 @@
 		A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A726AA72175DEA9F00C7F8E6 /* Social.framework */; };
 		A7DABF021757994800A0315E /* CloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DABF011757994800A0315E /* CloudView.m */; };
 		A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */; };
-		A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonView.m */; };
+		A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */; };
 		A7E846271757591400944FF6 /* icon-trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846261757591300944FF6 /* icon-trophy.png */; };
 		A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846281757591B00944FF6 /* icon-trophy@2x.png */; };
 		A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462A17575CA100944FF6 /* icon-facebook.png */; };
@@ -55,6 +55,7 @@
 		AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */; };
 		AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */; };
 		AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F8001761FE8400ED3F14 /* success.mp3 */; };
+		AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F805176225D800ED3F14 /* CustomBarButtonViewRight.m */; };
 		AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973D1760B20800D349D0 /* c4eu-badge.png */; };
 		AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
@@ -170,8 +171,8 @@
 		A7DABF011757994800A0315E /* CloudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudView.m; sourceTree = "<group>"; };
 		A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationRadarView.h; sourceTree = "<group>"; };
 		A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationRadarView.m; sourceTree = "<group>"; };
-		A7E846231757486300944FF6 /* CustomBarButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonView.h; sourceTree = "<group>"; };
-		A7E846241757486300944FF6 /* CustomBarButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonView.m; sourceTree = "<group>"; };
+		A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonViewLeft.h; sourceTree = "<group>"; };
+		A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonViewLeft.m; sourceTree = "<group>"; };
 		A7E846261757591300944FF6 /* icon-trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy.png"; sourceTree = "<group>"; };
 		A7E846281757591B00944FF6 /* icon-trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy@2x.png"; sourceTree = "<group>"; };
 		A7E8462A17575CA100944FF6 /* icon-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook.png"; sourceTree = "<group>"; };
@@ -231,6 +232,8 @@
 		AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fanfare.mp3; sourceTree = "<group>"; };
 		AC41F8001761FE8400ED3F14 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
+		AC41F804176225D700ED3F14 /* CustomBarButtonViewRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonViewRight.h; sourceTree = "<group>"; };
+		AC41F805176225D800ED3F14 /* CustomBarButtonViewRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonViewRight.m; sourceTree = "<group>"; };
 		AC47973D1760B20800D349D0 /* c4eu-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge.png"; sourceTree = "<group>"; };
 		AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge@2x.png"; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
@@ -648,8 +651,10 @@
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
-				A7E846231757486300944FF6 /* CustomBarButtonView.h */,
-				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
+				A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */,
+				A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */,
+				AC41F804176225D700ED3F14 /* CustomBarButtonViewRight.h */,
+				AC41F805176225D800ED3F14 /* CustomBarButtonViewRight.m */,
 				A71CF11E175E35F700FA2168 /* MapViewController.h */,
 				A71CF11F175E35F700FA2168 /* MapViewController.m */,
 				ACC893A9175F67B5002AC636 /* MapPoint.h */,
@@ -914,7 +919,7 @@
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
 				AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */,
 				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
-				A7E846251757486300944FF6 /* CustomBarButtonView.m in Sources */,
+				A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */,
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,
 				A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */,
 				A71CF120175E35F700FA2168 /* MapViewController.m in Sources */,
@@ -925,6 +930,7 @@
 				AC41F7EB1761345700ED3F14 /* GHReward.m in Sources */,
 				AC41F7EC1761345700ED3F14 /* GHRoutes.m in Sources */,
 				AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */,
+				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

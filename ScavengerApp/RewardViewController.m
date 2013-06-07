@@ -8,7 +8,8 @@
 
 #import <Social/Social.h>
 #import "RewardViewController.h"
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
+#import "CustomBarButtonViewRight.h"
 
 @interface RewardViewController ()
 
@@ -28,18 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                       textRight:NSLocalizedString(@"Back", nil)
-                                                                        textLeft:nil
+                                                                       text:NSLocalizedString(@"Back", nil)
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    CustomBarButtonView *shareButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *shareButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                          imageName:@"icon-facebook"
-                                                                         textRight:nil
-                                                                          textLeft:nil
+                                                                          text:nil
                                                                             target:self
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];

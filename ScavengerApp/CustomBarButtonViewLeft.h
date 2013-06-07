@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomBarButtonView : UIView
+@interface CustomBarButtonViewLeft : UIView
 
 
-- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName textRight:(NSString*)textRight textLeft:(NSString*)textLeft target:(id)aTarget action:(SEL)aAction;
+- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName text:(NSString*)text target:(id)aTarget action:(SEL)aAction;
 
 @property (nonatomic) SEL action;
 @property (nonatomic,assign) id target;

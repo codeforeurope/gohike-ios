@@ -9,7 +9,8 @@
 #import "LocationDetailViewController.h"
 #import "CompassViewController.h"
 #import "QuartzCore/CALayer.h"
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
+#import "CustomBarButtonViewRight.h"
 #import "MapViewController.h"
 
 @interface LocationDetailViewController ()
@@ -40,19 +41,17 @@
     [super viewDidLoad];
 
     //custom back button
-    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                        textRight:NSLocalizedString(@"Back", nil)
-                                                                        textLeft:nil
+                                                                        text:NSLocalizedString(@"Back", nil)
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //custom map button
-    CustomBarButtonView *mapButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
                                                                       imageName:@"icon-map"
-                                                                      textRight:nil
-                                                                       textLeft:NSLocalizedString(@"View Map", nil)
+                                                                       text:NSLocalizedString(@"View Map", nil)
                                                                          target:self
                                                                          action:@selector(onMapButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];

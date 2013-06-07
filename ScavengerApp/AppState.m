@@ -7,6 +7,7 @@
 //
 
 #import "AppState.h"
+#import "AppDelegate.h"
 
 @implementation AppState
 
@@ -51,6 +52,7 @@
 #endif
     [self save];
     
+    [((AppDelegate*)[UIApplication sharedApplication]) pushCheckins]; //try to push check-ins if we have internet connection
 }
 
 - (BOOL)setNextTarget
@@ -64,33 +66,6 @@
     }
     return NO;
 }
-
-/*
-- (BOOL)nextTarget
-{
-    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
-    NSUInteger thisWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
-    }];
-    int thisWaypointRank = [[[waypoints objectAtIndex:thisWPIndex] objectForKey:@"rank"] integerValue];
-    int nextTarget = thisWaypointRank + 1;
-    
-    NSDictionary *next;
-    NSUInteger nextWPIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"rank"] integerValue] == nextTarget;
-    }];
-    if (nextWPIndex == NSNotFound) {
-        return NO;
-    }
-    else{
-        next = [waypoints objectAtIndex:nextWPIndex];
-        _activeTargetId = [[next objectForKey:@"rank"] integerValue];
-        [self save];
-        return YES;
-    }
-    
-}
-*/
  
 - (NSDictionary*)activeProfile
 {

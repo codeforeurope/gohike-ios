@@ -7,7 +7,7 @@
 //
 
 #import "MapViewController.h"
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
 #import "CLLocation+measuring.h"
 #import "MapPoint.h"
 
@@ -22,10 +22,9 @@
     [super viewDidLoad];
     
     //custom back button
-    CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                        textRight:NSLocalizedString(@"Back",nil)
-                                                                        textLeft:nil
+                                                                        text:NSLocalizedString(@"Back",nil)
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     

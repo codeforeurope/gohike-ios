@@ -5,41 +5,26 @@
 //  Created by Lodewijk Loos on 30-05-13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
-#import "CustomBarButtonView.h"
+#import "CustomBarButtonViewLeft.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation CustomBarButtonView
+@implementation CustomBarButtonViewLeft
 
-- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName textRight:(NSString*)textRight textLeft:(NSString*)textLeft target:(id)aTarget action:(SEL)aAction
+- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName text:(NSString*)text target:(id)aTarget action:(SEL)aAction
 {
     self = [super initWithFrame:frame];
     if (self) {
         //add icon vertical mid
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-        image.frame = CGRectMake(0, 0, 27.0, 27.0);
+        image.frame = CGRectMake(0, 0, 22.0, 22.0);
         image.center = CGPointMake(image.center.x, frame.size.height / 2);
         image.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:image];
-        
-        //add text vertical mid on the left of image
-        if(textLeft)
-        {
-            NSString *labelText = textLeft;
-            float padding = 10;
-            UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
-            CGSize labelSize = [labelText sizeWithFont:font];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0-padding-labelSize.width, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
-            label.font = font;
-            label.text = labelText;
-            label.textColor = [UIColor whiteColor];
-            label.backgroundColor = [UIColor clearColor];
-            [self addSubview:label];
-        }
-        
+                
         //add text vertical mid on the right of image
-        if(textRight)
+        if(text)
         {
-            NSString *labelText = textRight;
+            NSString *labelText = text;
             float padding = 10;
             UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
             CGSize labelSize = [labelText sizeWithFont:font];
