@@ -54,7 +54,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HandleAppHasFinishedContentUpdate:) name:kAppHasFinishedContentUpdate object:nil];
     
 //    CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64);
-//    NSLog(@"%@",NSStringFromCGRect(gridRect));
 
     _overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
     
@@ -75,8 +74,6 @@
         frame.origin.x = _overlayView.scrollView.frame.size.width * i;
         frame.origin.y = 0;
         frame.size = _overlayView.scrollView.frame.size;
-        
-        NSLog(@"%@",NSStringFromCGRect(frame));
         
         HelpView *help1 = [[NSBundle mainBundle] loadNibNamed:@"HelpView"owner:self options:nil][0]; //[[HelpView alloc] initWithFrame:frame];
         [help1 setFrame:frame];
@@ -199,8 +196,7 @@
     else{
         NSLog(@"No routes for selected profile!!");
     }
-    
-
+ 
 }
 
 
@@ -208,7 +204,6 @@
 
 - (void)HandleAppHasFinishedContentUpdate:(NSNotification*)pNotification
 {
-    NSLog(@"reloading data");
     [self loadData];
     [self.collectionView reloadData];
 }

@@ -75,7 +75,6 @@
 
 - (IBAction)badgeTapped:(UITapGestureRecognizer*)sender
 {
-    NSLog(@"Badge tapped");
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"SavePictureQuestion", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Don't save", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
     [actionSheet showInView:self.view];
 }

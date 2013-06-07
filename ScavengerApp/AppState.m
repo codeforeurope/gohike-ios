@@ -142,7 +142,7 @@
 {
     NSArray *waypoints = [[self routeWithId:routeId] objectForKey:@"waypoints"];
     NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
-//    NSLog(@"checkinsforRoute %@", checkinsForRoute);
+
     NSMutableArray *waypointsWithVisit = [[NSMutableArray alloc] init];
     
     [waypoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -150,7 +150,7 @@
         NSMutableDictionary *wp = [[NSMutableDictionary alloc] initWithDictionary:obj];
         if (checkinsForRoute) {
             NSUInteger isCheckedIn = [checkinsForRoute indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-//                NSLog(@" ((Checkin*)obj).locationId  %d",  ((Checkin*)obj).locationId );
+
                 return [[wp objectForKey:@"location_id"] integerValue]  == ((Checkin*)obj).locationId ;
             }];
 
@@ -174,8 +174,6 @@
         NSNumber *id2 = [NSNumber numberWithDouble: [[obj2 valueForKey:@"rank"] intValue]];
         return [id1 compare:id2];
     }]];
-    
-//    NSLog(@"waypoints with visited %@", waypointsWithVisit);
     
     return waypointsWithVisit;
 }

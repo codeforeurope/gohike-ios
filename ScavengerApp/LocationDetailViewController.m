@@ -54,7 +54,6 @@
         _locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
     else{
         _locationImageView.image = [UIImage imageNamed:@"no-picture"];
-        NSLog(@"No image for %@", [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]);
     }
     _locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
     _locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
@@ -91,9 +90,7 @@
         [[AppState sharedInstance] setActiveRouteId: [[_location objectForKey:@"route_id"] intValue]];
         [[AppState sharedInstance] setActiveTargetId: [[_location objectForKey:@"location_id"] intValue]];
         [[AppState sharedInstance] save];
-        
-        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-        
+                
         CompassViewController *compass = [[CompassViewController alloc] init];
         [self.navigationController pushViewController:compass animated:YES];
         

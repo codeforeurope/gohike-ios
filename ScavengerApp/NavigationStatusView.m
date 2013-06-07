@@ -85,7 +85,6 @@
     }
     
     //add subviews
-    NSLog(@"checkins: %i of %i",complete,total);
     for(int i = 0; i < total; i++)
     {
         CGRect targetRect = CGRectMake(i * (side + SPACER), 2, side, side);

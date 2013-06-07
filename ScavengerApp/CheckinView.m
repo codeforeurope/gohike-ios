@@ -125,8 +125,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)onButton:(UIButton*)button
 {
-    //User has found the place. Change the content of the textView, and change the button so that says "go to next destination"
-    NSLog(@"Found button pressed");
+    //User has found the place. Remove the picture, change the content of the textView, and change the button so that says "go to next destination"
+    [destinationImageView removeFromSuperview];
     
     //Change content of textview
     NSString *langKey = [[AppState sharedInstance] language];
@@ -161,7 +161,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     //This is where we dismiss the check-in view
     
-    NSLog(@"Continue button pressed");
     if(self.buttonTarget)
     {
         [self.buttonTarget performSelector:self.buttonAction withObject:nil afterDelay:0];
@@ -169,13 +168,5 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self removeFromSuperview];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

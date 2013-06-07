@@ -21,19 +21,16 @@
         float padding = 10;
 
         //add text vertical mid on the left of image
-//        if(text)
-//        {
-            NSString *labelText = text;
-            UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
-            CGSize labelSize = [labelText sizeWithFont:font];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
-            label.font = font;
-            label.text = labelText;
-            label.textColor = [UIColor whiteColor];
-            label.backgroundColor = [UIColor clearColor];
-            [self addSubview:label];
-//        }
-        //add icon vertical mid
+
+        NSString *labelText = text;
+        UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
+        CGSize labelSize = [labelText sizeWithFont:font];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
+        label.font = font;
+        label.text = labelText;
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor clearColor];
+        [self addSubview:label];
 
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         if(text){

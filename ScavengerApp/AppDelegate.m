@@ -173,7 +173,6 @@
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
-    NSLog(@"current version %@", currentVersion);
     
     if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
         //We try to download new content only if we are on wifi
@@ -181,14 +180,15 @@
         [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             __autoreleasing NSError* pingError = nil;
             NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
+#if DEBUG
             NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
+#endif
             if([[r objectForKey:@"status"] isEqualToString:@"update"])
             {
                 NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
                 
                 AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                     NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
-                    NSLog(@"Saving new data to disk");
                     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                     NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
                     __autoreleasing NSError* contentError = nil;

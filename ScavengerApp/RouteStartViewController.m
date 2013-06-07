@@ -304,9 +304,9 @@
         [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
         [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
         [[AppState sharedInstance] save];
-        
+#if DEBUG
         NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-        
+#endif
         CompassViewController *compass = [[CompassViewController alloc] init];
         compass.delegate = self;
         [self.navigationController pushViewController:compass animated:YES];
