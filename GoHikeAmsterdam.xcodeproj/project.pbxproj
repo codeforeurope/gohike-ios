@@ -42,7 +42,6 @@
 		AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */; };
 		AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4951754D51D00B766E0 /* TableBackground.xib */; };
 		AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4AF175633B600B766E0 /* Security.framework */; };
-		AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4B2175637EE00B766E0 /* KeychainManager.m */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
@@ -62,6 +61,7 @@
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
+		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
 		ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BCA17539FC600EA4D53 /* RewardViewController.m */; };
 		ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */; };
@@ -107,7 +107,6 @@
 		ACB534F8175654390065D72D /* target-white-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CE175654390065D72D /* target-white-small@2x.png */; };
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
-		ACB5F71217627EF8008096AC /* MCSMKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B2175F7742002AC636 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893AE175F7742002AC636 /* libTestFlight.a */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
@@ -208,8 +207,6 @@
 		AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteStartViewController.xib; sourceTree = "<group>"; };
 		AC0AF4951754D51D00B766E0 /* TableBackground.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableBackground.xib; sourceTree = "<group>"; };
 		AC0AF4AF175633B600B766E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		AC0AF4B1175637ED00B766E0 /* KeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainManager.h; sourceTree = "<group>"; };
-		AC0AF4B2175637EE00B766E0 /* KeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainManager.m; sourceTree = "<group>"; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -243,6 +240,8 @@
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
+		AC844BF817629EE30092D79C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		AC844BF917629EE30092D79C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		ACA60BC917539FC600EA4D53 /* RewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardViewController.h; sourceTree = "<group>"; };
 		ACA60BCA17539FC600EA4D53 /* RewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardViewController.m; sourceTree = "<group>"; };
@@ -289,8 +288,6 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
-		ACB5F70C17627EF8008096AC /* MCSMKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSMKeychainItem.h; sourceTree = "<group>"; };
-		ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSMKeychainItem.m; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		ACC893AE175F7742002AC636 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
@@ -481,6 +478,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AC844BF717629EE30092D79C /* SSKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				AC844BF817629EE30092D79C /* SSKeychain.h */,
+				AC844BF917629EE30092D79C /* SSKeychain.m */,
+			);
+			path = SSKeychain;
+			sourceTree = "<group>";
+		};
 		ACA60BB51753574800EA4D53 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,15 +579,6 @@
 			path = 2x;
 			sourceTree = "<group>";
 		};
-		ACB5F70917627EF8008096AC /* MCSMKeychainItem */ = {
-			isa = PBXGroup;
-			children = (
-				ACB5F70C17627EF8008096AC /* MCSMKeychainItem.h */,
-				ACB5F70D17627EF8008096AC /* MCSMKeychainItem.m */,
-			);
-			path = MCSMKeychainItem;
-			sourceTree = "<group>";
-		};
 		ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,7 +616,7 @@
 			children = (
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
-				ACB5F70917627EF8008096AC /* MCSMKeychainItem */,
+				AC844BF717629EE30092D79C /* SSKeychain */,
 				ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */,
 				AC0AF4611754AB4600B766E0 /* AFNetworking */,
 				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
@@ -707,8 +704,6 @@
 				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
-				AC0AF4B1175637ED00B766E0 /* KeychainManager.h */,
-				AC0AF4B2175637EE00B766E0 /* KeychainManager.m */,
 				ACDD9B771743B20200D64682 /* main.m */,
 				ACDD9B791743B20200D64682 /* GoHikeAmsterdam-Prefix.pch */,
 				ACDD9B7D1743B20200D64682 /* Default.png */,
@@ -931,7 +926,6 @@
 				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
 				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
-				AC0AF4B3175637F000B766E0 /* KeychainManager.m in Sources */,
 				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
 				A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */,
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,
@@ -946,7 +940,7 @@
 				AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */,
 				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
-				ACB5F71217627EF8008096AC /* MCSMKeychainItem.m in Sources */,
+				AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,8 +12,8 @@
 #import "CompassViewController.h"
 #import "AFNetworking.h"
 #import "Secret.h"
+#import "SSKeychain.h"
 #import <AdSupport/AdSupport.h>
-
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -45,27 +45,17 @@
       //UITextAttributeTextShadowColor,
       //[NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
       //UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"HelveticaNeue" size:0.0],
+      [UIFont fontWithName:@"HelveticaNeue" size:24.0],
       UITextAttributeFont,
       nil]];
     
-    
-//    UIImage *buttonBack30 = [[UIImage imageNamed:@"button_back_textured_30"]
-//                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 5)];
-//    UIImage *buttonBack24 = [[UIImage imageNamed:@"button_back_textured_24"]
-//                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 5)];
-//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:buttonBack30
-//                                                      forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:buttonBack24
-//                                                      forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
-
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     //TestFlight
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //!!! Remove for App Store
+//    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //!!! Remove for App Store
     [TestFlight takeOff:kTestFlightAPIKey];
     
     [self customizeAppearance];
@@ -82,18 +72,27 @@
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
     NSData* data = [NSData dataWithContentsOfFile:bundlePath];
 
-    
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
     NSMutableData *downloadedData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     if(downloadedData)
     {
         GHGameData *downloadedGameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:downloadedData options:0 error:&error]];
+        if(!error){
         [[AppState sharedInstance] setGame:[downloadedGameData dictionaryRepresentation]];
+        }
+        else{
+            //delete content.json in document folder, as it may be corrupt
+            [[NSFileManager defaultManager] removeItemAtPath: filePath error: &error];
+            //then load the data from the content.json bundled
+            gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+            [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
+        }
     }
     else{
         gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
         [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
+//        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
     }
 
     
@@ -231,15 +230,26 @@
     // Get device UDID
     //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
     
-    NSString *deviceID;
-    ASIdentifierManager *adMgr =  [[ASIdentifierManager alloc] init];
-    if ([adMgr isAdvertisingTrackingEnabled] == YES)  //User may have opted out from tracking the Ad Identifier in Settings -> General -> Advertising
-    {
-        deviceID = [[adMgr advertisingIdentifier] UUIDString];
+    // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
+    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
+    if (deviceID == nil) { // if this is the first time app lunching , create key for device
+        NSString *uuid  = [self createNewUUID];
+        // save newly created key to Keychain
+        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
+        // this is the one time process
+        deviceID = uuid;
     }
-    else{
-        deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    }
+
+    
+//    NSString *deviceID;
+//    ASIdentifierManager *adMgr =  [[ASIdentifierManager alloc] init];
+//    if ([adMgr isAdvertisingTrackingEnabled] == YES)  //User may have opted out from tracking the Ad Identifier in Settings -> General -> Advertising
+//    {
+//        deviceID = [[adMgr advertisingIdentifier] UUIDString];
+//    }
+//    else{
+//        deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+//    }
     NSLog(@"DeviceID %@", deviceID);
     
    
@@ -292,6 +302,16 @@
         
     }
 }
+
+- (NSString *)createNewUUID {
+    
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    return (__bridge NSString *)string;
+}
+
+
 
 
 @end
