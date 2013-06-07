@@ -15,7 +15,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import "AppState.h"
     #import "DataModels.h"
-    #import "APIDataModels.h"
+    #import "GHGameData.h"
     #import "NSDataAdditions.h"
     #import "TestFlight.h"
 #endif

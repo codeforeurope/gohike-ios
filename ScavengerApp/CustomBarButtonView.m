@@ -10,7 +10,7 @@
 
 @implementation CustomBarButtonView
 
-- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName text:(NSString*)text target:(id)aTarget action:(SEL)aAction
+- (id)initWithFrame:(CGRect)frame imageName:(NSString*)imageName textRight:(NSString*)textRight textLeft:(NSString*)textLeft target:(id)aTarget action:(SEL)aAction
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -19,21 +19,36 @@
         image.center = CGPointMake(image.center.x, frame.size.height / 2);
         [self addSubview:image];
         
-        //add text vertical mid after
-        if(text)
+        //add text vertical mid on the left of image
+        if(textLeft)
         {
-            NSString *labelText = NSLocalizedString(text, nil);
+            NSString *labelText = textLeft;
             float padding = 10;
             UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
             CGSize labelSize = [labelText sizeWithFont:font];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(image.frame.size.width + padding, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0-padding-labelSize.width, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
             label.font = font;
-            label.text = text;
+            label.text = labelText;
             label.textColor = [UIColor whiteColor];
             label.backgroundColor = [UIColor clearColor];
             [self addSubview:label];
         }
-            
+        
+        //add text vertical mid on the right of image
+        if(textRight)
+        {
+            NSString *labelText = textRight;
+            float padding = 10;
+            UIFont *font =  [UIFont fontWithName:@"HelveticaNeue" size:[UIFont systemFontSize]];
+            CGSize labelSize = [labelText sizeWithFont:font];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(image.frame.size.width+padding, (frame.size.height - labelSize.height) / 2, labelSize.width, labelSize.height)];
+            label.font = font;
+            label.text = labelText;
+            label.textColor = [UIColor whiteColor];
+            label.backgroundColor = [UIColor clearColor];
+            [self addSubview:label];
+        }
+        
         //set calback handler
         self.target = aTarget;
         self.action = aAction;

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RewardViewController : UIViewController
+@interface RewardViewController : UIViewController <UIActionSheetDelegate>
+
+@property (nonatomic, weak) IBOutlet UIImageView *rewardImage;
+@property (nonatomic, weak) IBOutlet UILabel *rewardTitle;
+@property (nonatomic, weak) IBOutlet UILabel *rewardDescription;
+
+- (IBAction)badgeTapped:(UITapGestureRecognizer*)sender;
+
 
 @end

@@ -221,7 +221,8 @@
     //custom back button
     CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                            text:@"Back"
+                                                                        textRight:NSLocalizedString(@"Back", nil)
+                                                                        textLeft:nil
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -230,7 +231,8 @@
     //custom map button
     CustomBarButtonView *mapButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                       imageName:@"icon-map"
-                                                                           text:nil
+                                                                       textRight:nil
+                                                                       textLeft:nil
                                                                           target:self
                                                                           action:@selector(onMapButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
@@ -272,7 +274,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     UIImage *backgroundImage = [UIImage imageNamed:@"viewbackground"];
     UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
-    background.contentMode = UIViewContentModeScaleAspectFit;
+    background.contentMode = UIViewContentModeScaleToFill;
     [background setFrame:self.view.bounds];
     [self.view addSubview:background];
     
@@ -306,8 +308,8 @@
     
     [self.view addSubview:grid];
     [self.view addSubview:compass];
-    [self.view addSubview:arrow];
     [self.view addSubview:destinationRadarView];
+    [self.view addSubview:arrow];
     [self.view addSubview:cloudView];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];

@@ -30,14 +30,16 @@
     [super viewDidLoad];
     CustomBarButtonView *backButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                            text:@"Back"
+                                                                       textRight:NSLocalizedString(@"Back", nil)
+                                                                        textLeft:nil
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     CustomBarButtonView *shareButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                          imageName:@"icon-facebook"
-                                                                              text:nil
+                                                                         textRight:nil
+                                                                          textLeft:nil
                                                                             target:self
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
@@ -63,6 +65,27 @@
 - (void)onBackButton
 {
     [self.navigationController popViewControllerAnimated:true];
+}
+
+- (IBAction)badgeTapped:(UITapGestureRecognizer*)sender
+{
+    NSLog(@"Badge tapped");
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Save to your pictures?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - Action sheet delegates
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+
+{
+    if(buttonIndex == 0)
+    {
+        UIImage* imageToSave = [_rewardImage image]; // alternatively, imageView.image
+        
+        // Save it to the camera roll / saved photo album
+        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+    }
 }
 
 @end
