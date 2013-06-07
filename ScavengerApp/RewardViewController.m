@@ -43,7 +43,7 @@
                                                                             target:self
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-    
+   
     //TODO:load the route its batch instead of the hardcoded batch
 }
 
@@ -70,7 +70,7 @@
 - (IBAction)badgeTapped:(UITapGestureRecognizer*)sender
 {
     NSLog(@"Badge tapped");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Save to your pictures?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"SavePictureQuestion", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Don't save", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
     [actionSheet showInView:self.view];
 }
 

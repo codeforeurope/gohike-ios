@@ -53,14 +53,14 @@
 		AC41F7EC1761345700ED3F14 /* GHRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E61761345700ED3F14 /* GHRoutes.m */; };
 		AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E81761345700ED3F14 /* GHWaypoints.m */; };
 		AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */; };
+		AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */; };
+		AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F8001761FE8400ED3F14 /* success.mp3 */; };
 		AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973D1760B20800D349D0 /* c4eu-badge.png */; };
 		AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
-		ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */; };
-		ACA60BC817539EEB00EA4D53 /* RouteFinishedView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */; };
 		ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BCA17539FC600EA4D53 /* RewardViewController.m */; };
 		ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */; };
 		ACB534D1175654390065D72D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534A6175654390065D72D /* arrow.png */; };
@@ -229,6 +229,8 @@
 		AC41F7E71761345700ED3F14 /* GHWaypoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHWaypoints.h; sourceTree = "<group>"; };
 		AC41F7E81761345700ED3F14 /* GHWaypoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHWaypoints.m; sourceTree = "<group>"; };
 		AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fanfare.mp3; sourceTree = "<group>"; };
+		AC41F8001761FE8400ED3F14 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		AC47973D1760B20800D349D0 /* c4eu-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge.png"; sourceTree = "<group>"; };
 		AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge@2x.png"; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
@@ -236,9 +238,6 @@
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
 		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
-		ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteFinishedView.xib; sourceTree = "<group>"; };
-		ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteFinishedView.h; sourceTree = "<group>"; };
-		ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteFinishedView.m; sourceTree = "<group>"; };
 		ACA60BC917539FC600EA4D53 /* RewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardViewController.h; sourceTree = "<group>"; };
 		ACA60BCA17539FC600EA4D53 /* RewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardViewController.m; sourceTree = "<group>"; };
 		ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RewardViewController.xib; sourceTree = "<group>"; };
@@ -434,6 +433,33 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		AC41F7FE1761FE8400ED3F14 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */,
+				AC41F8001761FE8400ED3F14 /* success.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		AC41F8031762122100ED3F14 /* CompassView */ = {
+			isa = PBXGroup;
+			children = (
+				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
+				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
+				A7DABF001757994800A0315E /* CloudView.h */,
+				A7DABF011757994800A0315E /* CloudView.m */,
+				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
+				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
+				A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */,
+				A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */,
+				1C1684F5174E3BAF00A77192 /* CheckinView.h */,
+				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
+				1C1684F3174E3B3100A77192 /* CheckinView.xib */,
+			);
+			name = CompassView;
+			sourceTree = "<group>";
+		};
 		AC4542A2174BAD81005F5DDE /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +640,7 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC41F8031762122100ED3F14 /* CompassView */,
 				ACC893BB1760931F002AC636 /* HelpViews */,
 				ACA60BC017539E1D00EA4D53 /* Cells */,
 				ACA60BB51753574800EA4D53 /* Extensions */,
@@ -621,18 +648,12 @@
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
-				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
-				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
-				A7DABF001757994800A0315E /* CloudView.h */,
-				A7DABF011757994800A0315E /* CloudView.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonView.h */,
 				A7E846241757486300944FF6 /* CustomBarButtonView.m */,
 				A71CF11E175E35F700FA2168 /* MapViewController.h */,
 				A71CF11F175E35F700FA2168 /* MapViewController.m */,
 				ACC893A9175F67B5002AC636 /* MapPoint.h */,
 				ACC893AA175F67B5002AC636 /* MapPoint.m */,
-				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
-				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
 				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
 				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
 				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
@@ -646,22 +667,12 @@
 				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
 				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
-				1C1684F5174E3BAF00A77192 /* CheckinView.h */,
-				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
-				1C1684F3174E3B3100A77192 /* CheckinView.xib */,
 				1C1684F8174E4DBB00A77192 /* AppState.h */,
 				1C1684F9174E4DBB00A77192 /* AppState.m */,
-				ACA60BC617539EEB00EA4D53 /* RouteFinishedView.h */,
-				ACA60BC717539EEB00EA4D53 /* RouteFinishedView.m */,
-				ACA60BC317539E3500EA4D53 /* RouteFinishedView.xib */,
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
-				AC0AF4B1175637ED00B766E0 /* KeychainManager.h */,
-				AC0AF4B2175637EE00B766E0 /* KeychainManager.m */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
-				A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */,
-				A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */,
 			);
 			path = ScavengerApp;
 			sourceTree = "<group>";
@@ -673,6 +684,8 @@
 				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
+				AC0AF4B1175637ED00B766E0 /* KeychainManager.h */,
+				AC0AF4B2175637EE00B766E0 /* KeychainManager.m */,
 				ACDD9B771743B20200D64682 /* main.m */,
 				ACDD9B791743B20200D64682 /* GoHikeAmsterdam-Prefix.pch */,
 				ACDD9B7D1743B20200D64682 /* Default.png */,
@@ -686,6 +699,7 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				AC41F7FE1761FE8400ED3F14 /* Sounds */,
 				AC47973D1760B20800D349D0 /* c4eu-badge.png */,
 				AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */,
 				ACECFB9D1756A8D70074EBBE /* pin@2x.png */,
@@ -769,7 +783,6 @@
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
-				ACA60BC517539E3500EA4D53 /* RouteFinishedView.xib in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
 				AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */,
 				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
@@ -844,6 +857,8 @@
 				ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */,
 				AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */,
 				AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */,
+				AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */,
+				AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,7 +899,6 @@
 				1C1684F7174E3BAF00A77192 /* CheckinView.m in Sources */,
 				1C1684FA174E4DBB00A77192 /* AppState.m in Sources */,
 				1C168500174E54A600A77192 /* Checkin.m in Sources */,
-				ACA60BC817539EEB00EA4D53 /* RouteFinishedView.m in Sources */,
 				ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */,
 				AC0AF4751754AB4600B766E0 /* AFHTTPClient.m in Sources */,
 				AC0AF4761754AB4600B766E0 /* AFHTTPRequestOperation.m in Sources */,
@@ -1043,7 +1057,7 @@
 		ACDD9B8C1743B20200D64682 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giovanni Maggini (54P6X97536)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
@@ -1054,8 +1068,8 @@
 					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
-				PROVISIONING_PROFILE = "99A949B1-BF83-4407-B293-6461F1662378";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "99A949B1-BF83-4407-B293-6461F1662378";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

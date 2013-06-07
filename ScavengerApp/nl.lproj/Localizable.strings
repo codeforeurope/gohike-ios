@@ -11,3 +11,12 @@
 "Choose profile" = "Kiest profiel";
 
 /* RouteStartViewController */
+
+
+/* CompassViewController */
+"LocationFound" = "Look around! You are close to %@, can you see it?";
+"FoundPlaceTitle" = "You found %@";
+
+/* RewardViewController */
+"SavePictureQuestion" = "Save picture to your camera roll?";
+

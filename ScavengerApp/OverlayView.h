@@ -12,9 +12,11 @@
 
 @property (weak, nonatomic) IBOutlet UIView *modalView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 
-@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+
 
 
 

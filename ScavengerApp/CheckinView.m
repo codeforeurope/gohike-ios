@@ -106,13 +106,49 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)onButton:(UIButton*)button
 {
+    //User has found the place. Change the content of the textView, and change the button so that says "go to next destination"
+    NSLog(@"Found button pressed");
+    
+    //Change content of textview
+    NSString *langKey = [[AppState sharedInstance] language];
+
+    titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FoundPlaceTitle", nil), [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]]];
+    bodyTextView.text = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
+    
+    //make a "Continue" button
+    [button removeFromSuperview]; //remove the previous button, make a new one
+
+    UIButton *checkinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    checkinButton.frame = CGRectMake((self.bounds.size.width - BUTTON_WIDTH)/2, self.bounds.size.height - BUTTON_HEIGHT - 10, BUTTON_WIDTH, BUTTON_HEIGHT);
+    checkinButton.titleLabel.text = NSLocalizedString(@"Continue!", nil);
+    // Draw a custom gradient
+    UIColor *blueColor = UIColorFromRGB(0x83CEE4);
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = checkinButton.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,
+                       (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
+                       nil];
+
+    [checkinButton.layer insertSublayer:gradient atIndex:0];
+    checkinButton.layer.cornerRadius = 5;
+    checkinButton.layer.masksToBounds = YES;
+    [checkinButton setTitle:NSLocalizedString(@"Continue!", nil) forState:UIControlStateNormal];
+    [checkinButton addTarget:self action:@selector(onContinueButton:) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:checkinButton];
+    
+}
+
+- (void)onContinueButton:(UIButton*)button
+{
+    //This is where we dismiss the check-in view
+    
+    NSLog(@"Continue button pressed");
     if(self.buttonTarget)
     {
         [self.buttonTarget performSelector:self.buttonAction withObject:nil afterDelay:0];
     }
     [self removeFromSuperview];
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

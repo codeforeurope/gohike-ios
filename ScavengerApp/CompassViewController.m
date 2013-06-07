@@ -14,8 +14,6 @@
 
 #import "CheckinView.h"
 
-#import "RouteFinishedView.h"
-
 #import "NavigationStatusView.h"
 
 #import "CustomBarButtonView.h"
@@ -41,7 +39,6 @@
 @interface CompassViewController ()
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
-@property (nonatomic, weak) RouteFinishedView *routeFinishedView;
 @property (nonatomic,strong) NavigationStatusView *statusView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
@@ -129,24 +126,19 @@
 }
 
 
--(IBAction) finishRoute:(id)sender
-{
-    [_routeFinishedView removeFromSuperview];
-}
-
-- (IBAction)goToReward:(id)sender
-{
-    [_routeFinishedView removeFromSuperview];
-}
 
 - (void)addCheckInView
 {
+   
     NSString *langKey = [[AppState sharedInstance] language];
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
-    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
-    [checkinView setTitle:NSLocalizedString(@"You can check-in!", nil)];
+//    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
+//    [checkinView setTitle:NSLocalizedString(@"You can check-in!", nil)];
+    NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
     
+    [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
+    [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
     checkinView.closeTarget = self;
     checkinView.closeAction = @selector(onCancelCheckIn);
     
@@ -157,12 +149,22 @@
 #if DEBUG
     NSLog(@"add checkin view");
 #endif
+    
+    
+    //Play sound
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"mp3"];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: soundPath], &soundID);
+    AudioServicesPlaySystemSound (soundID);
+    
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
-    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"];
+    NSString *langKey = [[AppState sharedInstance] language];
+    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
 #if DEBUG
     NSLog(@"did update with destination: %@",destinationName);
 #endif
@@ -346,6 +348,12 @@
 {
     self.checkinPending = NO;
     
+    //Play a fanfare sound
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"fanfare" ofType:@"mp3"];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: soundPath], &soundID);
+    AudioServicesPlaySystemSound (soundID);
+    
     //record the checkin as done
     [[AppState sharedInstance] checkIn];
     [self updateCheckinStatus];
@@ -357,7 +365,7 @@
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
 #if DEBUG
-        NSLog(@"Destination: lat: %f long %f", latitude, longitude);
+        NSLog(@"Destination: %@ lat: %f long %f", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"], latitude, longitude);
 #endif
         [destinationRadarView setNeedsDisplay];
     }

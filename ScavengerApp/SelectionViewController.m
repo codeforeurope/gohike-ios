@@ -11,6 +11,7 @@
 #import "OverlayView.h"
 #import "SelectionCell.h"
 #import "HelpView.h"
+#import "CustomBarButtonView.h"
 
 #define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
 
@@ -39,7 +40,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    self.title = NSLocalizedString(@"Choose profile", nil);
+    self.title = NSLocalizedString(@"Choose profile", nil);
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.collectionView setBackgroundView:tablebgView];
  
@@ -82,26 +83,19 @@
         help1.label.text = [[subvArray objectAtIndex:i] objectForKey:@"label"];
         help1.imageView.image = [UIImage imageNamed:[[subvArray objectAtIndex:i] objectForKey:@"image"]];
         
-//        HelpView *help2 = [[HelpView alloc] initWithFrame:frame];
-//        help2.label.text = NSLocalizedString(@"Follow the arrow", nil);
-//        help2.imageView.image = [UIImage imageNamed:@"help2"];
-//        
-//        HelpView *help3 = [[HelpView alloc] initWithFrame:frame];
-//        help3.label.text = NSLocalizedString(@"Check-in to places", nil);
-//        help3.imageView.image = [UIImage imageNamed:@"help3"];
-//        
-//        HelpView *help4 = [[HelpView alloc] initWithFrame:frame];
-//        help4.label.text = NSLocalizedString(@"Get reward!", nil);
-//        help4.imageView.image = [UIImage imageNamed:@"help4"];
+
         
         
         [_overlayView.scrollView addSubview:help1];
-//        [_overlayView.scrollView addSubview:help2];
-//        [_overlayView.scrollView addSubview:help3];
-//        [_overlayView.scrollView addSubview:help4];
     }
 
-    
+    CustomBarButtonView *helpButton = [[CustomBarButtonView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                         imageName:@"help2"
+                                                                         textRight:nil
+                                                                          textLeft:nil
+                                                                            target:self
+                                                                            action:@selector(onHelpButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
     
 }
 
@@ -226,5 +220,18 @@
     _overlayView.pageControl.currentPage = page;
 }
 
+#pragma mark - Button
+
+- (void)onHelpButton
+{
+    [UIView transitionWithView:self.view
+    duration:0.5
+    options:UIViewAnimationOptionTransitionCrossDissolve
+    animations:^{
+        [self.view addSubview:_overlayView];
+    }
+    completion:nil];
+
+}
 
 @end

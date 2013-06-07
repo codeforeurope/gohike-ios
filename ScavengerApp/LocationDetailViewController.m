@@ -27,13 +27,13 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    _locationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _locationImageView.layer.shadowOffset = CGSizeMake(0, 2);
-    _locationImageView.layer.shadowOpacity = 1;
-    _locationImageView.layer.shadowRadius = 1.0;
-    _locationImageView.clipsToBounds = NO;
-}
+//- (void)awakeFromNib {
+//    _locationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+//    _locationImageView.layer.shadowOffset = CGSizeMake(0, 2);
+//    _locationImageView.layer.shadowOpacity = 1;
+//    _locationImageView.layer.shadowRadius = 1.0;
+//    _locationImageView.clipsToBounds = NO;
+//}
 
 - (void)viewDidLoad
 {
@@ -60,14 +60,18 @@
     //route info
     NSString *langKey = [[AppState sharedInstance] language];
     if([_location objectForKey:@"image_data"])
-        self.locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
+        _locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
     else{
-        self.locationImageView.image = [UIImage imageNamed:@"no-picture"];
+        _locationImageView.image = [UIImage imageNamed:@"no-picture"];
         NSLog(@"No image for %@", [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]);
     }
-    self.locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
-    self.locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
-    
+    _locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
+    _locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
+    _locationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _locationImageView.layer.shadowOffset = CGSizeMake(0, 2);
+    _locationImageView.layer.shadowOpacity = 1;
+    _locationImageView.layer.shadowRadius = 1.0;
+    _locationImageView.clipsToBounds = NO;
 }
 
 - (void)didReceiveMemoryWarning

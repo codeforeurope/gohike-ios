@@ -282,7 +282,7 @@
             [self.navigationController pushViewController:lvc animated:YES];
         }
         else{
-            
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }
     
