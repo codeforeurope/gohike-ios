@@ -85,9 +85,9 @@
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
-//#if DEBUG
-//    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
-//#endif
+#if DEBUG
+    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
+#endif
 }
 
 #pragma mark - CLLocation
@@ -143,6 +143,7 @@
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
+    [checkinView setDestinationImage:[NSData dataWithBase64EncodedString:[[[AppState sharedInstance] activeWaypoint] objectForKey:@"image_data"]]];
     checkinView.closeTarget = self;
     checkinView.closeAction = @selector(onCancelCheckIn);
     
@@ -254,18 +255,21 @@
     locationManager.headingFilter = 5;  // 5 degrees
 //        locationManager.distanceFilter = 2; //2 meters
     
-
+#if TARGET_IPHONE_SIMULATOR
+    [locationManager startUpdatingLocation];
+    [locationManager startUpdatingHeading];
+#else
     if( [CLLocationManager locationServicesEnabled]
        &&  [CLLocationManager headingAvailable]) {
-#if DEBUG
-        NSLog(@"heading available");
-#endif
+        
         [locationManager startUpdatingLocation];
         [locationManager startUpdatingHeading];
         
     } else {
         NSLog(@"Can't report heading");
     }
+    
+#endif
     
     CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
     compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];

@@ -39,6 +39,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         UIFont *titleFont = [UIFont fontWithName:@"HelveticaNeue" size:TITLE_FONT_SIZE];
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, [@"A" sizeWithFont:titleFont].height)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.adjustsFontSizeToFitWidth = YES;
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.font = titleFont;
@@ -71,6 +72,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         bodyTextView.textColor = [UIColor whiteColor];
         [self addSubview:bodyTextView];
         
+        //image
+        CGRect imageRect = CGRectMake(0, 50, 240, 160 );
+        destinationImageView = [[UIImageView alloc] initWithFrame:imageRect];
+        destinationImageView.contentMode = UIViewContentModeScaleAspectFill;
+        destinationImageView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+                                                 UIViewAutoresizingFlexibleHeight);
+        [destinationImageView setClipsToBounds:YES];
+
+//        destinationImageView.frame = imageRect;
+//        destinationImageView.center = CGPointMake(destinationImageView.center.x, frame.size.height / 2);
+        destinationImageView.center = CGPointMake(self.center.x, self.center.y);
+        [self addSubview:destinationImageView];
+        
         //little close button in top right
         UIImageView *closeButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"closebox"]];
         closeButton.center = CGPointMake(self.bounds.size.width - closeButton.bounds.size.width/2 - 5,
@@ -93,6 +107,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)setBodyText:(NSString *)text
 {
     bodyTextView.text = text;
+}
+
+- (void)setDestinationImage:(NSData*)data
+{
+    destinationImageView.image = [UIImage imageWithData:data];
 }
 
 - (void)onClose:(id)something

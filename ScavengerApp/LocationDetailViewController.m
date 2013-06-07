@@ -41,7 +41,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //custom map button
-    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
+    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
                                                                       imageName:@"icon-map"
                                                                        text:NSLocalizedString(@"View Map", nil)
                                                                          target:self

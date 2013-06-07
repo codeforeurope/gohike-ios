@@ -6,17 +6,88 @@
   Copyright (c) 2013 Code for Europe. All rights reserved.
 */
 
-/* SelectionViewController */
+/* 
 
 "Choose profile" = "Kiest profiel";
 
-/* RouteStartViewController */
-
-
-/* CompassViewController */
 "LocationFound" = "Look around! You are close to %@, can you see it?";
 "FoundPlaceTitle" = "You found %@";
 
-/* RewardViewController */
 "SavePictureQuestion" = "Save picture to your camera roll?";
 "FacebookMessage" = "Ik verdiende het kenteken van %@ met de Take a Hike Amsterdam App! Neem een ​​kijkje op http://http://www.gotakeahike.nl";
+*/
+
+
+/* No comment provided by engineer. */
+"ManyRoutes" = "%d Routes";
+"OneRoute" = "%d Route";
+
+/* No comment provided by engineer. */
+"Back" = "Terug";
+
+/* No comment provided by engineer. */
+"Find places" = "Vind locaties";
+
+/* No comment provided by engineer. */
+"Choose profile" = "Kies profiel";
+
+/* No comment provided by engineer. */
+"Choose your route" = "Kies uw route";
+
+/* No comment provided by engineer. */
+"Continue!" = "Doorgaan!";
+
+/* No comment provided by engineer. */
+"Don't save" = "Niet bewaren";
+
+/* No comment provided by engineer. */
+"FacebookMessage" = "Ik verdiende het kenteken van %@ met de Take a Hike Amsterdam App! Neem een ​​kijkje op http://http://www.gotakeahike.nl";
+
+/* No comment provided by engineer. */
+"Follow the arrow" = "Volg de pijl";
+
+/* No comment provided by engineer. */
+"Found!" = "Ik vond het!";
+
+/* No comment provided by engineer. */
+"FoundPlaceTitle" = "U gevonden %@";
+
+/* No comment provided by engineer. */
+"Get reward!" = "Get belonen!";
+
+/* No comment provided by engineer. */
+"Go Hike!" = "Ga Hike!";
+
+/* No comment provided by engineer. */
+"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/" = "Ik ben de eerste Amsterdamse verkenner met de Take a Hike Amsterdam App! Neem een ​​kijkje op http://www.gotakeahike.nl/";
+
+/* No comment provided by engineer. */
+"Let's play!" = "Let's play!";
+
+/* No comment provided by engineer. */
+"LocationFound" = "Kijk om je heen! U bent dicht bij %@, kunt u het zien?";
+
+/* No comment provided by engineer. */
+"Locations in Route" = "Locaties in Route";
+
+/* No comment provided by engineer. */
+"Route Information" = "Route-informatie";
+
+/* No comment provided by engineer. */
+"Save" = "Opslaan";
+
+/* No comment provided by engineer. */
+"SavePictureQuestion" = "Opslaan om uw camera roll?";
+
+/* No comment provided by engineer. */
+"View Map" = "Bekijk kaart";
+
+/* No comment provided by engineer. */
+"View Reward" = "Bekijk badge";
+
+/* No comment provided by engineer. */
+"You are almost there!" = "Je bent er bijna!";
+
+/* No comment provided by engineer. */
+"You can check-in!" = "U kunt inchecken!";
+

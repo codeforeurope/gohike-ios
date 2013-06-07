@@ -61,7 +61,7 @@
     NSArray *subvArray = [NSArray arrayWithObjects:
                           [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Choose your route", nil), @"label", nil],
                            [NSDictionary dictionaryWithObjectsAndKeys:@"help2",@"image",NSLocalizedString(@"Follow the arrow", nil), @"label", nil],
-                           [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Check-in to places", nil), @"label", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Find places", nil), @"label", nil],
                            [NSDictionary dictionaryWithObjectsAndKeys:@"help4",@"image",NSLocalizedString(@"Get reward!", nil), @"label", nil],
                           nil];
     
@@ -155,7 +155,12 @@
     cell.profileImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[profile objectForKey:@"image_data"]]];
     NSString *nameKey = [NSString stringWithFormat:@"name_%@", [[AppState sharedInstance] language]];
     cell.profileLabel.text = [profile objectForKey:nameKey];
-    cell.bottomLabel.text = [NSString stringWithFormat:@"%d Routes", [[profile objectForKey:@"routes"] count]]; //[NSString stringWithFormat:NSLocalizedString(@"%@ Routes",nil), [[profile objectForKey:@"routes"] count]];
+    if ([[profile objectForKey:@"routes"] count] > 1){
+        cell.bottomLabel.text = [NSString stringWithFormat:NSLocalizedString(@"ManyRoutes", nil), [[profile objectForKey:@"routes"] count]];
+    }
+    else{
+        cell.bottomLabel.text = [NSString stringWithFormat:NSLocalizedString(@"OneRoute", nil), [[profile objectForKey:@"routes"] count]];
+    }
     cell.backgroundColor = [UIColor clearColor];
 
     return cell;

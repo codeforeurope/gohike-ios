@@ -12,10 +12,12 @@
 {
     UITextView *bodyTextView;
     UILabel *titleLabel;
+    UIImageView *destinationImageView;
 }
 
 - (void)setTitle:(NSString*)text;
 - (void)setBodyText:(NSString*)text;
+- (void)setDestinationImage:(NSData*)data;
 
 @property (nonatomic, assign) id closeTarget;
 @property (nonatomic) SEL closeAction;
