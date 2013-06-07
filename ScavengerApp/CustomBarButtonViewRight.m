@@ -36,14 +36,14 @@
         //add icon vertical mid
 
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-//        if(text){
+        if(text){
             image.frame = CGRectMake(label.frame.size.width+padding, 0, 27.0, 27.0);
 
-//        }else
-//        {
-//            image.frame = CGRectMake(0, 0, 27.0, 27.0);
-//
-//        }
+        }else
+        {
+            image.frame = CGRectMake(0, 0, 27.0, 27.0);
+
+        }
         image.center = CGPointMake(image.center.x, frame.size.height / 2);
         image.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:image];

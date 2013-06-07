@@ -57,9 +57,9 @@
 		AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F8001761FE8400ED3F14 /* success.mp3 */; };
 		AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F805176225D800ED3F14 /* CustomBarButtonViewRight.m */; };
 		AC41F80B17622B9E00ED3F14 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F80917622B9E00ED3F14 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		AC41F80C17622B9E00ED3F14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AC41F80A17622B9E00ED3F14 /* README.md */; };
-		AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973D1760B20800D349D0 /* c4eu-badge.png */; };
-		AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */; };
+		AC41F80E176245C800ED3F14 /* CompassTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC41F80D176245C800ED3F14 /* CompassTopView.xib */; };
+		AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F8101762464800ED3F14 /* CompassTopView.m */; };
+		AC41F8131762550100ED3F14 /* amsterdamcentrum.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */; };
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
@@ -110,8 +110,6 @@
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B2175F7742002AC636 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893AE175F7742002AC636 /* libTestFlight.a */; };
-		ACC893B3175F7742002AC636 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ACC893AF175F7742002AC636 /* README.md */; };
-		ACC893B4175F7742002AC636 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B0175F7742002AC636 /* release_notes.md */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
 		ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B7175F83DE002AC636 /* no-picture@2x.png */; };
 		ACC893BA175F83E3002AC636 /* no-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B9175F83E3002AC636 /* no-picture.png */; };
@@ -239,8 +237,10 @@
 		AC41F80817622B9E00ED3F14 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		AC41F80917622B9E00ED3F14 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		AC41F80A17622B9E00ED3F14 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		AC47973D1760B20800D349D0 /* c4eu-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge.png"; sourceTree = "<group>"; };
-		AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c4eu-badge@2x.png"; sourceTree = "<group>"; };
+		AC41F80D176245C800ED3F14 /* CompassTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompassTopView.xib; path = ScavengerApp/CompassTopView.xib; sourceTree = SOURCE_ROOT; };
+		AC41F80F1762464800ED3F14 /* CompassTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassTopView.h; sourceTree = "<group>"; };
+		AC41F8101762464800ED3F14 /* CompassTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassTopView.m; sourceTree = "<group>"; };
+		AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = amsterdamcentrum.gpx; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
@@ -453,6 +453,9 @@
 		AC41F8031762122100ED3F14 /* CompassViews */ = {
 			isa = PBXGroup;
 			children = (
+				AC41F80F1762464800ED3F14 /* CompassTopView.h */,
+				AC41F8101762464800ED3F14 /* CompassTopView.m */,
+				AC41F80D176245C800ED3F14 /* CompassTopView.xib */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
 				A7DABF001757994800A0315E /* CloudView.h */,
@@ -617,6 +620,7 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
+				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
 				AC41F80717622B9D00ED3F14 /* OpenUDID */,
 				ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */,
@@ -721,8 +725,6 @@
 			isa = PBXGroup;
 			children = (
 				AC41F7FE1761FE8400ED3F14 /* Sounds */,
-				AC47973D1760B20800D349D0 /* c4eu-badge.png */,
-				AC47973E1760B20800D349D0 /* c4eu-badge@2x.png */,
 				ACECFB9D1756A8D70074EBBE /* pin@2x.png */,
 				ACECFB9E1756A8D70074EBBE /* pin.png */,
 				ACB534A5175654390065D72D /* 1x */,
@@ -857,8 +859,6 @@
 				A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */,
 				A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */,
 				A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */,
-				ACC893B3175F7742002AC636 /* README.md in Resources */,
-				ACC893B4175F7742002AC636 /* release_notes.md in Resources */,
 				ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */,
 				ACC893BA175F83E3002AC636 /* no-picture.png in Resources */,
 				ACC893BD17609331002AC636 /* HelpView.xib in Resources */,
@@ -876,11 +876,10 @@
 				ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */,
 				ACC893DF1760AE86002AC636 /* Icon.png in Resources */,
 				ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */,
-				AC47973F1760B20800D349D0 /* c4eu-badge.png in Resources */,
-				AC4797401760B20800D349D0 /* c4eu-badge@2x.png in Resources */,
 				AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */,
 				AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */,
-				AC41F80C17622B9E00ED3F14 /* README.md in Resources */,
+				AC41F80E176245C800ED3F14 /* CompassTopView.xib in Resources */,
+				AC41F8131762550100ED3F14 /* amsterdamcentrum.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +948,7 @@
 				AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */,
 				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 				AC41F80B17622B9E00ED3F14 /* OpenUDID.m in Sources */,
+				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

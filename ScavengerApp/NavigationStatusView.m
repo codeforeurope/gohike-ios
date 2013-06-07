@@ -66,7 +66,8 @@
 //update the displayed information about the current target
 -(void) update:(NSString *)locationName withDistance:(double)distance
 {
-    [self.distanceLabel setText:[NSString stringWithFormat:@"Next: %@ (%.0f m.)",locationName,distance]];
+//    [self.distanceLabel setText:[NSString stringWithFormat:@"Next: %@ (%.0f m.)",locationName,distance]];
+    [self.distanceLabel setText:[NSString stringWithFormat:@"Next: %@",locationName]];
 }
 
 //update the collection of completed checkins

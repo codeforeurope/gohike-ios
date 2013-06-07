@@ -16,6 +16,8 @@
 
 #import "NavigationStatusView.h"
 
+#import "CompassTopView.h"
+
 #import "CustomBarButtonViewLeft.h"
 #import "CustomBarButtonViewRight.h"
 
@@ -47,6 +49,7 @@
 @property (nonatomic, assign) BOOL checkinPending;
 @property (nonatomic, strong) CloudView *cloudView;
 @property (nonatomic, strong) DestinationRadarView *destinationRadarView;
+@property (nonatomic, strong) CompassTopView *topView;
 @end
 
 @implementation CompassViewController
@@ -82,9 +85,9 @@
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
-#if DEBUG
-    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
-#endif
+//#if DEBUG
+//    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
+//#endif
 }
 
 #pragma mark - CLLocation
@@ -151,13 +154,11 @@
     NSLog(@"add checkin view");
 #endif
     
-    
     //Play sound
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"mp3"];
     SystemSoundID soundID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: soundPath], &soundID);
     AudioServicesPlaySystemSound (soundID);
-    
     
 }
 
@@ -172,14 +173,15 @@
     
     CLLocation *currentLocation = [locations lastObject];
     
-    
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
         
-        // If the event is recent, do something with it.
+        // If the event is recent, get the distance from destination
         double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
+        //update the bottom navigation bar
         [self.statusView update:destinationName withDistance:distanceFromDestination];
+        [self.topView updateDistance:distanceFromDestination];
         
         if (distanceFromDestination < CHECKIN_DISTANCE) {
 #if DEBUG
@@ -207,7 +209,6 @@
         
         self.previousLocation = currentLocation;
     }
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -307,6 +308,12 @@
     destinationRadarView.checkinRadiusInPixels = 85; //radius of check in area in pix (edge of compass circle)
     destinationRadarView.checkinRadiusInMeters = CHECKIN_DISTANCE;
     
+    
+    //add top view with distance
+    _topView = [[[NSBundle mainBundle] loadNibNamed:@"CompassTopView" owner:self options:nil] objectAtIndex:0];
+    //[[CompassTopView alloc] initWithFrame:CGRectMake(0, 0, gridRect.size.width, 44)];
+    
+    
     [self.view addSubview:grid];
     [self.view addSubview:compass];
     [self.view addSubview:destinationRadarView];
@@ -314,6 +321,7 @@
     [self.view addSubview:cloudView];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];
+    [self.view addSubview:_topView];
     
 //    [cloudView startAnimation]; //it is already started when viewDidAppear
 }

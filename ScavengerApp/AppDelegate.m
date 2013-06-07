@@ -227,8 +227,8 @@
     
     // Get device UDID
     NSString* deviceID = [OpenUDID value];
+    //replaced the old way with this OpenUDID
 //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-    //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
 
    
     if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
