@@ -450,7 +450,7 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		AC41F8031762122100ED3F14 /* CompassView */ = {
+		AC41F8031762122100ED3F14 /* CompassViews */ = {
 			isa = PBXGroup;
 			children = (
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
@@ -465,7 +465,7 @@
 				1C1684F6174E3BAF00A77192 /* CheckinView.m */,
 				1C1684F3174E3B3100A77192 /* CheckinView.xib */,
 			);
-			name = CompassView;
+			name = CompassViews;
 			sourceTree = "<group>";
 		};
 		AC41F80717622B9D00ED3F14 /* OpenUDID */ = {
@@ -659,7 +659,7 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
-				AC41F8031762122100ED3F14 /* CompassView */,
+				AC41F8031762122100ED3F14 /* CompassViews */,
 				ACC893BB1760931F002AC636 /* HelpViews */,
 				ACA60BC017539E1D00EA4D53 /* Cells */,
 				ACA60BB51753574800EA4D53 /* Extensions */,

@@ -52,7 +52,7 @@
 #endif
     [self save];
     
-    [((AppDelegate*)[UIApplication sharedApplication]) pushCheckins]; //try to push check-ins if we have internet connection
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] pushCheckins]; //try to push check-ins if we have internet connection
 }
 
 - (BOOL)setNextTarget
