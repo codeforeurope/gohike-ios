@@ -14,6 +14,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *rewardTitle;
 @property (nonatomic, weak) IBOutlet UILabel *rewardDescription;
 
+@property (nonatomic, strong) NSDictionary *reward;
+
+
 - (IBAction)badgeTapped:(UITapGestureRecognizer*)sender;
 
 

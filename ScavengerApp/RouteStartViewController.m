@@ -98,7 +98,7 @@
     else
     {
         // Route is complete, put reward button
-        CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
+        CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
                                                                              imageName:@"icon-trophy"
                                                                               text:NSLocalizedString(@"View Reward", nil)
                                                                                 target:self
@@ -321,6 +321,7 @@
 - (void)viewReward
 {
     RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
+    rvc.reward = [_route objectForKey:@"reward"];
     [self.navigationController pushViewController:rvc animated:YES];
 }
 

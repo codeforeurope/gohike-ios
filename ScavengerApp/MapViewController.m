@@ -56,29 +56,36 @@
         NSString *langKey = [[AppState sharedInstance] language];
         [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]];
         pin.coordinate = destintation.coordinate;
-        if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
-        {
-            pin.current = YES;
-            currentDestination = destintation;
-        }
-        else
-        {
-            pin.current = NO;
-        }
-        if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
-        {
-            pin.visited = NO;
-        }
-        else
-        {
-            pin.visited = YES;
-        }
         
-        //only add current and visited locations
-        if(pin.visited || pin.current)
-        {
+        if (!_singleLocation) {
+            if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+            {
+                pin.current = YES;
+                currentDestination = destintation;
+            }
+            else
+            {
+                pin.current = NO;
+            }
+            if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+            {
+                pin.visited = NO;
+            }
+            else
+            {
+                pin.visited = YES;
+            }
+            
+            //only add current and visited locations
+            if(pin.visited || pin.current)
+            {
+                [map addAnnotation:pin];
+            }
+        }
+        else{
+            pin.current = YES;
             [map addAnnotation:pin];
-        }        
+        }
     }
     
     if(map.userLocation.location && currentDestination)

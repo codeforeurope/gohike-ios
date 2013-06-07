@@ -13,6 +13,7 @@
 
 @interface RewardViewController ()
 
+
 @end
 
 @implementation RewardViewController
@@ -31,19 +32,24 @@
     [super viewDidLoad];
     CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
-                                                                       text:NSLocalizedString(@"Back", nil)
+                                                                            text:NSLocalizedString(@"Back", nil)
                                                                           target:self
                                                                           action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     CustomBarButtonViewLeft *shareButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                          imageName:@"icon-facebook"
-                                                                          text:nil
+                                                                              text:nil
                                                                             target:self
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-   
-    //TODO:load the route its batch instead of the hardcoded batch
+    
+    
+    NSString *langKey = [[AppState sharedInstance] language];
+    _rewardTitle.text = [_reward objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
+    _rewardDescription.text = [_reward objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
+    _rewardImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_reward objectForKey:@"image_data"]]];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,8 +62,9 @@
 {
     SLComposeViewController*fvc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
     
-    [fvc setInitialText:NSLocalizedString(@"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/", nil)];
-    [fvc addImage:[UIImage imageNamed:@"pin"]];
+    [fvc setInitialText:[NSString stringWithFormat:NSLocalizedString(@"FacebookMessage", nil),_rewardTitle.text]];
+    //[fvc setInitialText:NSLocalizedString(@"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/", nil)];
+    [fvc addImage:[_rewardImage image]];
     [self presentViewController:fvc animated:YES completion:nil];
 }
 

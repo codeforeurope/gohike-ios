@@ -28,14 +28,6 @@
     return self;
 }
 
-//- (void)awakeFromNib {
-//    _locationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-//    _locationImageView.layer.shadowOffset = CGSizeMake(0, 2);
-//    _locationImageView.layer.shadowOpacity = 1;
-//    _locationImageView.layer.shadowRadius = 1.0;
-//    _locationImageView.clipsToBounds = NO;
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -112,6 +104,9 @@
 {
     MapViewController *mvc = [[MapViewController alloc] init];
     mvc.waypoints = [NSArray arrayWithObject:self.location];
+    mvc.singleLocation = YES;
+    NSString *langKey = [[AppState sharedInstance] language];
+    mvc.title = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 

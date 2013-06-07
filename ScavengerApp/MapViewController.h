@@ -15,5 +15,6 @@
 }
 
 @property (nonatomic,strong) NSArray *waypoints;
+@property (nonatomic, assign) BOOL singleLocation; //This means we are showing only 1 pin on the map, not playing the game
 
 @end

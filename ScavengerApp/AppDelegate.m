@@ -12,6 +12,7 @@
 #import "CompassViewController.h"
 #import "AFNetworking.h"
 #import "Secret.h"
+#import "OpenUDID.h"
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -225,7 +226,8 @@
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     // Get device UDID
-    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
+    NSString* deviceID = [OpenUDID value];
+//    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
     //TODO: This works and is safe because iOS "fakes" the UUID and does not return the true UUID of the phone, but it's deprecated, so get a proper device ID
 
    

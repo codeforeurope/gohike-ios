@@ -83,11 +83,13 @@
     NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"id"] integerValue] == _activeRouteId;
     }];
-
-    return [routes objectAtIndex:index];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    else {
+        return [routes objectAtIndex:index];
+    }
 }
-
-
 
 - (NSDictionary*)activeWaypoint
 {

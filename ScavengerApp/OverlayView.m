@@ -52,18 +52,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
 }
 
-- (IBAction)closeButtonPressed:(id)sender
-{
-    
-    [UIView transitionWithView:self.superview
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:^{
-                        [self removeFromSuperview];
-                    }
-                    completion:nil];
-}
-
 - (IBAction)playButtonPressed:(id)sender
 {
     
