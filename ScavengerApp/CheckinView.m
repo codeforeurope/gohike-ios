@@ -70,6 +70,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         bodyTextView = [[UITextView alloc] initWithFrame:CGRectInset(remainder, 10, 10)];
         bodyTextView.backgroundColor = [UIColor clearColor];
         bodyTextView.textColor = [UIColor whiteColor];
+        bodyTextView.editable = NO;
         [self addSubview:bodyTextView];
         
         //image
