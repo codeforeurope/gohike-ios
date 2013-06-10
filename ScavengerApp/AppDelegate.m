@@ -120,8 +120,10 @@
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
     }
 
-    // Update
+    //Tell AFNetworking to use the Network Activity Indicator
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
+    // Update
     [self updateContent];
     
     
@@ -310,8 +312,5 @@
     CFRelease(theUUID);
     return (__bridge NSString *)string;
 }
-
-
-
 
 @end
