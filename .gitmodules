@@ -4,3 +4,6 @@
 [submodule "AFNetworking"]
 	path = AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
+[submodule "SIAlertView"]
+	path = SIAlertView
+	url = https://github.com/Sumi-Interactive/SIAlertView.git

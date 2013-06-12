@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>035CEC65-6061-4530-AC2D-182675ACC21C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GoHikeAmsterdam</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>623AB926-BD6C-4327-AC70-D80FE29E7D14</key>
+		<string>https://github.com/AFNetworking/AFNetworking.git</string>
+		<key>C0396A40-86E9-44F6-8818-1A1610AA47C9</key>
+		<string>ssh://github.com/codeforeurope/gohike-ios.git</string>
+		<key>E3CEABFF-3E1E-48C3-8229-F04118291C8C</key>
+		<string>https://github.com/100grams/CoreLocationUtils.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GoHikeAmsterdam.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>623AB926-BD6C-4327-AC70-D80FE29E7D14</key>
+		<string>../../AFNetworking</string>
+		<key>C0396A40-86E9-44F6-8818-1A1610AA47C9</key>
+		<string>../..</string>
+		<key>E3CEABFF-3E1E-48C3-8229-F04118291C8C</key>
+		<string>../../CoreLocationUtils</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/codeforeurope/gohike-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C0396A40-86E9-44F6-8818-1A1610AA47C9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C0396A40-86E9-44F6-8818-1A1610AA47C9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ScavengerApp</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E3CEABFF-3E1E-48C3-8229-F04118291C8C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CoreLocationUtils</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>623AB926-BD6C-4327-AC70-D80FE29E7D14</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
+	</array>
+</dict>
+</plist>

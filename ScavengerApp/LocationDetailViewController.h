@@ -14,5 +14,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *locationTitleLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *locationImageView;
 @property (nonatomic, weak) IBOutlet UITextView *locationText;
+@property (nonatomic, weak) IBOutlet UILabel *locationDescriptionLabel;
+
 
 @end

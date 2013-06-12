@@ -55,7 +55,8 @@
     else{
         _locationImageView.image = [UIImage imageNamed:@"no-picture"];
     }
-    _locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
+//    _locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
+    _locationDescriptionLabel.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
     _locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
     _locationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     _locationImageView.layer.shadowOffset = CGSizeMake(0, 2);

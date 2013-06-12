@@ -19,6 +19,8 @@
 #import "CustomBarButtonViewLeft.h"
 #import "CustomBarButtonViewRight.h"
 
+#import "SIAlertView.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @interface RouteStartViewController ()
@@ -26,6 +28,8 @@
 //@property (nonatomic, strong) NSArray *checkins;
 
 @property (nonatomic, assign) BOOL routeComplete;
+
+@property (nonatomic, strong) UIImage *routeProfileImage;
 
 @end
 
@@ -47,7 +51,17 @@
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.tableView setBackgroundView:tablebgView];
     
+    _routeProfileImage = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_route objectForKey:@"image_data"]]];
+    
+    
     [self updateNavigationButtons];
+    
+    UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+    [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:14]];
+    [[SIAlertView appearance] setTitleColor:blueColor];
+    [[SIAlertView appearance] setMessageColor:blueColor];
+    [[SIAlertView appearance] setCornerRadius:12];
+    [[SIAlertView appearance] setShadowRadius:20];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -153,7 +167,7 @@
             }
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-            cell.routeImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_route objectForKey:@"image_data"]]];
+            cell.routeImage.image = _routeProfileImage;
             cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
             cell.routeHighlightsLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
             
@@ -202,7 +216,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 289;
+        return 320;
     }
     else {
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -281,6 +295,22 @@
         }
         else{
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Not Found Yet!", nil) andMessage:NSLocalizedString(@"Go Hike now?", nil)];
+            [alertView addButtonWithTitle:NSLocalizedString(@"Later",nil)
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alertView) {
+                                  }];
+            [alertView addButtonWithTitle:NSLocalizedString(@"Let's go!", nil)
+                                     type:SIAlertViewButtonTypeDefault
+                                  handler:^(SIAlertView *alertView) {
+                                    [alertView dismissAnimated:NO];
+                                    [self startRoute];
+                                  }];
+            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+            alertView.didDismissHandler = ^(SIAlertView *alertView) {
+            };
+            [alertView show];
         }
     }
     

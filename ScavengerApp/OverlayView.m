@@ -12,12 +12,6 @@
 
 #import "HelpView.h"
 
-//RGB color macro
-#define UIColorFromRGB(rgbValue) [UIColor \
-colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
-blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 @interface OverlayView ()
 
 @end
@@ -38,7 +32,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     _playButton.titleLabel.text = NSLocalizedString(@"Let's play!", nil);
     // Draw a custom gradient
-    UIColor *blueColor = UIColorFromRGB(0x83CEE4);
+    UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = _playButton.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,

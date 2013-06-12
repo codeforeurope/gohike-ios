@@ -46,6 +46,10 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
+		AC30AEEC1768BDE0008449BD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEA1768BDE0008449BD /* Icon.png */; };
+		AC30AEED1768BDE0008449BD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEB1768BDE0008449BD /* Icon@2x.png */; };
+		AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEF1768BE01008449BD /* SIAlertView.bundle */; };
+		AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AEF11768BE01008449BD /* SIAlertView.m */; };
 		AC41F7E91761345700ED3F14 /* GHGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E01761345700ED3F14 /* GHGameData.m */; };
 		AC41F7EA1761345700ED3F14 /* GHProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E21761345700ED3F14 /* GHProfiles.m */; };
 		AC41F7EB1761345700ED3F14 /* GHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E41761345700ED3F14 /* GHReward.m */; };
@@ -126,8 +130,6 @@
 		ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D31760AE71002AC636 /* Icon-Small@2x.png */; };
 		ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D61760AE71002AC636 /* iTunesArtwork.png */; };
 		ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */; };
-		ACC893DF1760AE86002AC636 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893DE1760AE86002AC636 /* Icon.png */; };
-		ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893E01760AE92002AC636 /* Icon@2x.png */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -217,6 +219,11 @@
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
+		AC30AEEA1768BDE0008449BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		AC30AEEB1768BDE0008449BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		AC30AEEF1768BE01008449BD /* SIAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SIAlertView.bundle; sourceTree = "<group>"; };
+		AC30AEF01768BE01008449BD /* SIAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIAlertView.h; sourceTree = "<group>"; };
+		AC30AEF11768BE01008449BD /* SIAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIAlertView.m; sourceTree = "<group>"; };
 		AC41F7DF1761345700ED3F14 /* GHGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGameData.h; sourceTree = "<group>"; };
 		AC41F7E01761345700ED3F14 /* GHGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGameData.m; sourceTree = "<group>"; };
 		AC41F7E11761345700ED3F14 /* GHProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHProfiles.h; sourceTree = "<group>"; };
@@ -310,8 +317,6 @@
 		ACC893D31760AE71002AC636 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		ACC893D61760AE71002AC636 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		ACC893DE1760AE86002AC636 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
-		ACC893E01760AE92002AC636 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -436,6 +441,17 @@
 				AC41F7E81761345700ED3F14 /* GHWaypoints.m */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		AC30AEEE1768BE01008449BD /* SIAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				AC30AEEF1768BE01008449BD /* SIAlertView.bundle */,
+				AC30AEF01768BE01008449BD /* SIAlertView.h */,
+				AC30AEF11768BE01008449BD /* SIAlertView.m */,
+			);
+			name = SIAlertView;
+			path = SIAlertView/SIAlertView;
 			sourceTree = "<group>";
 		};
 		AC41F7FE1761FE8400ED3F14 /* Sounds */ = {
@@ -601,8 +617,8 @@
 		ACC893D11760AE69002AC636 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				ACC893E01760AE92002AC636 /* Icon@2x.png */,
-				ACC893DE1760AE86002AC636 /* Icon.png */,
+				AC30AEEA1768BDE0008449BD /* Icon.png */,
+				AC30AEEB1768BDE0008449BD /* Icon@2x.png */,
 				ACC893D21760AE71002AC636 /* Icon-Small.png */,
 				ACC893D31760AE71002AC636 /* Icon-Small@2x.png */,
 				ACC893D61760AE71002AC636 /* iTunesArtwork.png */,
@@ -616,6 +632,7 @@
 			children = (
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
+				AC30AEEE1768BE01008449BD /* SIAlertView */,
 				AC844BF717629EE30092D79C /* SSKeychain */,
 				ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */,
 				AC0AF4611754AB4600B766E0 /* AFNetworking */,
@@ -867,12 +884,13 @@
 				ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */,
 				ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */,
 				ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */,
-				ACC893DF1760AE86002AC636 /* Icon.png in Resources */,
-				ACC893E11760AE92002AC636 /* Icon@2x.png in Resources */,
 				AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */,
 				AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */,
 				AC41F80E176245C800ED3F14 /* CompassTopView.xib in Resources */,
 				AC41F8131762550100ED3F14 /* amsterdamcentrum.gpx in Resources */,
+				AC30AEEC1768BDE0008449BD /* Icon.png in Resources */,
+				AC30AEED1768BDE0008449BD /* Icon@2x.png in Resources */,
+				AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +959,7 @@
 				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
 				AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */,
+				AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
