@@ -2,7 +2,7 @@
 //  SelectionViewController.m
 //  ScavengerApp
 //
-//  Created by Giovanni on 5/15/13.
+//  Created by Giovanni Maggini on 5/15/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
@@ -89,6 +89,10 @@
                                                                                   target:self
                                                                                   action:@selector(onHelpButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
+
+    //This is to add feedback via TestFlight
+//    UIBarButtonItem *feedback = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-feedback"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedback:)];
+//    self.navigationItem.leftBarButtonItem = feedback;
     
 }
 
@@ -219,7 +223,7 @@
     }
 }
 
-#pragma mark - Button
+#pragma mark - Buttons
 
 - (void)onHelpButton
 {
@@ -232,5 +236,12 @@
     completion:nil];
 
 }
+
+- (void)sendFeedback:(id)sender
+{
+    [TestFlight openFeedbackView];
+}
+
+
 
 @end

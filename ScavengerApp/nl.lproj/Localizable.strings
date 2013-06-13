@@ -2,7 +2,7 @@
   Localizable.strings
   ScavengerApp
 
-  Created by Giovanni on 5/15/13.
+  Created by Giovanni Maggini on 5/15/13.
   Copyright (c) 2013 Code for Europe. All rights reserved.
 */
 
@@ -73,9 +73,11 @@
 /* When player is in range of destination. */
 "You are almost there!" = "Je bent er bijna!";
 
-/* These are the 3 messages in the alert view when user taps on a location not yet found */
-"Not Found Yet!" = "Nog niet gevonden!";
+/* These are the messages in the alert view when user taps on a location not yet found */
+"RouteAlertViewTitle" = "Nog niet bezocht!";
 
-"Later" = "Later";
+"RouteAlertViewMessage" = "Wandeling naar plaatsen te ontdekken en meer te weten over hen. Ga wandelen nu?";
 
-"Let's go!" = "Laten we gaan!";
+"RouteAlertViewNo" = "Niet nu";
+
+"RouteAlertViewYes" = "Laten we gaan!";

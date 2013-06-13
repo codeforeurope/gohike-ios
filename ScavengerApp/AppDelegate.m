@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  ScavengerApp
 //
-//  Created by Giovanni on 5/15/13.
+//  Created by Giovanni Maggini on 5/15/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
@@ -54,9 +54,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+#if !TARGET_IPHONE_SIMULATOR
     //TestFlight
 //    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //TODO: Check that this line is commented for submission to App Store
     [TestFlight takeOff:kTestFlightAPIKey];
+#endif
     
     [self customizeAppearance];
     

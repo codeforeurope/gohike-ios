@@ -2,7 +2,7 @@
 //  RewardViewController.m
 //  ScavengerApp
 //
-//  Created by Giovanni on 5/27/13.
+//  Created by Giovanni Maggini on 5/27/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 

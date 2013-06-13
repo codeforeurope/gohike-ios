@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define TITLE_FONT_SIZE 22
-#define BUTTON_HEIGHT 30
+#define BUTTON_HEIGHT 32
 #define BUTTON_WIDTH 200
 
 //RGB color macro
@@ -61,7 +61,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         checkinButton.layer.cornerRadius = 5;
         checkinButton.layer.masksToBounds = YES;
         [checkinButton setTitle:NSLocalizedString(@"Found!", nil) forState:UIControlStateNormal];
-        [checkinButton addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchDown];
+        [checkinButton addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:checkinButton];
         
         //body
@@ -152,7 +152,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     checkinButton.layer.cornerRadius = 5;
     checkinButton.layer.masksToBounds = YES;
     [checkinButton setTitle:NSLocalizedString(@"Continue!", nil) forState:UIControlStateNormal];
-    [checkinButton addTarget:self action:@selector(onContinueButton:) forControlEvents:UIControlEventTouchDown];
+    [checkinButton addTarget:self action:@selector(onContinueButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:checkinButton];
     
 }

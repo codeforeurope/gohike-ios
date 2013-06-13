@@ -2,7 +2,7 @@
 //  RouteStartViewController.m
 //  ScavengerApp
 //
-//  Created by Giovanni on 5/15/13.
+//  Created by Giovanni Maggini on 5/15/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
@@ -22,6 +22,9 @@
 #import "SIAlertView.h"
 
 #import <QuartzCore/QuartzCore.h>
+
+#define BUTTON_HEIGHT 32
+#define BUTTON_WIDTH 200
 
 @interface RouteStartViewController ()
 
@@ -105,7 +108,7 @@
                                                                              imageName:@"icon-compass"
                                                                               text:NSLocalizedString(@"Go Hike!", nil)
                                                                                 target:self
-                                                                                action:@selector(onGoHikeButton)];
+                                                                                          action:@selector(onGoHikeButton:)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:goHikeButton];
         
     }
@@ -134,7 +137,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -145,6 +148,9 @@
         case 0:
             number = 1;
             break;
+        case 1:
+            number = 1;
+        break;
         default:
             number = [[_route objectForKey:@"waypoints"] count];
             break;
@@ -181,6 +187,51 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
+            cell.selectionStyle = UITableViewCellEditingStyleNone;
+            cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+
+            
+            //button with gradient
+            UIButton *startHikeCellButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            startHikeCellButton.frame = cell.contentView.frame;
+            [startHikeCellButton setFrame:CGRectMake(0, 0, cell.bounds.size.width-20, 44)];
+
+            
+//            checkinButton.titleLabel.text = NSLocalizedString(@"Go Hike!", nil);
+            // Draw a custom gradient
+            UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = startHikeCellButton.bounds;
+            gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,
+                               (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
+                               nil];
+            [startHikeCellButton.layer insertSublayer:gradient atIndex:0];
+            startHikeCellButton.layer.cornerRadius = 5;
+            startHikeCellButton.layer.masksToBounds = YES;
+            [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+            [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
+            
+            
+            startHikeCellButton.layer.shadowColor = [UIColor blackColor].CGColor;
+            startHikeCellButton.layer.shadowOffset = CGSizeMake(0, 1);
+            startHikeCellButton.layer.shadowOpacity = 0.8;
+            startHikeCellButton.layer.shadowRadius = 0.9;
+            startHikeCellButton.clipsToBounds = NO;
+            
+            [cell.contentView addSubview:startHikeCellButton];
+            
+            return cell;
+
+
+        }
+            break;
+        case 2:
+        {
+            static NSString *CellIdentifier = @"Cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
                        
             NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
             
@@ -207,7 +258,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section ==1){
+    if(indexPath.section ==2){
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
     }
 }
@@ -283,8 +334,8 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{   
-    if(indexPath.section == 1)
+{
+    if(indexPath.section == 2)
     {
         NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
         if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
@@ -295,12 +346,12 @@
         }
         else{
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Not Found Yet!", nil) andMessage:NSLocalizedString(@"Go Hike now?", nil)];
-            [alertView addButtonWithTitle:NSLocalizedString(@"Later",nil)
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"RouteAlertViewTitle", nil) andMessage:NSLocalizedString(@"RouteAlertViewMessage", nil)];
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes",nil)
                                      type:SIAlertViewButtonTypeCancel
                                   handler:^(SIAlertView *alertView) {
                                   }];
-            [alertView addButtonWithTitle:NSLocalizedString(@"Let's go!", nil)
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", nil)
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                     [alertView dismissAnimated:NO];
@@ -361,14 +412,28 @@
     [self.navigationController popViewControllerAnimated:true];
 }
 
-- (void)onGoHikeButton
+- (void)onGoHikeButton:(id)sender
 {
+    if([sender isKindOfClass:[UIButton class]])
+    {
+        UIButton *b = (UIButton*)sender;
+        b.layer.shadowColor = [UIColor blackColor].CGColor;
+        b.layer.shadowOffset = CGSizeMake(0, 0);
+        b.layer.shadowOpacity = 0;
+        b.layer.shadowRadius = 0;
+        b.clipsToBounds = NO;
+    }
     [self startRoute];
 }
 
 - (void)onViewRewardButton
 {
     [self viewReward];
+}
+
+- (void)onLargeGoHikeButton
+{
+    
 }
 
 #pragma mark - CompassViewControllerDelegate
