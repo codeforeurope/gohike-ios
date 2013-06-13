@@ -55,7 +55,7 @@
 {
     
     //TestFlight
-//    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //!!! Remove for App Store
+//    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //TODO: Check that this line is commented for submission to App Store
     [TestFlight takeOff:kTestFlightAPIKey];
     
     [self customizeAppearance];
@@ -227,7 +227,6 @@
 {
     NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-
     
     // Get device UDID
     //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated

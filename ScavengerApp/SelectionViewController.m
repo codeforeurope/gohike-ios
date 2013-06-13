@@ -40,7 +40,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = NSLocalizedString(@"Choose profile", nil);
+    self.title = NSLocalizedString(@"SelectionPageTitle", nil);
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.collectionView setBackgroundView:tablebgView];
  
@@ -53,9 +53,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HandleAppHasFinishedContentUpdate:) name:kAppHasFinishedContentUpdate object:nil];
     
-//    CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64);
 
     _overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
+    [_overlayView.playButton setHidden:YES];
     
     NSArray *subvArray = [NSArray arrayWithObjects:
                           [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Choose your route", nil), @"label", nil],
@@ -79,18 +79,15 @@
         [help1 setFrame:frame];
         help1.label.text = [[subvArray objectAtIndex:i] objectForKey:@"label"];
         help1.imageView.image = [UIImage imageNamed:[[subvArray objectAtIndex:i] objectForKey:@"image"]];
-        
-
-        
-        
+               
         [_overlayView.scrollView addSubview:help1];
     }
 
     CustomBarButtonViewLeft *helpButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                         imageName:@"help2"
-                                                                         text:nil
-                                                                            target:self
-                                                                            action:@selector(onHelpButton)];
+                                                                               imageName:@"help2"
+                                                                                    text:nil
+                                                                                  target:self
+                                                                                  action:@selector(onHelpButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
     
 }
@@ -217,6 +214,9 @@
     CGFloat pageWidth = _overlayView.scrollView.frame.size.width;
     int page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     _overlayView.pageControl.currentPage = page;
+    if (page == 3) {
+        [_overlayView.playButton setHidden:NO];
+    }
 }
 
 #pragma mark - Button

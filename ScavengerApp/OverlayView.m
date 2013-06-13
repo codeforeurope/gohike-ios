@@ -28,8 +28,6 @@
     self.modalView.layer.shadowRadius = 2.0;
     
     
-    
-
     _playButton.titleLabel.text = NSLocalizedString(@"Let's play!", nil);
     // Draw a custom gradient
     UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
@@ -42,7 +40,6 @@
     [_playButton.layer insertSublayer:gradient atIndex:0];
     _playButton.layer.cornerRadius = 5;
     _playButton.layer.masksToBounds = YES;
-
     
 }
 

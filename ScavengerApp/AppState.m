@@ -16,7 +16,6 @@
     static AppState *shared = nil;
     dispatch_once(&pred, ^{
         shared = [[AppState alloc] init];
-        //Data restore could be here, see http://stackoverflow.com/questions/1148853/loading-a-singletons-state-from-nskeyedarchiver
     });
     return shared;
 }

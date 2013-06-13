@@ -66,6 +66,7 @@
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
 		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
+		AC97D5BF1769BF4D0069F779 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC97D5B8176911950069F779 /* libTestFlight.a */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
 		ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BCA17539FC600EA4D53 /* RewardViewController.m */; };
 		ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */; };
@@ -112,7 +113,6 @@
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
-		ACC893B2175F7742002AC636 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893AE175F7742002AC636 /* libTestFlight.a */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
 		ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B7175F83DE002AC636 /* no-picture@2x.png */; };
 		ACC893BA175F83E3002AC636 /* no-picture.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B9175F83E3002AC636 /* no-picture.png */; };
@@ -249,6 +249,8 @@
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
 		AC844BF817629EE30092D79C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		AC844BF917629EE30092D79C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		AC97D5B8176911950069F779 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		AC97D5BB176911950069F779 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		ACA60BC917539FC600EA4D53 /* RewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardViewController.h; sourceTree = "<group>"; };
 		ACA60BCA17539FC600EA4D53 /* RewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardViewController.m; sourceTree = "<group>"; };
@@ -297,8 +299,6 @@
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
-		ACC893AE175F7742002AC636 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		ACC893B1175F7742002AC636 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		ACC893B5175F7A3C002AC636 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		ACC893B7175F83DE002AC636 /* no-picture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-picture@2x.png"; sourceTree = "<group>"; };
 		ACC893B9175F83E3002AC636 /* no-picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-picture.png"; sourceTree = "<group>"; };
@@ -358,6 +358,7 @@
 				ACE2AD4017628D94004C6AF8 /* AdSupport.framework in Frameworks */,
 				AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */,
 				ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */,
+				AC97D5BF1769BF4D0069F779 /* libTestFlight.a in Frameworks */,
 				AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */,
 				AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */,
 				AC0AF4871754BA6300B766E0 /* SystemConfiguration.framework in Frameworks */,
@@ -368,7 +369,6 @@
 				ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */,
 				A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */,
 				A71CF122175E3BEB00FA2168 /* MapKit.framework in Frameworks */,
-				ACC893B2175F7742002AC636 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +503,15 @@
 			path = SSKeychain;
 			sourceTree = "<group>";
 		};
+		AC97D5B7176911950069F779 /* TestFlightSDK1.2.6 */ = {
+			isa = PBXGroup;
+			children = (
+				AC97D5B8176911950069F779 /* libTestFlight.a */,
+				AC97D5BB176911950069F779 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.2.6;
+			sourceTree = "<group>";
+		};
 		ACA60BB51753574800EA4D53 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -595,15 +604,6 @@
 			path = 2x;
 			sourceTree = "<group>";
 		};
-		ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */ = {
-			isa = PBXGroup;
-			children = (
-				ACC893AE175F7742002AC636 /* libTestFlight.a */,
-				ACC893B1175F7742002AC636 /* TestFlight.h */,
-			);
-			path = TestFlightSDK1.2.5;
-			sourceTree = "<group>";
-		};
 		ACC893BB1760931F002AC636 /* HelpViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,9 +632,9 @@
 			children = (
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
+				AC97D5B7176911950069F779 /* TestFlightSDK1.2.6 */,
 				AC30AEEE1768BE01008449BD /* SIAlertView */,
 				AC844BF717629EE30092D79C /* SSKeychain */,
-				ACC893AD175F7742002AC636 /* TestFlightSDK1.2.5 */,
 				AC0AF4611754AB4600B766E0 /* AFNetworking */,
 				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
@@ -761,6 +761,7 @@
 			buildPhases = (
 				ACDD9B641743B20200D64682 /* Sources */,
 				ACDD9B651743B20200D64682 /* Frameworks */,
+				AC97D5B61769064B0069F779 /* ShellScript */,
 				ACDD9B661743B20200D64682 /* Resources */,
 				AC101693174EBE0500761AC2 /* ShellScript */,
 			);
@@ -910,6 +911,19 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\n\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"    ";
 		};
+		AC97D5B61769064B0069F779 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -919,6 +933,7 @@
 			files = (
 				ACDD9B781743B20200D64682 /* main.m in Sources */,
 				ACDD9B7C1743B20200D64682 /* AppDelegate.m in Sources */,
+				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
 				ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */,
 				ACDD9BD51743CDCE00D64682 /* RouteStartViewController.m in Sources */,
 				ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */,
@@ -944,7 +959,6 @@
 				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
 				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
-				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
 				A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */,
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,
 				A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */,
@@ -1015,7 +1029,7 @@
 		AC41F7FB1761EA7E00ED3F14 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giovanni Maggini (54P6X97536)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1024,10 +1038,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
+					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
-				PROVISIONING_PROFILE = "99A949B1-BF83-4407-B293-6461F1662378";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1100,7 +1114,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
+					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
 				PROVISIONING_PROFILE = "";
@@ -1121,7 +1135,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1.2.5\"",
+					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
 				PROVISIONING_PROFILE = "";

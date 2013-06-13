@@ -138,7 +138,6 @@
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
 //    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
-//    [checkinView setTitle:NSLocalizedString(@"You can check-in!", nil)];
     NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
