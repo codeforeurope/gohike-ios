@@ -112,7 +112,7 @@
 		ACB534F8175654390065D72D /* target-white-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CE175654390065D72D /* target-white-small@2x.png */; };
 		ACB534F9175654390065D72D /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534CF175654390065D72D /* target@2x.png */; };
 		ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534D0175654390065D72D /* viewbackground@2x.png */; };
-		ACC0195F1769FE0C00E8886D /* icon-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC0195E1769FE0C00E8886D /* icon-feedback.png */; };
+		ACC01963176A18AF00E8886D /* icon-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC01962176A18AF00E8886D /* icon-feedback.png */; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
 		ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B7175F83DE002AC636 /* no-picture@2x.png */; };
@@ -298,7 +298,7 @@
 		ACB534CE175654390065D72D /* target-white-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-white-small@2x.png"; sourceTree = "<group>"; };
 		ACB534CF175654390065D72D /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
 		ACB534D0175654390065D72D /* viewbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewbackground@2x.png"; sourceTree = "<group>"; };
-		ACC0195E1769FE0C00E8886D /* icon-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-feedback.png"; path = "../../../../../Downloads/icon-feedback.png"; sourceTree = "<group>"; };
+		ACC01962176A18AF00E8886D /* icon-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-feedback.png"; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		ACC893B5175F7A3C002AC636 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -736,7 +736,7 @@
 		ACDD9BDF1743E8D700D64682 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				ACC0195E1769FE0C00E8886D /* icon-feedback.png */,
+				ACC01962176A18AF00E8886D /* icon-feedback.png */,
 				AC41F7FE1761FE8400ED3F14 /* Sounds */,
 				ACECFB9D1756A8D70074EBBE /* pin@2x.png */,
 				ACECFB9E1756A8D70074EBBE /* pin.png */,
@@ -895,7 +895,7 @@
 				AC30AEEC1768BDE0008449BD /* Icon.png in Resources */,
 				AC30AEED1768BDE0008449BD /* Icon@2x.png in Resources */,
 				AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */,
-				ACC0195F1769FE0C00E8886D /* icon-feedback.png in Resources */,
+				ACC01963176A18AF00E8886D /* icon-feedback.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
