@@ -1,83 +1,35 @@
-/* 
-  Localizable.strings
-  ScavengerApp
+/*   Localizable.strings  ScavengerApp
+Created by Giovanni Maggini on 5/15/13.
+Copyright (c) 2013 Code for Europe. All rights reserved.*/
 
-  Created by Giovanni Maggini on 5/15/13.
-  Copyright (c) 2013 Code for Europe. All rights reserved.
-*/
 
-/* Selection screen cell. */
-"ManyRoutes" = "%d Routes";
-"OneRoute" = "%d Route";
+/* Selection screen cell. */"ManyRoutes" = "%d Routes";"OneRoute" = "%d Route";
+/* Selection screen title. */"SelectionPageTitle" = "Waar heb je zin in?";
 
-/* Selection screen title. */
-"SelectionPageTitle" = "Wat heb je zin in?";
+/* No comment provided by engineer. */"Back" = "Terug";
+/* Help page 3. */"Find places" = "Ontdek de plekken";
+/* Help screen 2. */"Follow the arrow" = "Koers op de pijl";
+/* Help page 1. */"Choose your route" = "Kies je route";
+/* Help page 4 */"Get reward!" = "En... finish!";
+/* After check-in done. */"Continue!" = "Verder!";
+/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike Amsterdam App! Neem een kijkje op http://http://www.gotakeahike.nl";
+/* When player can check-in. */"Found!" = "Gevonden!";
+/* Title for place found. */"FoundPlaceTitle" = "Je hebt %@ gevonden!";
+/* The Go Hike button in route selection. */"Go Hike!" = "Start Hike!";
+/* Help end button. */"Let's play!" = "Start";
+/* When user can check-in. */"LocationFound" = "Kijk om je heen! Je bent nu dichtbij %@, heb je het al gespot?";
+/* No comment provided by engineer. */"Locations in Route" = "Locaties op de route";
 
-/* No comment provided by engineer. */
-"Back" = "Terug";
+/* No comment provided by engineer. */"Route Information" = "Route-informatie";
+/* Ask user to save badge to camera roll. */"SavePictureQuestion" = "Onderscheiding bewaren?";
+/* Option to save picture to camera roll */"Save" = "Bewaren";
 
-/* Help page 3. */
-"Find places" = "Vind locaties";
+/* Do not save picture to camera roll. */"Don't save" = "Niet bewaren";
+/* Button to view Map. */"View Map" = "Bekijk kaart";
+/* Button to view reward. */"View Reward" = "Onderscheiding"; /* Bekijk onderscheiding */
 
-/* Help screen 2. */
-"Follow the arrow" = "Volg de pijl";
-
-/* Help page 1. */
-"Choose your route" = "Kies uw route";
-
-/* Help page 4 */
-"Get reward!" = "Get belonen!";
-
-/* After check-in done. */
-"Continue!" = "Doorgaan!";
-
-/* The Facebook share message. */
-"FacebookMessage" = "Ik verdiende het kenteken van %@ met de Take a Hike Amsterdam App! Neem een ​​kijkje op http://http://www.gotakeahike.nl";
-
-/* When player can check-in. */
-"Found!" = "Ik vond het!";
-
-/* Title for place found. */
-"FoundPlaceTitle" = "U gevonden %@!";
-
-/* The Go Hike button in route selection. */
-"Go Hike!" = "Ga Hike!";
-
-/* Help end button. */
-"Let's play!" = "Let's play!";
-
-/* When user can check-in. */
-"LocationFound" = "Kijk om je heen! U bent dicht bij %@, kunt u het zien?";
-
-/* No comment provided by engineer. */
-"Locations in Route" = "Locaties in Route";
-
-/* No comment provided by engineer. */
-"Route Information" = "Route-informatie";
-
-/* Ask user to save badge to camera roll. */
-"SavePictureQuestion" = "Opslaan om uw camera roll?";
-
-/* Option to save picture to camera roll */
-"Save" = "Opslaan";
-
-/* Do not save picture to camera roll. */
-"Don't save" = "Niet bewaren";
-
-/* Button to view Map. */
-"View Map" = "Bekijk kaart";
-
-/* Button to view reward. */
-"View Reward" = "Bekijk badge";
-
-/* When player is in range of destination. */
-"You are almost there!" = "Je bent er bijna!";
-
-/* These are the messages in the alert view when user taps on a location not yet found */
-"RouteAlertViewTitle" = "Nog niet bezocht!";
-
-"RouteAlertViewMessage" = "Wandeling naar plaatsen te ontdekken en meer te weten over hen. Ga wandelen nu?";
-
-"RouteAlertViewNo" = "Niet nu";
-
-"RouteAlertViewYes" = "Laten we gaan!";
+/* When player is in range of destination. */"You are almost there!" = "Je bent er bijna!";
+/* These are the messages in the alert view when user taps on a location not yet found */"RouteAlertViewTitle" = "Nog niet gevonden!";
+"RouteAlertViewMessage" = "Hike naar interessante plekken om meer over ze te ontdekken. Nu vertrekken?";
+"RouteAlertViewNo" = "Later";
+"RouteAlertViewYes" = "Ja!"; /* Ja! Gaan met die banaan! */

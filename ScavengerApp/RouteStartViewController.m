@@ -115,6 +115,8 @@
     else
     {
         // Route is complete, put reward button
+        _routeComplete = YES;
+
         CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
                                                                              imageName:@"icon-trophy"
                                                                               text:NSLocalizedString(@"View Reward", nil)
@@ -142,20 +144,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int number;
+    int rows;
     // Return the number of rows in the section.
     switch (section) {
         case 0:
-            number = 1;
+            rows = 1;
             break;
         case 1:
-            number = 1;
+        {
+            if(_routeComplete == YES)
+                rows = 0;
+            else
+                rows = 1;
+        }
         break;
         default:
-            number = [[_route objectForKey:@"waypoints"] count];
+            rows = [[_route objectForKey:@"waypoints"] count];
             break;
     }
-    return number;
+    return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -347,7 +354,7 @@
         else{
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"RouteAlertViewTitle", nil) andMessage:NSLocalizedString(@"RouteAlertViewMessage", nil)];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes",nil)
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",nil)
                                      type:SIAlertViewButtonTypeCancel
                                   handler:^(SIAlertView *alertView) {
                                   }];
