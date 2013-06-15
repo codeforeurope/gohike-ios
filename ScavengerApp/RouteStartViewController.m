@@ -93,10 +93,11 @@
 {
     //change back button
     CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                       imageName:@"icon-back"
-                                                                        text:NSLocalizedString(@"Back", nil)
-                                                                          target:self
-                                                                          action:@selector(onBackButton)];
+                                                                               imageName:@"icon-back"
+                                                                                    text:NSLocalizedString(@"Back", nil)
+                                                                                  target:self
+                                                                                  action:@selector(onBackButton)];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //set the right button to lead to compass or reward
@@ -117,7 +118,7 @@
         // Route is complete, put reward button
         _routeComplete = YES;
 
-        CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
+        CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 140, 32)
                                                                              imageName:@"icon-trophy"
                                                                               text:NSLocalizedString(@"View Reward", nil)
                                                                                 target:self

@@ -45,6 +45,9 @@
         image.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:image];
         
+        //resize frame
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelSize.width + padding + 27, self.frame.size.height);
+        
         //set calback handler
         self.target = aTarget;
         self.action = aAction;

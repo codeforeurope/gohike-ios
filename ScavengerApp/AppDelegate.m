@@ -196,14 +196,18 @@
                     NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
                     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                     NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+                    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
                     __autoreleasing NSError* contentError = nil;
                     
                     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
                                                                        options:kNilOptions
                                                                          error:&contentError];
-                    if([jsonData writeToFile:filePath atomically:YES])
+                    if([jsonData writeToURL:filePathUrl atomically:YES])
                     {
                         NSLog(@"Updated ok");
+                        //set to exclude file from iCloud backup
+                        [self addSkipBackupAttributeToItemAtURL:filePathUrl];
+   
                         [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&contentError]];
                         [[NSNotificationCenter defaultCenter] postNotificationName:kAppHasFinishedContentUpdate object:nil];
                         
@@ -312,6 +316,22 @@
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     return (__bridge NSString *)string;
+}
+
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+    
+    NSError *error = nil;
+    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if(!success){
+        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
+        __autoreleasing NSError *deleteError;
+        [[NSFileManager defaultManager] removeItemAtURL:URL error:&deleteError];
+    }
+    return success;
 }
 
 @end
