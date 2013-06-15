@@ -1033,8 +1033,8 @@
 		AC41F7FB1761EA7E00ED3F14 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giovanni Maggini";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giovanni Maggini";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
@@ -1045,8 +1045,8 @@
 					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "DA7C2EB8-8AFC-4EF5-8840-7CD30ECDBC43";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DA7C2EB8-8AFC-4EF5-8840-7CD30ECDBC43";
 				WRAPPER_EXTENSION = app;
 			};
 			name = TestFlight;

@@ -56,6 +56,7 @@
     
 #if !TARGET_IPHONE_SIMULATOR
     //TestFlight
+//    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
 //    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //TODO: Check that this line is commented for submission to App Store
     [TestFlight takeOff:kTestFlightAPIKey];
 #endif
