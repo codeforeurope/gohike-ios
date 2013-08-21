@@ -439,15 +439,11 @@
     [self viewReward];
 }
 
-- (void)onLargeGoHikeButton
-{
-    
-}
-
 #pragma mark - CompassViewControllerDelegate
 
 - (void)onRouteFinished
 {
+    //TODO: check if it's called
     [TestFlight passCheckpoint:@"UserHasFinishedRoute"];
     showRewardOnAppear = TRUE;
 }

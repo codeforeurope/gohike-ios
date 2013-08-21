@@ -216,6 +216,7 @@
 {
     // Update the page when more than 50% of the previous/next page is visible
     CGFloat pageWidth = _overlayView.scrollView.frame.size.width;
+
     int page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     _overlayView.pageControl.currentPage = page;
     if (page == 3) {

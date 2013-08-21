@@ -151,6 +151,28 @@
     }
 }
 
+- (void)handlePanFrom:(id)sender
+{
+    UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer*)sender;
+    CGPoint translation = [recognizer translationInView:recognizer.view];
+    CGPoint velocity = [recognizer velocityInView:recognizer.view];
+    NSLog(@"Translation: %@ velocity %@", NSStringFromCGPoint(translation), NSStringFromCGPoint(velocity));
+
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
+            //track movement
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+            //animate to final position
+    }
+    
+    if (((UIPanGestureRecognizer *)sender).view == _locationImageView) {
+//        NSLog(@"PanGesture in locationImageView");
+    } else {
+//        NSLog(@"PanGesture");
+    }
+    
+}
+
 - (void)showTitleImageFullScreen
 {
     //TODO: Show a UIScrollView
@@ -162,11 +184,15 @@
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)] ;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     tapGesture.numberOfTapsRequired = 2;
+    
+    UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
+
 
     _fullScreenImageView.userInteractionEnabled = YES;
     _fullScreenImageView.multipleTouchEnabled = YES;
     [_fullScreenImageView addGestureRecognizer:pinchGesture];
     [_fullScreenImageView addGestureRecognizer:tapGesture];
+    [_fullScreenImageView addGestureRecognizer:panGestureRecognizer];
 
     _fullScreenImageView.contentMode = UIViewContentModeScaleAspectFit;
     _fullScreenImageView.frame = newRect;
