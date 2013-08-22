@@ -48,6 +48,8 @@
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
 		AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418F517C6219B00B3783D /* CatalogViewController.m */; };
 		AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418F617C6219B00B3783D /* CatalogViewController.xib */; };
+		AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */; };
+		AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */; };
 		AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */; };
 		AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8217C4F54400875910 /* SVProgressHUD.bundle */; };
 		AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8417C4F54400875910 /* SVProgressHUD.m */; };
@@ -227,6 +229,9 @@
 		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
 		AC2418F517C6219B00B3783D /* CatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewController.m; sourceTree = "<group>"; };
 		AC2418F617C6219B00B3783D /* CatalogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewController.xib; sourceTree = "<group>"; };
+		AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewCollectionHeader.xib; sourceTree = "<group>"; };
+		AC2418FC17C6244600B3783D /* CatalogViewCollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewCollectionHeader.h; sourceTree = "<group>"; };
+		AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewCollectionHeader.m; sourceTree = "<group>"; };
 		AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectionViewController.h; sourceTree = "<group>"; };
 		AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySelectionViewController.m; sourceTree = "<group>"; };
 		AC303F8217C4F54400875910 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -582,6 +587,9 @@
 				AC5133FD17452D7400472022 /* SelectionCell.h */,
 				AC5133FE17452D7400472022 /* SelectionCell.m */,
 				AC5BEDA6174CC5970067F08F /* SelectionCell.xib */,
+				AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */,
+				AC2418FC17C6244600B3783D /* CatalogViewCollectionHeader.h */,
+				AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -943,6 +951,7 @@
 				AC303F9217C506EB00875910 /* verboden.png in Resources */,
 				AC303F9717C5070B00875910 /* CannotPlayViewController.xib in Resources */,
 				AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */,
+				AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,6 +1039,7 @@
 				AC303F8917C500A100875910 /* GHCity.m in Sources */,
 				AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */,
 				AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */,
+				AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
