@@ -46,8 +46,16 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
-		AC30AEEC1768BDE0008449BD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEA1768BDE0008449BD /* Icon.png */; };
-		AC30AEED1768BDE0008449BD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEB1768BDE0008449BD /* Icon@2x.png */; };
+		AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418F517C6219B00B3783D /* CatalogViewController.m */; };
+		AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418F617C6219B00B3783D /* CatalogViewController.xib */; };
+		AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */; };
+		AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8217C4F54400875910 /* SVProgressHUD.bundle */; };
+		AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8417C4F54400875910 /* SVProgressHUD.m */; };
+		AC303F8917C500A100875910 /* GHCity.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8817C500A100875910 /* GHCity.m */; };
+		AC303F9017C506E300875910 /* verboden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8F17C506E300875910 /* verboden@2x.png */; };
+		AC303F9217C506EB00875910 /* verboden.png in Resources */ = {isa = PBXBuildFile; fileRef = AC303F9117C506EB00875910 /* verboden.png */; };
+		AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F9417C5070A00875910 /* CannotPlayViewController.m */; };
+		AC303F9717C5070B00875910 /* CannotPlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC303F9517C5070B00875910 /* CannotPlayViewController.xib */; };
 		AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEF1768BE01008449BD /* SIAlertView.bundle */; };
 		AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AEF11768BE01008449BD /* SIAlertView.m */; };
 		AC41F7E91761345700ED3F14 /* GHGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E01761345700ED3F14 /* GHGameData.m */; };
@@ -127,10 +135,6 @@
 		ACC893CE17609E0F002AC636 /* help2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CA17609E0F002AC636 /* help2.png */; };
 		ACC893CF17609E0F002AC636 /* help3.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CB17609E0F002AC636 /* help3.png */; };
 		ACC893D017609E0F002AC636 /* help4.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893CC17609E0F002AC636 /* help4.png */; };
-		ACC893D81760AE71002AC636 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D21760AE71002AC636 /* Icon-Small.png */; };
-		ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D31760AE71002AC636 /* Icon-Small@2x.png */; };
-		ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D61760AE71002AC636 /* iTunesArtwork.png */; };
-		ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */; };
 		ACDD9B6C1743B20200D64682 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6B1743B20200D64682 /* UIKit.framework */; };
 		ACDD9B6E1743B20200D64682 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6D1743B20200D64682 /* Foundation.framework */; };
 		ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACDD9B6F1743B20200D64682 /* CoreGraphics.framework */; };
@@ -220,8 +224,21 @@
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
-		AC30AEEA1768BDE0008449BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		AC30AEEB1768BDE0008449BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
+		AC2418F517C6219B00B3783D /* CatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewController.m; sourceTree = "<group>"; };
+		AC2418F617C6219B00B3783D /* CatalogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewController.xib; sourceTree = "<group>"; };
+		AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectionViewController.h; sourceTree = "<group>"; };
+		AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySelectionViewController.m; sourceTree = "<group>"; };
+		AC303F8217C4F54400875910 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		AC303F8317C4F54400875910 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		AC303F8417C4F54400875910 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		AC303F8717C500A100875910 /* GHCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCity.h; sourceTree = "<group>"; };
+		AC303F8817C500A100875910 /* GHCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCity.m; sourceTree = "<group>"; };
+		AC303F8F17C506E300875910 /* verboden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "verboden@2x.png"; sourceTree = "<group>"; };
+		AC303F9117C506EB00875910 /* verboden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = verboden.png; sourceTree = "<group>"; };
+		AC303F9317C5070A00875910 /* CannotPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotPlayViewController.h; sourceTree = "<group>"; };
+		AC303F9417C5070A00875910 /* CannotPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotPlayViewController.m; sourceTree = "<group>"; };
+		AC303F9517C5070B00875910 /* CannotPlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CannotPlayViewController.xib; sourceTree = "<group>"; };
 		AC30AEEF1768BE01008449BD /* SIAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SIAlertView.bundle; sourceTree = "<group>"; };
 		AC30AEF01768BE01008449BD /* SIAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIAlertView.h; sourceTree = "<group>"; };
 		AC30AEF11768BE01008449BD /* SIAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIAlertView.m; sourceTree = "<group>"; };
@@ -315,10 +332,6 @@
 		ACC893CA17609E0F002AC636 /* help2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help2.png; sourceTree = "<group>"; };
 		ACC893CB17609E0F002AC636 /* help3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help3.png; sourceTree = "<group>"; };
 		ACC893CC17609E0F002AC636 /* help4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help4.png; sourceTree = "<group>"; };
-		ACC893D21760AE71002AC636 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		ACC893D31760AE71002AC636 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		ACC893D61760AE71002AC636 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
-		ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		ACDD9B681743B20200D64682 /* GoHikeAmsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHikeAmsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDD9B6B1743B20200D64682 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACDD9B6D1743B20200D64682 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -332,9 +345,9 @@
 		ACDD9B7D1743B20200D64682 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACDD9B7F1743B20200D64682 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ACDD9B811743B20200D64682 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
-		ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
-		ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionViewController.xib; sourceTree = "<group>"; };
+		ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionViewController.h; path = ScavengerApp/SelectionViewController.h; sourceTree = "<group>"; };
+		ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionViewController.m; path = ScavengerApp/SelectionViewController.m; sourceTree = "<group>"; };
+		ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionViewController.xib; path = ScavengerApp/SelectionViewController.xib; sourceTree = "<group>"; };
 		ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStartViewController.h; sourceTree = "<group>"; };
 		ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStartViewController.m; sourceTree = "<group>"; };
 		ACDD9BD81743D0E600D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -431,6 +444,8 @@
 		AC10170F1752B2DE00761AC2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				AC303F8717C500A100875910 /* GHCity.h */,
+				AC303F8817C500A100875910 /* GHCity.m */,
 				AC41F7DF1761345700ED3F14 /* GHGameData.h */,
 				AC41F7E01761345700ED3F14 /* GHGameData.m */,
 				AC41F7E11761345700ED3F14 /* GHProfiles.h */,
@@ -443,6 +458,41 @@
 				AC41F7E81761345700ED3F14 /* GHWaypoints.m */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		AC2418F917C621A500B3783D /* old_app */ = {
+			isa = PBXGroup;
+			children = (
+				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
+				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
+				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
+			);
+			name = old_app;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		AC303F8017C4F53100875910 /* ThirdParties */ = {
+			isa = PBXGroup;
+			children = (
+				AC303F8117C4F54400875910 /* SVProgressHUD */,
+				AC97D5B7176911950069F779 /* TestFlightSDK1.2.6 */,
+				AC30AEEE1768BE01008449BD /* SIAlertView */,
+				AC844BF717629EE30092D79C /* SSKeychain */,
+				AC0AF4611754AB4600B766E0 /* AFNetworking */,
+				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
+			);
+			name = ThirdParties;
+			sourceTree = "<group>";
+		};
+		AC303F8117C4F54400875910 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				AC303F8217C4F54400875910 /* SVProgressHUD.bundle */,
+				AC303F8317C4F54400875910 /* SVProgressHUD.h */,
+				AC303F8417C4F54400875910 /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD/SVProgressHUD;
 			sourceTree = "<group>";
 		};
 		AC30AEEE1768BE01008449BD /* SIAlertView */ = {
@@ -566,6 +616,7 @@
 				ACB534B7175654390065D72D /* target-checked.png */,
 				ACB534B8175654390065D72D /* target-white-small.png */,
 				ACB534B9175654390065D72D /* target.png */,
+				AC303F9117C506EB00875910 /* verboden.png */,
 				ACB534BA175654390065D72D /* viewbackground.png */,
 			);
 			path = 1x;
@@ -574,6 +625,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				AC303F8F17C506E300875910 /* verboden@2x.png */,
 				ACC893C117609E07002AC636 /* help1@2x.png */,
 				ACC893C217609E07002AC636 /* help2@2x.png */,
 				ACC893C317609E07002AC636 /* help3@2x.png */,
@@ -619,12 +671,6 @@
 		ACC893D11760AE69002AC636 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				AC30AEEA1768BDE0008449BD /* Icon.png */,
-				AC30AEEB1768BDE0008449BD /* Icon@2x.png */,
-				ACC893D21760AE71002AC636 /* Icon-Small.png */,
-				ACC893D31760AE71002AC636 /* Icon-Small@2x.png */,
-				ACC893D61760AE71002AC636 /* iTunesArtwork.png */,
-				ACC893D71760AE71002AC636 /* iTunesArtwork@2x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -632,13 +678,9 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
+				AC303F8017C4F53100875910 /* ThirdParties */,
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
-				AC97D5B7176911950069F779 /* TestFlightSDK1.2.6 */,
-				AC30AEEE1768BE01008449BD /* SIAlertView */,
-				AC844BF717629EE30092D79C /* SSKeychain */,
-				AC0AF4611754AB4600B766E0 /* AFNetworking */,
-				AC10167A174D6F0F00761AC2 /* CoreLocationUtils */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
 				ACDD9B711743B20200D64682 /* ScavengerApp */,
 				ACDD9B6A1743B20200D64682 /* Frameworks */,
@@ -683,6 +725,7 @@
 				ACA60BB51753574800EA4D53 /* Extensions */,
 				AC10170F1752B2DE00761AC2 /* API */,
 				AC4542A2174BAD81005F5DDE /* Model */,
+				AC2418F917C621A500B3783D /* old_app */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */,
@@ -693,9 +736,6 @@
 				A71CF11F175E35F700FA2168 /* MapViewController.m */,
 				ACC893A9175F67B5002AC636 /* MapPoint.h */,
 				ACC893AA175F67B5002AC636 /* MapPoint.m */,
-				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
-				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
-				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
 				AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */,
@@ -711,6 +751,14 @@
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
+				AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */,
+				AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */,
+				AC303F9317C5070A00875910 /* CannotPlayViewController.h */,
+				AC303F9417C5070A00875910 /* CannotPlayViewController.m */,
+				AC303F9517C5070B00875910 /* CannotPlayViewController.xib */,
+				AC2418F417C6219B00B3783D /* CatalogViewController.h */,
+				AC2418F517C6219B00B3783D /* CatalogViewController.m */,
+				AC2418F617C6219B00B3783D /* CatalogViewController.xib */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
 			);
 			path = ScavengerApp;
@@ -884,18 +932,17 @@
 				ACC893CE17609E0F002AC636 /* help2.png in Resources */,
 				ACC893CF17609E0F002AC636 /* help3.png in Resources */,
 				ACC893D017609E0F002AC636 /* help4.png in Resources */,
-				ACC893D81760AE71002AC636 /* Icon-Small.png in Resources */,
-				ACC893D91760AE71002AC636 /* Icon-Small@2x.png in Resources */,
-				ACC893DC1760AE71002AC636 /* iTunesArtwork.png in Resources */,
-				ACC893DD1760AE71002AC636 /* iTunesArtwork@2x.png in Resources */,
 				AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */,
 				AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */,
 				AC41F80E176245C800ED3F14 /* CompassTopView.xib in Resources */,
 				AC41F8131762550100ED3F14 /* amsterdamcentrum.gpx in Resources */,
-				AC30AEEC1768BDE0008449BD /* Icon.png in Resources */,
-				AC30AEED1768BDE0008449BD /* Icon@2x.png in Resources */,
 				AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */,
 				ACC01963176A18AF00E8886D /* icon-feedback.png in Resources */,
+				AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */,
+				AC303F9017C506E300875910 /* verboden@2x.png in Resources */,
+				AC303F9217C506EB00875910 /* verboden.png in Resources */,
+				AC303F9717C5070B00875910 /* CannotPlayViewController.xib in Resources */,
+				AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +1025,11 @@
 				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
 				AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */,
 				AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */,
+				AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */,
+				AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */,
+				AC303F8917C500A100875910 /* GHCity.m in Sources */,
+				AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */,
+				AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

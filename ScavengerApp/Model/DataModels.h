@@ -6,3 +6,4 @@
 //
 
 #import "Checkin.h"
+#import "GHCity.h"

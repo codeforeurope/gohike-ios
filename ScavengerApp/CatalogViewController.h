@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CatalogViewController : UIViewController
+@interface CatalogViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 
 @end

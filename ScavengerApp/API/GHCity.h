@@ -9,14 +9,14 @@
 
 
 
-@interface GHWithin : NSObject <NSCoding>
+@interface GHCity : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *countryCode;
-@property (nonatomic, assign) double withinIdentifier;
+@property (nonatomic, assign) double cityIdentifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *stateProvince;
 
-+ (GHWithin *)modelObjectWithDictionary:(NSDictionary *)dict;
++ (GHCity *)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
 

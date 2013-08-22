@@ -1,18 +1,18 @@
 //
-//  CannotPlayViewController.m
+//  CatalogViewController.m
 //  GoHikeAmsterdam
 //
-//  Created by Giovanni on 8/21/13.
+//  Created by Giovanni on 8/22/13.
 //  Copyright (c) 2013 Code for Europe. All rights reserved.
 //
 
-#import "CannotPlayViewController.h"
+#import "CatalogViewController.h"
 
-@interface CannotPlayViewController ()
+@interface CatalogViewController ()
 
 @end
 
-@implementation CannotPlayViewController
+@implementation CatalogViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,11 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)retryButtonTapped:(id)sender
-{
-    
 }
 
 @end

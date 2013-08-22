@@ -14,6 +14,8 @@
 #import "Secret.h"
 #import "SSKeychain.h"
 #import <AdSupport/AdSupport.h>
+#import "CitySelectionViewController.h"
+#import "CannotPlayViewController.h"
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -56,17 +58,16 @@
     
 #if !TARGET_IPHONE_SIMULATOR
     //TestFlight
+#warning Check that the following lines are commented out for submission to App Store
 //    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
-//    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]]; //TODO: Check that this line is commented for submission to App Store
+//    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+
     [TestFlight takeOff:kTestFlightAPIKey];
 #endif
     
     [self customizeAppearance];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-   
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];    
     
     // Load Game Data
     __autoreleasing NSError* error = nil;
@@ -95,8 +96,12 @@
     else{
         gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
         [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
-//        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
     }
+    
+    //Start updating
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationFailure:) name:kLocationServicesFailure object:nil];
+    [[AppState sharedInstance] startLocationServices];
+    
 
     
     // Restore game state
@@ -118,9 +123,18 @@
         
     }
     else{
-        // We were not in compass view, so just load first screen
-        SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+        // We were not in compass view, so first we have to check if the user has a selected city
+        if([[AppState sharedInstance] currentCity] != nil){
+            //if the city is not nil, means the player is already in game
+            SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
+            self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+
+        }
+        else{
+            //player has to select a city
+            CitySelectionViewController *cvc = [[CitySelectionViewController alloc] initWithStyle:UITableViewStylePlain];
+            self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
+        }
     }
 
     //Tell AFNetworking to use the Network Activity Indicator
@@ -171,7 +185,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
     // We already save everywhere in the app, so not using this
+    
+    [[AppState sharedInstance] stopLocationServices];
 }
+
+
+#pragma mark - Handlers
+
+-(void)handleLocationFailure:(NSNotification*)notification
+{
+    CannotPlayViewController *cvc = [[CannotPlayViewController alloc] initWithNibName:@"CannotPlayViewController" bundle:nil];
+    cvc.messageLabel.text = NSLocalizedString(@"No location available. Please turn on location in Settings", @"No location available. Please turn on location in Settings");
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
+
+}
+
+#pragma mark - Network actions
 
 -(void)updateContent
 {
@@ -236,8 +265,6 @@
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     
     // Get device UDID
-    //    NSString *deviceID = [[UIDevice currentDevice] uniqueIdentifier];  // <-- deprecated
-    
     // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
     NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
     if (deviceID == nil) { // if this is the first time app lunching , create key for device
@@ -247,19 +274,6 @@
         // this is the one time process
         deviceID = uuid;
     }
-
-    
-//    NSString *deviceID;
-//    ASIdentifierManager *adMgr =  [[ASIdentifierManager alloc] init];
-//    if ([adMgr isAdvertisingTrackingEnabled] == YES)  //User may have opted out from tracking the Ad Identifier in Settings -> General -> Advertising
-//    {
-//        deviceID = [[adMgr advertisingIdentifier] UUIDString];
-//    }
-//    else{
-//        deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-//    }
-    NSLog(@"DeviceID %@", deviceID);
-    
    
     if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
     {

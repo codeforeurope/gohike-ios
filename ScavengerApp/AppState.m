@@ -9,6 +9,9 @@
 #import "AppState.h"
 #import "AppDelegate.h"
 
+NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
+NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
+
 @implementation AppState
 
 +(AppState *)sharedInstance {
@@ -192,6 +195,7 @@
     [encoder encodeInt:_activeRouteId forKey:@"activeRouteId"];
     [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
+    [encoder encodeObject:_currentCity forKey:@"currentCity"];
     //    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
 
     [encoder finishEncoding];
@@ -215,6 +219,7 @@
         _activeRouteId = [decoder decodeIntegerForKey:@"activeRouteId"];
         _activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
+        _currentCity = [decoder decodeObjectForKey:@"currentCity"];
         //    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
         
         [decoder finishDecoding];
@@ -224,6 +229,45 @@
         NSLog(@"Data for restoring is NULL");
     }
     
+}
+
+#pragma mark - Location Manager
+
+- (void)startLocationServices
+{
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"location services are disabled");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesFailure object:nil];
+        return;
+    }
+    
+    if (nil == _locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 100;
+    
+    [_locationManager startUpdatingLocation];
+}
+
+- (void)stopLocationServices
+{
+    [_locationManager stopUpdatingLocation];
+}
+
+-(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *currentLocation = [locations lastObject];
+    NSDate* eventDate = currentLocation.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 15.0 && currentLocation.horizontalAccuracy >= _locationManager.desiredAccuracy) {
+        _currentLocation = currentLocation;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
+        NSLog(@"_currentLocation: %@", currentLocation);
+        
+    }
 }
 
 @end
