@@ -227,6 +227,57 @@
 {
     
     //TODO: go to the screen where we display the routes
+    switch (indexPath.section) {
+        case 0:
+        {
+            //within
+            int city = [[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            [self getCatalogForCity:city];
+        }
+            break;
+        case 1:
+        {
+            //others
+            int city = [[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            [self getCatalogForCity:city];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)getCatalogForCity:(int)cityID
+{
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting content", @"Getting content")];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:base_url]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    
+    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
+    
+    NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
+    NSMutableURLRequest *catalogRequest = [httpClient requestWithMethod:@"GET" path:path parameters:nil];
+    [catalogRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:catalogRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"got a response: %@", response);
+        NSLog(@"JSON: %@", JSON);
+        if([NSJSONSerialization isValidJSONObject:JSON]){
+
+            
+            [SVProgressHUD showSuccessWithStatus:nil];
+        }
+        else{
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load catalog", @"Cannot load catalog")];
+            NSLog(@"JSON data not valid");
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Error when retrieving cities: %@", [error description]);
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
+    }];
+    [httpClient enqueueHTTPRequestOperation:op];
+    
+
+    
 }
 
 @end
