@@ -7,6 +7,7 @@
 //
 
 #import "CitySelectionViewController.h"
+#import "CatalogViewController.h"
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 
@@ -40,6 +41,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
     
     //register the UITableViewCell
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
@@ -48,7 +50,7 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc]
                                         init];
     [refreshControl addTarget:self action:@selector(loadCities) forControlEvents:UIControlEventValueChanged];
-    refreshControl.tintColor = [UIColor blueColor];
+    refreshControl.tintColor = [UIColor grayColor];
     self.refreshControl = refreshControl;
     
     //load the cities
@@ -90,9 +92,9 @@
     [locationRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&error]];
     
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:locationRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"got a response: %@", response);
+
         NSLog(@"JSON: %@", JSON);
-        __autoreleasing NSError *error;
+
         if([NSJSONSerialization isValidJSONObject:JSON]){
             _cities = (NSDictionary*)JSON;
             
@@ -253,6 +255,7 @@
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:base_url]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     
+    
     NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
     
     NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
@@ -262,9 +265,14 @@
         NSLog(@"got a response: %@", response);
         NSLog(@"JSON: %@", JSON);
         if([NSJSONSerialization isValidJSONObject:JSON]){
-
+            GHCatalog *catalog = (GHCatalog*)JSON;
             
+            NSDictionary *userInfo =  @{@"catalog":catalog};
+            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
             [SVProgressHUD showSuccessWithStatus:nil];
+            
+
         }
         else{
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load catalog", @"Cannot load catalog")];
@@ -279,5 +287,15 @@
 
     
 }
+
+- (void)handleLoadCatalogCompleted:(NSNotification*)notification
+{
+
+    NSLog(@"Finished loading catalog");
+    CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
+    cvc.catalog =  [notification.userInfo objectForKey:@"catalog"];;
+    [self.navigationController pushViewController:cvc animated:YES];
+}
+
 
 @end

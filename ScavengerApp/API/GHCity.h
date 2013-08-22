@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 
 
-
 @interface GHCity : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *countryCode;

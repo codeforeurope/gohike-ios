@@ -134,7 +134,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return [_routeProfiles.profiles count];
     return [_profiles count];
 }
 
@@ -206,7 +205,9 @@
 - (void)HandleAppHasFinishedContentUpdate:(NSNotification*)pNotification
 {
     [self loadData];
-    [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadData];
+    } completion:^(BOOL finished) {}];
 }
 
 

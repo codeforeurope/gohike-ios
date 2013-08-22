@@ -8,10 +8,10 @@
 #import "GHCity.h"
 
 
-NSString *const kGHWithinCountryCode = @"country_code";
-NSString *const kGHWithinId = @"id";
-NSString *const kGHWithinName = @"name";
-NSString *const kGHWithinStateProvince = @"state_province";
+NSString *const kGHCityCountryCode = @"country_code";
+NSString *const kGHCityId = @"id";
+NSString *const kGHCityName = @"name";
+NSString *const kGHCityStateProvince = @"state_province";
 
 
 @interface GHCity ()
@@ -41,10 +41,10 @@ NSString *const kGHWithinStateProvince = @"state_province";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.countryCode = [self objectOrNilForKey:kGHWithinCountryCode fromDictionary:dict];
-            self.cityIdentifier = [[self objectOrNilForKey:kGHWithinId fromDictionary:dict] doubleValue];
-            self.name = [self objectOrNilForKey:kGHWithinName fromDictionary:dict];
-            self.stateProvince = [self objectOrNilForKey:kGHWithinStateProvince fromDictionary:dict];
+            self.countryCode = [self objectOrNilForKey:kGHCityCountryCode fromDictionary:dict];
+            self.cityIdentifier = [[self objectOrNilForKey:kGHCityId fromDictionary:dict] doubleValue];
+            self.name = [self objectOrNilForKey:kGHCityName fromDictionary:dict];
+            self.stateProvince = [self objectOrNilForKey:kGHCityStateProvince fromDictionary:dict];
 
     }
     
@@ -55,10 +55,10 @@ NSString *const kGHWithinStateProvince = @"state_province";
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    [mutableDict setValue:self.countryCode forKey:kGHWithinCountryCode];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.cityIdentifier] forKey:kGHWithinId];
-    [mutableDict setValue:self.name forKey:kGHWithinName];
-    [mutableDict setValue:self.stateProvince forKey:kGHWithinStateProvince];
+    [mutableDict setValue:self.countryCode forKey:kGHCityCountryCode];
+    [mutableDict setValue:[NSNumber numberWithDouble:self.cityIdentifier] forKey:kGHCityId];
+    [mutableDict setValue:self.name forKey:kGHCityName];
+    [mutableDict setValue:self.stateProvince forKey:kGHCityStateProvince];
 
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
@@ -82,20 +82,20 @@ NSString *const kGHWithinStateProvince = @"state_province";
 {
     self = [super init];
 
-    self.countryCode = [aDecoder decodeObjectForKey:kGHWithinCountryCode];
-    self.cityIdentifier = [aDecoder decodeDoubleForKey:kGHWithinId];
-    self.name = [aDecoder decodeObjectForKey:kGHWithinName];
-    self.stateProvince = [aDecoder decodeObjectForKey:kGHWithinStateProvince];
+    self.countryCode = [aDecoder decodeObjectForKey:kGHCityCountryCode];
+    self.cityIdentifier = [aDecoder decodeDoubleForKey:kGHCityId];
+    self.name = [aDecoder decodeObjectForKey:kGHCityName];
+    self.stateProvince = [aDecoder decodeObjectForKey:kGHCityStateProvince];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 
-    [aCoder encodeObject:_countryCode forKey:kGHWithinCountryCode];
-    [aCoder encodeDouble:_withinIdentifier forKey:kGHWithinId];
-    [aCoder encodeObject:_name forKey:kGHWithinName];
-    [aCoder encodeObject:_stateProvince forKey:kGHWithinStateProvince];
+    [aCoder encodeObject:_countryCode forKey:kGHCityCountryCode];
+    [aCoder encodeDouble:_withinIdentifier forKey:kGHCityId];
+    [aCoder encodeObject:_name forKey:kGHCityName];
+    [aCoder encodeObject:_stateProvince forKey:kGHCityStateProvince];
 }
 
 

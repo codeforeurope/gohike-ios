@@ -50,6 +50,11 @@
 		AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418F617C6219B00B3783D /* CatalogViewController.xib */; };
 		AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */; };
 		AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */; };
+		AC24190817C64A0700B3783D /* GHIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190217C64A0700B3783D /* GHIcon.m */; };
+		AC24190917C64A0700B3783D /* GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190417C64A0700B3783D /* GHImage.m */; };
+		AC24190A17C64A0700B3783D /* GHRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190617C64A0700B3783D /* GHRoute.m */; };
+		AC24190D17C6531000B3783D /* GHProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190B17C6531000B3783D /* GHProfile.m */; };
+		AC24191017C6536F00B3783D /* GHCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190F17C6536E00B3783D /* GHCatalog.m */; };
 		AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */; };
 		AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8217C4F54400875910 /* SVProgressHUD.bundle */; };
 		AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8417C4F54400875910 /* SVProgressHUD.m */; };
@@ -232,6 +237,16 @@
 		AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewCollectionHeader.xib; sourceTree = "<group>"; };
 		AC2418FC17C6244600B3783D /* CatalogViewCollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewCollectionHeader.h; sourceTree = "<group>"; };
 		AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewCollectionHeader.m; sourceTree = "<group>"; };
+		AC24190117C64A0700B3783D /* GHIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIcon.h; sourceTree = "<group>"; };
+		AC24190217C64A0700B3783D /* GHIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIcon.m; sourceTree = "<group>"; };
+		AC24190317C64A0700B3783D /* GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHImage.h; sourceTree = "<group>"; };
+		AC24190417C64A0700B3783D /* GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHImage.m; sourceTree = "<group>"; };
+		AC24190517C64A0700B3783D /* GHRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRoute.h; sourceTree = "<group>"; };
+		AC24190617C64A0700B3783D /* GHRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRoute.m; sourceTree = "<group>"; };
+		AC24190B17C6531000B3783D /* GHProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHProfile.m; sourceTree = "<group>"; };
+		AC24190C17C6531000B3783D /* GHProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHProfile.h; sourceTree = "<group>"; };
+		AC24190E17C6536E00B3783D /* GHCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCatalog.h; sourceTree = "<group>"; };
+		AC24190F17C6536E00B3783D /* GHCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCatalog.m; sourceTree = "<group>"; };
 		AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectionViewController.h; sourceTree = "<group>"; };
 		AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySelectionViewController.m; sourceTree = "<group>"; };
 		AC303F8217C4F54400875910 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -449,6 +464,16 @@
 		AC10170F1752B2DE00761AC2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				AC24190E17C6536E00B3783D /* GHCatalog.h */,
+				AC24190F17C6536E00B3783D /* GHCatalog.m */,
+				AC24190C17C6531000B3783D /* GHProfile.h */,
+				AC24190B17C6531000B3783D /* GHProfile.m */,
+				AC24190117C64A0700B3783D /* GHIcon.h */,
+				AC24190217C64A0700B3783D /* GHIcon.m */,
+				AC24190317C64A0700B3783D /* GHImage.h */,
+				AC24190417C64A0700B3783D /* GHImage.m */,
+				AC24190517C64A0700B3783D /* GHRoute.h */,
+				AC24190617C64A0700B3783D /* GHRoute.m */,
 				AC303F8717C500A100875910 /* GHCity.h */,
 				AC303F8817C500A100875910 /* GHCity.m */,
 				AC41F7DF1761345700ED3F14 /* GHGameData.h */,
@@ -1040,6 +1065,11 @@
 				AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */,
 				AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */,
 				AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */,
+				AC24190817C64A0700B3783D /* GHIcon.m in Sources */,
+				AC24190917C64A0700B3783D /* GHImage.m in Sources */,
+				AC24190A17C64A0700B3783D /* GHRoute.m in Sources */,
+				AC24190D17C6531000B3783D /* GHProfile.m in Sources */,
+				AC24191017C6536F00B3783D /* GHCatalog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

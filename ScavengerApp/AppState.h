@@ -12,6 +12,7 @@
 
 extern NSString* const kLocationServicesFailure;
 extern NSString* const kLocationServicesGotBestAccuracyLocation;
+extern NSString* const kFinishedLoadingCatalog;
 
 
 @interface AppState : NSObject <CLLocationManagerDelegate>
@@ -23,6 +24,7 @@ extern NSString* const kLocationServicesGotBestAccuracyLocation;
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
+
 
 //Location
 @property (nonatomic, strong) CLLocationManager *locationManager;

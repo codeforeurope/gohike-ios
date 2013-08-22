@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CatalogViewCollectionHeader : UIView
+@interface CatalogViewCollectionHeader : UICollectionReusableView
 
 @property (nonatomic, weak) IBOutlet UIImageView *headerImage;
 @property (nonatomic, weak) IBOutlet UILabel *headerLabel;

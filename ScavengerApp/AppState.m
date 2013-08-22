@@ -11,6 +11,7 @@
 
 NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
+NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
 
 @implementation AppState
 
@@ -208,6 +209,7 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
 
 - (void)restore
 {
+    
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [docsPath stringByAppendingPathComponent: @"AppData"];
     NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:filePath];

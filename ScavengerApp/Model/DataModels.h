@@ -7,3 +7,9 @@
 
 #import "Checkin.h"
 #import "GHCity.h"
+#import "GHCatalog.h"
+#import "GHProfile.h"
+#import "GHRoute.h"
+#import "GHIcon.h"
+#import "GHImage.h"
+
