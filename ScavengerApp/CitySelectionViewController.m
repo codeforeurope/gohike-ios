@@ -227,8 +227,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    //TODO: go to the screen where we display the routes
     switch (indexPath.section) {
         case 0:
         {
@@ -267,6 +265,8 @@
         if([NSJSONSerialization isValidJSONObject:JSON]){
             GHCatalog *catalog = (GHCatalog*)JSON;
             
+            [[AppState sharedInstance] setCurrentCatalog:(NSDictionary*)JSON];
+            
             NSDictionary *userInfo =  @{@"catalog":catalog};
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
             [SVProgressHUD showSuccessWithStatus:nil];
@@ -293,7 +293,6 @@
 
     NSLog(@"Finished loading catalog");
     CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
-    cvc.catalog =  [notification.userInfo objectForKey:@"catalog"];;
     [self.navigationController pushViewController:cvc animated:YES];
 }
 

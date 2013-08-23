@@ -8,10 +8,14 @@
 
 #import "AppState.h"
 #import "AppDelegate.h"
+#import "AFNetworking.h"
+
+#define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
 NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
 NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
+NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
 
 @implementation AppState
 
@@ -70,33 +74,15 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
     return NO;
 }
  
-- (NSDictionary*)activeProfile
-{
-    NSArray *profiles = [_game objectForKey:@"profiles"];
-    NSUInteger index = [profiles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"id"] integerValue] == _activeProfileId;
-    }];
 
-    return [profiles objectAtIndex:index];
-}
-
-- (NSDictionary*)activeRoute
-{
-    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
-    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"id"] integerValue] == _activeRouteId;
-    }];
-    if (index == NSNotFound) {
-        return nil;
-    }
-    else {
-        return [routes objectAtIndex:index];
-    }
-}
 
 - (NSDictionary*)activeWaypoint
 {
-    NSArray *waypoints = [self.activeRoute objectForKey:@"waypoints"];
+    NSArray *waypoints = [self.currentRoute objectForKey:@"waypoints"];
+    if ([waypoints count] < 1) {
+        return nil;
+    }
+    
     NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
     }];
@@ -112,6 +98,10 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
 {
     NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
     
+    if([waypoints count] <1){
+        return [[NSDictionary alloc] init]; //an empty dictionary
+    }
+        
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"visited"] boolValue] == NO;
     }];
@@ -130,20 +120,11 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
     return [_checkins objectsAtIndexes:indexes];
 }
 
-- (NSDictionary*)routeWithId:(int)routeId
-{
-    NSArray *routes = [self.activeProfile objectForKey:@"routes"];
-    NSUInteger index = [routes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"id"] integerValue] == routeId;
-    }];
-    
-    return [routes objectAtIndex:index];
-}
 
 // Returns an array of waypoints for the route, adding a "visited" BOOL value for convenience
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId
 {
-    NSArray *waypoints = [[self routeWithId:routeId] objectForKey:@"waypoints"];
+    NSArray *waypoints = [[self currentRoute] objectForKey:@"waypoints"];
     NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
 
     NSMutableArray *waypointsWithVisit = [[NSMutableArray alloc] init];
@@ -181,6 +162,38 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
     return waypointsWithVisit;
 }
 
+#pragma mark - Networking
+
+- (void)loadRoute:(NSInteger)routeId
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kGOHIKEAPIURL]];
+    NSString *path = [NSString stringWithFormat:@"/api/route/%d", routeId];
+    NSMutableURLRequest *routeRequest = [httpClient requestWithMethod:@"GET" path:path parameters:nil];
+    [routeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:routeRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"JSON: %@", JSON);
+        if([NSJSONSerialization isValidJSONObject:JSON]){
+            GHRoute *catalog = (GHRoute*)JSON;
+            
+            NSDictionary *userInfo =  @{@"catalog":catalog};
+            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
+           
+            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
+            
+        }
+        else{
+            NSLog(@"JSON data not valid");
+            
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Error when retrieving cities: %@", [error description]);
+        NSDictionary *userInfo = @{@"error":error};
+        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    }];
+    [httpClient enqueueHTTPRequestOperation:op];
+}
 
 #pragma mark - Save and restore
 
@@ -269,6 +282,7 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
         NSLog(@"_currentLocation: %@", currentLocation);
+        [self stopLocationServices];
         
     }
 #else
@@ -276,6 +290,7 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
         NSLog(@"_currentLocation: %@", currentLocation);
+        [self stopLocationServices];
         
     }
 #endif

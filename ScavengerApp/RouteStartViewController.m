@@ -7,21 +7,18 @@
 //
 
 #import "RouteStartViewController.h"
-
 #import "CompassViewController.h"
-
 #import "LocationDetailViewController.h"
-
 #import "RouteDetailTitleCell.h"
-
 #import "RewardViewController.h"
-
 #import "CustomBarButtonViewLeft.h"
 #import "CustomBarButtonViewRight.h"
-
 #import "SIAlertView.h"
+#import "UIImageView+AFNetworking.h"
 
 #import <QuartzCore/QuartzCore.h>
+
+
 
 #define BUTTON_HEIGHT 32
 #define BUTTON_WIDTH 200
@@ -51,11 +48,10 @@
 {
     [super viewDidLoad];
         
-    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
-    [self.tableView setBackgroundView:tablebgView];
-    
-    _routeProfileImage = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_route objectForKey:@"image_data"]]];
-    
+//    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+//    [self.tableView setBackgroundView:tablebgView];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]];
+    self.tableView.backgroundColor = [UIColor clearColor];
     
     [self updateNavigationButtons];
     
@@ -66,11 +62,6 @@
     [[SIAlertView appearance] setCornerRadius:12];
     [[SIAlertView appearance] setShadowRadius:20];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,7 +76,7 @@
     
     [self updateNavigationButtons];
     
-    //update the table
+    //update the table so that the "Go Hike" button won't be displayed
     [self.tableView reloadData];
 }
 
@@ -168,8 +159,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    NSString *langKey = [[AppState sharedInstance] language];
     switch (indexPath.section) {
         case 0:
         {
@@ -181,9 +170,10 @@
             }
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-            cell.routeImage.image = _routeProfileImage;
-            cell.routeTitleLabel.text = [_route objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-            cell.routeHighlightsLabel.text = [_route objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
+            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
+            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
+            cell.routeTitleLabel.text = [_route objectForKey:@"name"];
+            cell.routeHighlightsLabel.text = [_route objectForKey:@"description"];
             
             return cell;
         }
@@ -214,9 +204,14 @@
                                (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
                                nil];
             [startHikeCellButton.layer insertSublayer:gradient atIndex:0];
-            startHikeCellButton.layer.cornerRadius = 5;
+            startHikeCellButton.layer.cornerRadius = 6;
             startHikeCellButton.layer.masksToBounds = YES;
-            [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+            if([_route objectForKey:@"downloaded"]){
+                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+            }
+            else{
+                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+            }
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
             
             
@@ -252,7 +247,11 @@
                 cell.imageView.image = [UIImage imageNamed:@"target"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            cell.textLabel.text = [waypoint objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+
+            NSDictionary *wpNameLocales = [waypoint objectForKey:@"name"];
+
+
+            cell.textLabel.text = [self getStringForCurrentLocaleFromDictionary:wpNameLocales];
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
             
             return cell;
@@ -261,7 +260,23 @@
         default:
             break;
     }
-    return  [[UITableViewCell alloc] init]; //fix compiler warning
+    return  nil;
+}
+
+- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary
+{
+    NSString *labelText = nil;
+    NSString *locale = [NSLocale currentLocale];
+    if([dictionary objectForKey:locale]){
+        labelText = [dictionary objectForKey:locale];
+    }
+    else if([dictionary objectForKey:@"en"]){
+        labelText = [dictionary objectForKey:locale];
+    }
+    else{
+        labelText = [dictionary objectForKey:[[dictionary allKeys] objectAtIndex:0]];
+    }
+    return labelText;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -281,63 +296,6 @@
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
 }
-
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *retString;
-//    switch (section) {
-//        case 0:
-//            retString =  NSLocalizedString(@"Route Information", nil);
-//            break;
-//        case 1:
-//            retString =  NSLocalizedString(@"Locations in Route", nil);
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    return retString;
-//}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -372,20 +330,16 @@
             [alertView show];
         }
     }
-    
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     DetailViewController *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+   
 }
 
 #pragma mark - Actions
 
 - (void)startRoute
 {
+    //TODO: check that route is downloaded!
+    
+    
     NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
     
     if(nextWaypoint)

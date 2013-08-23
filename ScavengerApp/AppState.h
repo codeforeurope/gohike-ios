@@ -13,6 +13,7 @@
 extern NSString* const kLocationServicesFailure;
 extern NSString* const kLocationServicesGotBestAccuracyLocation;
 extern NSString* const kFinishedLoadingCatalog;
+extern NSString* const kFinishedLoadingRoute;
 
 
 @interface AppState : NSObject <CLLocationManagerDelegate>
@@ -23,6 +24,8 @@ extern NSString* const kFinishedLoadingCatalog;
 @property (nonatomic, assign) int activeTargetId;   //ID of the active Target where we are navigating to
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
+@property (nonatomic, strong) GHCatalog *currentCatalog; //Catalog of the game (with profiles, routes)
+@property (nonatomic, strong) NSDictionary *currentRoute;
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
 @property (nonatomic, strong) NSDate *lastCatalogUpdate; //when was the catalog last updated
 
@@ -37,14 +40,15 @@ extern NSString* const kFinishedLoadingCatalog;
 - (BOOL)setNextTarget;
 - (NSString*)language;
 
-- (NSDictionary*)activeProfile;
-- (NSDictionary*)activeRoute;
 - (NSDictionary*)activeWaypoint;
 
 - (NSDictionary*)nextCheckinForRoute:(int)routeId;
 - (NSArray*)checkinsForRoute:(int)routeId;
-- (NSDictionary*)routeWithId:(int)routeId;
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
+
+//Network
+- (void)loadRoute:(NSInteger)routeId;
+
 
 //Location
 - (void) startLocationServices;

@@ -121,7 +121,7 @@
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
         SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
-        rvc.route = [[AppState sharedInstance] activeRoute];
+        rvc.route = [[AppState sharedInstance] currentRoute];
         CompassViewController *cvc = [[CompassViewController alloc] init];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
         [self.navigationController pushViewController:rvc animated:NO];

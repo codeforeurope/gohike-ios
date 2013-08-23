@@ -11,6 +11,5 @@
 @interface CatalogViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) GHCatalog *catalog;
 
 @end

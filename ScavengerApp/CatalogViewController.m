@@ -10,12 +10,15 @@
 #import "SelectionCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "CatalogViewCollectionHeader.h"
+#import "RouteStartViewController.h"
 
 
 #define kSELECTION_CELL_IDENTIFIER @"SelectionCell"
 #define kSECTION_HEADER_IDENTIFIER @"CatalogViewCollectionHeader"
 
 @interface CatalogViewController ()
+
+@property (nonatomic, strong) GHCatalog *catalog;
 
 @end
 
@@ -44,6 +47,9 @@
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
 
+    
+    _catalog = (GHCatalog*)[[AppState sharedInstance] currentCatalog];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,7 +125,30 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO
+    GHRoute *route = [[[GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]] routes] objectAtIndex:indexPath.row];
+    
+    
+    NSDictionary *selectedProfile = @{ @"name":route.name, @"id": [NSNumber numberWithInt:route.profileId]};
+    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
+    [[AppState sharedInstance] save];
+    
+    NSArray *routes = [selectedProfile objectForKey:@"routes"];
+    if ([routes count] > 0) {
+        RouteStartViewController *rvc = [[RouteStartViewController alloc] init];
+        rvc.route = [routes objectAtIndex:0];
+        [self.navigationController pushViewController:rvc animated:YES];
+    }
+    else{
+        NSLog(@"No routes for selected profile!!");
+    }
+
+    
+        
+    RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+    rvc.route = [route dictionaryRepresentation];
+    [self.navigationController pushViewController:rvc animated:YES];
+    
+    
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

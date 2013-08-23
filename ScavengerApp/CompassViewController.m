@@ -124,7 +124,7 @@
 -(void) updateCheckinStatus
 {
     //update the statusview
-    NSArray *waypoints = [[AppState sharedInstance].activeRoute objectForKey:@"waypoints"];
+    NSArray *waypoints = [[AppState sharedInstance].currentRoute objectForKey:@"waypoints"];
     NSArray *checkins = [[AppState sharedInstance] checkinsForRoute:[AppState sharedInstance].activeRouteId];
     [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
 }
