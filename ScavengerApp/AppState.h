@@ -24,7 +24,7 @@ extern NSString* const kFinishedLoadingCatalog;
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
-
+@property (nonatomic, strong) NSDate *lastCatalogUpdate; //when was the catalog last updated
 
 //Location
 @property (nonatomic, strong) CLLocationManager *locationManager;

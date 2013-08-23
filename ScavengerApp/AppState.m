@@ -264,12 +264,21 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
     CLLocation *currentLocation = [locations lastObject];
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+#if !TARGET_IPHONE_SIMULATOR
     if (abs(howRecent) < 15.0 && currentLocation.horizontalAccuracy >= _locationManager.desiredAccuracy) {
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
         NSLog(@"_currentLocation: %@", currentLocation);
         
     }
+#else
+    if (abs(howRecent) < 15.0) {
+        _currentLocation = currentLocation;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
+        NSLog(@"_currentLocation: %@", currentLocation);
+        
+    }
+#endif
 }
 
 @end

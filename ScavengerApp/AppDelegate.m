@@ -51,6 +51,12 @@
       UITextAttributeFont,
       nil]];
     
+    UIImage *backButton = [[UIImage imageNamed:@"back.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 4)];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
+                                                    barMetrics:UIBarMetricsDefault];
+
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -98,7 +104,7 @@
         [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
     }
     
-    //Start updating
+    //Start updating location
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationFailure:) name:kLocationServicesFailure object:nil];
     [[AppState sharedInstance] startLocationServices];
     
@@ -194,9 +200,12 @@
 
 -(void)handleLocationFailure:(NSNotification*)notification
 {
+    NSLog(@"Cannot use LocationServices!");
+
     CannotPlayViewController *cvc = [[CannotPlayViewController alloc] initWithNibName:@"CannotPlayViewController" bundle:nil];
     cvc.messageLabel.text = NSLocalizedString(@"No location available. Please turn on location in Settings", @"No location available. Please turn on location in Settings");
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
+    self.window.rootViewController = self.navigationController;
 
 }
 

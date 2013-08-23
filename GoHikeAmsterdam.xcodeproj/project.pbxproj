@@ -55,6 +55,8 @@
 		AC24190A17C64A0700B3783D /* GHRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190617C64A0700B3783D /* GHRoute.m */; };
 		AC24190D17C6531000B3783D /* GHProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190B17C6531000B3783D /* GHProfile.m */; };
 		AC24191017C6536F00B3783D /* GHCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190F17C6536E00B3783D /* GHCatalog.m */; };
+		AC24194717C7874F00B3783D /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = AC24194617C7874F00B3783D /* back.png */; };
+		AC24194917C7875C00B3783D /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC24194817C7875C00B3783D /* back@2x.png */; };
 		AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */; };
 		AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8217C4F54400875910 /* SVProgressHUD.bundle */; };
 		AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8417C4F54400875910 /* SVProgressHUD.m */; };
@@ -247,6 +249,8 @@
 		AC24190C17C6531000B3783D /* GHProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHProfile.h; sourceTree = "<group>"; };
 		AC24190E17C6536E00B3783D /* GHCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCatalog.h; sourceTree = "<group>"; };
 		AC24190F17C6536E00B3783D /* GHCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCatalog.m; sourceTree = "<group>"; };
+		AC24194617C7874F00B3783D /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		AC24194817C7875C00B3783D /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectionViewController.h; sourceTree = "<group>"; };
 		AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySelectionViewController.m; sourceTree = "<group>"; };
 		AC303F8217C4F54400875910 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -280,7 +284,7 @@
 		AC41F80D176245C800ED3F14 /* CompassTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompassTopView.xib; path = ScavengerApp/CompassTopView.xib; sourceTree = SOURCE_ROOT; };
 		AC41F80F1762464800ED3F14 /* CompassTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassTopView.h; sourceTree = "<group>"; };
 		AC41F8101762464800ED3F14 /* CompassTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassTopView.m; sourceTree = "<group>"; };
-		AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = amsterdamcentrum.gpx; sourceTree = "<group>"; };
+		AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = amsterdamcentrum.gpx; path = ../amsterdamcentrum.gpx; sourceTree = "<group>"; };
 		AC5133FD17452D7400472022 /* SelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionCell.h; path = ../SelectionCell.h; sourceTree = "<group>"; };
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
@@ -622,6 +626,7 @@
 		ACB534A5175654390065D72D /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				AC24194617C7874F00B3783D /* back.png */,
 				ACC893C917609E0F002AC636 /* help1.png */,
 				ACC893CA17609E0F002AC636 /* help2.png */,
 				ACC893CB17609E0F002AC636 /* help3.png */,
@@ -658,6 +663,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				AC24194817C7875C00B3783D /* back@2x.png */,
 				AC303F8F17C506E300875910 /* verboden@2x.png */,
 				ACC893C117609E07002AC636 /* help1@2x.png */,
 				ACC893C217609E07002AC636 /* help2@2x.png */,
@@ -712,7 +718,6 @@
 			isa = PBXGroup;
 			children = (
 				AC303F8017C4F53100875910 /* ThirdParties */,
-				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
 				ACDD9B711743B20200D64682 /* ScavengerApp */,
@@ -803,6 +808,7 @@
 				ACC893D11760AE69002AC636 /* Icons */,
 				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
+				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
 				ACDD9B771743B20200D64682 /* main.m */,
 				ACDD9B791743B20200D64682 /* GoHikeAmsterdam-Prefix.pch */,
@@ -977,6 +983,8 @@
 				AC303F9717C5070B00875910 /* CannotPlayViewController.xib in Resources */,
 				AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */,
 				AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */,
+				AC24194717C7874F00B3783D /* back.png in Resources */,
+				AC24194917C7875C00B3783D /* back@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

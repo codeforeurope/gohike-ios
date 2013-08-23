@@ -269,10 +269,10 @@
             
             NSDictionary *userInfo =  @{@"catalog":catalog};
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
-            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
             [SVProgressHUD showSuccessWithStatus:nil];
-            
 
+            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
+            
         }
         else{
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load catalog", @"Cannot load catalog")];

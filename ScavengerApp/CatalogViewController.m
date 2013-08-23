@@ -36,6 +36,10 @@
     // Do any additional setup after loading the view from its nib.
 //    _catalog = [[AppState sharedInstance] currentCatalog]; //to move catalog in the singleton...
     
+    [_collectionView setBackgroundColor:[UIColor clearColor]];
+    [_collectionView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]]];
+    
+    
 //    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
@@ -72,7 +76,10 @@
         cell = [nib objectAtIndex:0];
         
     }
-        
+    
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground1"]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
+
     [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route icon] url]]];
     cell.profileLabel.text = route.name;
     cell.backgroundColor = [UIColor clearColor];
