@@ -10,7 +10,7 @@
 #import "CompassViewController.h"
 
 
-@interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate>
+@interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate, UIAlertViewDelegate>
 {
     BOOL showRewardOnAppear;
 }

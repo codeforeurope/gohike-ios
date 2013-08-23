@@ -260,27 +260,34 @@
     NSMutableURLRequest *catalogRequest = [httpClient requestWithMethod:@"GET" path:path parameters:nil];
     [catalogRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:catalogRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"got a response: %@", response);
-        NSLog(@"JSON: %@", JSON);
         if([NSJSONSerialization isValidJSONObject:JSON]){
-            GHCatalog *catalog = (GHCatalog*)JSON;
-            
-            [[AppState sharedInstance] setCurrentCatalog:(NSDictionary*)JSON];
-            
-            NSDictionary *userInfo =  @{@"catalog":catalog};
-            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
-            [SVProgressHUD showSuccessWithStatus:nil];
 
+            
+            [[AppState sharedInstance] setCurrentCatalog:(GHCatalog*)JSON];
+            
+            NSDictionary *userInfo = [[NSDictionary alloc] init]; //  @{@"catalog":catalog};
+            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
             [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
             
         }
         else{
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load catalog", @"Cannot load catalog")];
             NSLog(@"JSON data not valid");
+            NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"JSON data not valid", @"JSON data not valid")};
+            NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+
+
+            
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Error when retrieving cities: %@", [error description]);
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
+        
+        NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"JSON data not valid", @"JSON data not valid")};
+        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
     }];
     [httpClient enqueueHTTPRequestOperation:op];
     
@@ -290,10 +297,18 @@
 
 - (void)handleLoadCatalogCompleted:(NSNotification*)notification
 {
-
     NSLog(@"Finished loading catalog");
-    CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
-    [self.navigationController pushViewController:cvc animated:YES];
+    if([[notification userInfo] objectForKey:@"error"])
+    {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
+    }
+    else{
+        [SVProgressHUD showSuccessWithStatus:nil];
+        
+        CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
+        [self.navigationController pushViewController:cvc animated:YES];
+    }
+
 }
 
 

@@ -47,7 +47,7 @@ extern NSString* const kFinishedLoadingRoute;
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
 
 //Network
-- (void)loadRoute:(NSInteger)routeId;
+- (void)downloadRoute:(NSInteger)routeId;
 
 
 //Location

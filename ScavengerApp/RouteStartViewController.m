@@ -15,10 +15,11 @@
 #import "CustomBarButtonViewRight.h"
 #import "SIAlertView.h"
 #import "UIImageView+AFNetworking.h"
+#import "SVProgressHUD.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-
+#define download_warning_alertview_tag 100
 
 #define BUTTON_HEIGHT 32
 #define BUTTON_WIDTH 200
@@ -50,9 +51,9 @@
         
 //    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
 //    [self.tableView setBackgroundView:tablebgView];
-    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]];
     self.tableView.backgroundColor = [UIColor clearColor];
-    
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]];
+
     [self updateNavigationButtons];
     
     UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
@@ -157,6 +158,19 @@
     return rows;
 }
 
+- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary
+{
+
+    if ([[dictionary objectForKey:@"key"] isKindOfClass:[NSDictionary class]]){
+        //it's a dictionary, so may contain more locales
+        return  [self getStringForCurrentLocaleFromDictionary:[dictionary objectForKey:key]];
+    }
+    else{
+        //it's just a string, return the object
+        return [dictionary objectForKey:@"key"];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -172,7 +186,7 @@
             
             NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
             [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeTitleLabel.text = [_route objectForKey:@"name"];
+            cell.routeTitleLabel.text = [self getTranslatedStringForKey:@"name" fromDictionary:_route];// [_route objectForKey:@"name"]; //CHECK IF DICTIONARUY!!!
             cell.routeHighlightsLabel.text = [_route objectForKey:@"description"];
             
             return cell;
@@ -206,11 +220,11 @@
             [startHikeCellButton.layer insertSublayer:gradient atIndex:0];
             startHikeCellButton.layer.cornerRadius = 6;
             startHikeCellButton.layer.masksToBounds = YES;
-            if([_route objectForKey:@"downloaded"]){
-                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+            if([_route objectForKey:@"waypoints"]){
+                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", @"Go Hike!") forState:UIControlStateNormal];
             }
             else{
-                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", nil) forState:UIControlStateNormal];
+                [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
             }
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -337,29 +351,63 @@
 
 - (void)startRoute
 {
-    //TODO: check that route is downloaded!
-    
-    
-    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
-    
-    if(nextWaypoint)
-    {
-        [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
-        [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
-        [[AppState sharedInstance] save];
+
+    if([_route objectForKey:@"waypoints"]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
+        
+        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
+        
+        if(nextWaypoint)
+        {
+            [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
+            [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
+            [[AppState sharedInstance] save];
 #if DEBUG
-        NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+            NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
 #endif
-        CompassViewController *compass = [[CompassViewController alloc] init];
-        compass.delegate = self;
-        [self.navigationController pushViewController:compass animated:YES];
+            CompassViewController *compass = [[CompassViewController alloc] init];
+            compass.delegate = self;
+            [self.navigationController pushViewController:compass animated:YES];
+        }
+        else
+        {
+            @throw [NSException exceptionWithName:@"no waypoint" reason:@"no waypoints found/left on route" userInfo:nil];
+        }
     }
-    else
-    {
-        @throw [NSException exceptionWithName:@"no waypoint" reason:@"no waypoints found/left on route" userInfo:nil];
+    else{
+        double size = [[_route objectForKey:@"size"] doubleValue] /1024;
+        UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
+        [alertView setTag:download_warning_alertview_tag];
+        [alertView show];
+    }
+        
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == download_warning_alertview_tag && buttonIndex == 1){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route")];
+        [[AppState sharedInstance] downloadRoute:[[[[AppState sharedInstance] currentRoute] objectForKey:@"id"] integerValue]];
+
     }
 }
 
+- (void)handleRouteDownloaded:(NSNotification*)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingRoute object:nil];
+    if([[notification userInfo] objectForKey:@"error"])
+    {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Download error", @"Download error")];
+    }
+    else{
+        [SVProgressHUD showSuccessWithStatus:nil];
+        _route = [[notification userInfo] objectForKey:@"route"];
+    }
+
+    [self.tableView reloadData];
+
+}
 
 - (void)viewReward
 {

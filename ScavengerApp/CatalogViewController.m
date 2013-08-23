@@ -125,27 +125,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GHRoute *route = [[[GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]] routes] objectAtIndex:indexPath.row];
-    
-    
-    NSDictionary *selectedProfile = @{ @"name":route.name, @"id": [NSNumber numberWithInt:route.profileId]};
-    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
-    [[AppState sharedInstance] save];
-    
-    NSArray *routes = [selectedProfile objectForKey:@"routes"];
-    if ([routes count] > 0) {
-        RouteStartViewController *rvc = [[RouteStartViewController alloc] init];
-        rvc.route = [routes objectAtIndex:0];
-        [self.navigationController pushViewController:rvc animated:YES];
-    }
-    else{
-        NSLog(@"No routes for selected profile!!");
-    }
+    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
 
+    NSDictionary *selectedRoute = [[[profile routes] objectAtIndex:indexPath.row] dictionaryRepresentation];
     
-        
+    NSDictionary *selectedProfile = @{ @"name":profile.name, @"id": [NSNumber numberWithInt:profile.internalBaseClassIdentifier]};
+    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
+    [AppState sharedInstance].currentRoute = selectedRoute;
+    [[AppState sharedInstance] save];
+            
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
-    rvc.route = [route dictionaryRepresentation];
+    rvc.route = selectedRoute;
     [self.navigationController pushViewController:rvc animated:YES];
     
     

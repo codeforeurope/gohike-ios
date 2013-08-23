@@ -164,7 +164,7 @@ NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
 
 #pragma mark - Networking
 
-- (void)loadRoute:(NSInteger)routeId
+- (void)downloadRoute:(NSInteger)routeId
 {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kGOHIKEAPIURL]];
     NSString *path = [NSString stringWithFormat:@"/api/route/%d", routeId];
@@ -173,9 +173,12 @@ NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:routeRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"JSON: %@", JSON);
         if([NSJSONSerialization isValidJSONObject:JSON]){
-            GHRoute *catalog = (GHRoute*)JSON;
+
+            NSDictionary *route = (NSDictionary*)JSON;
             
-            NSDictionary *userInfo =  @{@"catalog":catalog};
+            _currentRoute = route;
+            
+            NSDictionary *userInfo =  @{@"route" : route};
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
            
             [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
@@ -183,10 +186,13 @@ NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
         }
         else{
             NSLog(@"JSON data not valid");
-            
+            NSDictionary *userInfo = @{@"error": NSLocalizedString(@"Invalid JSON data", @"Invalid JSON data")};
+            NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error when retrieving cities: %@", [error description]);
+        NSLog(@"Error when retrieving route: %@", [error description]);
         NSDictionary *userInfo = @{@"error":error};
         NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
