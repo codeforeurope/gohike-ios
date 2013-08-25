@@ -15,9 +15,6 @@
 
 @interface CitySelectionViewController ()
 
-@property (nonatomic, strong) NSDictionary *cities;
-
-
 @end
 
 @implementation CitySelectionViewController
@@ -56,13 +53,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //Register for the loadingFinished notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCitiesCompleted:) name:kFinishedLoadingCities object:nil];
-    
-    
+    //maybe we have it already, restored from before
+    _cities = [[AppState sharedInstance] cities];
     //load the cities
-    _cities = [[NSDictionary alloc] init];
     [self getLocation];
 
 }
@@ -71,7 +64,7 @@
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position")];
     [[AppState sharedInstance] startLocationServices];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCities) name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCities) name:kLocationServicesGotBestAccuracyLocation object:nil];
 }
 
 - (void)gotLocation
@@ -81,11 +74,20 @@
 }
 
 - (void)loadCities
-{
+{  
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCitiesCompleted:) name:kFinishedLoadingCities object:nil];
     //Hide the refresh control
     [self.refreshControl endRefreshing];
 
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities")];
+    AFNetworkReachabilityStatus status = [[GoHikeHTTPClient sharedClient] networkReachabilityStatus];
+    if(status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown)
+    {
+        [SVProgressHUD dismiss];
+        NSLog(@"Not reachable, not loading cities");
+        return;
+    }
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeGradient];
 
     [[GoHikeHTTPClient sharedClient] locate];
 }
@@ -109,10 +111,10 @@
     // Return the number of rows in the section.
     switch (section) {
         case 0:
-            return [[_cities objectForKey:@"within"] count];
+            return [[_cities within] count]; //[[_cities objectForKey:@"within"] count];
             break;
         case 1:
-            return [[_cities objectForKey:@"other"] count];
+            return  [[_cities other] count]; //[[_cities objectForKey:@"other"] count];
             break;
         default:
             break;
@@ -129,13 +131,13 @@
         case 0:
         {
             //cities within
-            cell.textLabel.text = [[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text =  [[[_cities within] objectAtIndex:indexPath.row] name]; //[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"name"];
         }
             break;
         case 1:
         {
             //cities other
-            cell.textLabel.text = [[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text = [[[_cities other] objectAtIndex:indexPath.row] name]; //[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"name"];
         }
             break;
         default:
@@ -208,27 +210,40 @@
         case 0:
         {
             //within
-            int city = [[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            int city = [[[_cities within] objectAtIndex:indexPath.row] cityIdentifier]; //[[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
             [self getCatalogForCity:city];
         }
             break;
         case 1:
         {
             //others
-            int city = [[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            int city = [[[_cities other] objectAtIndex:indexPath.row] cityIdentifier]; //[[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
             [self getCatalogForCity:city];
         }
             break;
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)getCatalogForCity:(int)cityID
 {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting content", @"Getting content")];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
+    //if we got catalog > 24h ago, we redownload it anyway
+    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"%d",cityID]];
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+    {
+        GHCatalog *loadedCatalog = [GHCatalog arrayWithContentsOfFile:filePath];
+        [AppState sharedInstance].currentCatalog = loadedCatalog;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
+    }
+    else{
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting content", @"Getting content")];
 
-    [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
+        [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
+    }
     
 }
 
@@ -245,12 +260,13 @@
         CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
         [self.navigationController pushViewController:cvc animated:YES];
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingCatalog object:nil];
 
 }
 
 - (void)handleLoadCitiesCompleted:(NSNotification*)notification
 {
-    NSLog(@"Finished loading catalog");
+    NSLog(@"Finished loading cities");
     if([[notification userInfo] objectForKey:@"error"])
     {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading cities", @"Error loading cities")];

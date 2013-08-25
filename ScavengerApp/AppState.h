@@ -24,7 +24,7 @@ extern NSString* const kLocationServicesGotBestAccuracyLocation;
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCatalog *currentCatalog; //Catalog of the game (with profiles, routes)
 @property (nonatomic, strong) NSDictionary *currentRoute;
-@property (nonatomic, strong) NSDictionary *cities;
+@property (nonatomic, strong) GHCities *cities;
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
 @property (nonatomic, strong) NSDate *lastCatalogUpdate; //when was the catalog last updated
 

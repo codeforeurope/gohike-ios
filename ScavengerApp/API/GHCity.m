@@ -42,7 +42,7 @@ NSString *const kGHCityStateProvince = @"state_province";
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.countryCode = [self objectOrNilForKey:kGHCityCountryCode fromDictionary:dict];
-            self.cityIdentifier = [[self objectOrNilForKey:kGHCityId fromDictionary:dict] doubleValue];
+            self.cityIdentifier = [[self objectOrNilForKey:kGHCityId fromDictionary:dict] intValue];
             self.name = [self objectOrNilForKey:kGHCityName fromDictionary:dict];
             self.stateProvince = [self objectOrNilForKey:kGHCityStateProvince fromDictionary:dict];
 
@@ -56,7 +56,7 @@ NSString *const kGHCityStateProvince = @"state_province";
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.countryCode forKey:kGHCityCountryCode];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.cityIdentifier] forKey:kGHCityId];
+    [mutableDict setValue:[NSNumber numberWithInt:self.cityIdentifier] forKey:kGHCityId];
     [mutableDict setValue:self.name forKey:kGHCityName];
     [mutableDict setValue:self.stateProvince forKey:kGHCityStateProvince];
 
@@ -83,7 +83,7 @@ NSString *const kGHCityStateProvince = @"state_province";
     self = [super init];
 
     self.countryCode = [aDecoder decodeObjectForKey:kGHCityCountryCode];
-    self.cityIdentifier = [aDecoder decodeDoubleForKey:kGHCityId];
+    self.cityIdentifier = [aDecoder decodeIntForKey:kGHCityId];
     self.name = [aDecoder decodeObjectForKey:kGHCityName];
     self.stateProvince = [aDecoder decodeObjectForKey:kGHCityStateProvince];
     return self;
@@ -93,7 +93,7 @@ NSString *const kGHCityStateProvince = @"state_province";
 {
 
     [aCoder encodeObject:_countryCode forKey:kGHCityCountryCode];
-    [aCoder encodeDouble:_withinIdentifier forKey:kGHCityId];
+    [aCoder encodeInt:_withinIdentifier forKey:kGHCityId];
     [aCoder encodeObject:_name forKey:kGHCityName];
     [aCoder encodeObject:_stateProvince forKey:kGHCityStateProvince];
 }

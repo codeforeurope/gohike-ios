@@ -178,7 +178,9 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
     [encoder encodeObject:_currentCity forKey:@"currentCity"];
     //    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
-
+    [encoder encodeObject:_cities forKey:@"cities"];
+    
+    
     [encoder finishEncoding];
     
     BOOL result = [data writeToFile:filePath atomically:YES];
@@ -203,6 +205,8 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
         _currentCity = [decoder decodeObjectForKey:@"currentCity"];
         //    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
+        _cities = [decoder decodeObjectForKey:@"cities"];
+        
         
         [decoder finishDecoding];
     }

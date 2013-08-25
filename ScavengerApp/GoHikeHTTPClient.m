@@ -40,6 +40,15 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 
 - (void)locate
 {
+    
+    if(self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)
+    {
+        NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"Unreachable", @"Unreachable")};
+        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        return;
+    }
+    
     NSNumber *latitude = [NSNumber numberWithDouble: [[AppState sharedInstance] currentLocation].coordinate.latitude];
     NSNumber *longitude = [NSNumber numberWithDouble: [[AppState sharedInstance] currentLocation].coordinate.longitude];
     //    NSDictionary *requestBody = @{@"latitude": @52.3702157, @"longitude":@4.8951679 };
@@ -56,7 +65,8 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
         NSLog(@"JSON: %@", JSON);
         
         if([NSJSONSerialization isValidJSONObject:JSON]){
-            [AppState sharedInstance].cities = (NSDictionary*)JSON; //DATA MODEL
+            [AppState sharedInstance].cities = [GHCities modelObjectWithDictionary:(NSDictionary*)JSON];
+            [[AppState sharedInstance] save];
             
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCities object:self userInfo:nil];
             
@@ -84,7 +94,6 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 
 - (void)getCatalogForCity:(int)cityID
 {
-    
     NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
     
     NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
@@ -94,6 +103,15 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
         if([NSJSONSerialization isValidJSONObject:JSON]){ 
             
             [[AppState sharedInstance] setCurrentCatalog:(GHCatalog*)JSON];
+            [[AppState sharedInstance] save];
+            
+            
+            //Save it to library
+            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"%d",cityID]];
+            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
+            if(!success)
+                NSLog(@"Writing to file Failed");
             
             NSDictionary *userInfo = [[NSDictionary alloc] init]; //  @{@"catalog":catalog};
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
@@ -108,7 +126,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error when retrieving cities: %@", [error description]);
+        NSLog(@"Error when retrieving catalog: %@", [error description]);
         
         NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"JSON data not valid", @"JSON data not valid")};
         NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];

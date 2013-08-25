@@ -11,7 +11,7 @@
 @interface GHCity : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *countryCode;
-@property (nonatomic, assign) double cityIdentifier;
+@property (nonatomic, assign) int cityIdentifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *stateProvince;
 

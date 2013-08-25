@@ -10,4 +10,6 @@
 
 @interface CitySelectionViewController : UITableViewController
 
+@property (nonatomic, strong) GHCities *cities;
+
 @end
