@@ -14,7 +14,7 @@
 
 @protocol CompassViewControllerDelegate;
 
-@interface CompassViewController : UIViewController <CLLocationManagerDelegate>
+@interface CompassViewController : UIViewController
 
 
 @property (nonatomic,assign) id<CompassViewControllerDelegate> delegate;

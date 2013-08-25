@@ -158,18 +158,6 @@
     return rows;
 }
 
-- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary
-{
-    if ([[dictionary objectForKey:key] isKindOfClass:[NSDictionary class]]){
-        //it's a dictionary, so may contain more locales
-        return [self getStringForCurrentLocaleFromDictionary:[dictionary objectForKey:key]];
-    }
-    else{
-        //it's just a string, return the object
-        return [dictionary objectForKey:key];
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -185,8 +173,8 @@
             
             NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
             [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeTitleLabel.text = [self getTranslatedStringForKey:@"name" fromDictionary:_route];// [_route objectForKey:@"name"]; //CHECK IF DICTIONARUY!!!
-            cell.routeHighlightsLabel.text = [self getTranslatedStringForKey:@"description" fromDictionary:_route]; // [_route objectForKey:@"description"];
+            cell.routeTitleLabel.text = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:_route];
+            cell.routeHighlightsLabel.text = [[AppState sharedInstance] getTranslatedStringForKey:@"description" fromDictionary:_route]; 
             
             return cell;
         }
@@ -264,7 +252,7 @@
             NSDictionary *wpNameLocales = [waypoint objectForKey:@"name"];
 
 
-            cell.textLabel.text = [self getStringForCurrentLocaleFromDictionary:wpNameLocales];
+            cell.textLabel.text = [[AppState sharedInstance] getStringForCurrentLocaleFromDictionary:wpNameLocales];
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
             
             return cell;
@@ -274,22 +262,6 @@
             break;
     }
     return  nil;
-}
-
-- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary
-{
-    NSString *labelText = nil;
-    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    if([dictionary objectForKey:locale]){
-        labelText = [dictionary objectForKey:locale];
-    }
-    else if([dictionary objectForKey:@"en"]){
-        labelText = [dictionary objectForKey:@"en"];
-    }
-    else{
-        labelText = [dictionary objectForKey:[[dictionary allKeys] objectAtIndex:0]];
-    }
-    return labelText;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -388,7 +360,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route")];
         [[GoHikeHTTPClient sharedClient] downloadRoute:[[[[AppState sharedInstance] currentRoute] objectForKey:@"id"] integerValue]];
-
     }
 }
 

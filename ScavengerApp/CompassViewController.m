@@ -43,7 +43,7 @@
 @property (nonatomic, strong) UIImageView *arrow;
 @property (nonatomic, strong) UIImageView *compass;
 @property (nonatomic,strong) NavigationStatusView *statusView;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
 @property (nonatomic, strong) CLLocation *previousLocation;
 @property (nonatomic, assign) BOOL checkinPending;
@@ -54,7 +54,6 @@
 
 @implementation CompassViewController
 @synthesize arrow, compass, statusView, cloudView, destinationRadarView;
-@synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,6 +74,9 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesUpdateHeading object:nil];
+    
     [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
@@ -82,43 +84,46 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHeadingUpdate:) name:kLocationServicesUpdateHeading object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate::) name:kLocationServicesGotBestAccuracyLocation object:nil];
+    
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
-#if DEBUG
-    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
-#endif
+//#if DEBUG
+//    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
+//#endif
 }
 
 #pragma mark - CLLocation
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-    if (newHeading.headingAccuracy > 0) {
-        float magneticHeading = newHeading.magneticHeading;
-        float trueHeading = newHeading.trueHeading;
-
-        //current heading in degrees and radians
-        //use true heading if it is available
-        float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
-        float heading_radians = DEGREES_TO_RADIANS(heading);
-
-        
-        compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
-        
-        CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
-        float adjusted_heading = destinationHeading - heading;
-        float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
-        
-        [UIView animateWithDuration:0.1 delay:0.0 options:
-            UIViewAnimationOptionCurveLinear animations:^{
-                CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
-                arrow.transform = transform;
-                destinationRadarView.transform = transform;
-            } completion:nil];
-        
-    }
-}
+//- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+//{
+//    if (newHeading.headingAccuracy > 0) {
+//        float magneticHeading = newHeading.magneticHeading;
+//        float trueHeading = newHeading.trueHeading;
+//
+//        //current heading in degrees and radians
+//        //use true heading if it is available
+//        float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
+//        float heading_radians = DEGREES_TO_RADIANS(heading);
+//
+//        
+//        compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
+//        
+//        CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
+//        float adjusted_heading = destinationHeading - heading;
+//        float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
+//        
+//        [UIView animateWithDuration:0.1 delay:0.0 options:
+//            UIViewAnimationOptionCurveLinear animations:^{
+//                CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+//                arrow.transform = transform;
+//                destinationRadarView.transform = transform;
+//            } completion:nil];
+//        
+//    }
+//}
 
 //updates the statusview checkin display
 -(void) updateCheckinStatus
@@ -134,11 +139,13 @@
 - (void)addCheckInView
 {
    
-    NSString *langKey = [[AppState sharedInstance] language];
+//    NSString *langKey = [[AppState sharedInstance] language];
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
 //    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
-    NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+    NSString *destinationName = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
+    
+    //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
@@ -162,16 +169,17 @@
     
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (void)handleLocationUpdate:(NSNotification*)notification
 {
+//    NSString *langKey = [[AppState sharedInstance] language];
+    NSString * destinationName = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
     
-    NSString *langKey = [[AppState sharedInstance] language];
-    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+    //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
 #if DEBUG
     NSLog(@"did update with destination: %@",destinationName);
 #endif
     
-    CLLocation *currentLocation = [locations lastObject];
+    CLLocation *currentLocation = [[AppState sharedInstance] currentLocation];
     
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
@@ -193,7 +201,7 @@
                 [self addCheckInView];
             }
         }
-    
+        
         //if we have a previous location, determine sort of proximation speed
         if(self.previousLocation)
         {
@@ -211,10 +219,78 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+- (void)handleHeadingUpdate:(NSNotification*)notification
 {
-    NSLog(@"Could not get location due to error: %@", [error description]);
+    float heading = [[[notification userInfo] objectForKey:@"heading"] floatValue];
+    float heading_radians = DEGREES_TO_RADIANS(heading);
+
+    compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
+    
+    CLLocationDirection destinationHeading = [[[AppState sharedInstance] currentLocation] directionToLocation:_destinationLocation];
+    float adjusted_heading = destinationHeading - heading;
+    float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
+    
+    [UIView animateWithDuration:0.1 delay:0.0 options:
+     UIViewAnimationOptionCurveLinear animations:^{
+         CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
+         arrow.transform = transform;
+         destinationRadarView.transform = transform;
+     } completion:nil];
 }
+
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+//{
+//    
+//    NSString *langKey = [[AppState sharedInstance] language];
+//    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+//#if DEBUG
+//    NSLog(@"did update with destination: %@",destinationName);
+//#endif
+//    
+//    CLLocation *currentLocation = [locations lastObject];
+//    
+//    NSDate* eventDate = currentLocation.timestamp;
+//    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+//    if (abs(howRecent) < 15.0) {
+//        
+//        // If the event is recent, get the distance from destination
+//        double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
+//        //update the bottom navigation bar
+//        [self.statusView update:destinationName withDistance:distanceFromDestination];
+//        [self.topView updateDistance:distanceFromDestination];
+//        
+//        if (distanceFromDestination < CHECKIN_DISTANCE) {
+//#if DEBUG
+//            NSLog(@"within distance");
+//#endif
+//            if(!self.checkinPending)
+//            {
+//                self.checkinPending = YES;
+//                [self addCheckInView];
+//            }
+//        }
+//    
+//        //if we have a previous location, determine sort of proximation speed
+//        if(self.previousLocation)
+//        {
+//            double previousDistanceFromDestination = [self.previousLocation distanceFromLocation:_destinationLocation];
+//            
+//            float pSpeed = (previousDistanceFromDestination - distanceFromDestination) / ([currentLocation.timestamp timeIntervalSinceNow] - [self.previousLocation.timestamp timeIntervalSinceNow]);
+//            cloudView.speed = pSpeed;
+//        }
+//        
+//        //update radar
+//        destinationRadarView.currentLocation = currentLocation;
+//        [destinationRadarView setNeedsDisplay];
+//        
+//        self.previousLocation = currentLocation;
+//    }
+//}
+//
+//- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+//{
+//    NSLog(@"Could not get location due to error: %@", [error description]);
+//}
 
 #pragma mark - UIViewController
 
@@ -244,31 +320,31 @@
     CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
     self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
     [self updateCheckinStatus];
-    
-    if(locationManager == nil)
-    {
-        locationManager = [[CLLocationManager alloc] init];
-    }
-    locationManager.delegate = self;
-    locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
-    locationManager.headingFilter = 5;  // 5 degrees
-//        locationManager.distanceFilter = 2; //2 meters
-    
-#if TARGET_IPHONE_SIMULATOR
-    [locationManager startUpdatingLocation];
-    [locationManager startUpdatingHeading];
-#else
-    if( [CLLocationManager locationServicesEnabled]
-       &&  [CLLocationManager headingAvailable]) {
-        
-        [locationManager startUpdatingLocation];
-        [locationManager startUpdatingHeading];
-        
-    } else {
-        NSLog(@"Can't report heading");
-    }
-    
-#endif
+//    
+//    if(locationManager == nil)
+//    {
+//        locationManager = [[CLLocationManager alloc] init];
+//    }
+//    locationManager.delegate = self;
+//    locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
+//    locationManager.headingFilter = 5;  // 5 degrees
+////        locationManager.distanceFilter = 2; //2 meters
+//    
+//#if TARGET_IPHONE_SIMULATOR
+//    [locationManager startUpdatingLocation];
+//    [locationManager startUpdatingHeading];
+//#else
+//    if( [CLLocationManager locationServicesEnabled]
+//       &&  [CLLocationManager headingAvailable]) {
+//        
+//        [locationManager startUpdatingLocation];
+//        [locationManager startUpdatingHeading];
+//        
+//    } else {
+//        NSLog(@"Can't report heading");
+//    }
+//    
+//#endif
     
     CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
     compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];

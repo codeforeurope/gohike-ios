@@ -12,6 +12,7 @@
 
 extern NSString* const kLocationServicesFailure;
 extern NSString* const kLocationServicesGotBestAccuracyLocation;
+extern NSString* const kLocationServicesUpdateHeading;
 
 
 @interface AppState : NSObject <CLLocationManagerDelegate>
@@ -26,7 +27,6 @@ extern NSString* const kLocationServicesGotBestAccuracyLocation;
 @property (nonatomic, strong) NSDictionary *currentRoute;
 @property (nonatomic, strong) GHCities *cities;
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
-@property (nonatomic, strong) NSDate *lastCatalogUpdate; //when was the catalog last updated
 
 //Location
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -48,6 +48,12 @@ extern NSString* const kLocationServicesGotBestAccuracyLocation;
 //Location
 - (void) startLocationServices;
 - (void) stopLocationServices;
+
+//Utility
+- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary;
+- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary;
+
+
 
 @end
 

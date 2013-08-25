@@ -10,11 +10,10 @@
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 
-#define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
 NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
-
+NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeading";
 
 @implementation AppState
 
@@ -73,8 +72,6 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
     return NO;
 }
  
-
-
 - (NSDictionary*)activeWaypoint
 {
     NSArray *waypoints = [self.currentRoute objectForKey:@"waypoints"];
@@ -236,6 +233,7 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
     _locationManager.distanceFilter = 100;
     
     [_locationManager startUpdatingLocation];
+    [_locationManager startUpdatingHeading];
 }
 
 - (void)stopLocationServices
@@ -265,6 +263,52 @@ NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGo
         
     }
 #endif
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    if (newHeading.headingAccuracy > 0) {
+        float magneticHeading = newHeading.magneticHeading;
+        float trueHeading = newHeading.trueHeading;
+        
+        //current heading in degrees and radians
+        //use true heading if it is available
+        float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
+        
+        NSDictionary *userInfo = @{ @"heading" : [NSNumber numberWithFloat:heading] };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesUpdateHeading object:userInfo];
+        
+    }
+}
+
+#pragma mark - Utilities
+
+- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary
+{
+    if ([[dictionary objectForKey:key] isKindOfClass:[NSDictionary class]]){
+        //it's a dictionary, so may contain more locales
+        return [self getStringForCurrentLocaleFromDictionary:[dictionary objectForKey:key]];
+    }
+    else{
+        //it's just a string, return the object
+        return [dictionary objectForKey:key];
+    }
+}
+
+- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary
+{
+    NSString *labelText = nil;
+    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
+    if([dictionary objectForKey:locale]){
+        labelText = [dictionary objectForKey:locale];
+    }
+    else if([dictionary objectForKey:@"en"]){
+        labelText = [dictionary objectForKey:@"en"];
+    }
+    else{
+        labelText = [dictionary objectForKey:[[dictionary allKeys] objectAtIndex:0]];
+    }
+    return labelText;
 }
 
 @end

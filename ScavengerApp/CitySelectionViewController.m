@@ -231,16 +231,30 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
     //if we got catalog > 24h ago, we redownload it anyway
+    
     NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"%d",cityID]];
     if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
     {
-        GHCatalog *loadedCatalog = [GHCatalog arrayWithContentsOfFile:filePath];
-        [AppState sharedInstance].currentCatalog = loadedCatalog;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
+        __autoreleasing NSError *error;
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        NSDate *fileDate =[attributes objectForKey:NSFileModificationDate];
+        NSTimeInterval howRecent = [fileDate timeIntervalSinceNow];
+        if (abs(howRecent) < 60*60*24 ) {
+            //file is less than 24 hours old, use this file.
+            GHCatalog *loadedCatalog = [GHCatalog arrayWithContentsOfFile:filePath];
+            [AppState sharedInstance].currentCatalog = loadedCatalog;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
+        }
+        else{
+            //file is older than 24 hours, download newer version it
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content")];
+            
+            [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
+        }
     }
     else{
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting content", @"Getting content")];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content")];
 
         [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
     }
