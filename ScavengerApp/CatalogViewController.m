@@ -125,12 +125,22 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
-
     NSDictionary *selectedRoute = [[[profile routes] objectAtIndex:indexPath.row] dictionaryRepresentation];
-    
-    NSDictionary *selectedProfile = @{ @"name":profile.name, @"id": [NSNumber numberWithInt:profile.internalBaseClassIdentifier]};
-    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
     [AppState sharedInstance].currentRoute = selectedRoute;
+
+    //load the route from disk, if available
+    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d", [[selectedRoute objectForKey:@"id"] integerValue]]];
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+    {
+        NSDictionary *route = [NSDictionary dictionaryWithContentsOfFile:filePath];
+        [AppState sharedInstance].currentRoute = route;
+    }
+
+    
+//    NSDictionary *selectedProfile = @{ @"name":profile.name, @"id": [NSNumber numberWithInt:profile.internalBaseClassIdentifier]};
+//    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
     [[AppState sharedInstance] save];
             
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];

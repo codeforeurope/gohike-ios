@@ -108,7 +108,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             
             //Save it to library
             NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"%d",cityID]];
+            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"catalog_%d",cityID]];
             BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
             if(!success)
                 NSLog(@"Writing to file Failed");
@@ -150,6 +150,14 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             NSDictionary *route = (NSDictionary*)JSON;
             
             [[AppState sharedInstance] setCurrentRoute:route];
+            
+            //Save it to library
+            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d",routeId]];
+            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
+            if(!success)
+                NSLog(@"Writing to file Failed");
+            
             
             NSDictionary *userInfo =  @{@"route" : route};
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];

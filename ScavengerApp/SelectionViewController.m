@@ -184,7 +184,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *selectedProfile = [_profiles objectAtIndex:indexPath.row];
-    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
+//    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
     [[AppState sharedInstance] save];
     
     NSArray *routes = [selectedProfile objectForKey:@"routes"];

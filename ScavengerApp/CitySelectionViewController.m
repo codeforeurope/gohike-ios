@@ -62,7 +62,7 @@
 
 - (void)getLocation
 {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position")];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
     [[AppState sharedInstance] startLocationServices];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCities) name:kLocationServicesGotBestAccuracyLocation object:nil];
 }
@@ -87,7 +87,7 @@
         return;
     }
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeBlack];
 
     [[GoHikeHTTPClient sharedClient] locate];
 }
@@ -233,7 +233,7 @@
     //if we got catalog > 24h ago, we redownload it anyway
     
     NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"%d",cityID]];
+    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"catalog_%d",cityID]];
     if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
     {
         __autoreleasing NSError *error;
@@ -248,13 +248,13 @@
         }
         else{
             //file is older than 24 hours, download newer version it
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content")];
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content") maskType:SVProgressHUDMaskTypeBlack];
             
             [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
         }
     }
     else{
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content")];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content") maskType:SVProgressHUDMaskTypeBlack];
 
         [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
     }

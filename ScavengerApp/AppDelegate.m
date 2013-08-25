@@ -16,6 +16,7 @@
 #import <AdSupport/AdSupport.h>
 #import "CitySelectionViewController.h"
 #import "CannotPlayViewController.h"
+#import "CatalogViewController.h"
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
@@ -113,17 +114,20 @@
     // Restore game state
     [[AppState sharedInstance] restore];
 #if DEBUG
-    NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
+//    NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     NSLog(@"Stored checkins count: %d", [[[AppState sharedInstance] checkins] count]);
 #endif
     if ([[AppState sharedInstance] playerIsInCompass] == YES) {
         
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
-        SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
+
+        CitySelectionViewController *cityVC = [[CitySelectionViewController alloc] initWithStyle:UITableViewStylePlain];
+        CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
         rvc.route = [[AppState sharedInstance] currentRoute];
         CompassViewController *cvc = [[CompassViewController alloc] init];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+        self.navigationController = [[UINavigationController alloc] initWithRootViewController:cityVC];
+        [self.navigationController pushViewController:catalogVC animated:NO];
         [self.navigationController pushViewController:rvc animated:NO];
         [self.navigationController pushViewController:cvc animated:NO];
         
