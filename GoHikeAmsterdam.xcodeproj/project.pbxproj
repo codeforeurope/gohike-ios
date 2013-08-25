@@ -164,6 +164,8 @@
 		ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */; };
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
+		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
+		ACF79F3517CA8366003165DB /* GHCities.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F3417CA8366003165DB /* GHCities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -387,6 +389,10 @@
 		ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		ACECFB9D1756A8D70074EBBE /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@2x.png"; sourceTree = "<group>"; };
 		ACECFB9E1756A8D70074EBBE /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
+		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
+		ACF79F3317CA8366003165DB /* GHCities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCities.h; sourceTree = "<group>"; };
+		ACF79F3417CA8366003165DB /* GHCities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -468,6 +474,8 @@
 		AC10170F1752B2DE00761AC2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				ACF79F3317CA8366003165DB /* GHCities.h */,
+				ACF79F3417CA8366003165DB /* GHCities.m */,
 				AC24190E17C6536E00B3783D /* GHCatalog.h */,
 				AC24190F17C6536E00B3783D /* GHCatalog.m */,
 				AC24190C17C6531000B3783D /* GHProfile.h */,
@@ -786,6 +794,8 @@
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
 				1C1684F8174E4DBB00A77192 /* AppState.h */,
 				1C1684F9174E4DBB00A77192 /* AppState.m */,
+				ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */,
+				ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */,
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
@@ -1078,6 +1088,8 @@
 				AC24190A17C64A0700B3783D /* GHRoute.m in Sources */,
 				AC24190D17C6531000B3783D /* GHProfile.m in Sources */,
 				AC24191017C6536F00B3783D /* GHCatalog.m in Sources */,
+				ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */,
+				ACF79F3517CA8366003165DB /* GHCities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

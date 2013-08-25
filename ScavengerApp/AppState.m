@@ -14,8 +14,7 @@
 
 NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
-NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
-NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
+
 
 @implementation AppState
 
@@ -162,44 +161,6 @@ NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
     return waypointsWithVisit;
 }
 
-#pragma mark - Networking
-
-- (void)downloadRoute:(NSInteger)routeId
-{
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kGOHIKEAPIURL]];
-    NSString *path = [NSString stringWithFormat:@"/api/route/%d", routeId];
-    NSMutableURLRequest *routeRequest = [httpClient requestWithMethod:@"GET" path:path parameters:nil];
-    [routeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:routeRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"JSON: %@", JSON);
-        if([NSJSONSerialization isValidJSONObject:JSON]){
-
-            NSDictionary *route = (NSDictionary*)JSON;
-            
-            _currentRoute = route;
-            
-            NSDictionary *userInfo =  @{@"route" : route};
-            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
-           
-            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
-            
-        }
-        else{
-            NSLog(@"JSON data not valid");
-            NSDictionary *userInfo = @{@"error": NSLocalizedString(@"Invalid JSON data", @"Invalid JSON data")};
-            NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error when retrieving route: %@", [error description]);
-        NSDictionary *userInfo = @{@"error":error};
-        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-    }];
-    [httpClient enqueueHTTPRequestOperation:op];
-}
 
 #pragma mark - Save and restore
 

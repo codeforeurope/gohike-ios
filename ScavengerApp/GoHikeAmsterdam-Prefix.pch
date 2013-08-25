@@ -15,6 +15,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <AudioToolbox/AudioToolbox.h>
     #import "AppState.h"
+    #import "GoHikeHTTPClient.h"
     #import "DataModels.h"
     #import "GHGameData.h"
     #import "NSDataAdditions.h"

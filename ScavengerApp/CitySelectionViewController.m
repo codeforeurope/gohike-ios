@@ -41,11 +41,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
-    
+
     //register the UITableViewCell
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
+            
     //add RefreshControl to TableView
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc]
                                         init];
@@ -53,20 +52,31 @@
     refreshControl.tintColor = [UIColor grayColor];
     self.refreshControl = refreshControl;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //Register for the loadingFinished notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCitiesCompleted:) name:kFinishedLoadingCities object:nil];
+    
+    
     //load the cities
     _cities = [[NSDictionary alloc] init];
     [self getLocation];
-    
+
 }
 
 - (void)getLocation
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position")];
+    [[AppState sharedInstance] startLocationServices];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCities) name:kLocationServicesGotBestAccuracyLocation object:nil];
 }
 
 - (void)gotLocation
 {
+    [[AppState sharedInstance] stopLocationServices];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -75,42 +85,9 @@
     //Hide the refresh control
     [self.refreshControl endRefreshing];
 
-
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities")];
-//    NSDictionary *requestBody = @{@"latitude": @52.3702157, @"longitude":@4.8951679 };
-    NSNumber *latitude = [NSNumber numberWithDouble: [[AppState sharedInstance] currentLocation].coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble: [[AppState sharedInstance] currentLocation].coordinate.longitude];
-    NSDictionary *requestBody = @{@"latitude": latitude,
-                                  @"longitude": longitude};
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:base_url]];
-    [httpClient setParameterEncoding:AFJSONParameterEncoding];
 
-    __autoreleasing NSError *error;
-    NSMutableURLRequest *locationRequest = [httpClient requestWithMethod:@"POST" path:@"/api/locate" parameters:nil];
-    [locationRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [locationRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&error]];
-    
-    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:locationRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-
-        NSLog(@"JSON: %@", JSON);
-
-        if([NSJSONSerialization isValidJSONObject:JSON]){
-            _cities = (NSDictionary*)JSON;
-            
-        [self.tableView reloadData];
-            [SVProgressHUD showSuccessWithStatus:nil];
-        }
-        else{
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load cities", @"Cannot load cities")];
-            NSLog(@"JSON data not valid");
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error when retrieving cities: %@", [error description]);
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading cities", @"Error loading cities")];
-    }];
-    [httpClient enqueueHTTPRequestOperation:op];
-
+    [[GoHikeHTTPClient sharedClient] locate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -250,48 +227,8 @@
 - (void)getCatalogForCity:(int)cityID
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting content", @"Getting content")];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:base_url]];
-    [httpClient setParameterEncoding:AFJSONParameterEncoding];
-    
-    
-    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    
-    NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
-    NSMutableURLRequest *catalogRequest = [httpClient requestWithMethod:@"GET" path:path parameters:nil];
-    [catalogRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:catalogRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        if([NSJSONSerialization isValidJSONObject:JSON]){
 
-            
-            [[AppState sharedInstance] setCurrentCatalog:(GHCatalog*)JSON];
-            
-            NSDictionary *userInfo = [[NSDictionary alloc] init]; //  @{@"catalog":catalog};
-            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
-            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
-            
-        }
-        else{
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Cannot load catalog", @"Cannot load catalog")];
-            NSLog(@"JSON data not valid");
-            NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"JSON data not valid", @"JSON data not valid")};
-            NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
-
-
-            
-        }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error when retrieving cities: %@", [error description]);
-        
-        NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"JSON data not valid", @"JSON data not valid")};
-        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        
-    }];
-    [httpClient enqueueHTTPRequestOperation:op];
-    
-
+    [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
     
 }
 
@@ -311,5 +248,19 @@
 
 }
 
+- (void)handleLoadCitiesCompleted:(NSNotification*)notification
+{
+    NSLog(@"Finished loading catalog");
+    if([[notification userInfo] objectForKey:@"error"])
+    {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading cities", @"Error loading cities")];
+
+    }
+    else{
+        [SVProgressHUD showSuccessWithStatus:nil];
+        _cities = [[AppState sharedInstance] cities];
+        [self.tableView reloadData];
+    }
+}
 
 @end
