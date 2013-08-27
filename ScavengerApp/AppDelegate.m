@@ -121,9 +121,9 @@
         
         // We were in compass view when we quit, we restore the navigation controller and reopen the compass view
 
-        CitySelectionViewController *cityVC = [[CitySelectionViewController alloc] initWithStyle:UITableViewStylePlain];
+        CitySelectionViewController *cityVC = [[CitySelectionViewController alloc] initWithStyle:UITableViewStyleGrouped];
         CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
-        RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+        RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
         rvc.route = [[AppState sharedInstance] currentRoute];
         CompassViewController *cvc = [[CompassViewController alloc] init];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:cityVC];
@@ -142,7 +142,7 @@
         }
         else{
             //player has to select a city
-            CitySelectionViewController *cvc = [[CitySelectionViewController alloc] initWithStyle:UITableViewStylePlain];
+            CitySelectionViewController *cvc = [[CitySelectionViewController alloc] initWithStyle:UITableViewStyleGrouped];
             cvc.cities = [[AppState sharedInstance] cities];
             self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
         }

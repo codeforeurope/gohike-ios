@@ -130,11 +130,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     //Change content of textview
 
-    titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FoundPlaceTitle", @"You found {locationName}"), [[[AppState sharedInstance] activeWaypoint] GHname]]; //[NSString stringWithFormat:NSLocalizedString(@"FoundPlaceTitle", @"You found {locationName}"), [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]]];
+    titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FoundPlaceTitle", @"You found {locationName}"), [[[AppState sharedInstance] activeWaypoint] GHname]];
     bodyTextView.text = [[[AppState sharedInstance] activeWaypoint] GHdescription];
-    
-//    [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
-    
+        
     //make a "Continue" button
     [button removeFromSuperview]; //remove the previous button, make a new one
 

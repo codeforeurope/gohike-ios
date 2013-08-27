@@ -51,16 +51,16 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
     
     //route info
-    NSString *langKey = [[AppState sharedInstance] language];
-    if([_location objectForKey:@"image_data"])
-        _locationImageView.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_location objectForKey:@"image_data"]]];
+    if([_location GHimageData])
+        _locationImageView.image = [UIImage imageWithData:[_location GHimageData]];
     else{
         _locationImageView.image = [UIImage imageNamed:@"no-picture"];
     }
-//    _locationText.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
-    _locationDescriptionLabel.text = [_location objectForKey:[NSString stringWithFormat:@"description_%@",langKey]];
-    _locationTitleLabel.text = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
+    _locationDescriptionLabel.text = [_location GHdescription]; 
+    _locationTitleLabel.text =  [_location GHname];
     
+    
+    //If user pinches on picture, enlarge it fullscreen
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)] ;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     tapGesture.numberOfTapsRequired = 2;
@@ -89,7 +89,7 @@
     GHWaypoint *thisWayPoint;
     
     NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"location_id"] integerValue] == [[_location objectForKey:@"location_id"] intValue];
+        return [obj GHlocation_id] == [_location GHlocation_id];
     }];
     if (index == NSNotFound) {
         
@@ -100,8 +100,8 @@
     
     if([waypoints count] > 0)
     {
-        [[AppState sharedInstance] setActiveRouteId: [[_location objectForKey:@"route_id"] intValue]];
-        [[AppState sharedInstance] setActiveTargetId: [[_location objectForKey:@"location_id"] intValue]];
+        [[AppState sharedInstance] setActiveRouteId: [_location GHroute_id]];
+        [[AppState sharedInstance] setActiveTargetId: [_location GHlocation_id]];
         [[AppState sharedInstance] save];
                 
         CompassViewController *compass = [[CompassViewController alloc] init];
@@ -115,8 +115,7 @@
     MapViewController *mvc = [[MapViewController alloc] init];
     mvc.waypoints = [NSArray arrayWithObject:self.location];
     mvc.singleLocation = YES;
-    NSString *langKey = [[AppState sharedInstance] language];
-    mvc.title = [_location objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
+    mvc.title = [_location GHname];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 

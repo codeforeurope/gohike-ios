@@ -19,6 +19,7 @@
 - (double)GHlongitude;
 - (NSString*)GHname;
 - (int)GHroute_id;
+- (int)GHrank;
 
 @end
 

@@ -147,7 +147,7 @@
 //    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
     [[AppState sharedInstance] save];
             
-    RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithNibName:@"RouteStartViewController" bundle:nil];
+    RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
     rvc.route = selectedRoute;
     [self.navigationController pushViewController:rvc animated:YES];
     

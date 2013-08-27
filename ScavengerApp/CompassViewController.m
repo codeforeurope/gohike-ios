@@ -139,18 +139,12 @@
 
 - (void)addCheckInView
 {
-   
-//    NSString *langKey = [[AppState sharedInstance] language];
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
-//    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
-    NSString *destinationName = [Utilities getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
-    
-    //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+    NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] GHname];
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
-//    [checkinView setDestinationImage:[NSData dataWithBase64EncodedString:[[[AppState sharedInstance] activeWaypoint] objectForKey:@"image_data"]]];
     [checkinView setDestinationImage:[[[AppState sharedInstance] activeWaypoint] GHimageData]];
     checkinView.closeTarget = self;
     checkinView.closeAction = @selector(onCancelCheckIn);
@@ -173,10 +167,8 @@
 
 - (void)handleLocationUpdate:(NSNotification*)notification
 {
-//    NSString *langKey = [[AppState sharedInstance] language];
-    NSString * destinationName = [Utilities getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
-    
-    //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
+    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] GHname];
+ 
 #if DEBUG
     NSLog(@"did update with destination: %@",destinationName);
 #endif

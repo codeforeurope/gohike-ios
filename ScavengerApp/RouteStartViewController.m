@@ -48,11 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
-//    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
-//    [self.tableView setBackgroundView:tablebgView];
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]];
+    
+    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+    [self.tableView setBackgroundView:tablebgView];
 
     [self updateNavigationButtons];
     
@@ -173,8 +171,8 @@
             
             NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
             [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeTitleLabel.text = [_route GHname]; //[Utilities getTranslatedStringForKey:@"name" fromDictionary:_route];
-            cell.routeHighlightsLabel.text = [_route GHname]; //[Utilities getTranslatedStringForKey:@"description" fromDictionary:_route];
+            cell.routeTitleLabel.text = [_route GHname];
+            cell.routeHighlightsLabel.text = [_route GHdescription];
             
             return cell;
         }

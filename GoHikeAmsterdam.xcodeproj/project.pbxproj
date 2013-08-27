@@ -39,7 +39,6 @@
 		AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */; };
 		AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */; };
 		AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */; };
-		AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */; };
 		AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4951754D51D00B766E0 /* TableBackground.xib */; };
 		AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4AF175633B600B766E0 /* Security.framework */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
@@ -219,7 +218,6 @@
 		AC0AF48A1754BC0000B766E0 /* RouteDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDetailTitleCell.h; sourceTree = "<group>"; };
 		AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteDetailTitleCell.m; sourceTree = "<group>"; };
 		AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteDetailTitleCell.xib; sourceTree = "<group>"; };
-		AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteStartViewController.xib; sourceTree = "<group>"; };
 		AC0AF4951754D51D00B766E0 /* TableBackground.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableBackground.xib; sourceTree = "<group>"; };
 		AC0AF4AF175633B600B766E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
@@ -767,7 +765,6 @@
 				ACC893AA175F67B5002AC636 /* MapPoint.m */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
-				AC0AF4931754C45300B766E0 /* RouteStartViewController.xib */,
 				AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */,
 				AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */,
 				AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */,
@@ -905,7 +902,6 @@
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
 				AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */,
 				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
-				AC0AF4941754C45400B766E0 /* RouteStartViewController.xib in Resources */,
 				AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */,
 				ACB534D1175654390065D72D /* arrow.png in Resources */,
 				ACB534D2175654390065D72D /* cellbackground1.png in Resources */,

@@ -38,6 +38,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    //Tableview background
+    UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
+    [self.tableView setBackgroundView:tablebgView];
+
 
     //register the UITableViewCell
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
@@ -144,6 +148,7 @@
             break;
     }
     
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
     
     return cell;
 }
@@ -152,16 +157,17 @@
 {
     switch (section) {
         case 0:
-            return NSLocalizedString(@"Within", @"Section title for cities the player is within");
+            return NSLocalizedString(@"Nearby cities", @"Section title for cities the player is within");
             break;
         case 1:
-            return NSLocalizedString(@"Other", @"Section title for other cities outside of player range");
+            return NSLocalizedString(@"All playable cities", @"Section title for other cities outside of player range");
             break;
         default:
             break;
     }
     return nil;
 }
+
 
 /*
 // Override to support conditional editing of the table view.

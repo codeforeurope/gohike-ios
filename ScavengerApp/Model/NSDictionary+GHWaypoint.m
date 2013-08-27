@@ -42,14 +42,17 @@
 
 - (NSString*)GHname
 {
-    //return already the name for the current locale?
-//    return [self objectForKey:@"name"];
     return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
 }
 
 - (int)GHroute_id
 {
     return [[self objectForKey:@"route_id"] integerValue];
+}
+
+- (int)GHrank
+{
+    return [[self objectForKey:@"rank"] integerValue];
 }
 
 - (NSData*)GHimageData

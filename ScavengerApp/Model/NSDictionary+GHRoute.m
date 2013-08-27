@@ -27,12 +27,11 @@
 
 - (NSString*)GHdescription
 {
-    return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
+    return [Utilities getTranslatedStringForKey:@"description" fromDictionary:self];
 }
 
 - (NSString*)GHname
 {
-//    return [self objectForKey:@"name"];
     return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
 
 }

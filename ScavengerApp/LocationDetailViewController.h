@@ -10,7 +10,7 @@
 
 @interface LocationDetailViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *location;
+@property (nonatomic, strong) GHWaypoint *location;
 @property (nonatomic, weak) IBOutlet UILabel *locationTitleLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *locationImageView;
 @property (nonatomic, weak) IBOutlet UITextView *locationText;

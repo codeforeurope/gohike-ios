@@ -46,19 +46,18 @@
     for(NSDictionary *waypoint in self.waypoints)
     {
         //add destinations to array
-        float latitude = [[waypoint objectForKey:@"latitude"] floatValue];
-        float longitude = [[waypoint objectForKey:@"longitude"] floatValue];
+        double latitude = [waypoint GHlatitude];
+        double longitude = [waypoint GHlongitude];
         CLLocation *destintation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         [locations addObject:destintation];
         
         //add annotation pins
         MapPoint *pin = [[MapPoint alloc] init];
-        NSString *langKey = [[AppState sharedInstance] language];
-        [pin setTitle:[waypoint objectForKey:[NSString stringWithFormat:@"name_%@", langKey]]];
+        [pin setTitle:[waypoint GHname]];
         pin.coordinate = destintation.coordinate;
         
         if (!_singleLocation) {
-            if ([[waypoint objectForKey:@"rank"] intValue] == [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+            if ([waypoint GHrank] == [[[AppState sharedInstance] activeWaypoint] GHrank])
             {
                 pin.current = YES;
                 currentDestination = destintation;
@@ -67,7 +66,7 @@
             {
                 pin.current = NO;
             }
-            if ([[waypoint objectForKey:@"rank"] intValue] > [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"rank" ] intValue])
+            if ([waypoint GHrank] > [[[AppState sharedInstance] activeWaypoint] GHrank])
             {
                 pin.visited = NO;
             }
