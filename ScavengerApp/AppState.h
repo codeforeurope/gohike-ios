@@ -24,7 +24,7 @@ extern NSString* const kLocationServicesUpdateHeading;
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 @property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCatalog *currentCatalog; //Catalog of the game (with profiles, routes)
-@property (nonatomic, strong) NSDictionary *currentRoute;
+@property (nonatomic, strong) GHRoute *currentRoute;
 @property (nonatomic, strong) GHCities *cities;
 @property (nonatomic, strong) GHCity *currentCity; //City the player is currently in
 
@@ -39,20 +39,15 @@ extern NSString* const kLocationServicesUpdateHeading;
 - (BOOL)setNextTarget;
 - (NSString*)language;
 
-- (NSDictionary*)activeWaypoint;
+- (GHWaypoint*)activeWaypoint;
 
-- (NSDictionary*)nextCheckinForRoute:(int)routeId;
+- (GHWaypoint*)nextCheckinForRoute:(int)routeId;
 - (NSArray*)checkinsForRoute:(int)routeId;
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
 
 //Location
 - (void) startLocationServices;
 - (void) stopLocationServices;
-
-//Utility
-- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary;
-- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary;
-
 
 
 @end

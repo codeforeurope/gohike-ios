@@ -61,8 +61,8 @@
     if (self)
     {
         self.checkinPending = NO;
-        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
-        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+        float latitude = [[[AppState sharedInstance] activeWaypoint] GHlatitude];
+        float longitude = [[[AppState sharedInstance] activeWaypoint] GHlongitude];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         self.previousLocation = nil;
 #if DEBUG
@@ -85,14 +85,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHeadingUpdate:) name:kLocationServicesUpdateHeading object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate::) name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
     
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
-//#if DEBUG
-//    [self locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
-//#endif
+#if DEBUG
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[AppState sharedInstance] locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
+#endif
 }
 
 #pragma mark - CLLocation
@@ -129,7 +130,7 @@
 -(void) updateCheckinStatus
 {
     //update the statusview
-    NSArray *waypoints = [[AppState sharedInstance].currentRoute objectForKey:@"waypoints"];
+    NSArray *waypoints = [[[AppState sharedInstance] currentRoute] GHwaypoints];
     NSArray *checkins = [[AppState sharedInstance] checkinsForRoute:[AppState sharedInstance].activeRouteId];
     [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
 }
@@ -143,13 +144,14 @@
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
 //    [checkinView setBodyText:[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"description_%@", langKey]]];
-    NSString *destinationName = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
+    NSString *destinationName = [Utilities getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
     
     //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
-    [checkinView setDestinationImage:[NSData dataWithBase64EncodedString:[[[AppState sharedInstance] activeWaypoint] objectForKey:@"image_data"]]];
+//    [checkinView setDestinationImage:[NSData dataWithBase64EncodedString:[[[AppState sharedInstance] activeWaypoint] objectForKey:@"image_data"]]];
+    [checkinView setDestinationImage:[[[AppState sharedInstance] activeWaypoint] GHimageData]];
     checkinView.closeTarget = self;
     checkinView.closeAction = @selector(onCancelCheckIn);
     
@@ -172,7 +174,7 @@
 - (void)handleLocationUpdate:(NSNotification*)notification
 {
 //    NSString *langKey = [[AppState sharedInstance] language];
-    NSString * destinationName = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
+    NSString * destinationName = [Utilities getTranslatedStringForKey:@"name" fromDictionary:[[AppState sharedInstance] activeWaypoint] ];
     
     //[[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
 #if DEBUG
@@ -180,43 +182,39 @@
 #endif
     
     CLLocation *currentLocation = [[AppState sharedInstance] currentLocation];
+
+    // If the event is recent, get the distance from destination
+    double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
+    //update the bottom navigation bar
+    [self.statusView update:destinationName withDistance:distanceFromDestination];
+    [self.topView updateDistance:distanceFromDestination];
     
-    NSDate* eventDate = currentLocation.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0) {
-        
-        // If the event is recent, get the distance from destination
-        double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
-        //update the bottom navigation bar
-        [self.statusView update:destinationName withDistance:distanceFromDestination];
-        [self.topView updateDistance:distanceFromDestination];
-        
-        if (distanceFromDestination < CHECKIN_DISTANCE) {
+    if (distanceFromDestination < CHECKIN_DISTANCE) {
 #if DEBUG
-            NSLog(@"within distance");
+        NSLog(@"within distance");
 #endif
-            if(!self.checkinPending)
-            {
-                self.checkinPending = YES;
-                [self addCheckInView];
-            }
-        }
-        
-        //if we have a previous location, determine sort of proximation speed
-        if(self.previousLocation)
+        if(!self.checkinPending)
         {
-            double previousDistanceFromDestination = [self.previousLocation distanceFromLocation:_destinationLocation];
-            
-            float pSpeed = (previousDistanceFromDestination - distanceFromDestination) / ([currentLocation.timestamp timeIntervalSinceNow] - [self.previousLocation.timestamp timeIntervalSinceNow]);
-            cloudView.speed = pSpeed;
+            self.checkinPending = YES;
+            [self addCheckInView];
         }
-        
-        //update radar
-        destinationRadarView.currentLocation = currentLocation;
-        [destinationRadarView setNeedsDisplay];
-        
-        self.previousLocation = currentLocation;
     }
+    
+    //if we have a previous location, determine sort of proximation speed
+    if(self.previousLocation)
+    {
+        double previousDistanceFromDestination = [self.previousLocation distanceFromLocation:_destinationLocation];
+        
+        float pSpeed = (previousDistanceFromDestination - distanceFromDestination) / ([currentLocation.timestamp timeIntervalSinceNow] - [self.previousLocation.timestamp timeIntervalSinceNow]);
+        cloudView.speed = pSpeed;
+    }
+    
+    //update radar
+    destinationRadarView.currentLocation = currentLocation;
+    [destinationRadarView setNeedsDisplay];
+    
+    self.previousLocation = currentLocation;
+
 }
 
 - (void)handleHeadingUpdate:(NSNotification*)notification

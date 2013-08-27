@@ -8,6 +8,7 @@
 
 #import "GoHikeHTTPClient.h"
 #import "AFJSONRequestOperation.h"
+#import "AFImageRequestOperation.h"
 
 #define BASE_URL @"http://www.gotakeahike.nl"
 
@@ -65,7 +66,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
         NSLog(@"JSON: %@", JSON);
         
         if([NSJSONSerialization isValidJSONObject:JSON]){
-            [AppState sharedInstance].cities = [GHCities modelObjectWithDictionary:(NSDictionary*)JSON];
+            [AppState sharedInstance].cities = (NSDictionary*)JSON; //[GHCities modelObjectWithDictionary:(NSDictionary*)JSON];
             [[AppState sharedInstance] save];
             
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCities object:self userInfo:nil];
@@ -102,18 +103,13 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:catalogRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if([NSJSONSerialization isValidJSONObject:JSON]){ 
             
-            [[AppState sharedInstance] setCurrentCatalog:(GHCatalog*)JSON];
+            GHCatalog *catalog = (GHCatalog*)JSON;
+            [catalog saveToFileWithId:cityID];
+            [[AppState sharedInstance] setCurrentCatalog:catalog];
             [[AppState sharedInstance] save];
             
             
-            //Save it to library
-            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"catalog_%d",cityID]];
-            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
-            if(!success)
-                NSLog(@"Writing to file Failed");
-            
-            NSDictionary *userInfo = [[NSDictionary alloc] init]; //  @{@"catalog":catalog};
+            NSDictionary *userInfo = [[NSDictionary alloc] init];
             NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
             [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
             
@@ -151,12 +147,14 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
-            //Save it to library
-            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d",routeId]];
-            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
-            if(!success)
-                NSLog(@"Writing to file Failed");
+//            //Save it to library
+//            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d",routeId]];
+//            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
+//            if(!success)
+//                NSLog(@"Writing to file Failed");
+            
+            [self saveRoute:route];
             
             
             NSDictionary *userInfo =  @{@"route" : route};
@@ -183,6 +181,65 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 }
 
 
+- (void)downloadFileWithUrl:(NSString*)fileUrl savePath:(NSString*)savePath
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileUrl]];
+    AFImageRequestOperation *operation;
+    operation = [AFImageRequestOperation imageRequestOperationWithRequest:request success:^(UIImage *image) {
+        NSData *data = UIImagePNGRepresentation(image);
+        BOOL success = [data writeToFile:savePath atomically:YES];
+        if(!success)
+            NSLog(@"Failed writing to file %@", savePath);
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+#pragma mark - File management
+
+- (BOOL)saveRoute:(GHRoute*)route
+{
+    
+    __block BOOL success;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        //Save it to library
+        @try {
+            __autoreleasing NSError *error;
+            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSFileManager *manager = [NSFileManager defaultManager];
+            int routeId = [route GHid];
+            NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"routes/%d", routeId]];
+            success = [manager createDirectoryAtPath:routePath withIntermediateDirectories:YES attributes:Nil error:&error];
+            NSString *filePath = [routePath stringByAppendingPathComponent:@"route.plist"];
+            success = [route writeToFile:filePath atomically:YES];
+            if(!success)
+                NSLog(@"Writing to file Failed");
+            //write the icon file and image
+            NSString *iconPath = [routePath stringByAppendingPathComponent:@"icon.png"];
+            [self downloadFileWithUrl:[[route GHicon] url] savePath:iconPath];
+
+            NSString *imagePath = [routePath stringByAppendingPathComponent:@"image.png"];
+            [self downloadFileWithUrl:[[route GHimage] url] savePath:imagePath];
+            if ([route GHwaypoints]) {
+                //save also waypoints
+            }
+            
+            
+        }
+        @catch (NSException *exception) {
+            success = NO;
+            NSLog(@"Exception in file manager: %@", [exception description]);
+        }
+        @finally {
+            
+        }
+
+    });
+    
+    return success;
+
+}
 
 
 @end

@@ -152,7 +152,7 @@
         }
         break;
         default:
-            rows = [[_route objectForKey:@"waypoints"] count];
+            rows = [[_route GHwaypoints] count];
             break;
     }
     return rows;
@@ -173,8 +173,8 @@
             
             NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
             [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeTitleLabel.text = [[AppState sharedInstance] getTranslatedStringForKey:@"name" fromDictionary:_route];
-            cell.routeHighlightsLabel.text = [[AppState sharedInstance] getTranslatedStringForKey:@"description" fromDictionary:_route]; 
+            cell.routeTitleLabel.text = [_route GHname]; //[Utilities getTranslatedStringForKey:@"name" fromDictionary:_route];
+            cell.routeHighlightsLabel.text = [_route GHname]; //[Utilities getTranslatedStringForKey:@"description" fromDictionary:_route];
             
             return cell;
         }
@@ -207,7 +207,7 @@
             [startHikeCellButton.layer insertSublayer:gradient atIndex:0];
             startHikeCellButton.layer.cornerRadius = 6;
             startHikeCellButton.layer.masksToBounds = YES;
-            if([_route objectForKey:@"waypoints"]){
+            if([_route GHwaypoints]){
                 [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", @"Go Hike!") forState:UIControlStateNormal];
             }
             else{
@@ -252,7 +252,7 @@
             NSDictionary *wpNameLocales = [waypoint objectForKey:@"name"];
 
 
-            cell.textLabel.text = [[AppState sharedInstance] getStringForCurrentLocaleFromDictionary:wpNameLocales];
+            cell.textLabel.text = [Utilities getStringForCurrentLocaleFromDictionary:wpNameLocales];
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
             
             return cell;
@@ -323,7 +323,7 @@
 - (void)startRoute
 {
 
-    if([_route objectForKey:@"waypoints"]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
+    if([_route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
         
         NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
         

@@ -50,28 +50,17 @@
 		AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418F617C6219B00B3783D /* CatalogViewController.xib */; };
 		AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */; };
 		AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */; };
-		AC24190817C64A0700B3783D /* GHIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190217C64A0700B3783D /* GHIcon.m */; };
-		AC24190917C64A0700B3783D /* GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190417C64A0700B3783D /* GHImage.m */; };
-		AC24190A17C64A0700B3783D /* GHRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190617C64A0700B3783D /* GHRoute.m */; };
-		AC24190D17C6531000B3783D /* GHProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190B17C6531000B3783D /* GHProfile.m */; };
-		AC24191017C6536F00B3783D /* GHCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24190F17C6536E00B3783D /* GHCatalog.m */; };
 		AC24194717C7874F00B3783D /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = AC24194617C7874F00B3783D /* back.png */; };
 		AC24194917C7875C00B3783D /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC24194817C7875C00B3783D /* back@2x.png */; };
 		AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F7D17C4E9A800875910 /* CitySelectionViewController.m */; };
 		AC303F8517C4F54400875910 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8217C4F54400875910 /* SVProgressHUD.bundle */; };
 		AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8417C4F54400875910 /* SVProgressHUD.m */; };
-		AC303F8917C500A100875910 /* GHCity.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F8817C500A100875910 /* GHCity.m */; };
 		AC303F9017C506E300875910 /* verboden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC303F8F17C506E300875910 /* verboden@2x.png */; };
 		AC303F9217C506EB00875910 /* verboden.png in Resources */ = {isa = PBXBuildFile; fileRef = AC303F9117C506EB00875910 /* verboden.png */; };
 		AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC303F9417C5070A00875910 /* CannotPlayViewController.m */; };
 		AC303F9717C5070B00875910 /* CannotPlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC303F9517C5070B00875910 /* CannotPlayViewController.xib */; };
 		AC30AEF21768BE01008449BD /* SIAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC30AEEF1768BE01008449BD /* SIAlertView.bundle */; };
 		AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AEF11768BE01008449BD /* SIAlertView.m */; };
-		AC41F7E91761345700ED3F14 /* GHGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E01761345700ED3F14 /* GHGameData.m */; };
-		AC41F7EA1761345700ED3F14 /* GHProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E21761345700ED3F14 /* GHProfiles.m */; };
-		AC41F7EB1761345700ED3F14 /* GHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E41761345700ED3F14 /* GHReward.m */; };
-		AC41F7EC1761345700ED3F14 /* GHRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E61761345700ED3F14 /* GHRoutes.m */; };
-		AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */ = {isa = PBXBuildFile; fileRef = AC41F7E81761345700ED3F14 /* GHWaypoints.m */; };
 		AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */; };
 		AC41F8011761FE8400ED3F14 /* fanfare.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */; };
 		AC41F8021761FE8400ED3F14 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC41F8001761FE8400ED3F14 /* success.mp3 */; };
@@ -82,6 +71,15 @@
 		AC5133FF17452D7400472022 /* SelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5133FE17452D7400472022 /* SelectionCell.m */; };
 		AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA6174CC5970067F08F /* SelectionCell.xib */; };
 		AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5BEDA8174CC82D0067F08F /* default-profile.png */; };
+		AC7390BE17CB3CA6002E4BE6 /* NSDictionary+GHCity.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390BD17CB3CA6002E4BE6 /* NSDictionary+GHCity.m */; };
+		AC7390C717CB3DB7002E4BE6 /* NSDictionary+GHCities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390C617CB3DB7002E4BE6 /* NSDictionary+GHCities.m */; };
+		AC7390CA17CB3E4E002E4BE6 /* NSArray+GHCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390C917CB3E4E002E4BE6 /* NSArray+GHCatalog.m */; };
+		AC7390CD17CB3F59002E4BE6 /* NSDictionary+GHProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */; };
+		AC7390D017CB3FFC002E4BE6 /* NSDictionary+GHRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */; };
+		AC7390D317CB4057002E4BE6 /* NSDictionary+RouteIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */; };
+		AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */; };
+		AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */; };
+		AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390EA17CCD3E6002E4BE6 /* Utilities.m */; };
 		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
 		AC97D5BF1769BF4D0069F779 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC97D5B8176911950069F779 /* libTestFlight.a */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
@@ -165,7 +163,6 @@
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
 		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
-		ACF79F3517CA8366003165DB /* GHCities.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F3417CA8366003165DB /* GHCities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,16 +238,6 @@
 		AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewCollectionHeader.xib; sourceTree = "<group>"; };
 		AC2418FC17C6244600B3783D /* CatalogViewCollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewCollectionHeader.h; sourceTree = "<group>"; };
 		AC2418FD17C6244600B3783D /* CatalogViewCollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewCollectionHeader.m; sourceTree = "<group>"; };
-		AC24190117C64A0700B3783D /* GHIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIcon.h; sourceTree = "<group>"; };
-		AC24190217C64A0700B3783D /* GHIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIcon.m; sourceTree = "<group>"; };
-		AC24190317C64A0700B3783D /* GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHImage.h; sourceTree = "<group>"; };
-		AC24190417C64A0700B3783D /* GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHImage.m; sourceTree = "<group>"; };
-		AC24190517C64A0700B3783D /* GHRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRoute.h; sourceTree = "<group>"; };
-		AC24190617C64A0700B3783D /* GHRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRoute.m; sourceTree = "<group>"; };
-		AC24190B17C6531000B3783D /* GHProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHProfile.m; sourceTree = "<group>"; };
-		AC24190C17C6531000B3783D /* GHProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHProfile.h; sourceTree = "<group>"; };
-		AC24190E17C6536E00B3783D /* GHCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCatalog.h; sourceTree = "<group>"; };
-		AC24190F17C6536E00B3783D /* GHCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCatalog.m; sourceTree = "<group>"; };
 		AC24194617C7874F00B3783D /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		AC24194817C7875C00B3783D /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		AC303F7C17C4E9A800875910 /* CitySelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectionViewController.h; sourceTree = "<group>"; };
@@ -258,8 +245,6 @@
 		AC303F8217C4F54400875910 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		AC303F8317C4F54400875910 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		AC303F8417C4F54400875910 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		AC303F8717C500A100875910 /* GHCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCity.h; sourceTree = "<group>"; };
-		AC303F8817C500A100875910 /* GHCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCity.m; sourceTree = "<group>"; };
 		AC303F8F17C506E300875910 /* verboden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "verboden@2x.png"; sourceTree = "<group>"; };
 		AC303F9117C506EB00875910 /* verboden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = verboden.png; sourceTree = "<group>"; };
 		AC303F9317C5070A00875910 /* CannotPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotPlayViewController.h; sourceTree = "<group>"; };
@@ -268,16 +253,6 @@
 		AC30AEEF1768BE01008449BD /* SIAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SIAlertView.bundle; sourceTree = "<group>"; };
 		AC30AEF01768BE01008449BD /* SIAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIAlertView.h; sourceTree = "<group>"; };
 		AC30AEF11768BE01008449BD /* SIAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIAlertView.m; sourceTree = "<group>"; };
-		AC41F7DF1761345700ED3F14 /* GHGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGameData.h; sourceTree = "<group>"; };
-		AC41F7E01761345700ED3F14 /* GHGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGameData.m; sourceTree = "<group>"; };
-		AC41F7E11761345700ED3F14 /* GHProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHProfiles.h; sourceTree = "<group>"; };
-		AC41F7E21761345700ED3F14 /* GHProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHProfiles.m; sourceTree = "<group>"; };
-		AC41F7E31761345700ED3F14 /* GHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHReward.h; sourceTree = "<group>"; };
-		AC41F7E41761345700ED3F14 /* GHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReward.m; sourceTree = "<group>"; };
-		AC41F7E51761345700ED3F14 /* GHRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRoutes.h; sourceTree = "<group>"; };
-		AC41F7E61761345700ED3F14 /* GHRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRoutes.m; sourceTree = "<group>"; };
-		AC41F7E71761345700ED3F14 /* GHWaypoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHWaypoints.h; sourceTree = "<group>"; };
-		AC41F7E81761345700ED3F14 /* GHWaypoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHWaypoints.m; sourceTree = "<group>"; };
 		AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AC41F7FF1761FE8400ED3F14 /* fanfare.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fanfare.mp3; sourceTree = "<group>"; };
 		AC41F8001761FE8400ED3F14 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
@@ -291,6 +266,24 @@
 		AC5133FE17452D7400472022 /* SelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionCell.m; path = ../SelectionCell.m; sourceTree = "<group>"; };
 		AC5BEDA6174CC5970067F08F /* SelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionCell.xib; path = ../SelectionCell.xib; sourceTree = "<group>"; };
 		AC5BEDA8174CC82D0067F08F /* default-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-profile.png"; sourceTree = "<group>"; };
+		AC7390BC17CB3CA6002E4BE6 /* NSDictionary+GHCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHCity.h"; sourceTree = "<group>"; };
+		AC7390BD17CB3CA6002E4BE6 /* NSDictionary+GHCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHCity.m"; sourceTree = "<group>"; };
+		AC7390C517CB3DB7002E4BE6 /* NSDictionary+GHCities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHCities.h"; sourceTree = "<group>"; };
+		AC7390C617CB3DB7002E4BE6 /* NSDictionary+GHCities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHCities.m"; sourceTree = "<group>"; };
+		AC7390C817CB3E4E002E4BE6 /* NSArray+GHCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+GHCatalog.h"; sourceTree = "<group>"; };
+		AC7390C917CB3E4E002E4BE6 /* NSArray+GHCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+GHCatalog.m"; sourceTree = "<group>"; };
+		AC7390CB17CB3F58002E4BE6 /* NSDictionary+GHProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHProfile.h"; sourceTree = "<group>"; };
+		AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHProfile.m"; sourceTree = "<group>"; };
+		AC7390CE17CB3FFC002E4BE6 /* NSDictionary+GHRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHRoute.h"; sourceTree = "<group>"; };
+		AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHRoute.m"; sourceTree = "<group>"; };
+		AC7390D117CB4056002E4BE6 /* NSDictionary+RouteIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RouteIcon.h"; sourceTree = "<group>"; };
+		AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RouteIcon.m"; sourceTree = "<group>"; };
+		AC7390E317CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHWaypoint.h"; sourceTree = "<group>"; };
+		AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHWaypoint.m"; sourceTree = "<group>"; };
+		AC7390E617CCCB21002E4BE6 /* NSDictionary+GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHImage.h"; sourceTree = "<group>"; };
+		AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHImage.m"; sourceTree = "<group>"; };
+		AC7390E917CCD3E5002E4BE6 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		AC7390EA17CCD3E6002E4BE6 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		AC844BF817629EE30092D79C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		AC844BF917629EE30092D79C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		AC97D5B8176911950069F779 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
@@ -391,8 +384,6 @@
 		ACECFB9E1756A8D70074EBBE /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
 		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
-		ACF79F3317CA8366003165DB /* GHCities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCities.h; sourceTree = "<group>"; };
-		ACF79F3417CA8366003165DB /* GHCities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,30 +465,6 @@
 		AC10170F1752B2DE00761AC2 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				ACF79F3317CA8366003165DB /* GHCities.h */,
-				ACF79F3417CA8366003165DB /* GHCities.m */,
-				AC24190E17C6536E00B3783D /* GHCatalog.h */,
-				AC24190F17C6536E00B3783D /* GHCatalog.m */,
-				AC24190C17C6531000B3783D /* GHProfile.h */,
-				AC24190B17C6531000B3783D /* GHProfile.m */,
-				AC24190117C64A0700B3783D /* GHIcon.h */,
-				AC24190217C64A0700B3783D /* GHIcon.m */,
-				AC24190317C64A0700B3783D /* GHImage.h */,
-				AC24190417C64A0700B3783D /* GHImage.m */,
-				AC24190517C64A0700B3783D /* GHRoute.h */,
-				AC24190617C64A0700B3783D /* GHRoute.m */,
-				AC303F8717C500A100875910 /* GHCity.h */,
-				AC303F8817C500A100875910 /* GHCity.m */,
-				AC41F7DF1761345700ED3F14 /* GHGameData.h */,
-				AC41F7E01761345700ED3F14 /* GHGameData.m */,
-				AC41F7E11761345700ED3F14 /* GHProfiles.h */,
-				AC41F7E21761345700ED3F14 /* GHProfiles.m */,
-				AC41F7E31761345700ED3F14 /* GHReward.h */,
-				AC41F7E41761345700ED3F14 /* GHReward.m */,
-				AC41F7E51761345700ED3F14 /* GHRoutes.h */,
-				AC41F7E61761345700ED3F14 /* GHRoutes.m */,
-				AC41F7E71761345700ED3F14 /* GHWaypoints.h */,
-				AC41F7E81761345700ED3F14 /* GHWaypoints.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -584,6 +551,22 @@
 				AC1016F91752B2CF00761AC2 /* DataModels.h */,
 				1C1684FE174E54A600A77192 /* Checkin.h */,
 				1C1684FF174E54A600A77192 /* Checkin.m */,
+				AC7390BC17CB3CA6002E4BE6 /* NSDictionary+GHCity.h */,
+				AC7390BD17CB3CA6002E4BE6 /* NSDictionary+GHCity.m */,
+				AC7390C517CB3DB7002E4BE6 /* NSDictionary+GHCities.h */,
+				AC7390C617CB3DB7002E4BE6 /* NSDictionary+GHCities.m */,
+				AC7390C817CB3E4E002E4BE6 /* NSArray+GHCatalog.h */,
+				AC7390C917CB3E4E002E4BE6 /* NSArray+GHCatalog.m */,
+				AC7390CB17CB3F58002E4BE6 /* NSDictionary+GHProfile.h */,
+				AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */,
+				AC7390CE17CB3FFC002E4BE6 /* NSDictionary+GHRoute.h */,
+				AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */,
+				AC7390D117CB4056002E4BE6 /* NSDictionary+RouteIcon.h */,
+				AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */,
+				AC7390E317CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.h */,
+				AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */,
+				AC7390E617CCCB21002E4BE6 /* NSDictionary+GHImage.h */,
+				AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -807,6 +790,8 @@
 				AC2418F417C6219B00B3783D /* CatalogViewController.h */,
 				AC2418F517C6219B00B3783D /* CatalogViewController.m */,
 				AC2418F617C6219B00B3783D /* CatalogViewController.xib */,
+				AC7390E917CCD3E5002E4BE6 /* Utilities.h */,
+				AC7390EA17CCD3E6002E4BE6 /* Utilities.m */,
 				ACDD9B721743B20200D64682 /* Supporting Files */,
 			);
 			path = ScavengerApp;
@@ -1068,28 +1053,25 @@
 				A71CF120175E35F700FA2168 /* MapViewController.m in Sources */,
 				ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */,
 				ACC893C017609588002AC636 /* HelpView.m in Sources */,
-				AC41F7E91761345700ED3F14 /* GHGameData.m in Sources */,
-				AC41F7EA1761345700ED3F14 /* GHProfiles.m in Sources */,
-				AC41F7EB1761345700ED3F14 /* GHReward.m in Sources */,
-				AC41F7EC1761345700ED3F14 /* GHRoutes.m in Sources */,
-				AC41F7ED1761345700ED3F14 /* GHWaypoints.m in Sources */,
 				AC41F806176225DA00ED3F14 /* CustomBarButtonViewRight.m in Sources */,
 				AC41F8111762464800ED3F14 /* CompassTopView.m in Sources */,
 				AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */,
 				AC30AEF31768BE01008449BD /* SIAlertView.m in Sources */,
 				AC303F7E17C4E9A800875910 /* CitySelectionViewController.m in Sources */,
 				AC303F8617C4F54400875910 /* SVProgressHUD.m in Sources */,
-				AC303F8917C500A100875910 /* GHCity.m in Sources */,
 				AC303F9617C5070B00875910 /* CannotPlayViewController.m in Sources */,
 				AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */,
 				AC2418FE17C6244600B3783D /* CatalogViewCollectionHeader.m in Sources */,
-				AC24190817C64A0700B3783D /* GHIcon.m in Sources */,
-				AC24190917C64A0700B3783D /* GHImage.m in Sources */,
-				AC24190A17C64A0700B3783D /* GHRoute.m in Sources */,
-				AC24190D17C6531000B3783D /* GHProfile.m in Sources */,
-				AC24191017C6536F00B3783D /* GHCatalog.m in Sources */,
 				ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */,
-				ACF79F3517CA8366003165DB /* GHCities.m in Sources */,
+				AC7390BE17CB3CA6002E4BE6 /* NSDictionary+GHCity.m in Sources */,
+				AC7390C717CB3DB7002E4BE6 /* NSDictionary+GHCities.m in Sources */,
+				AC7390CA17CB3E4E002E4BE6 /* NSArray+GHCatalog.m in Sources */,
+				AC7390CD17CB3F59002E4BE6 /* NSDictionary+GHProfile.m in Sources */,
+				AC7390D017CB3FFC002E4BE6 /* NSDictionary+GHRoute.m in Sources */,
+				AC7390D317CB4057002E4BE6 /* NSDictionary+RouteIcon.m in Sources */,
+				AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */,
+				AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */,
+				AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

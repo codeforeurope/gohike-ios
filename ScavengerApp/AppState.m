@@ -31,12 +31,13 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
 - (NSString*)language
 {
     NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    if([locale isEqualToString:@"nl"]){
-        return @"nl";
-    }
-    else{
-        return @"en";
-    }
+    return locale;
+//    if([locale isEqualToString:@"nl"]){
+//        return @"nl";
+//    }
+//    else{
+//        return @"en";
+//    }
 }
 
 - (void)checkIn
@@ -72,15 +73,15 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     return NO;
 }
  
-- (NSDictionary*)activeWaypoint
+- (GHWaypoint*)activeWaypoint
 {
-    NSArray *waypoints = [self.currentRoute objectForKey:@"waypoints"];
+    NSArray *waypoints = [self.currentRoute GHwaypoints];
     if ([waypoints count] < 1) {
         return nil;
     }
     
     NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"location_id"] integerValue] == _activeTargetId;
+        return [obj GHlocation_id] == _activeTargetId;
     }];
     if (index == NSNotFound) {
         return nil;
@@ -90,7 +91,7 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     }
 }
 
-- (NSDictionary*)nextCheckinForRoute:(int)routeId
+- (GHWaypoint*)nextCheckinForRoute:(int)routeId
 {
     NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
     
@@ -120,7 +121,7 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
 // Returns an array of waypoints for the route, adding a "visited" BOOL value for convenience
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId
 {
-    NSArray *waypoints = [[self currentRoute] objectForKey:@"waypoints"];
+    NSArray *waypoints = [[self currentRoute] GHwaypoints];
     NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
 
     NSMutableArray *waypointsWithVisit = [[NSMutableArray alloc] init];
@@ -284,34 +285,6 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     }
 }
 
-#pragma mark - Utilities
 
-- (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary
-{
-    if ([[dictionary objectForKey:key] isKindOfClass:[NSDictionary class]]){
-        //it's a dictionary, so may contain more locales
-        return [self getStringForCurrentLocaleFromDictionary:[dictionary objectForKey:key]];
-    }
-    else{
-        //it's just a string, return the object
-        return [dictionary objectForKey:key];
-    }
-}
-
-- (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary
-{
-    NSString *labelText = nil;
-    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    if([dictionary objectForKey:locale]){
-        labelText = [dictionary objectForKey:locale];
-    }
-    else if([dictionary objectForKey:@"en"]){
-        labelText = [dictionary objectForKey:@"en"];
-    }
-    else{
-        labelText = [dictionary objectForKey:[[dictionary allKeys] objectAtIndex:0]];
-    }
-    return labelText;
-}
 
 @end

@@ -25,7 +25,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        //[self setBackgroundColor:[UIColor redColor]];
         
         //add background
         UIImage *backgroundImage = [UIImage imageNamed:@"navigation-bottom-background"];

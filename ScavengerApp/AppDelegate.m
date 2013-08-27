@@ -76,34 +76,34 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];    
     
-    // Load Game Data
-    __autoreleasing NSError* error = nil;
-    GHGameData *gameData;
-
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
-    NSData* data = [NSData dataWithContentsOfFile:bundlePath];
-
-    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-    NSMutableData *downloadedData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
-    if(downloadedData)
-    {
-        GHGameData *downloadedGameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:downloadedData options:0 error:&error]];
-        if(!error){
-        [[AppState sharedInstance] setGame:[downloadedGameData dictionaryRepresentation]];
-        }
-        else{
-            //delete content.json in document folder, as it may be corrupt
-            [[NSFileManager defaultManager] removeItemAtPath: filePath error: &error];
-            //then load the data from the content.json bundled
-            gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
-            [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
-        }
-    }
-    else{
-        gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
-        [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
-    }
+//    // Load Game Data
+//    __autoreleasing NSError* error = nil;
+//    GHGameData *gameData;
+//
+//    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
+//    NSData* data = [NSData dataWithContentsOfFile:bundlePath];
+//
+//    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+//    NSMutableData *downloadedData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+//    if(downloadedData)
+//    {
+//        GHGameData *downloadedGameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:downloadedData options:0 error:&error]];
+//        if(!error){
+//        [[AppState sharedInstance] setGame:[downloadedGameData dictionaryRepresentation]];
+//        }
+//        else{
+//            //delete content.json in document folder, as it may be corrupt
+//            [[NSFileManager defaultManager] removeItemAtPath: filePath error: &error];
+//            //then load the data from the content.json bundled
+//            gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+//            [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
+//        }
+//    }
+//    else{
+//        gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
+//        [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
+//    }
     
     //Start updating location
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationFailure:) name:kLocationServicesFailure object:nil];
@@ -152,7 +152,7 @@
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // Update
-    [self updateContent];
+//    [self updateContent];
     
     
     //Start app
@@ -216,62 +216,62 @@
 
 #pragma mark - Network actions
 
--(void)updateContent
-{
-    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
-    
-    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
-        //We try to download new content only if we are on wifi
-        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
-        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            __autoreleasing NSError* pingError = nil;
-            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
-#if DEBUG
-            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
-#endif
-            if([[r objectForKey:@"status"] isEqualToString:@"update"])
-            {
-                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
-                
-                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
-                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-                    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-                    __autoreleasing NSError* contentError = nil;
-                    
-                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
-                                                                       options:kNilOptions
-                                                                         error:&contentError];
-                    if([jsonData writeToURL:filePathUrl atomically:YES])
-                    {
-                        NSLog(@"Updated ok");
-                        //set to exclude file from iCloud backup
-                        [self addSkipBackupAttributeToItemAtURL:filePathUrl];
-   
-                        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&contentError]];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kAppHasFinishedContentUpdate object:nil];
-                        
-                    }
-                    
-                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                    NSLog(@"Download of new content failed with error: %@", [error description]);
-                }];
-                [contentOperation start];
-            }
-            else
-            {
-                NSLog(@"Already on latest content version");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Update request failed with error: %@", [error description]);
-        }];
-        
-    }
-}
+//-(void)updateContent
+//{
+//    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+//    
+//    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
+//    
+//    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
+//        //We try to download new content only if we are on wifi
+//        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
+//        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            __autoreleasing NSError* pingError = nil;
+//            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
+//#if DEBUG
+//            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
+//#endif
+//            if([[r objectForKey:@"status"] isEqualToString:@"update"])
+//            {
+//                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
+//                
+//                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
+//                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+//                    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+//                    __autoreleasing NSError* contentError = nil;
+//                    
+//                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
+//                                                                       options:kNilOptions
+//                                                                         error:&contentError];
+//                    if([jsonData writeToURL:filePathUrl atomically:YES])
+//                    {
+//                        NSLog(@"Updated ok");
+//                        //set to exclude file from iCloud backup
+//                        [self addSkipBackupAttributeToItemAtURL:filePathUrl];
+//   
+//                        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&contentError]];
+//                        [[NSNotificationCenter defaultCenter] postNotificationName:kAppHasFinishedContentUpdate object:nil];
+//                        
+//                    }
+//                    
+//                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                    NSLog(@"Download of new content failed with error: %@", [error description]);
+//                }];
+//                [contentOperation start];
+//            }
+//            else
+//            {
+//                NSLog(@"Already on latest content version");
+//            }
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"Update request failed with error: %@", [error description]);
+//        }];
+//        
+//    }
+//}
 
 -(void)pushCheckins
 {
@@ -282,7 +282,7 @@
     // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
     NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
     if (deviceID == nil) { // if this is the first time app lunching , create key for device
-        NSString *uuid  = [self createNewUUID];
+        NSString *uuid  = [Utilities createNewUUID];
         // save newly created key to Keychain
         [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
         // this is the one time process
@@ -338,15 +338,6 @@
         
     }
 }
-
-- (NSString *)createNewUUID {
-    
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    return (__bridge NSString *)string;
-}
-
 
 - (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {

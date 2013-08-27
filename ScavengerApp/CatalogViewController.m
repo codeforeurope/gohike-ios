@@ -47,7 +47,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
 
-    _catalog = (GHCatalog*)[[AppState sharedInstance] currentCatalog];
+//    _catalog = (GHCatalog*)[[AppState sharedInstance] currentCatalog];
     
 }
 
@@ -61,19 +61,21 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [_catalog count];
+    return [[[AppState sharedInstance] currentCatalog] count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:section]];
-    return [[profile routes] count];
+//    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:section]];
+    GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:section];
+    return [[profile GHroutes] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    GHRoute *route = [[[GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]] routes] objectAtIndex:indexPath.row];
+//    GHRoute *route = [[[GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]] routes] objectAtIndex:indexPath.row];
+    GHRoute *route = [[[[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section ] GHroutes] objectAtIndex:indexPath.row];
     
     SelectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER forIndexPath:indexPath];
     if (cell == nil) {
@@ -85,8 +87,8 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground1"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
 
-    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route icon] url]]];
-    cell.profileLabel.text = route.name;
+    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] url]]];
+    cell.profileLabel.text = [route GHname];
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
@@ -112,8 +114,9 @@
             headerView = [nib objectAtIndex:0];
 
         }
-        GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
-        headerView.headerLabel.text = profile.name;
+//        GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
+        GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
+        headerView.headerLabel.text = [profile GHname];
         [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.url]];
         
         reusableview = headerView;
@@ -124,8 +127,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
-    NSDictionary *selectedRoute = [[[profile routes] objectAtIndex:indexPath.row] dictionaryRepresentation];
+//    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
+    GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
+    NSDictionary *selectedRoute = [[profile GHroutes] objectAtIndex:indexPath.row];
     [AppState sharedInstance].currentRoute = selectedRoute;
 
     //load the route from disk, if available

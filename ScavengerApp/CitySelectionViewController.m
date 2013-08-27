@@ -111,10 +111,10 @@
     // Return the number of rows in the section.
     switch (section) {
         case 0:
-            return [[_cities within] count]; //[[_cities objectForKey:@"within"] count];
+            return [[_cities GHwithin] count]; //[[_cities objectForKey:@"within"] count];
             break;
         case 1:
-            return  [[_cities other] count]; //[[_cities objectForKey:@"other"] count];
+            return  [[_cities GHother] count]; //[[_cities objectForKey:@"other"] count];
             break;
         default:
             break;
@@ -131,13 +131,13 @@
         case 0:
         {
             //cities within
-            cell.textLabel.text =  [[[_cities within] objectAtIndex:indexPath.row] name]; //[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text =  [[[_cities GHwithin] objectAtIndex:indexPath.row] GHname]; //[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"name"];
         }
             break;
         case 1:
         {
             //cities other
-            cell.textLabel.text = [[[_cities other] objectAtIndex:indexPath.row] name]; //[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text = [[[_cities GHother] objectAtIndex:indexPath.row] GHname]; //[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"name"];
         }
             break;
         default:
@@ -210,14 +210,14 @@
         case 0:
         {
             //within
-            int city = [[[_cities within] objectAtIndex:indexPath.row] cityIdentifier]; //[[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            int city = [[[[_cities GHwithin] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue]; //[[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
             [self getCatalogForCity:city];
         }
             break;
         case 1:
         {
             //others
-            int city = [[[_cities other] objectAtIndex:indexPath.row] cityIdentifier]; //[[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
+            int city = [[[[_cities GHother] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue]; //[[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
             [self getCatalogForCity:city];
         }
             break;

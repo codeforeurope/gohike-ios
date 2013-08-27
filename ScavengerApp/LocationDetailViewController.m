@@ -85,8 +85,8 @@
 
 - (void)replayLocation
 {
-    NSArray *waypoints = [[[AppState sharedInstance] currentRoute] objectForKey:@"waypoints"];
-    NSDictionary *thisWayPoint;
+    NSArray *waypoints = [[[AppState sharedInstance] currentRoute] GHwaypoints];
+    GHWaypoint *thisWayPoint;
     
     NSUInteger index = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [[obj objectForKey:@"location_id"] integerValue] == [[_location objectForKey:@"location_id"] intValue];
