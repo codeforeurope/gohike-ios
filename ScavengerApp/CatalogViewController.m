@@ -85,7 +85,7 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
 
 //    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
-    cell.profileImage.image = [UIImage imageWithData:[route GHiconData]];
+    cell.profileImage.image = [UIImage imageWithData:[FileUtilities iconDataForRoute:route]];
     cell.profileLabel.text = [route GHname];
     cell.backgroundColor = [UIColor clearColor];
     
@@ -116,7 +116,7 @@
         GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
         headerView.headerLabel.text = [profile GHname];
 //        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
-        headerView.headerImage.image = [UIImage imageWithData:[profile GHimageData]];
+        headerView.headerImage.image = [UIImage imageWithData:[FileUtilities imageDataForProfile:profile]];
         
         reusableview = headerView;
     }
@@ -131,7 +131,7 @@
     [AppState sharedInstance].currentRoute = selectedRoute;
 
     
-    GHRoute *existingRoute = [GHRoute loadFromFileWithId:[selectedRoute GHid]];
+    GHRoute *existingRoute = [FileUtilities loadRouteFromFileWithId:[selectedRoute GHid]];
     if(existingRoute)
     {
         [AppState sharedInstance].currentRoute = existingRoute;

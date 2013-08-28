@@ -41,6 +41,8 @@
 		AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */; };
 		AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4951754D51D00B766E0 /* TableBackground.xib */; };
 		AC0AF4B0175633B700B766E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4AF175633B600B766E0 /* Security.framework */; };
+		AC0E5C5417CEB17D000D3894 /* NSDictionary+GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E5C5317CEB17D000D3894 /* NSDictionary+GHImage.m */; };
+		AC0E5C5717CEB1C0000D3894 /* FileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E5C5617CEB1C0000D3894 /* FileUtilities.m */; };
 		AC101686174D6F0F00761AC2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */; };
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
@@ -159,7 +161,6 @@
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
 		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
-		ACF7A0F817CE946F00A6858B /* GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7A0F717CE946E00A6858B /* GHImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -218,6 +219,10 @@
 		AC0AF48D1754BC1800B766E0 /* RouteDetailTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteDetailTitleCell.xib; sourceTree = "<group>"; };
 		AC0AF4951754D51D00B766E0 /* TableBackground.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableBackground.xib; sourceTree = "<group>"; };
 		AC0AF4AF175633B600B766E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AC0E5C5217CEB17D000D3894 /* NSDictionary+GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHImage.h"; sourceTree = "<group>"; };
+		AC0E5C5317CEB17D000D3894 /* NSDictionary+GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHImage.m"; sourceTree = "<group>"; };
+		AC0E5C5517CEB1C0000D3894 /* FileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtilities.h; sourceTree = "<group>"; };
+		AC0E5C5617CEB1C0000D3894 /* FileUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtilities.m; sourceTree = "<group>"; };
 		AC10167C174D6F0F00761AC2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		AC10167D174D6F0F00761AC2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
 		AC10167E174D6F0F00761AC2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
@@ -375,8 +380,6 @@
 		ACECFB9E1756A8D70074EBBE /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
 		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
-		ACF7A0F617CE946D00A6858B /* GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHImage.h; sourceTree = "<group>"; };
-		ACF7A0F717CE946E00A6858B /* GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +526,8 @@
 		AC4542A2174BAD81005F5DDE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC0E5C5217CEB17D000D3894 /* NSDictionary+GHImage.h */,
+				AC0E5C5317CEB17D000D3894 /* NSDictionary+GHImage.m */,
 				AC1016F91752B2CF00761AC2 /* DataModels.h */,
 				1C1684FE174E54A600A77192 /* Checkin.h */,
 				1C1684FF174E54A600A77192 /* Checkin.m */,
@@ -540,8 +545,6 @@
 				AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */,
 				AC7390F617CE2EEC002E4BE6 /* NSDictionary+GHReward.h */,
 				AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */,
-				ACF7A0F617CE946D00A6858B /* GHImage.h */,
-				ACF7A0F717CE946E00A6858B /* GHImage.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -730,6 +733,8 @@
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
+				AC0E5C5517CEB1C0000D3894 /* FileUtilities.h */,
+				AC0E5C5617CEB1C0000D3894 /* FileUtilities.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */,
 				A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */,
 				AC41F804176225D700ED3F14 /* CustomBarButtonViewRight.h */,
@@ -1040,7 +1045,8 @@
 				AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */,
 				AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */,
 				AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */,
-				ACF7A0F817CE946F00A6858B /* GHImage.m in Sources */,
+				AC0E5C5417CEB17D000D3894 /* NSDictionary+GHImage.m in Sources */,
+				AC0E5C5717CEB1C0000D3894 /* FileUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

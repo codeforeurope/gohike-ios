@@ -145,7 +145,7 @@
     
     [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
-    [checkinView setDestinationImage:[[[AppState sharedInstance] activeWaypoint] GHimageData]];
+    [checkinView setDestinationImage:[FileUtilities imageDataForWaypoint:[[AppState sharedInstance] activeWaypoint]]];
     checkinView.closeTarget = self;
     checkinView.closeAction = @selector(onCancelCheckIn);
     
@@ -441,7 +441,7 @@
         float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
 #if DEBUG
-        NSLog(@"Destination: %@ lat: %f long %f", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name_en"], latitude, longitude);
+        NSLog(@"Destination: %@ lat: %f long %f", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name"], latitude, longitude);
 #endif
         [destinationRadarView setNeedsDisplay];
     }

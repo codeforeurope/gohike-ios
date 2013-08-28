@@ -55,19 +55,5 @@
     return [[self objectForKey:@"rank"] integerValue];
 }
 
-- (NSData*)GHimageData
-{
-    NSString* libraryPath = [Utilities getLibraryPath];
-    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"waypoints/%d", [self GHroute_id]]];
-    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self GHimage] GHmd5]]];
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    return data;
-}
-
-- (BOOL)saveToFile
-{
-    //TODO
-    return YES;
-}
 
 @end

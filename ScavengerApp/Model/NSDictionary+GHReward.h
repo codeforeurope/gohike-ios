@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GHImage.h"
+#import "NSDictionary+GHImage.h"
 
 @interface NSDictionary (GHReward)
 
 - (int)GHid;
-- (NSData*)GHimageData;
 - (GHImage*)GHImage;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
+
 
 @end
 

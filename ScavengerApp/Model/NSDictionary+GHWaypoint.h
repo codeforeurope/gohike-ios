@@ -11,7 +11,6 @@
 @interface NSDictionary (GHWaypoint)
 
 - (int)GHid;
-- (NSData*)GHimageData;
 - (GHImage*)image;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
@@ -20,8 +19,6 @@
 - (double)GHlongitude;
 - (int)GHroute_id;
 - (int)GHrank;
-
-- (BOOL)saveToFile;
 
 @end
 

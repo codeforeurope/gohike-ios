@@ -46,7 +46,7 @@
     
     _rewardTitle.text = [_reward GHname];
     _rewardDescription.text = [_reward GHdescription];
-    _rewardImage.image = [UIImage imageWithData:[_reward GHimageData]];
+    _rewardImage.image = [UIImage imageWithData:[FileUtilities imageDataForReward:_reward]];
     
 }
 

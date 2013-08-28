@@ -176,7 +176,7 @@
             
 //            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
 //            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeImage.image = [UIImage imageWithData:[_route GHimageData]];
+            cell.routeImage.image = [UIImage imageWithData:[FileUtilities imageDataForRoute:_route]];
             cell.routeTitleLabel.text = [_route GHname];
             cell.routeHighlightsLabel.text = [_route GHdescription];
             

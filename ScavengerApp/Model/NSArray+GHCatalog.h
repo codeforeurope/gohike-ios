@@ -12,9 +12,6 @@
 
 - (NSArray*)GHprofiles;
 
-- (void)saveToFileWithId:(int)cityID;
-+ (NSArray*)loadFromFileWithId:(int)cityID;
-
 @end
 
 typedef NSArray GHCatalog;

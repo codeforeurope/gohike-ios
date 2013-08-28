@@ -12,6 +12,6 @@
 #import "NSDictionary+GHCities.h"
 #import "NSDictionary+GHProfile.h"
 #import "NSDictionary+GHRoute.h"
-#import "GHImage.h"
+#import "NSDictionary+GHImage.h"
 #import "NSDictionary+GHWaypoint.h"
 

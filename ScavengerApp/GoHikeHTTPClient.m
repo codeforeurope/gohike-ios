@@ -110,7 +110,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
         if([NSJSONSerialization isValidJSONObject:JSON]){ 
             
             GHCatalog *catalog = (GHCatalog*)JSON;
-            [catalog saveToFileWithId:cityID];
+            [FileUtilities saveCatalog:catalog WithId:cityID];
             [[AppState sharedInstance] setCurrentCatalog:catalog];
             [[AppState sharedInstance] save];
 
@@ -159,7 +159,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             
 //            [self saveRoute:route];
             
-            [route saveToFile];
+            [FileUtilities saveRoute:route];
                     
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil];
             

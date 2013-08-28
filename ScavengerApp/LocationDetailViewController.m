@@ -51,8 +51,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
     
     //route info
-    if([_location GHimageData])
-        _locationImageView.image = [UIImage imageWithData:[_location GHimageData]];
+    NSData* imageData = [FileUtilities imageDataForWaypoint:_location];
+    if(imageData != nil)
+        _locationImageView.image = [UIImage imageWithData:imageData];
     else{
         _locationImageView.image = [UIImage imageNamed:@"no-picture"];
     }

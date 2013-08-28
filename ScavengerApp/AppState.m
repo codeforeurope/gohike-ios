@@ -194,8 +194,8 @@ NSString* const kFilePathProfiles = @"profiles";
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
         _cities = [decoder decodeObjectForKey:@"cities"];
         _currentCity = [decoder decodeObjectForKey:@"currentCity"];
-        _currentCatalog = [GHCatalog loadFromFileWithId:_currentCity.GHid]; //[decoder decodeObjectForKey:@"currentCatalog"];
-        _currentRoute = [NSArray loadFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
+        _currentCatalog = [FileUtilities loadCatalogFromFileWithId:_currentCity.GHid]; //[GHCatalog loadFromFileWithId:_currentCity.GHid]; //[decoder decodeObjectForKey:@"currentCatalog"];
+        _currentRoute = [FileUtilities loadRouteFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
 
         [decoder finishDecoding];
     }
