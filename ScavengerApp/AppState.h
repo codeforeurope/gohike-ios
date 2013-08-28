@@ -22,7 +22,7 @@ extern NSString* const kLocationServicesUpdateHeading;
 @property (nonatomic, assign) int activeRouteId; //ID of the active route
 @property (nonatomic, assign) int activeTargetId;   //ID of the active Target where we are navigating to
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
-@property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
+//@property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCatalog *currentCatalog; //Catalog of the game (with profiles, routes)
 @property (nonatomic, strong) GHRoute *currentRoute;
 @property (nonatomic, strong) GHCities *cities;

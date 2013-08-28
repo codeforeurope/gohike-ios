@@ -150,8 +150,6 @@
 		ACDD9B7E1743B20200D64682 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7D1743B20200D64682 /* Default.png */; };
 		ACDD9B801743B20200D64682 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B7F1743B20200D64682 /* Default@2x.png */; };
 		ACDD9B821743B20200D64682 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9B811743B20200D64682 /* Default-568h@2x.png */; };
-		ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */; };
-		ACDD9BD11743CA8F00D64682 /* SelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */; };
 		ACDD9BD51743CDCE00D64682 /* RouteStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */; };
 		ACDD9BDB1743D1D700D64682 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACDD9BDD1743D1D700D64682 /* Localizable.strings */; };
 		ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD9BE51743E93C00D64682 /* OverlayView.m */; };
@@ -362,9 +360,6 @@
 		ACDD9B7D1743B20200D64682 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACDD9B7F1743B20200D64682 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ACDD9B811743B20200D64682 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionViewController.h; path = ScavengerApp/SelectionViewController.h; sourceTree = "<group>"; };
-		ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionViewController.m; path = ScavengerApp/SelectionViewController.m; sourceTree = "<group>"; };
-		ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionViewController.xib; path = ScavengerApp/SelectionViewController.xib; sourceTree = "<group>"; };
 		ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStartViewController.h; sourceTree = "<group>"; };
 		ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStartViewController.m; sourceTree = "<group>"; };
 		ACDD9BD81743D0E600D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -458,24 +453,6 @@
 				AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */,
 			);
 			path = CoreLocationUtils;
-			sourceTree = "<group>";
-		};
-		AC10170F1752B2DE00761AC2 /* API */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		AC2418F917C621A500B3783D /* old_app */ = {
-			isa = PBXGroup;
-			children = (
-				ACDD9BCD1743CA8F00D64682 /* SelectionViewController.h */,
-				ACDD9BCE1743CA8F00D64682 /* SelectionViewController.m */,
-				ACDD9BCF1743CA8F00D64682 /* SelectionViewController.xib */,
-			);
-			name = old_app;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		AC303F8017C4F53100875910 /* ThirdParties */ = {
@@ -750,9 +727,7 @@
 				ACC893BB1760931F002AC636 /* HelpViews */,
 				ACA60BC017539E1D00EA4D53 /* Cells */,
 				ACA60BB51753574800EA4D53 /* Extensions */,
-				AC10170F1752B2DE00761AC2 /* API */,
 				AC4542A2174BAD81005F5DDE /* Model */,
-				AC2418F917C621A500B3783D /* old_app */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */,
@@ -892,7 +867,6 @@
 				ACDD9B7E1743B20200D64682 /* Default.png in Resources */,
 				ACDD9B801743B20200D64682 /* Default@2x.png in Resources */,
 				ACDD9B821743B20200D64682 /* Default-568h@2x.png in Resources */,
-				ACDD9BD11743CA8F00D64682 /* SelectionViewController.xib in Resources */,
 				ACDD9BDB1743D1D700D64682 /* Localizable.strings in Resources */,
 				ACDD9BE81743E93C00D64682 /* OverlayView.xib in Resources */,
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
@@ -1018,7 +992,6 @@
 				ACDD9B781743B20200D64682 /* main.m in Sources */,
 				ACDD9B7C1743B20200D64682 /* AppDelegate.m in Sources */,
 				ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */,
-				ACDD9BD01743CA8F00D64682 /* SelectionViewController.m in Sources */,
 				ACDD9BD51743CDCE00D64682 /* RouteStartViewController.m in Sources */,
 				ACDD9BE71743E93C00D64682 /* OverlayView.m in Sources */,
 				AC5133FF17452D7400472022 /* SelectionCell.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "SelectionViewController.h"
 #import "RouteStartViewController.h"
 #import "CompassViewController.h"
 #import "AFNetworking.h"
@@ -136,8 +135,8 @@
         // We were not in compass view, so first we have to check if the user has a selected city
         if([[AppState sharedInstance] currentCity] != nil){
             //if the city is not nil, means the player is already in game
-            SelectionViewController *selectCharacterVC = [[SelectionViewController alloc] initWithNibName:@"SelectionViewController" bundle:nil];
-            self.navigationController = [[UINavigationController alloc] initWithRootViewController:selectCharacterVC];
+            CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
+            self.navigationController = [[UINavigationController alloc] initWithRootViewController:catalogVC];
 
         }
         else{
