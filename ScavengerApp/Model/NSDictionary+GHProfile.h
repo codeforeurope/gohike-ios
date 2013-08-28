@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSDictionary+GHImage.h"
+#import "GHImage.h"
 
 @interface NSDictionary (GHProfile)
 

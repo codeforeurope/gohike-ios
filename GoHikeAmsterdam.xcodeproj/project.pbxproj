@@ -75,9 +75,7 @@
 		AC7390CA17CB3E4E002E4BE6 /* NSArray+GHCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390C917CB3E4E002E4BE6 /* NSArray+GHCatalog.m */; };
 		AC7390CD17CB3F59002E4BE6 /* NSDictionary+GHProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */; };
 		AC7390D017CB3FFC002E4BE6 /* NSDictionary+GHRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */; };
-		AC7390D317CB4057002E4BE6 /* NSDictionary+RouteIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */; };
 		AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */; };
-		AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */; };
 		AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390EA17CCD3E6002E4BE6 /* Utilities.m */; };
 		AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */; };
 		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
@@ -161,6 +159,7 @@
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
 		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
+		ACF7A0F817CE946F00A6858B /* GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7A0F717CE946E00A6858B /* GHImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,12 +272,8 @@
 		AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHProfile.m"; sourceTree = "<group>"; };
 		AC7390CE17CB3FFC002E4BE6 /* NSDictionary+GHRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHRoute.h"; sourceTree = "<group>"; };
 		AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHRoute.m"; sourceTree = "<group>"; };
-		AC7390D117CB4056002E4BE6 /* NSDictionary+RouteIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RouteIcon.h"; sourceTree = "<group>"; };
-		AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RouteIcon.m"; sourceTree = "<group>"; };
 		AC7390E317CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHWaypoint.h"; sourceTree = "<group>"; };
 		AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHWaypoint.m"; sourceTree = "<group>"; };
-		AC7390E617CCCB21002E4BE6 /* NSDictionary+GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHImage.h"; sourceTree = "<group>"; };
-		AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHImage.m"; sourceTree = "<group>"; };
 		AC7390E917CCD3E5002E4BE6 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		AC7390EA17CCD3E6002E4BE6 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		AC7390F617CE2EEC002E4BE6 /* NSDictionary+GHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHReward.h"; sourceTree = "<group>"; };
@@ -380,6 +375,8 @@
 		ACECFB9E1756A8D70074EBBE /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
 		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
+		ACF7A0F617CE946D00A6858B /* GHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHImage.h; sourceTree = "<group>"; };
+		ACF7A0F717CE946E00A6858B /* GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -539,14 +536,12 @@
 				AC7390CC17CB3F58002E4BE6 /* NSDictionary+GHProfile.m */,
 				AC7390CE17CB3FFC002E4BE6 /* NSDictionary+GHRoute.h */,
 				AC7390CF17CB3FFC002E4BE6 /* NSDictionary+GHRoute.m */,
-				AC7390D117CB4056002E4BE6 /* NSDictionary+RouteIcon.h */,
-				AC7390D217CB4056002E4BE6 /* NSDictionary+RouteIcon.m */,
 				AC7390E317CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.h */,
 				AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */,
-				AC7390E617CCCB21002E4BE6 /* NSDictionary+GHImage.h */,
-				AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */,
 				AC7390F617CE2EEC002E4BE6 /* NSDictionary+GHReward.h */,
 				AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */,
+				ACF7A0F617CE946D00A6858B /* GHImage.h */,
+				ACF7A0F717CE946E00A6858B /* GHImage.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1042,11 +1037,10 @@
 				AC7390CA17CB3E4E002E4BE6 /* NSArray+GHCatalog.m in Sources */,
 				AC7390CD17CB3F59002E4BE6 /* NSDictionary+GHProfile.m in Sources */,
 				AC7390D017CB3FFC002E4BE6 /* NSDictionary+GHRoute.m in Sources */,
-				AC7390D317CB4057002E4BE6 /* NSDictionary+RouteIcon.m in Sources */,
 				AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */,
-				AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */,
 				AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */,
 				AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */,
+				ACF7A0F817CE946F00A6858B /* GHImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,16 +1096,22 @@
 		AC41F7FB1761EA7E00ED3F14 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giovanni Maggini";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giovanni Maggini";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";
 				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
+				);
+				OTHER_LDFLAGS = (
+					"-objC",
+					"-all_load",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
 				PROVISIONING_PROFILE = "DA7C2EB8-8AFC-4EF5-8840-7CD30ECDBC43";
@@ -1179,15 +1179,21 @@
 		ACDD9B8C1743B20200D64682 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";
 				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
+				);
+				OTHER_LDFLAGS = (
+					"-objC",
+					"-all_load",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
 				PROVISIONING_PROFILE = "";
@@ -1199,16 +1205,22 @@
 		ACDD9B8D1743B20200D64682 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";
 				INFOPLIST_FILE = "ScavengerApp/GoHikeAmsterdam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK1.2.6\"",
+				);
+				OTHER_LDFLAGS = (
+					"-objC",
+					"-all_load",
 				);
 				PRODUCT_NAME = GoHikeAmsterdam;
 				PROVISIONING_PROFILE = "";

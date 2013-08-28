@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSDictionary+RouteIcon.h"
-#import "NSDictionary+GHImage.h"
+#import "GHImage.h"
 
 @interface NSDictionary (GHRoute)
 
