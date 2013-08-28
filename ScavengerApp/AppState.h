@@ -15,6 +15,10 @@ extern NSString* const kLocationServicesGotBestAccuracyLocation;
 extern NSString* const kLocationServicesUpdateHeading;
 
 
+extern NSString* const kFilePathCatalogs;
+extern NSString* const kFilePathRoutes;
+extern NSString* const kFilePathProfiles;
+
 @interface AppState : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *checkins; //Array of check-ins along current route

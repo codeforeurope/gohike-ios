@@ -30,7 +30,9 @@
 
 @property (nonatomic, assign) BOOL routeComplete;
 
-@property (nonatomic, strong) UIImage *routeProfileImage;
+@property (nonatomic, strong) GHRoute *route;
+
+//@property (nonatomic, strong) UIImage *routeProfileImage;
 
 @end
 
@@ -54,13 +56,16 @@
 
     [self updateNavigationButtons];
     
+
+    //Set SIAlertView appearance
     UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
     [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:14]];
     [[SIAlertView appearance] setTitleColor:blueColor];
     [[SIAlertView appearance] setMessageColor:blueColor];
     [[SIAlertView appearance] setCornerRadius:12];
     [[SIAlertView appearance] setShadowRadius:20];
-    
+
+    _route = [[AppState sharedInstance] currentRoute];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -169,8 +174,9 @@
             }
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
-            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
+//            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
+//            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
+            cell.routeImage.image = [UIImage imageWithData:[_route GHimageData]];
             cell.routeTitleLabel.text = [_route GHname];
             cell.routeHighlightsLabel.text = [_route GHdescription];
             
@@ -286,7 +292,7 @@
 {
     if(indexPath.section == 2)
     {
-        NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+        GHWaypoint *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
         if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
             //Means that the player checked in already
             LocationDetailViewController *lvc = [[LocationDetailViewController alloc] initWithNibName:@"LocationDetailViewController" bundle:nil];
@@ -357,7 +363,7 @@
     if(alertView.tag == download_warning_alertview_tag && buttonIndex == 1){
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route") maskType:SVProgressHUDMaskTypeBlack];
-        [[GoHikeHTTPClient sharedClient] getRoute:[[[[AppState sharedInstance] currentRoute] objectForKey:@"id"] integerValue]];
+        [[GoHikeHTTPClient sharedClient] getRoute:[_route GHid]];
     }
 }
 
@@ -370,7 +376,7 @@
     }
     else{
         [SVProgressHUD showSuccessWithStatus:nil];
-        _route = [[notification userInfo] objectForKey:@"route"];
+        _route = [[AppState sharedInstance] currentRoute];
     }
 
     [self.tableView reloadData];

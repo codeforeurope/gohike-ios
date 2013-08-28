@@ -14,5 +14,6 @@
 {
     BOOL showRewardOnAppear;
 }
-@property (nonatomic, strong) NSDictionary *route;
+//@property (nonatomic, strong) NSDictionary *route;
+
 @end

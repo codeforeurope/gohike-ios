@@ -94,13 +94,13 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 - (void)getCatalogForCity:(int)cityID
 {
     
-    GHCatalog* existingCatalog = [GHCatalog loadFromFileWithId:cityID];
-    if(existingCatalog){
-        [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
-        [[AppState sharedInstance] save];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
-        return;
-    }
+//    GHCatalog* existingCatalog = [GHCatalog loadFromFileWithId:cityID];
+//    if(existingCatalog){
+//        [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
+//        [[AppState sharedInstance] save];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
+//        return;
+//    }
     
     NSString *locale = [Utilities getCurrentLocale];
     NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
@@ -146,7 +146,7 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
         NSLog(@"JSON: %@", JSON);
         if([NSJSONSerialization isValidJSONObject:JSON]){
             
-            NSDictionary *route = (NSDictionary*)JSON;
+            GHRoute *route = (GHRoute*)JSON;
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
@@ -157,13 +157,11 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 //            if(!success)
 //                NSLog(@"Writing to file Failed");
             
-            [self saveRoute:route];
+//            [self saveRoute:route];
             
-            
-            NSDictionary *userInfo =  @{@"route" : route};
-            NSNotification *resultNotification = [NSNotification notificationWithName:kFinishedLoadingRoute object:self userInfo:userInfo];
-            
-            [[NSNotificationCenter defaultCenter] postNotification:resultNotification];
+            [route saveToFile];
+                    
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil];
             
         }
         else{
@@ -264,50 +262,50 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 
 #pragma mark - File management
 
-- (BOOL)saveRoute:(GHRoute*)route
-{
-    
-    __block BOOL success;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-        //Save it to library
-        @try {
-            __autoreleasing NSError *error;
-            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSFileManager *manager = [NSFileManager defaultManager];
-            int routeId = [route GHid];
-            NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"routes/%d", routeId]];
-            success = [manager createDirectoryAtPath:routePath withIntermediateDirectories:YES attributes:Nil error:&error];
-            NSString *filePath = [routePath stringByAppendingPathComponent:@"route.plist"];
-            success = [route writeToFile:filePath atomically:YES];
-            if(!success)
-                NSLog(@"Writing to file Failed");
-            //write the icon file and image
-            NSString *iconPath = [routePath stringByAppendingPathComponent:@"icon.png"];
-            [self downloadFileWithUrl:[[route GHicon] GHurl] savePath:iconPath];
-
-            NSString *imagePath = [routePath stringByAppendingPathComponent:@"image.png"];
-            [self downloadFileWithUrl:[[route GHimage] GHurl] savePath:imagePath];
-            if ([route GHwaypoints]) {
-                //save also waypoints
-            }
-            
-            
-        }
-        @catch (NSException *exception) {
-            success = NO;
-            NSLog(@"Exception in file manager: %@", [exception description]);
-        }
-        @finally {
-            
-        }
-
-    });
-    
-    return success;
-
-}
+//- (BOOL)saveRoute:(GHRoute*)route
+//{
+//    
+//    __block BOOL success;
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//
+//        //Save it to library
+//        @try {
+//            __autoreleasing NSError *error;
+//            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//            NSFileManager *manager = [NSFileManager defaultManager];
+//            int routeId = [route GHid];
+//            NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"routes/%d", routeId]];
+//            success = [manager createDirectoryAtPath:routePath withIntermediateDirectories:YES attributes:Nil error:&error];
+//            NSString *filePath = [routePath stringByAppendingPathComponent:@"route.plist"];
+//            success = [route writeToFile:filePath atomically:YES];
+//            if(!success)
+//                NSLog(@"Writing to file Failed");
+//            //write the icon file and image
+//            NSString *iconPath = [routePath stringByAppendingPathComponent:@"icon.png"];
+//            [self downloadFileWithUrl:[[route GHicon] GHurl] savePath:iconPath];
+//
+//            NSString *imagePath = [routePath stringByAppendingPathComponent:@"image.png"];
+//            [self downloadFileWithUrl:[[route GHimage] GHurl] savePath:imagePath];
+//            if ([route GHwaypoints]) {
+//                //save also waypoints
+//            }
+//            
+//            
+//        }
+//        @catch (NSException *exception) {
+//            success = NO;
+//            NSLog(@"Exception in file manager: %@", [exception description]);
+//        }
+//        @finally {
+//            
+//        }
+//
+//    });
+//    
+//    return success;
+//
+//}
 
 
 @end

@@ -15,6 +15,10 @@ NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
 NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeading";
 
+NSString* const kFilePathCatalogs = @"catalogs";
+NSString* const kFilePathRoutes = @"routes";
+NSString* const kFilePathProfiles = @"profiles";
+
 @implementation AppState
 
 +(AppState *)sharedInstance {
@@ -84,7 +88,7 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
     
     if([waypoints count] <1){
-        return [[NSDictionary alloc] init]; //an empty dictionary
+        return [[GHWaypoint alloc] init]; //an empty dictionary
     }
         
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -163,8 +167,8 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
     [encoder encodeObject:_cities forKey:@"cities"];
     [encoder encodeObject:_currentCity forKey:@"currentCity"];
-    [encoder encodeObject:_currentCatalog forKey:@"currentCatalog"];
-    [encoder encodeObject:_currentRoute forKey:@"currentRoute"];
+//    [encoder encodeObject:_currentCatalog forKey:@"currentCatalog"];
+//    [encoder encodeObject:_currentRoute forKey:@"currentRoute"];
     
     
     [encoder finishEncoding];
@@ -190,8 +194,8 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
         _cities = [decoder decodeObjectForKey:@"cities"];
         _currentCity = [decoder decodeObjectForKey:@"currentCity"];
-        _currentCatalog = [decoder decodeObjectForKey:@"currentCatalog"];
-        _currentRoute = [decoder decodeObjectForKey:@"currentRoute"];
+        _currentCatalog = [GHCatalog loadFromFileWithId:_currentCity.GHid]; //[decoder decodeObjectForKey:@"currentCatalog"];
+        _currentRoute = [GHRoute loadFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
 
         [decoder finishDecoding];
     }

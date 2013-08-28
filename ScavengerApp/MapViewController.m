@@ -43,7 +43,7 @@
     NSMutableArray *locations = [[NSMutableArray alloc] initWithCapacity:0];
     CLLocation *currentDestination = nil;
     
-    for(NSDictionary *waypoint in self.waypoints)
+    for(GHWaypoint *waypoint in self.waypoints)
     {
         //add destinations to array
         double latitude = [waypoint GHlatitude];

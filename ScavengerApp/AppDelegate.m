@@ -19,7 +19,7 @@
 
 #define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
 
-#define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
+//#define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
 
 @implementation AppDelegate
 
@@ -83,7 +83,6 @@
     // Restore game state
     [[AppState sharedInstance] restore];
 #if DEBUG
-//    NSLog(@"Restored the active Profile: %d", [[AppState sharedInstance] activeProfileId]);
     NSLog(@"Stored checkins count: %d", [[[AppState sharedInstance] checkins] count]);
 #endif
     if ([[AppState sharedInstance] playerIsInCompass] == YES) {
@@ -93,7 +92,7 @@
         CitySelectionViewController *cityVC = [[CitySelectionViewController alloc] initWithStyle:UITableViewStyleGrouped];
         CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        rvc.route = [[AppState sharedInstance] currentRoute];
+//        rvc.route = [[AppState sharedInstance] currentRoute];
         CompassViewController *cvc = [[CompassViewController alloc] init];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:cityVC];
         [self.navigationController pushViewController:catalogVC animated:NO];
@@ -105,8 +104,10 @@
         // We were not in compass view, so first we have to check if the user has a selected city
         if([[AppState sharedInstance] currentCity] != nil){
             //if the city is not nil, means the player is already in game
+            CitySelectionViewController *cityVC = [[CitySelectionViewController alloc] initWithStyle:UITableViewStyleGrouped];
             CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
-            self.navigationController = [[UINavigationController alloc] initWithRootViewController:catalogVC];
+            self.navigationController = [[UINavigationController alloc] initWithRootViewController:cityVC];
+            [self.navigationController pushViewController:catalogVC animated:NO];
 
         }
         else{
@@ -241,7 +242,6 @@
 //        
 //    }
 //}
-
 
 - (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {

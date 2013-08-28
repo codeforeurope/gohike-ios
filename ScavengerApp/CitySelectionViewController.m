@@ -63,38 +63,6 @@
     [self getLocation];
 }
 
-- (void)getLocation
-{
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
-    [[AppState sharedInstance] startLocationServices];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
-}
-
-- (void)handleLocationUpdate:(NSNotification*)notification
-{
-    [[AppState sharedInstance] stopLocationServices];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesGotBestAccuracyLocation object:nil];
-    [self loadCities];
-}
-
-- (void)loadCities
-{  
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCitiesCompleted:) name:kFinishedLoadingCities object:nil];
-    //Hide the refresh control
-    [self.refreshControl endRefreshing];
-
-    AFNetworkReachabilityStatus status = [[GoHikeHTTPClient sharedClient] networkReachabilityStatus];
-    if(status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown)
-    {
-        [SVProgressHUD dismiss];
-        NSLog(@"Not reachable, not loading cities");
-        return;
-    }
-    
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeBlack];
-
-    [[GoHikeHTTPClient sharedClient] locate];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -217,20 +185,63 @@
         {
             //within
             int city = [[[_cities GHwithin] objectAtIndex:indexPath.row] GHid]; 
-            [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
+            [self loadCatalogForCity:city];
         }
             break;
         case 1:
         {
             //others
             int city = [[[_cities GHother] objectAtIndex:indexPath.row] GHid]; 
-            [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
+            [self loadCatalogForCity:city];
         }
             break;
         default:
             break;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Actions
+
+- (void)getLocation
+{
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
+    [[AppState sharedInstance] startLocationServices];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
+}
+
+- (void)loadCities
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCitiesCompleted:) name:kFinishedLoadingCities object:nil];
+    //Hide the refresh control
+    [self.refreshControl endRefreshing];
+    
+    AFNetworkReachabilityStatus status = [[GoHikeHTTPClient sharedClient] networkReachabilityStatus];
+    if(status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown)
+    {
+        [SVProgressHUD dismiss];
+        NSLog(@"Not reachable, not loading cities");
+        return;
+    }
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeBlack];
+    
+    [[GoHikeHTTPClient sharedClient] locate];
+}
+
+- (void)loadCatalogForCity:(int)city
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
+    [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
+}
+
+#pragma mark - Notification handlers
+
+- (void)handleLocationUpdate:(NSNotification*)notification
+{
+    [[AppState sharedInstance] stopLocationServices];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [self loadCities];
 }
 
 - (void)handleLoadCatalogCompleted:(NSNotification*)notification

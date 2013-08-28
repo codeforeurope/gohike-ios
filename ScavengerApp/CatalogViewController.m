@@ -18,8 +18,6 @@
 
 @interface CatalogViewController ()
 
-@property (nonatomic, strong) GHCatalog *catalog;
-
 @end
 
 @implementation CatalogViewController
@@ -36,8 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    _catalog = [[AppState sharedInstance] currentCatalog]; //to move catalog in the singleton...
+
+    //I set the catalog of the file as the app currentCatalog
+//    _catalog = [[AppState sharedInstance] currentCatalog];
     
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     [_collectionView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]]];
@@ -46,8 +45,6 @@
 //    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
-
-//    _catalog = (GHCatalog*)[[AppState sharedInstance] currentCatalog];
     
 }
 
@@ -87,7 +84,8 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground1"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
 
-    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
+//    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
+    cell.profileImage.image = [UIImage imageWithData:[route GHiconData]];
     cell.profileLabel.text = [route GHname];
     cell.backgroundColor = [UIColor clearColor];
     
@@ -117,7 +115,8 @@
 //        GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
         GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
         headerView.headerLabel.text = [profile GHname];
-        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
+//        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
+        headerView.headerImage.image = [UIImage imageWithData:[profile GHimageData]];
         
         reusableview = headerView;
     }
@@ -127,24 +126,31 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
     GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
-    NSDictionary *selectedRoute = [[profile GHroutes] objectAtIndex:indexPath.row];
+    GHRoute *selectedRoute = [[profile GHroutes] objectAtIndex:indexPath.row];
     [AppState sharedInstance].currentRoute = selectedRoute;
 
-    //load the route from disk, if available
-    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d", [[selectedRoute objectForKey:@"id"] integerValue]]];
     
-    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+    GHRoute *existingRoute = [GHRoute loadFromFileWithId:[selectedRoute GHid]];
+    if(existingRoute)
     {
-        NSDictionary *route = [NSDictionary dictionaryWithContentsOfFile:filePath];
-        [AppState sharedInstance].currentRoute = route;
+        [AppState sharedInstance].currentRoute = existingRoute;
+        [[AppState sharedInstance] save];
+
     }
-    [[AppState sharedInstance] save];
-            
+//    //load the route from disk, if available
+//    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d", [[selectedRoute objectForKey:@"id"] integerValue]]];
+//    
+//    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+//    {
+//        NSDictionary *route = [NSDictionary dictionaryWithContentsOfFile:filePath];
+//        [AppState sharedInstance].currentRoute = route;
+//    }
+//    [[AppState sharedInstance] save];
+//            
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    rvc.route = selectedRoute;
+//    rvc.route = selectedRoute;
     [self.navigationController pushViewController:rvc animated:YES];
     
     
