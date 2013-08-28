@@ -14,5 +14,7 @@
 + (NSString*)getTranslatedStringForKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary;
 + (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary;
 + (NSString *)createNewUUID;
++ (NSString*)getLibraryPath;
++ (NSString*)getCurrentLocale;
 
 @end

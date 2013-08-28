@@ -19,6 +19,8 @@
 - (NSString*)GHname;
 - (NSArray*)GHwaypoints;
 
+- (BOOL)saveToFile;
+
 @end
 
 typedef NSDictionary GHRoute;

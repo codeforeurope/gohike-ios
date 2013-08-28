@@ -10,8 +10,8 @@
 
 @interface NSDictionary (GHRouteIcon)
 
-- (NSString*)url;
-- (NSString*)md5;
+- (NSString*)GHurl;
+- (NSString*)GHmd5;
 
 @end
 

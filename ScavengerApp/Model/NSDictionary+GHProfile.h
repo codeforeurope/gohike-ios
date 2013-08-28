@@ -16,6 +16,9 @@
 - (NSArray*)GHroutes;
 - (GHImage*)GHimage;
 
+- (BOOL)saveToFile;
+- (NSData*)imageData;
+
 @end
 
 typedef NSDictionary GHProfile;

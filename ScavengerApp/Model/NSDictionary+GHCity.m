@@ -10,4 +10,24 @@
 
 @implementation NSDictionary (GHCity)
 
+- (int)GHid
+{
+    return [[self objectForKey:@"id"] integerValue];
+}
+
+- (NSString*)GHname
+{
+    return [self objectForKey:@"name"];
+}
+
+- (NSString*)GHstate_province
+{
+    return [self objectForKey:@"state_province"];
+}
+
+- (NSString*)GHcountry_code
+{
+    return [self objectForKey:@"country_code"];
+}
+
 @end

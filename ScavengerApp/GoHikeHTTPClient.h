@@ -18,7 +18,9 @@ extern NSString* const kFinishedLoadingCities;
 
 - (void)locate;
 - (void)getCatalogForCity:(int)cityID;
-- (void)downloadRoute:(NSInteger)routeId;
+- (void)getRoute:(NSInteger)routeId;
+- (void)downloadFileWithUrl:(NSString*)fileUrl savePath:(NSString*)savePath;
+- (void)pushCheckins;
 
 
 @end

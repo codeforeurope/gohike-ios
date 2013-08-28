@@ -14,6 +14,4 @@
 
 @property (strong, nonatomic) UINavigationController *navigationController;
 
--(void)pushCheckins;
-
 @end

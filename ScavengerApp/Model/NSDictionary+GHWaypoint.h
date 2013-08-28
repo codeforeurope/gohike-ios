@@ -21,6 +21,8 @@
 - (int)GHroute_id;
 - (int)GHrank;
 
+- (BOOL)saveToFile;
+
 @end
 
 typedef NSDictionary GHWaypoint;

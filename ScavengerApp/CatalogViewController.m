@@ -87,7 +87,7 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground1"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
 
-    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] url]]];
+    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
     cell.profileLabel.text = [route GHname];
     cell.backgroundColor = [UIColor clearColor];
     
@@ -117,7 +117,7 @@
 //        GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
         GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
         headerView.headerLabel.text = [profile GHname];
-        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.url]];
+        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
         
         reusableview = headerView;
     }
@@ -141,10 +141,6 @@
         NSDictionary *route = [NSDictionary dictionaryWithContentsOfFile:filePath];
         [AppState sharedInstance].currentRoute = route;
     }
-
-    
-//    NSDictionary *selectedProfile = @{ @"name":profile.name, @"id": [NSNumber numberWithInt:profile.internalBaseClassIdentifier]};
-//    [AppState sharedInstance].activeProfileId = [[selectedProfile objectForKey:@"id"] integerValue];
     [[AppState sharedInstance] save];
             
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];

@@ -58,7 +58,7 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
 #endif
     [self save];
     
-    [(AppDelegate*)[[UIApplication sharedApplication] delegate] pushCheckins]; //try to push check-ins if we have internet connection
+    [[GoHikeHTTPClient sharedClient] pushCheckins]; //try to push check-ins if we have internet connection
 }
 
 - (BOOL)setNextTarget
@@ -170,13 +170,11 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     
     [encoder encodeObject:_checkins forKey:@"checkins"];
-//    [encoder encodeInt:_activeProfileId forKey:@"activeProfileId"];
     [encoder encodeInt:_activeRouteId forKey:@"activeRouteId"];
     [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
-    [encoder encodeObject:_currentCity forKey:@"currentCity"];
-    //    [encoder encodeObject:_game forKey:@"game"]; //We already have the game content stored in content.json
     [encoder encodeObject:_cities forKey:@"cities"];
+    [encoder encodeObject:_currentCity forKey:@"currentCity"];
     [encoder encodeObject:_currentCatalog forKey:@"currentCatalog"];
     [encoder encodeObject:_currentRoute forKey:@"currentRoute"];
     
@@ -199,13 +197,11 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
     if (data){
         NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         _checkins = [decoder decodeObjectForKey:@"checkins"];
-//        _activeProfileId = [decoder decodeIntegerForKey:@"activeProfileId"];
         _activeRouteId = [decoder decodeIntegerForKey:@"activeRouteId"];
         _activeTargetId = [decoder decodeIntegerForKey:@"activeTargetId"];
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
-        _currentCity = [decoder decodeObjectForKey:@"currentCity"];
-        //    _game = [decoder decodeObjectForKey:@"game"]; //We already have the game content stored in content.json
         _cities = [decoder decodeObjectForKey:@"cities"];
+        _currentCity = [decoder decodeObjectForKey:@"currentCity"];
         _currentCatalog = [decoder decodeObjectForKey:@"currentCatalog"];
         _currentRoute = [decoder decodeObjectForKey:@"currentRoute"];
 

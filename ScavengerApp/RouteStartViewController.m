@@ -357,7 +357,7 @@
     if(alertView.tag == download_warning_alertview_tag && buttonIndex == 1){
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
         [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route") maskType:SVProgressHUDMaskTypeBlack];
-        [[GoHikeHTTPClient sharedClient] downloadRoute:[[[[AppState sharedInstance] currentRoute] objectForKey:@"id"] integerValue]];
+        [[GoHikeHTTPClient sharedClient] getRoute:[[[[AppState sharedInstance] currentRoute] objectForKey:@"id"] integerValue]];
     }
 }
 

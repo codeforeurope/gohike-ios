@@ -75,41 +75,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];    
     
-//    // Load Game Data
-//    __autoreleasing NSError* error = nil;
-//    GHGameData *gameData;
-//
-//    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
-//    NSData* data = [NSData dataWithContentsOfFile:bundlePath];
-//
-//    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-//    NSMutableData *downloadedData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
-//    if(downloadedData)
-//    {
-//        GHGameData *downloadedGameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:downloadedData options:0 error:&error]];
-//        if(!error){
-//        [[AppState sharedInstance] setGame:[downloadedGameData dictionaryRepresentation]];
-//        }
-//        else{
-//            //delete content.json in document folder, as it may be corrupt
-//            [[NSFileManager defaultManager] removeItemAtPath: filePath error: &error];
-//            //then load the data from the content.json bundled
-//            gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
-//            [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
-//        }
-//    }
-//    else{
-//        gameData = [GHGameData modelObjectWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:&error]];
-//        [[AppState sharedInstance] setGame:[gameData dictionaryRepresentation]];
-//    }
-    
     //Start updating location
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationFailure:) name:kLocationServicesFailure object:nil];
     [[AppState sharedInstance] startLocationServices];
     
 
-    
     // Restore game state
     [[AppState sharedInstance] restore];
 #if DEBUG
@@ -185,7 +155,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [self pushCheckins];
+    [[GoHikeHTTPClient sharedClient] pushCheckins];
     
 //    NSLog(@"back to active, delete fence");
 }
@@ -272,71 +242,6 @@
 //    }
 //}
 
--(void)pushCheckins
-{
-    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    // Get device UDID
-    // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
-    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
-    if (deviceID == nil) { // if this is the first time app lunching , create key for device
-        NSString *uuid  = [Utilities createNewUUID];
-        // save newly created key to Keychain
-        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
-        // this is the one time process
-        deviceID = uuid;
-    }
-   
-    if(httpClient.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable)
-    {
-        // Get the indexes of the checkins that have not been uploaded yet
-        NSIndexSet *indexes = [[[AppState sharedInstance] checkins] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return ((Checkin*)obj).uploaded == NO;
-        }];
-        // Prepare an empty array
-        NSMutableArray *checkinsToPush = [[NSMutableArray alloc] init];
-        
-        //Get the dictionary representation of all check-ins
-        [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            //            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
-            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
-        }];
-#if DEBUG
-        NSLog(@"checkins data: %@", checkinsToPush);
-#endif
-        if([checkinsToPush count] > 0)
-        {
-            NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];
-            
-            __autoreleasing NSError *checkinsError;
-            NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:checkinsDictionary options:NSJSONWritingPrettyPrinted error:&checkinsError];
-            NSMutableURLRequest *checkinRequest = [httpClient requestWithMethod:@"POST" path:@"/api/checkin" parameters:nil];
-            
-            [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
-            [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            
-            [checkinRequest setHTTPBody:postBodyData];
-            
-            AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-#if DEBUG
-                NSLog(@"Pushed checkins OK!");
-#endif
-                // Set all checkins to uploaded and save to disk
-                [[[AppState sharedInstance] checkins] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    ((Checkin*)obj).uploaded = YES;
-                }];
-                [[AppState sharedInstance] save];
-                
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                NSLog(@"Failed to update checkins: %@",[error description]);
-            }];
-            
-            [httpClient enqueueHTTPRequestOperation:checkinOperation];
-        }
-        
-    }
-}
 
 - (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {

@@ -57,12 +57,17 @@
 
 - (NSData*)GHimageData
 {
-    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    int waypointId = [[self objectForKey:@"id"] integerValue];
-    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"routes/%d", [self GHroute_id]]];
-    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", waypointId]];
+    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"waypoints/%d", [self GHroute_id]]];
+    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self image] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
+}
+
+- (BOOL)saveToFile
+{
+    //TODO
+    return YES;
 }
 
 @end

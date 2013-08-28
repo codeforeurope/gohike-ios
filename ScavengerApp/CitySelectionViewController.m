@@ -53,28 +53,28 @@
     refreshControl.tintColor = [UIColor grayColor];
     self.refreshControl = refreshControl;
     
+    //maybe we have it already, restored from before
+    _cities = [[AppState sharedInstance] cities];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //maybe we have it already, restored from before
-    _cities = [[AppState sharedInstance] cities];
     //load the cities
     [self getLocation];
-
 }
 
 - (void)getLocation
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
     [[AppState sharedInstance] startLocationServices];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadCities) name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
 }
 
-- (void)gotLocation
+- (void)handleLocationUpdate:(NSNotification*)notification
 {
     [[AppState sharedInstance] stopLocationServices];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [self loadCities];
 }
 
 - (void)loadCities
@@ -115,10 +115,10 @@
     // Return the number of rows in the section.
     switch (section) {
         case 0:
-            return [[_cities GHwithin] count]; //[[_cities objectForKey:@"within"] count];
+            return [[_cities GHwithin] count];
             break;
         case 1:
-            return  [[_cities GHother] count]; //[[_cities objectForKey:@"other"] count];
+            return  [[_cities GHother] count];
             break;
         default:
             break;
@@ -135,13 +135,13 @@
         case 0:
         {
             //cities within
-            cell.textLabel.text =  [[[_cities GHwithin] objectAtIndex:indexPath.row] GHname]; //[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text =  [[[_cities GHwithin] objectAtIndex:indexPath.row] GHname]; 
         }
             break;
         case 1:
         {
             //cities other
-            cell.textLabel.text = [[[_cities GHother] objectAtIndex:indexPath.row] GHname]; //[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"name"];
+            cell.textLabel.text = [[[_cities GHother] objectAtIndex:indexPath.row] GHname];
         }
             break;
         default:
@@ -216,55 +216,21 @@
         case 0:
         {
             //within
-            int city = [[[[_cities GHwithin] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue]; //[[[[_cities objectForKey:@"within"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
-            [self getCatalogForCity:city];
+            int city = [[[_cities GHwithin] objectAtIndex:indexPath.row] GHid]; 
+            [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
         }
             break;
         case 1:
         {
             //others
-            int city = [[[[_cities GHother] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue]; //[[[[_cities objectForKey:@"other"] objectAtIndex:indexPath.row] objectForKey:@"id"] integerValue];
-            [self getCatalogForCity:city];
+            int city = [[[_cities GHother] objectAtIndex:indexPath.row] GHid]; 
+            [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
         }
             break;
         default:
             break;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)getCatalogForCity:(int)cityID
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
-    //if we got catalog > 24h ago, we redownload it anyway
-    
-    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"catalog_%d",cityID]];
-    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-    {
-        __autoreleasing NSError *error;
-        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-        NSDate *fileDate =[attributes objectForKey:NSFileModificationDate];
-        NSTimeInterval howRecent = [fileDate timeIntervalSinceNow];
-        if (abs(howRecent) < 60*60*24 ) {
-            //file is less than 24 hours old, use this file.
-            GHCatalog *loadedCatalog = [GHCatalog arrayWithContentsOfFile:filePath];
-            [AppState sharedInstance].currentCatalog = loadedCatalog;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
-        }
-        else{
-            //file is older than 24 hours, download newer version it
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content") maskType:SVProgressHUDMaskTypeBlack];
-            
-            [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
-        }
-    }
-    else{
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting new content", @"Getting new content") maskType:SVProgressHUDMaskTypeBlack];
-
-        [[GoHikeHTTPClient sharedClient] getCatalogForCity:cityID];
-    }
-    
 }
 
 - (void)handleLoadCatalogCompleted:(NSNotification*)notification
@@ -290,7 +256,6 @@
     if([[notification userInfo] objectForKey:@"error"])
     {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading cities", @"Error loading cities")];
-
     }
     else{
         [SVProgressHUD showSuccessWithStatus:nil];

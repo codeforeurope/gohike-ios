@@ -31,4 +31,20 @@
     return [self objectForKey:@"image"];
 }
 
+- (BOOL)saveToFile
+{
+    //TODO
+    for (GHRoute *route in [self GHroutes]) {
+        [route saveToFile];
+    }
+    return YES;
+}
+
+- (NSData*)imageData
+{
+    
+}
+
+
+
 @end

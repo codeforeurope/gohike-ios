@@ -10,8 +10,10 @@
 
 @interface NSArray (GHCatalog)
 
-- (void)saveToFileWithId:(int)cityID;
 - (NSArray*)GHprofiles;
+
+- (void)saveToFileWithId:(int)cityID;
++ (NSArray*)loadFromFileWithId:(int)cityID;
 
 @end
 

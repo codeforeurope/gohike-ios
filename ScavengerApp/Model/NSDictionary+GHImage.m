@@ -10,12 +10,12 @@
 
 @implementation NSDictionary (GHImage)
 
-- (NSString*)url
+- (NSString*)GHurl
 {
     return [self objectForKey:@"url"];
 }
 
-- (NSString*)md5
+- (NSString*)GHmd5
 {
     return [self objectForKey:@"md5"];
 }

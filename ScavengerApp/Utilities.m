@@ -48,4 +48,14 @@
     return (__bridge NSString *)string;
 }
 
++ (NSString*)getLibraryPath
+{
+    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
++ (NSString*)getCurrentLocale
+{
+    return[[NSLocale preferredLanguages] objectAtIndex:0];
+}
+
 @end
