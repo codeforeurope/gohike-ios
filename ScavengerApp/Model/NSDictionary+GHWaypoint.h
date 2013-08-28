@@ -13,11 +13,11 @@
 - (int)GHid;
 - (NSData*)GHimageData;
 - (GHImage*)image;
-- (int)GHlocation_id;
+- (NSString*)GHname;
 - (NSString*)GHdescription;
+- (int)GHlocation_id;
 - (double)GHlatitude;
 - (double)GHlongitude;
-- (NSString*)GHname;
 - (int)GHroute_id;
 - (int)GHrank;
 

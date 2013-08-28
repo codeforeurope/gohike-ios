@@ -37,7 +37,6 @@ extern NSString* const kLocationServicesUpdateHeading;
 - (BOOL)save;
 - (void)restore;
 - (BOOL)setNextTarget;
-- (NSString*)language;
 
 - (GHWaypoint*)activeWaypoint;
 

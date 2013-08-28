@@ -79,6 +79,7 @@
 		AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */; };
 		AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */; };
 		AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390EA17CCD3E6002E4BE6 /* Utilities.m */; };
+		AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */; };
 		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
 		AC97D5BF1769BF4D0069F779 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC97D5B8176911950069F779 /* libTestFlight.a */; };
 		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
@@ -280,6 +281,8 @@
 		AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHImage.m"; sourceTree = "<group>"; };
 		AC7390E917CCD3E5002E4BE6 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		AC7390EA17CCD3E6002E4BE6 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		AC7390F617CE2EEC002E4BE6 /* NSDictionary+GHReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GHReward.h"; sourceTree = "<group>"; };
+		AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHReward.m"; sourceTree = "<group>"; };
 		AC844BF817629EE30092D79C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		AC844BF917629EE30092D79C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		AC97D5B8176911950069F779 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
@@ -542,6 +545,8 @@
 				AC7390E417CCCA6E002E4BE6 /* NSDictionary+GHWaypoint.m */,
 				AC7390E617CCCB21002E4BE6 /* NSDictionary+GHImage.h */,
 				AC7390E717CCCB22002E4BE6 /* NSDictionary+GHImage.m */,
+				AC7390F617CE2EEC002E4BE6 /* NSDictionary+GHReward.h */,
+				AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 				AC7390E517CCCA6F002E4BE6 /* NSDictionary+GHWaypoint.m in Sources */,
 				AC7390E817CCCB22002E4BE6 /* NSDictionary+GHImage.m in Sources */,
 				AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */,
+				AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

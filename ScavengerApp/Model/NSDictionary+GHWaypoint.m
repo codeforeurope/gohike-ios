@@ -25,6 +25,11 @@
     return [[self objectForKey:@"location_id"] integerValue];
 }
 
+- (NSString*)GHname
+{
+    return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
+}
+
 - (NSString*)GHdescription
 {
     return [Utilities getTranslatedStringForKey:@"description" fromDictionary:self];
@@ -38,11 +43,6 @@
 - (double)GHlongitude
 {
     return [[self objectForKey:@"longitude"] doubleValue];
-}
-
-- (NSString*)GHname
-{
-    return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
 }
 
 - (int)GHroute_id

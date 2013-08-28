@@ -28,18 +28,6 @@ NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeadi
 
 #pragma mark - Game methods
 
-- (NSString*)language
-{
-    NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    return locale;
-//    if([locale isEqualToString:@"nl"]){
-//        return @"nl";
-//    }
-//    else{
-//        return @"en";
-//    }
-}
-
 - (void)checkIn
 {
     Checkin *thisCheckIn = [[Checkin alloc] init];

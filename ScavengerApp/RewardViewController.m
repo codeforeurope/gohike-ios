@@ -44,11 +44,9 @@
                                                                             action:@selector(onShareButton)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
-    
-    NSString *langKey = [[AppState sharedInstance] language];
-    _rewardTitle.text = [_reward objectForKey:[NSString stringWithFormat:@"name_%@", langKey]];
-    _rewardDescription.text = [_reward objectForKey:[NSString stringWithFormat:@"description_%@", langKey]];
-    _rewardImage.image = [UIImage imageWithData:[NSData dataWithBase64EncodedString:[_reward objectForKey:@"image_data"]]];
+    _rewardTitle.text = [_reward GHname];
+    _rewardDescription.text = [_reward GHdescription];
+    _rewardImage.image = [UIImage imageWithData:[_reward GHimageData]];
     
 }
 
