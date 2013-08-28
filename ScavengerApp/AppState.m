@@ -195,7 +195,7 @@ NSString* const kFilePathProfiles = @"profiles";
         _cities = [decoder decodeObjectForKey:@"cities"];
         _currentCity = [decoder decodeObjectForKey:@"currentCity"];
         _currentCatalog = [GHCatalog loadFromFileWithId:_currentCity.GHid]; //[decoder decodeObjectForKey:@"currentCatalog"];
-        _currentRoute = [GHRoute loadFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
+        _currentRoute = [NSArray loadFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
 
         [decoder finishDecoding];
     }

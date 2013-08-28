@@ -13,13 +13,18 @@
 @interface NSDictionary (GHRoute)
 
 - (int)GHid;
-- (GHRouteIcon*)GHicon;
+- (GHImage*)GHicon;
 - (GHImage*)GHimage;
 - (NSString*)GHdescription;
 - (NSString*)GHname;
 - (NSArray*)GHwaypoints;
+- (GHReward*)GHreward;
+
+- (NSData*)GHimageData;
+- (NSData*)GHiconData;
 
 - (BOOL)saveToFile;
++ (NSDictionary*)loadFromFileWithId:(int)routeId;
 
 @end
 

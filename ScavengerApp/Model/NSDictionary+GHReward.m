@@ -15,7 +15,7 @@
     return [[self objectForKey:@"id"] integerValue];
 }
 
-- (GHImage*)image
+- (GHImage*)GHimage
 {
     return [self objectForKey:@"image"];
 }
@@ -34,7 +34,7 @@
 {
     NSString* libraryPath = [Utilities getLibraryPath];
     NSString *rewardPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"rewards/%d", [self GHroute_id]]];
-    NSString *filePath = [rewardPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self image] GHmd5]]];
+    NSString *filePath = [rewardPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
 }

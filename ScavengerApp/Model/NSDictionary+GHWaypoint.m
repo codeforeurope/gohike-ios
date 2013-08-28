@@ -59,7 +59,7 @@
 {
     NSString* libraryPath = [Utilities getLibraryPath];
     NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"waypoints/%d", [self GHroute_id]]];
-    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self image] GHmd5]]];
+    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[self GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
 }

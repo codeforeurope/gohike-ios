@@ -13,7 +13,7 @@
 
 - (int)GHid;
 - (NSData*)GHimageData;
-- (GHImage*)image;
+- (GHImage*)GHImage;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
 
