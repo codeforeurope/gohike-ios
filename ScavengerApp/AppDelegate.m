@@ -76,7 +76,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];    
     
     //Start updating location
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationFailure:) name:kLocationServicesFailure object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationForbidden:) name:kLocationServicesForbidden object:nil];
     [[AppState sharedInstance] startLocationServices];
     
 
@@ -171,91 +171,20 @@
 }
 
 
-#pragma mark - Handlers
+#pragma mark - Notification Handlers
 
--(void)handleLocationFailure:(NSNotification*)notification
+-(void)handleLocationForbidden:(NSNotification*)notification
 {
     NSLog(@"Cannot use LocationServices!");
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesForbidden object:nil];
+    [[AppState sharedInstance] stopLocationServices];
+    
     CannotPlayViewController *cvc = [[CannotPlayViewController alloc] initWithNibName:@"CannotPlayViewController" bundle:nil];
     cvc.messageLabel.text = NSLocalizedString(@"No location available. Please turn on location in Settings", @"No location available. Please turn on location in Settings");
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
     self.window.rootViewController = self.navigationController;
 
-}
-
-#pragma mark - Network actions
-
-//-(void)updateContent
-//{
-//    NSURL *url = [NSURL URLWithString:kGOHIKEAPIURL];
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-//    
-//    NSString *currentVersion = [[[AppState sharedInstance] game] objectForKey:@"version"];
-//    
-//    if ([httpClient networkReachabilityStatus] != AFNetworkReachabilityStatusNotReachable) {
-//        //We try to download new content only if we are on wifi
-//        NSDictionary *versionDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"version", nil];
-//        [httpClient postPath:@"/api/ping" parameters:versionDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            __autoreleasing NSError* pingError = nil;
-//            NSDictionary *r = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&pingError];
-//#if DEBUG
-//            NSLog(@"Current Content Status: %@", [r objectForKey:@"status"]);
-//#endif
-//            if([[r objectForKey:@"status"] isEqualToString:@"update"])
-//            {
-//                NSMutableURLRequest *contentRequest = [httpClient requestWithMethod:@"GET" path:@"/api/content" parameters:nil];
-//                
-//                AFJSONRequestOperation *contentOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:contentRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//                    NSLog(@"New game version %@", [JSON objectForKey:@"version"]);
-//                    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//                    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
-//                    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-//                    __autoreleasing NSError* contentError = nil;
-//                    
-//                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:JSON
-//                                                                       options:kNilOptions
-//                                                                         error:&contentError];
-//                    if([jsonData writeToURL:filePathUrl atomically:YES])
-//                    {
-//                        NSLog(@"Updated ok");
-//                        //set to exclude file from iCloud backup
-//                        [self addSkipBackupAttributeToItemAtURL:filePathUrl];
-//   
-//                        [[AppState sharedInstance] setGame:[NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&contentError]];
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:kAppHasFinishedContentUpdate object:nil];
-//                        
-//                    }
-//                    
-//                } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//                    NSLog(@"Download of new content failed with error: %@", [error description]);
-//                }];
-//                [contentOperation start];
-//            }
-//            else
-//            {
-//                NSLog(@"Already on latest content version");
-//            }
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"Update request failed with error: %@", [error description]);
-//        }];
-//        
-//    }
-//}
-
-- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
-{
-    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
-    
-    NSError *error = nil;
-    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
-                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
-    if(!success){
-        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
-        __autoreleasing NSError *deleteError;
-        [[NSFileManager defaultManager] removeItemAtURL:URL error:&deleteError];
-    }
-    return success;
 }
 
 @end

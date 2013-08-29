@@ -214,4 +214,20 @@
 }
 
 
+
++ (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+    
+    NSError *error = nil;
+    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if(!success){
+        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
+        __autoreleasing NSError *deleteError;
+        [[NSFileManager defaultManager] removeItemAtURL:URL error:&deleteError];
+    }
+    return success;
+}
+
 @end

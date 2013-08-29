@@ -34,6 +34,7 @@
 
 //
 + (NSString*)getLibraryPath;
++ (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL; //for not backing up to iCloud
 
 
 @end

@@ -443,17 +443,20 @@
 - (void)handleDownloadFileCompleted:(NSNotification*)notification
 {
     receivedFileNotifications+=1;
-    if(receivedFileNotifications == expectedNotifications)
+    NSLog(@"received file %@", [[notification userInfo] objectForKey:@"file"]);
+    if(receivedFileNotifications >= expectedNotifications)
     {
         [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD showSuccessWithStatus:@""];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
+        _route = [[AppState sharedInstance] currentRoute];
+
         [self.tableView reloadData];
 
     }
     else
     {
-        [SVProgressHUD showProgress:(expectedNotifications/receivedFileNotifications)+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:((receivedFileNotifications*100)/expectedNotifications)/100+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 

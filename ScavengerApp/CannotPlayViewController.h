@@ -11,6 +11,5 @@
 @interface CannotPlayViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *retryButton;
 
 @end

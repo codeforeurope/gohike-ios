@@ -35,9 +35,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)retryButtonTapped:(id)sender
-{
-    
-}
-
 @end

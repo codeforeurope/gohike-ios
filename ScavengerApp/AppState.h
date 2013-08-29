@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern NSString* const kLocationServicesFailure;
+extern NSString* const kLocationServicesForbidden;
 extern NSString* const kLocationServicesGotBestAccuracyLocation;
 extern NSString* const kLocationServicesUpdateHeading;
 

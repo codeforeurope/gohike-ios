@@ -11,12 +11,17 @@
 #import "UIImageView+AFNetworking.h"
 #import "CatalogViewCollectionHeader.h"
 #import "RouteStartViewController.h"
+#import "SVProgressHUD.h"
 
 
 #define kSELECTION_CELL_IDENTIFIER @"SelectionCell"
 #define kSECTION_HEADER_IDENTIFIER @"CatalogViewCollectionHeader"
 
 @interface CatalogViewController ()
+{
+    int receivedFileNotifications;
+    int expectedNotifications;
+}
 
 @end
 
@@ -45,7 +50,8 @@
 //    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
-    
+
+    [self loadCatalogForCity:[[AppState sharedInstance] currentCity].GHid];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,13 +154,69 @@
     
 }
 
+#pragma mark - Actions
+
+- (void)loadCatalogForCity:(int)city
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting routes to play", @"Getting routes to play") maskType:SVProgressHUDMaskTypeBlack];
+    [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
+}
+
 #pragma mark - Notification handlers
 
-- (void)handleFileDownloadedNotification
+- (void)handleLoadCatalogCompleted:(NSNotification*)notification
 {
-    [self.collectionView performBatchUpdates:^{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingCatalog object:nil];
+    
+    
+    NSLog(@"Finished loading catalog");
+    if([[notification userInfo] objectForKey:@"error"])
+    {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
+    }
+    else{
+        
+        if([[[notification userInfo] objectForKey:@"expectedFiles"] integerValue] > 0)
+        {
+            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+            receivedFileNotifications = 0;
+            expectedNotifications = [[[notification userInfo] objectForKey:@"expectedFiles"] integerValue];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFileCompleted:) name:kFinishedDownloadingFile object:nil];
+        }
+        else{
+            [SVProgressHUD showSuccessWithStatus:@""];
+            
+            [self reloadCollectionView];
+        }
+        
+    }
+    
+}
+
+- (void)handleDownloadFileCompleted:(NSNotification*)notification
+{
+    receivedFileNotifications+=1;
+    if(receivedFileNotifications >= expectedNotifications)
+    {
+        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@""];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
+        [self reloadCollectionView];
+        
+    }
+    else
+    {
+        [SVProgressHUD showProgress:((receivedFileNotifications*100)/expectedNotifications)/100+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+
+- (void)reloadCollectionView
+{
+//    [self.collectionView performBatchUpdates:^{
         [self.collectionView reloadData];
-    } completion:^(BOOL finished) {}];
+//    } completion:^(BOOL finished) {}];
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

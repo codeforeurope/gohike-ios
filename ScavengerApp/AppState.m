@@ -12,6 +12,7 @@
 
 
 NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
+NSString* const kLocationServicesForbidden = @"kLocationServicesForbidden";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
 NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeading";
 
@@ -225,7 +226,7 @@ NSString* const kFilePathProfiles = @"profiles";
 {
     if (![CLLocationManager locationServicesEnabled]) {
         NSLog(@"location services are disabled");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesFailure object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesForbidden object:nil];
         return;
     }
     
@@ -268,6 +269,32 @@ NSString* const kFilePathProfiles = @"profiles";
         
     }
 #endif
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if ([error domain] == kCLErrorDomain) {
+        
+        // We handle CoreLocation-related errors here
+        switch ([error code]) {
+                // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
+                // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
+            case kCLErrorDenied:{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesForbidden object:nil];
+            }
+            case kCLErrorLocationUnknown:
+            {
+                NSDictionary *userInfo = @{ @"error" : error };
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesFailure object:userInfo];
+            }
+                
+            default:
+                break;
+        }
+    } else {
+        // We handle all non-CoreLocation errors here
+    }
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading

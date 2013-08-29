@@ -59,6 +59,7 @@
     }
     _locationDescriptionLabel.text = [_location GHdescription]; 
     _locationTitleLabel.text =  [_location GHname];
+    _locationText.text = [_location GHdescription];
     
     
     //If user pinches on picture, enlarge it fullscreen
@@ -78,10 +79,28 @@
     _locationImageView.clipsToBounds = NO;
     
     
+    
     //adjust the textview size
     CGRect frame = _locationText.frame;
     frame.size.height = _locationText.contentSize.height;
     _locationText.frame = frame;
+////    [_locationText setAutoResizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+//
+//    CGRect viewFrame = self.view.bounds;
+//    viewFrame.size.height = viewFrame.size.height +  _locationText.contentSize.height;
+//    [self.scrollView setContentSize:CGSizeMake(20000, 20000)];
+//    
+//    CGRect visibleRect;
+//    visibleRect.origin = [_scrollView contentOffset];
+//    visibleRect.size = [_scrollView bounds].size;
+//    [_scrollView setNeedsDisplayInRect:visibleRect];
+    
+    CGSize s = _scrollView.frame.size;
+    s.height = _locationText.frame.size.height + _locationImageView.frame.size.height + _locationTitleLabel.frame.size.height + 20;
+    [_scrollView setContentSize:s];
+    [_scrollView setContentOffset:CGPointMake(0, 0)];
+    [_scrollView setNeedsDisplayInRect:self.view.bounds];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -160,9 +179,9 @@
 - (void)handlePanFrom:(id)sender
 {
     UIPanGestureRecognizer *recognizer = (UIPanGestureRecognizer*)sender;
-    CGPoint translation = [recognizer translationInView:recognizer.view];
-    CGPoint velocity = [recognizer velocityInView:recognizer.view];
-    NSLog(@"Translation: %@ velocity %@", NSStringFromCGPoint(translation), NSStringFromCGPoint(velocity));
+//    CGPoint translation = [recognizer translationInView:recognizer.view];
+//    CGPoint velocity = [recognizer velocityInView:recognizer.view];
+//    NSLog(@"Translation: %@ velocity %@", NSStringFromCGPoint(translation), NSStringFromCGPoint(velocity));
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {

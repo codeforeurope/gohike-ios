@@ -47,7 +47,7 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
     if(self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)
     {
         NSDictionary *userInfo = @{@"error" : NSLocalizedString(@"Unreachable", @"Unreachable")};
-        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCatalog object:self userInfo:userInfo];
+        NSNotification *notification = [NSNotification notificationWithName:kFinishedLoadingCities object:self userInfo:userInfo];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         return;
     }
@@ -112,12 +112,13 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
         if([NSJSONSerialization isValidJSONObject:JSON]){ 
             
             GHCatalog *catalog = (GHCatalog*)JSON;
+
+            NSDictionary *userInfo = @{ @"expectedFiles" :  getPicturesInProfiel.... [NSNumber numberWithInt:[catalog count]*2]};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
+            
             [FileUtilities saveCatalog:catalog WithId:cityID];
             [[AppState sharedInstance] setCurrentCatalog:catalog];
             [[AppState sharedInstance] save];
-
-            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:[catalog count]*2]};
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
             
         }
         else{
@@ -153,10 +154,10 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
-            [FileUtilities saveRoute:route];
-            
             NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:[[route GHwaypoints] count] +2]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil userInfo:userInfo];
+            [FileUtilities saveRoute:route];
+
             
         }
         else{
@@ -186,7 +187,8 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
             return image;
         } success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             NSData *data = UIImagePNGRepresentation(image);
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedDownloadingFile object:nil userInfo:nil];
+            NSDictionary *userInfo = @{@"file" : savePath};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedDownloadingFile object:nil userInfo:userInfo];
             BOOL success = [data writeToFile:savePath atomically:YES];
             if(!success)
                 NSLog(@"Failed writing downloaded file to file %@", savePath);
@@ -225,7 +227,7 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
         
         //Get the dictionary representation of all check-ins
         [[[[AppState sharedInstance] checkins] objectsAtIndexes:indexes] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            //            [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
+
             [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
         }];
 #if DEBUG
@@ -263,53 +265,5 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
         
     }
 }
-
-#pragma mark - File management
-
-//- (BOOL)saveRoute:(GHRoute*)route
-//{
-//    
-//    __block BOOL success;
-//
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//
-//        //Save it to library
-//        @try {
-//            __autoreleasing NSError *error;
-//            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//            NSFileManager *manager = [NSFileManager defaultManager];
-//            int routeId = [route GHid];
-//            NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"routes/%d", routeId]];
-//            success = [manager createDirectoryAtPath:routePath withIntermediateDirectories:YES attributes:Nil error:&error];
-//            NSString *filePath = [routePath stringByAppendingPathComponent:@"route.plist"];
-//            success = [route writeToFile:filePath atomically:YES];
-//            if(!success)
-//                NSLog(@"Writing to file Failed");
-//            //write the icon file and image
-//            NSString *iconPath = [routePath stringByAppendingPathComponent:@"icon.png"];
-//            [self downloadFileWithUrl:[[route GHicon] GHurl] savePath:iconPath];
-//
-//            NSString *imagePath = [routePath stringByAppendingPathComponent:@"image.png"];
-//            [self downloadFileWithUrl:[[route GHimage] GHurl] savePath:imagePath];
-//            if ([route GHwaypoints]) {
-//                //save also waypoints
-//            }
-//            
-//            
-//        }
-//        @catch (NSException *exception) {
-//            success = NO;
-//            NSLog(@"Exception in file manager: %@", [exception description]);
-//        }
-//        @finally {
-//            
-//        }
-//
-//    });
-//    
-//    return success;
-//
-//}
-
 
 @end
