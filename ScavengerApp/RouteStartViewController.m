@@ -24,19 +24,20 @@
 #define BUTTON_HEIGHT 32
 #define BUTTON_WIDTH 200
 
-@interface RouteStartViewController ()
+@interface RouteStartViewController () <FBLoginViewDelegate>
 
 {
     int receivedFileNotifications;
     int expectedNotifications;
 }
 
-
 @property (nonatomic, assign) BOOL routeComplete;
 
 @property (nonatomic, strong) GHRoute *route;
 
-//@property (nonatomic, strong) UIImage *routeProfileImage;
+
+//Facebook
+@property (strong, nonatomic) id<FBGraphUser> loggedInUser;
 
 @end
 
@@ -216,11 +217,20 @@
             [startHikeCellButton.layer insertSublayer:gradient atIndex:0];
             startHikeCellButton.layer.cornerRadius = 6;
             startHikeCellButton.layer.masksToBounds = YES;
+            
+            [startHikeCellButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
             if([_route GHwaypoints]){
                 [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", @"Go Hike!") forState:UIControlStateNormal];
             }
             else{
-                [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
+                // See if the app has a valid token for the current state.
+                if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+                    // To-do, show logged in view
+                    [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
+                } else {
+                    // No, display the login page.
+                    [startHikeCellButton setTitle:NSLocalizedString(@"Login to Facebook to Download!", @"Login to Facebook to Download!") forState:UIControlStateNormal];
+                }
             }
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -332,7 +342,7 @@
 
     if([_route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
         
-        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
+        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[_route GHid]];
         
         if(nextWaypoint)
         {
@@ -352,12 +362,20 @@
         }
     }
     else{
-        double size = [[_route objectForKey:@"size"] doubleValue] /1024;
-        UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
-        [alertView setTag:download_warning_alertview_tag];
-        [alertView show];
+        // See if the app has a valid token for the current state.
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+            // To-do, show logged in view
+            double size = [[_route objectForKey:@"size"] doubleValue] /1024;
+            UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
+            [alertView setTag:download_warning_alertview_tag];
+            [alertView show];
+
+            
+        } else {
+            // No, display the login page.
+            [self openSession];
+        }
     }
-        
 
 }
 
@@ -406,7 +424,7 @@
 
 - (void)onRouteFinished
 {
-    //TODO: check if it's called
+    //This is called when user exists from the route screen
     [TestFlight passCheckpoint:@"UserHasFinishedRoute"];
     showRewardOnAppear = TRUE;
 }
@@ -457,5 +475,68 @@
     }
 }
 
+#pragma mark - Facebook
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
+{
+    switch (state) {
+        case FBSessionStateOpen: {
+            NSLog(@"facebook session open");
+            [self getUserDetails];
+            
+        }
+            break;
+        case FBSessionStateClosed:
+        case FBSessionStateClosedLoginFailed:
+            
+            [FBSession.activeSession closeAndClearTokenInformation];
+
+            break;
+        default:
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+
+- (void)getUserDetails
+{
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             if (!error) {
+
+                 NSLog(@"we got user: %@", user);
+                 [self.tableView reloadData];
+
+
+             }
+         }];
+    }
+}
+
+- (void)openSession
+{
+    [FBSession openActiveSessionWithReadPermissions:@[@"email"]
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,
+       FBSessionState state, NSError *error) {
+         [self sessionStateChanged:session state:state error:error];
+     }];
+}
 
 @end

@@ -24,6 +24,10 @@
 		A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846281757591B00944FF6 /* icon-trophy@2x.png */; };
 		A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462A17575CA100944FF6 /* icon-facebook.png */; };
 		A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */; };
+		AC06F90F17CFE375002E6B67 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */; };
+		AC06F91117CFE38A002E6B67 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC06F91017CFE38A002E6B67 /* FacebookSDKResources.bundle */; };
+		AC06F91317CFE3B7002E6B67 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F91217CFE3B7002E6B67 /* Accounts.framework */; };
+		AC06F91517CFE3DB002E6B67 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F91417CFE3DB002E6B67 /* libsqlite3.dylib */; };
 		AC0AF4751754AB4600B766E0 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */; };
 		AC0AF4761754AB4600B766E0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4651754AB4600B766E0 /* AFHTTPRequestOperation.m */; };
 		AC0AF4771754AB4600B766E0 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4671754AB4600B766E0 /* AFImageRequestOperation.m */; };
@@ -190,6 +194,10 @@
 		A7E846281757591B00944FF6 /* icon-trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy@2x.png"; sourceTree = "<group>"; };
 		A7E8462A17575CA100944FF6 /* icon-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook.png"; sourceTree = "<group>"; };
 		A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook@2x.png"; sourceTree = "<group>"; };
+		AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		AC06F91017CFE38A002E6B67 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		AC06F91217CFE3B7002E6B67 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		AC06F91417CFE3DB002E6B67 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AC0AF4621754AB4600B766E0 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		AC0AF4641754AB4600B766E0 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -387,6 +395,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC06F91517CFE3DB002E6B67 /* libsqlite3.dylib in Frameworks */,
+				AC06F91317CFE3B7002E6B67 /* Accounts.framework in Frameworks */,
 				ACE2AD4017628D94004C6AF8 /* AdSupport.framework in Frameworks */,
 				AC41F7FD1761EAC100ED3F14 /* AudioToolbox.framework in Frameworks */,
 				ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */,
@@ -401,12 +411,37 @@
 				ACDD9B701743B20200D64682 /* CoreGraphics.framework in Frameworks */,
 				A726AA73175DEA9F00C7F8E6 /* Social.framework in Frameworks */,
 				A71CF122175E3BEB00FA2168 /* MapKit.framework in Frameworks */,
+				AC06F90F17CFE375002E6B67 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC06F90D17CFE164002E6B67 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E5C5517CEB1C0000D3894 /* FileUtilities.h */,
+				AC0E5C5617CEB1C0000D3894 /* FileUtilities.m */,
+				1C1684F8174E4DBB00A77192 /* AppState.h */,
+				1C1684F9174E4DBB00A77192 /* AppState.m */,
+				ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */,
+				ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		AC06F91617CFE3EC002E6B67 /* FacebookSDK Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				AC06F91417CFE3DB002E6B67 /* libsqlite3.dylib */,
+				AC06F91217CFE3B7002E6B67 /* Accounts.framework */,
+				AC06F91017CFE38A002E6B67 /* FacebookSDKResources.bundle */,
+				AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */,
+			);
+			name = "FacebookSDK Stuff";
+			sourceTree = "<group>";
+		};
 		AC0AF4611754AB4600B766E0 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +741,7 @@
 		ACDD9B6A1743B20200D64682 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC06F91617CFE3EC002E6B67 /* FacebookSDK Stuff */,
 				ACE2AD3F17628D94004C6AF8 /* AdSupport.framework */,
 				AC41F7FC1761EAC100ED3F14 /* AudioToolbox.framework */,
 				ACC893B5175F7A3C002AC636 /* libz.dylib */,
@@ -726,6 +762,7 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC06F90D17CFE164002E6B67 /* Managers */,
 				AC41F8031762122100ED3F14 /* CompassViews */,
 				ACC893BB1760931F002AC636 /* HelpViews */,
 				ACA60BC017539E1D00EA4D53 /* Cells */,
@@ -733,8 +770,6 @@
 				AC4542A2174BAD81005F5DDE /* Model */,
 				ACDD9B7A1743B20200D64682 /* AppDelegate.h */,
 				ACDD9B7B1743B20200D64682 /* AppDelegate.m */,
-				AC0E5C5517CEB1C0000D3894 /* FileUtilities.h */,
-				AC0E5C5617CEB1C0000D3894 /* FileUtilities.m */,
 				A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */,
 				A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */,
 				AC41F804176225D700ED3F14 /* CustomBarButtonViewRight.h */,
@@ -752,10 +787,6 @@
 				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
 				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
 				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
-				1C1684F8174E4DBB00A77192 /* AppState.h */,
-				1C1684F9174E4DBB00A77192 /* AppState.m */,
-				ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */,
-				ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */,
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
@@ -955,6 +986,7 @@
 				AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */,
 				AC24194717C7874F00B3783D /* back.png in Resources */,
 				AC24194917C7875C00B3783D /* back@2x.png in Resources */,
+				AC06F91117CFE38A002E6B67 /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1138,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giovanni Maggini";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giovanni Maggini";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";
@@ -1188,6 +1224,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";
@@ -1215,6 +1255,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScavengerApp/GoHikeAmsterdam-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$PROJECT_DIR/Mantle/**";

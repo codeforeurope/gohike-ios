@@ -27,16 +27,10 @@
 {
     // Create resizable images
     UIImage *topNavbarImage = [[UIImage imageNamed:@"navigation-top-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    UIImage *gradientImage44 = [[UIImage imageNamed:@"surf_gradient_textured_44"]
-//                                resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    UIImage *gradientImage32 = [[UIImage imageNamed:@"surf_gradient_textured_32"]
-//                                resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    
+
     // Set the background image for *all* UINavigationBars
     [[UINavigationBar appearance] setBackgroundImage:topNavbarImage
                                        forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setBackgroundImage:gradientImage32
-//                                       forBarMetrics:UIBarMetricsLandscapePhone];
     
     // Customize the title text for *all* UINavigationBars
     [[UINavigationBar appearance] setTitleTextAttributes:
@@ -59,6 +53,22 @@
     
 }
 
+// FBSample logic
+// If we have a valid session at the time of openURL call, we handle Facebook transitions
+// by passing the url argument to handleOpenURL; see the "Just Login" sample application for
+// a more detailed discussion of handleOpenURL
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                    fallbackHandler:^(FBAppCall *call) {
+                        NSLog(@"In fallback handler");
+                    }];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -71,9 +81,18 @@
     [TestFlight takeOff:kTestFlightAPIKey];
 #endif
     
+    //Customize appearance iOS5
     [self customizeAppearance];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];    
+    
+    //perform cleanup of previous version's data
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"cleanup_done"])
+    {
+        [self performCleanupOldVersion];
+    }
+
+
     
     //Start updating location
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationForbidden:) name:kLocationServicesForbidden object:nil];
@@ -157,6 +176,7 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[GoHikeHTTPClient sharedClient] pushCheckins];
+    [FBAppCall handleDidBecomeActive];
     
 //    NSLog(@"back to active, delete fence");
 }
@@ -168,8 +188,20 @@
     // We already save everywhere in the app, so not using this
     
     [[AppState sharedInstance] stopLocationServices];
+    [FBSession.activeSession close];
 }
 
+- (void)performCleanupOldVersion
+{
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent: @"content.json"];
+    __autoreleasing NSError* contentError = nil;
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:&contentError];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"cleanup_done"];
+    }
+}
 
 #pragma mark - Notification Handlers
 

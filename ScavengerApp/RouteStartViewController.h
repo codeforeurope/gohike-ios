@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CompassViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 
 @interface RouteStartViewController : UITableViewController<CompassViewControllerDelegate, UIAlertViewDelegate>
