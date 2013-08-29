@@ -12,10 +12,9 @@
 @interface NSDictionary (GHReward)
 
 - (int)GHid;
-- (GHImage*)GHImage;
+- (GHImage*)GHimage;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
-
 
 @end
 

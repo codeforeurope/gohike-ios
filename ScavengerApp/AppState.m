@@ -151,6 +151,19 @@ NSString* const kFilePathProfiles = @"profiles";
     return waypointsWithVisit;
 }
 
+- (BOOL)isRouteFinished:(GHRoute*)route
+{
+    NSArray *waypoints = [[self currentRoute] GHwaypoints];
+    if([waypoints count] < 1 )
+        return NO;
+    
+    NSArray *checkinsForRoute = [self checkinsForRoute:[route GHid]];
+    if ([waypoints count] == [checkinsForRoute count]){
+        return YES;
+    }
+    else
+        return NO;
+}
 
 #pragma mark - Save and restore
 

@@ -14,6 +14,10 @@
 #define base_url @"http://www.gotakeahike.nl/"
 
 @interface CitySelectionViewController ()
+{
+    int receivedFileNotifications;
+    int expectedNotifications;
+}
 
 @end
 
@@ -180,25 +184,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GHCity *city;
+    
     switch (indexPath.section) {
         case 0:
         {
             //within
-            int city = [[[_cities GHwithin] objectAtIndex:indexPath.row] GHid]; 
-            [self loadCatalogForCity:city];
+            city = [[_cities GHwithin] objectAtIndex:indexPath.row];
+            [self loadCatalogForCity:[city GHid]];
         }
             break;
         case 1:
         {
             //others
-            int city = [[[_cities GHother] objectAtIndex:indexPath.row] GHid]; 
-            [self loadCatalogForCity:city];
+            city = [[_cities GHother] objectAtIndex:indexPath.row];
+            [self loadCatalogForCity:[city GHid]];
         }
             break;
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    [[AppState sharedInstance] setCurrentCity:city];
+    [[AppState sharedInstance] save];
+    
 }
 
 #pragma mark - Actions
@@ -232,6 +242,7 @@
 - (void)loadCatalogForCity:(int)city
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting routes to play", @"Getting routes to play") maskType:SVProgressHUDMaskTypeBlack];
     [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
 }
 
@@ -246,19 +257,53 @@
 
 - (void)handleLoadCatalogCompleted:(NSNotification*)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingCatalog object:nil];
+
+    
     NSLog(@"Finished loading catalog");
     if([[notification userInfo] objectForKey:@"error"])
     {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
     }
     else{
-        [SVProgressHUD showSuccessWithStatus:nil];
         
-        CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
-        [self.navigationController pushViewController:cvc animated:YES];
-    }
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingCatalog object:nil];
+        if([[[notification userInfo] objectForKey:@"expectedFiles"] integerValue] > 0)
+        {
+        [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        receivedFileNotifications = 0;
+        expectedNotifications = [[[notification userInfo] objectForKey:@"expectedFiles"] integerValue];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFileCompleted:) name:kFinishedDownloadingFile object:nil];
+        }
+        else{
+            [SVProgressHUD showSuccessWithStatus:@""];
 
+            [self pushNewController];
+        }
+
+    }
+
+}
+
+- (void)pushNewController
+{
+    CatalogViewController *cvc = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
+    [self.navigationController pushViewController:cvc animated:YES];
+}
+
+- (void)handleDownloadFileCompleted:(NSNotification*)notification
+{
+    receivedFileNotifications+=1;
+    if(receivedFileNotifications == expectedNotifications)
+    {
+        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@""];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
+        [self pushNewController];
+    }
+    else
+    {
+        [SVProgressHUD showProgress:(expectedNotifications/receivedFileNotifications)+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 - (void)handleLoadCitiesCompleted:(NSNotification*)notification

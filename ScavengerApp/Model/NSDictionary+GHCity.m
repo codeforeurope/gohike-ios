@@ -17,7 +17,7 @@
 
 - (NSString*)GHname
 {
-    return [self objectForKey:@"name"];
+    return [Utilities getTranslatedStringForKey:@"name" fromDictionary:self];
 }
 
 - (NSString*)GHstate_province

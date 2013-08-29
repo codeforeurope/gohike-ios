@@ -17,4 +17,5 @@
 @property (nonatomic, weak) IBOutlet UILabel *locationDescriptionLabel;
 
 
+
 @end

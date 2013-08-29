@@ -16,6 +16,7 @@
 - (GHImage*)GHimage;
 - (NSString*)GHdescription;
 - (NSString*)GHname;
+- (NSString*)GHpublished_key;
 - (NSArray*)GHwaypoints;
 - (GHReward*)GHreward;
 

@@ -37,6 +37,10 @@
     else{
         labelText = [dictionary objectForKey:[[dictionary allKeys] objectAtIndex:0]];
     }
+    //One last test to avoid return <null> values if they are by mistake stored in the API
+    if(labelText == nil){
+        labelText = @"";
+    }
     return labelText;
 }
 
@@ -46,11 +50,6 @@
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     return (__bridge NSString *)string;
-}
-
-+ (NSString*)getLibraryPath
-{
-    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 }
 
 + (NSString*)getCurrentLocale

@@ -63,15 +63,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:section]];
     GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:section];
     return [[profile GHroutes] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-//    GHRoute *route = [[[GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]] routes] objectAtIndex:indexPath.row];
     GHRoute *route = [[[[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section ] GHroutes] objectAtIndex:indexPath.row];
     
     SelectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER forIndexPath:indexPath];
@@ -81,23 +78,17 @@
         
     }
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground1"]];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellbackground2"]];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground1"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground2"]  resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
+    cell.backgroundColor = [UIColor redColor];
 
+    
 //    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
     cell.profileImage.image = [UIImage imageWithData:[FileUtilities iconDataForRoute:route]];
     cell.profileLabel.text = [route GHname];
-    cell.backgroundColor = [UIColor clearColor];
+    cell.bottomLabel.text = @"";
     
     return cell;
-    
-    
-//    UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionViewCell" forIndexPath:indexPath];
-//    UILabel *label = [[UILabel alloc] initWithFrame:collectionView.bounds];
-//    label.text = route.name;
-//    [cell addSubview:label];
-//
-//    return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -117,6 +108,7 @@
         headerView.headerLabel.text = [profile GHname];
 //        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
         headerView.headerImage.image = [UIImage imageWithData:[FileUtilities imageDataForProfile:profile]];
+        headerView.headerBackgroundImage.image  = [[UIImage imageNamed:@"overlay-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
         
         reusableview = headerView;
     }
@@ -154,6 +146,15 @@
     [self.navigationController pushViewController:rvc animated:YES];
     
     
+}
+
+#pragma mark - Notification handlers
+
+- (void)handleFileDownloadedNotification
+{
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadData];
+    } completion:^(BOOL finished) {}];
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

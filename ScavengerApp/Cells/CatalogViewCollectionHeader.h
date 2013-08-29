@@ -12,5 +12,6 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView *headerImage;
 @property (nonatomic, weak) IBOutlet UILabel *headerLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *headerBackgroundImage;
 
 @end

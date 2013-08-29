@@ -15,32 +15,32 @@
 +(BOOL)saveCatalog:(GHCatalog*)catalog WithId:(int)cityId
 {
     __block BOOL success = NO;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         int catalogId = cityId;
         
         //Save it to library
         
         __autoreleasing NSError *error;
         NSFileManager *manager = [NSFileManager defaultManager];
-        NSString* libraryPath = [Utilities getLibraryPath];
+        NSString* libraryPath = [FileUtilities getLibraryPath];
         NSString *catalogPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathCatalogs, catalogId]];
         success = [manager createDirectoryAtPath:catalogPath withIntermediateDirectories:YES attributes:Nil error:&error];
         NSString *filePath = [catalogPath stringByAppendingPathComponent:@"catalog.plist"];
         success = [catalog writeToFile:filePath atomically:YES];
         if(!success)
-            NSLog(@"Writing to file Failed");
+            NSLog(@"Writing Catalog to file Failed");
         for (GHProfile *profile in [catalog GHprofiles]) {
             [FileUtilities saveProfile:profile];
         }
         
-    });
+//    });
     return success;
 }
 
 + (GHCatalog*)loadCatalogFromFileWithId:(int)cityID
 {
     int catalogId = cityID;
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *catalogPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathCatalogs, catalogId]];
     NSString *filePath = [catalogPath stringByAppendingPathComponent:@"catalog.plist"];
     return [NSArray arrayWithContentsOfFile:filePath];
@@ -50,7 +50,7 @@
 
 +(NSData*)imageDataForProfile:(GHProfile*)profile
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathProfiles, [profile GHid]]];
     NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[profile image] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -64,11 +64,11 @@
     
     __autoreleasing NSError *error;
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathProfiles, saveId]];
     BOOL success = [manager createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:Nil error:&error];
     if(!success)
-        NSLog(@"Writing to file Failed");
+        NSLog(@"Writing Profile to file Failed");
     
     NSString *imageFile = [NSString stringWithFormat:@"%@.png",[[profile GHimage] GHmd5]];
     NSString *imagePath = [savePath stringByAppendingPathComponent:imageFile];
@@ -84,8 +84,8 @@
 
 +(NSData*)imageDataForRoute:(GHRoute*)route
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
-    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [route GHroute_id]]];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
+    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [route GHid]]];
     NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[route GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
@@ -93,8 +93,8 @@
 
 +(NSData*)iconDataForRoute:(GHRoute*)route
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
-    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [route GHroute_id]]];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
+    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [route GHid]]];
     NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[route GHicon] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
@@ -102,19 +102,19 @@
 
 + (BOOL)saveRoute:(GHRoute*)route
 {
-    __block BOOL success = NO;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    BOOL success = NO;
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         int fileID = [route GHid];
         
         __autoreleasing NSError *error;
         NSFileManager *manager = [NSFileManager defaultManager];
-        NSString* libraryPath = [Utilities getLibraryPath];
+        NSString* libraryPath = [FileUtilities getLibraryPath];
         NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, fileID]];
-        BOOL success = [manager createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:Nil error:&error];
+        success = [manager createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:Nil error:&error];
         NSString *filePath = [savePath stringByAppendingPathComponent:@"route.plist"];
         success = [route writeToFile:filePath atomically:YES];
         if(!success)
-            NSLog(@"Writing to file Failed");
+            NSLog(@"Writing Route to file Failed");
         
         //write the icon file and image
         NSString *iconFile = [NSString stringWithFormat:@"%@.png",[[route GHicon] GHmd5]];
@@ -132,14 +132,14 @@
         
         [FileUtilities saveReward:[route GHreward]];
         
-    });
+//    });
     
     return success;
 }
 
 + (GHRoute*)loadRouteFromFileWithId:(int)routeId
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, routeId]];
     NSString *filePath = [savePath stringByAppendingPathComponent:@"route.plist"];
     return [NSDictionary dictionaryWithContentsOfFile:filePath];
@@ -148,8 +148,8 @@
 #pragma mark - Waypoints
 +(NSData*)imageDataForWaypoint:(GHWaypoint*)waypoint
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
-    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"waypoints/%d", [waypoint GHroute_id]]];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
+    NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [waypoint GHroute_id]]];
     NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[waypoint GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
@@ -162,11 +162,11 @@
     
     __autoreleasing NSError *error;
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, saveId]];
     BOOL success = [manager createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:Nil error:&error];
     if(!success)
-        NSLog(@"Writing to file Failed");
+        NSLog(@"Writing Waypoint to file Failed");
     
     NSString *imageFile = [NSString stringWithFormat:@"%@.png",[[waypoint GHimage] GHmd5]];
     NSString *imagePath = [savePath stringByAppendingPathComponent:imageFile];
@@ -179,9 +179,9 @@
 
 +(NSData*)imageDataForReward:(GHReward*)reward
 {
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *rewardPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, [reward GHroute_id]]];
-    NSString *filePath = [rewardPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[reward image] GHmd5]]];
+    NSString *filePath = [rewardPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[reward GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
 }
@@ -193,11 +193,11 @@
     
     __autoreleasing NSError *error;
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSString* libraryPath = [Utilities getLibraryPath];
+    NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, saveId]];
     BOOL success = [manager createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:Nil error:&error];
     if(!success)
-        NSLog(@"Writing to file Failed");
+        NSLog(@"Writing Reward to file Failed");
     
     NSString *imageFile = [NSString stringWithFormat:@"%@.png",[[reward GHimage] GHmd5]];
     NSString *imagePath = [savePath stringByAppendingPathComponent:imageFile];
@@ -206,6 +206,12 @@
     return success;
 }
 
+#pragma mark - 
+
++ (NSString*)getLibraryPath
+{
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
 
 
 @end

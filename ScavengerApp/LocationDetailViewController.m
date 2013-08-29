@@ -76,6 +76,12 @@
     _locationImageView.layer.shadowOpacity = 1;
     _locationImageView.layer.shadowRadius = 1.0;
     _locationImageView.clipsToBounds = NO;
+    
+    
+    //adjust the textview size
+    CGRect frame = _locationText.frame;
+    frame.size.height = _locationText.contentSize.height;
+    _locationText.frame = frame;
 }
 
 - (void)didReceiveMemoryWarning

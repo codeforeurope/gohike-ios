@@ -47,6 +47,7 @@ extern NSString* const kFilePathProfiles;
 - (GHWaypoint*)nextCheckinForRoute:(int)routeId;
 - (NSArray*)checkinsForRoute:(int)routeId;
 - (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
+- (BOOL)isRouteFinished:(NSDictionary*)route;
 
 //Location
 - (void) startLocationServices;

@@ -17,6 +17,7 @@
 NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
 NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
 NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
+NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
 
 @implementation GoHikeHTTPClient
 
@@ -94,13 +95,14 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 - (void)getCatalogForCity:(int)cityID
 {
     
-//    GHCatalog* existingCatalog = [GHCatalog loadFromFileWithId:cityID];
-//    if(existingCatalog){
-//        [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
-//        [[AppState sharedInstance] save];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
-//        return;
-//    }
+    GHCatalog* existingCatalog = [FileUtilities loadCatalogFromFileWithId:cityID];
+    if(existingCatalog){
+        [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
+        [[AppState sharedInstance] save];
+        NSDictionary *userInfo = @{ @"expectedFiles" : @0};
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
+        return;
+    }
     
     NSString *locale = [Utilities getCurrentLocale];
     NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
@@ -114,7 +116,8 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             [[AppState sharedInstance] setCurrentCatalog:catalog];
             [[AppState sharedInstance] save];
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil];
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:[catalog count]*2]};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
             
         }
         else{
@@ -150,18 +153,10 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
-//            //Save it to library
-//            NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//            NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d",routeId]];
-//            BOOL success = [((NSDictionary*)JSON) writeToFile:filePath atomically:YES];
-//            if(!success)
-//                NSLog(@"Writing to file Failed");
-            
-//            [self saveRoute:route];
-            
             [FileUtilities saveRoute:route];
-                    
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil];
+            
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:[[route GHwaypoints] count] +2]};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil userInfo:userInfo];
             
         }
         else{
@@ -187,13 +182,22 @@ NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
     if(![[NSFileManager defaultManager] fileExistsAtPath:savePath]){
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileUrl]];
         AFImageRequestOperation *operation;
-        operation = [AFImageRequestOperation imageRequestOperationWithRequest:request success:^(UIImage *image) {
+        operation = [AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:^UIImage *(UIImage *image) {
+            return image;
+        } success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             NSData *data = UIImagePNGRepresentation(image);
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedDownloadingFile object:nil userInfo:nil];
             BOOL success = [data writeToFile:savePath atomically:YES];
             if(!success)
-                NSLog(@"Failed writing to file %@", savePath);
+                NSLog(@"Failed writing downloaded file to file %@", savePath);
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedDownloadingFile object:nil userInfo:nil];
         }];
         [self enqueueHTTPRequestOperation:operation];
+    }
+    else{
+        //If file exists, it's as if it was downloaded already
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedDownloadingFile object:nil userInfo:nil];
     }
 }
 

@@ -11,6 +11,7 @@
 extern NSString* const kFinishedLoadingCatalog;
 extern NSString* const kFinishedLoadingRoute;
 extern NSString* const kFinishedLoadingCities;
+extern NSString* const kFinishedDownloadingFile;
 
 @interface GoHikeHTTPClient : AFHTTPClient
 

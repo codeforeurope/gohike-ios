@@ -26,7 +26,11 @@
 
 @interface RouteStartViewController ()
 
-//@property (nonatomic, strong) NSArray *checkins;
+{
+    int receivedFileNotifications;
+    int expectedNotifications;
+}
+
 
 @property (nonatomic, assign) BOOL routeComplete;
 
@@ -66,6 +70,7 @@
     [[SIAlertView appearance] setShadowRadius:20];
 
     _route = [[AppState sharedInstance] currentRoute];
+    _routeComplete = [[AppState sharedInstance] isRouteFinished:_route];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,8 +101,8 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //set the right button to lead to compass or reward
-    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
-    if (nextWaypoint)
+//    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
+    if (![[AppState sharedInstance] isRouteFinished:_route])
     {
         // Route is not complete, put "go hike" button
         CustomBarButtonViewRight *goHikeButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
@@ -229,8 +234,6 @@
             [cell.contentView addSubview:startHikeCellButton];
             
             return cell;
-
-
         }
             break;
         case 2:
@@ -367,26 +370,10 @@
     }
 }
 
-- (void)handleRouteDownloaded:(NSNotification*)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingRoute object:nil];
-    if([[notification userInfo] objectForKey:@"error"])
-    {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Download error", @"Download error")];
-    }
-    else{
-        [SVProgressHUD showSuccessWithStatus:nil];
-        _route = [[AppState sharedInstance] currentRoute];
-    }
-
-    [self.tableView reloadData];
-
-}
-
 - (void)viewReward
 {
     RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
-    rvc.reward = [_route objectForKey:@"reward"];
+    rvc.reward = [_route GHreward];
     [self.navigationController pushViewController:rvc animated:YES];
 }
 
@@ -422,6 +409,52 @@
     //TODO: check if it's called
     [TestFlight passCheckpoint:@"UserHasFinishedRoute"];
     showRewardOnAppear = TRUE;
+}
+
+#pragma mark - Notification handlers
+
+- (void)handleRouteDownloaded:(NSNotification*)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingRoute object:nil];
+    if([[notification userInfo] objectForKey:@"error"])
+    {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Download error", @"Download error")];
+    }
+    else{
+        
+        if([[[notification userInfo] objectForKey:@"expectedFiles"] integerValue] > 0)
+        {
+            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+            receivedFileNotifications = 0;
+            expectedNotifications = [[[notification userInfo] objectForKey:@"expectedFiles"] integerValue];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFileCompleted:) name:kFinishedDownloadingFile object:nil];
+        }
+        else{
+            [SVProgressHUD showSuccessWithStatus:nil];
+            
+            _route = [[AppState sharedInstance] currentRoute];
+        }
+        
+    }
+    
+    
+}
+
+- (void)handleDownloadFileCompleted:(NSNotification*)notification
+{
+    receivedFileNotifications+=1;
+    if(receivedFileNotifications == expectedNotifications)
+    {
+        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showSuccessWithStatus:@""];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
+        [self.tableView reloadData];
+
+    }
+    else
+    {
+        [SVProgressHUD showProgress:(expectedNotifications/receivedFileNotifications)+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 

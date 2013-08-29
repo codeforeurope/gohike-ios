@@ -46,4 +46,9 @@
     return [self objectForKey:@"reward"];
 }
 
+- (NSString*)GHpublished_key
+{
+    return [self objectForKey:@"published_key"];
+}
+
 @end

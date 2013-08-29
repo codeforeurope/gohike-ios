@@ -32,5 +32,8 @@
 +(NSData*)imageDataForReward:(GHReward*)reward;
 + (BOOL)saveReward:(GHReward*)reward;
 
+//
++ (NSString*)getLibraryPath;
+
 
 @end
