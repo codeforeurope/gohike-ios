@@ -253,18 +253,14 @@ NSString* const kFilePathProfiles = @"profiles";
     NSDate* eventDate = currentLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
 #if !TARGET_IPHONE_SIMULATOR
-    if (abs(howRecent) < 15.0 && currentLocation.horizontalAccuracy >= _locationManager.desiredAccuracy) {
+    if (abs(howRecent) < 15.0) {
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
-        [self stopLocationServices];
-        
     }
 #else
     if (abs(howRecent) < 15.0) {
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
-        [self stopLocationServices];
-        
     }
 #endif
 }
@@ -283,7 +279,7 @@ NSString* const kFilePathProfiles = @"profiles";
             case kCLErrorLocationUnknown:
             {
                 NSDictionary *userInfo = @{ @"error" : error };
-                [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesFailure object:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesFailure object:nil userInfo:userInfo];
             }
                 
             default:
@@ -306,7 +302,7 @@ NSString* const kFilePathProfiles = @"profiles";
         float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
         
         NSDictionary *userInfo = @{ @"heading" : [NSNumber numberWithFloat:heading] };
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesUpdateHeading object:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesUpdateHeading object:nil userInfo:userInfo];
         
     }
 }

@@ -80,10 +80,16 @@
     [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
     [[AppState sharedInstance] save];
+    
+    [[AppState sharedInstance] stopLocationServices];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    //start location services
+    [[AppState sharedInstance] startLocationServices];
+    
+    //register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHeadingUpdate:) name:kLocationServicesUpdateHeading object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
     
@@ -91,7 +97,6 @@
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
     [[AppState sharedInstance] save];
 #if DEBUG
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
     [[AppState sharedInstance] locationManager:nil didUpdateLocations:[NSArray arrayWithObject:_destinationLocation]];
 #endif
 }
@@ -306,35 +311,12 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
     
     
-    //
+    
+    //UI
     CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
     self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
     [self updateCheckinStatus];
-//    
-//    if(locationManager == nil)
-//    {
-//        locationManager = [[CLLocationManager alloc] init];
-//    }
-//    locationManager.delegate = self;
-//    locationManager.activityType = CLActivityTypeFitness; //Used to track pedestrian activity
-//    locationManager.headingFilter = 5;  // 5 degrees
-////        locationManager.distanceFilter = 2; //2 meters
-//    
-//#if TARGET_IPHONE_SIMULATOR
-//    [locationManager startUpdatingLocation];
-//    [locationManager startUpdatingHeading];
-//#else
-//    if( [CLLocationManager locationServicesEnabled]
-//       &&  [CLLocationManager headingAvailable]) {
-//        
-//        [locationManager startUpdatingLocation];
-//        [locationManager startUpdatingHeading];
-//        
-//    } else {
-//        NSLog(@"Can't report heading");
-//    }
-//    
-//#endif
+
     
     CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
     compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];

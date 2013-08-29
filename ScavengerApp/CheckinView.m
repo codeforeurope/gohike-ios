@@ -37,7 +37,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         //title
         UIFont *titleFont = [UIFont fontWithName:@"HelveticaNeue" size:TITLE_FONT_SIZE];
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width, [@"A" sizeWithFont:titleFont].height)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.bounds.size.width-10, [@"A" sizeWithFont:titleFont].height)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.adjustsFontSizeToFitWidth = YES;
         titleLabel.backgroundColor = [UIColor clearColor];
