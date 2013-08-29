@@ -13,20 +13,24 @@
 //Catalog
 + (BOOL)saveCatalog:(GHCatalog*)catalog WithId:(int)cityId;
 + (GHCatalog*)loadCatalogFromFileWithId:(int)cityID;
++ (NSArray*)picturesInCatalog:(GHCatalog*)catalog;
 
 //Profile
-+(NSData*)imageDataForProfile:(GHProfile*)profile;
++ (NSData*)imageDataForProfile:(GHProfile*)profile;
 + (BOOL)saveProfile:(GHRoute*)profile;
++ (NSArray*)pictureInProfile:(GHProfile*)profile;
 
 //Route
-+(NSData*)imageDataForRoute:(GHRoute*)route;
-+(NSData*)iconDataForRoute:(GHRoute*)route;
++ (NSData*)imageDataForRoute:(GHRoute*)route;
++ (NSData*)iconDataForRoute:(GHRoute*)route;
 + (BOOL)saveRoute:(GHRoute*)route;
 + (GHRoute*)loadRouteFromFileWithId:(int)routeId;
++ (NSArray*)picturesInRoute:(GHRoute*)route;
 
 //Waypoint
-+(NSData*)imageDataForWaypoint:(GHWaypoint*)waypoint;
++ (NSData*)imageDataForWaypoint:(GHWaypoint*)waypoint;
 + (BOOL)saveWaypoint:(GHWaypoint*)waypoint;
++ (NSArray*)pictureInWaypoint:(GHWaypoint*)waypoint;
 
 //Reward
 +(NSData*)imageDataForReward:(GHReward*)reward;

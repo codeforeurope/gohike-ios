@@ -12,6 +12,7 @@
 #import "CatalogViewCollectionHeader.h"
 #import "RouteStartViewController.h"
 #import "SVProgressHUD.h"
+#import "CustomBarButtonViewLeft.h"
 
 
 #define kSELECTION_CELL_IDENTIFIER @"SelectionCell"
@@ -52,6 +53,26 @@
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
 
     [self loadCatalogForCity:[[AppState sharedInstance] currentCity].GHid];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self updateNavigationButtons];
+}
+
+- (void)updateNavigationButtons
+{
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                               imageName:@"icon-back"
+                                                                                    text:NSLocalizedString(@"Cities", @"Cities")
+                                                                                  target:self
+                                                                                  action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+}
+
+- (void)onBackButton
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -207,7 +228,7 @@
     }
     else
     {
-        [SVProgressHUD showProgress:((receivedFileNotifications*100)/expectedNotifications)/100+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 

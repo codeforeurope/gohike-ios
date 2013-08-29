@@ -256,7 +256,6 @@ NSString* const kFilePathProfiles = @"profiles";
     if (abs(howRecent) < 15.0 && currentLocation.horizontalAccuracy >= _locationManager.desiredAccuracy) {
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
-        NSLog(@"_currentLocation: %@", currentLocation);
         [self stopLocationServices];
         
     }
@@ -264,7 +263,6 @@ NSString* const kFilePathProfiles = @"profiles";
     if (abs(howRecent) < 15.0) {
         _currentLocation = currentLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesGotBestAccuracyLocation object:nil];
-        NSLog(@"_currentLocation: %@", currentLocation);
         [self stopLocationServices];
         
     }

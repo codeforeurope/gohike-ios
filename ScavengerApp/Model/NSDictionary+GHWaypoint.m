@@ -15,7 +15,7 @@
     return [[self objectForKey:@"id"] integerValue];
 }
 
-- (GHImage*)image
+- (GHImage*)GHimage
 {
     return [self objectForKey:@"image"];
 }

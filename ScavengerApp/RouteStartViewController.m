@@ -433,11 +433,8 @@
             [SVProgressHUD showSuccessWithStatus:nil];
             
             _route = [[AppState sharedInstance] currentRoute];
-        }
-        
+        }   
     }
-    
-    
 }
 
 - (void)handleDownloadFileCompleted:(NSNotification*)notification
@@ -456,7 +453,7 @@
     }
     else
     {
-        [SVProgressHUD showProgress:((receivedFileNotifications*100)/expectedNotifications)/100+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 

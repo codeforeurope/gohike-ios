@@ -11,7 +11,7 @@
 @interface NSDictionary (GHWaypoint)
 
 - (int)GHid;
-- (GHImage*)image;
+- (GHImage*)GHimage;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
 - (int)GHlocation_id;

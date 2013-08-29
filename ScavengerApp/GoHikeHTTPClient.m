@@ -65,7 +65,6 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
     
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:locationRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
-        NSLog(@"JSON: %@", JSON);
         
         if([NSJSONSerialization isValidJSONObject:JSON]){
             [AppState sharedInstance].cities = (GHCities*)JSON;
@@ -113,7 +112,9 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
             
             GHCatalog *catalog = (GHCatalog*)JSON;
 
-            NSDictionary *userInfo = @{ @"expectedFiles" :  getPicturesInProfiel.... [NSNumber numberWithInt:[catalog count]*2]};
+            int expected = [[FileUtilities picturesInCatalog:catalog] count];
+            NSLog(@"For catalog %d expected %d pictures", cityID, expected);
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
             
             [FileUtilities saveCatalog:catalog WithId:cityID];
@@ -147,14 +148,15 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
     NSMutableURLRequest *routeRequest = [self requestWithMethod:@"GET" path:path parameters:nil];
     [routeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:routeRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"JSON: %@", JSON);
         if([NSJSONSerialization isValidJSONObject:JSON]){
             
             GHRoute *route = (GHRoute*)JSON;
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
-            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:[[route GHwaypoints] count] +2]};
+            int expected = [[FileUtilities picturesInRoute:route] count];
+            NSLog(@"For route %d expected %d pictures", routeId, expected);
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil userInfo:userInfo];
             [FileUtilities saveRoute:route];
 

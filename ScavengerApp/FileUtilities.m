@@ -46,13 +46,22 @@
     return [NSArray arrayWithContentsOfFile:filePath];
 }
 
++ (NSArray*)picturesInCatalog:(GHCatalog*)catalog
+{
+    NSMutableArray *pictures = [[NSMutableArray alloc] init];
+    for (GHProfile *profile in catalog) {
+        [pictures addObjectsFromArray:[FileUtilities pictureInProfile:profile]];
+    }
+    return [NSArray arrayWithArray:pictures];
+}
+
 #pragma mark - Profile
 
 +(NSData*)imageDataForProfile:(GHProfile*)profile
 {
     NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *routePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathProfiles, [profile GHid]]];
-    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[profile image] GHmd5]]];
+    NSString *filePath = [routePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[profile GHimage] GHmd5]]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return data;
 }
@@ -78,6 +87,16 @@
         [FileUtilities saveRoute:route];
     }
     return success;
+}
+
++ (NSArray *)pictureInProfile:(GHProfile *)profile
+{
+    NSMutableArray *pictures = [[NSMutableArray alloc] init];
+    [pictures addObject:[[profile GHimage] GHmd5]];
+    for (GHRoute *route in [profile GHroutes]) {
+        [pictures addObjectsFromArray:[FileUtilities picturesInRoute:route]];
+    }
+    return [NSArray arrayWithArray:pictures];
 }
 
 #pragma mark - Route
@@ -137,6 +156,18 @@
     return success;
 }
 
++ (NSArray *)picturesInRoute:(GHRoute *)route
+{
+    NSMutableArray *pictures = [[NSMutableArray alloc] init];
+    [pictures addObject:[[route GHimage] GHmd5]];
+    [pictures addObject:[[route GHicon] GHmd5]];
+    [pictures addObjectsFromArray:[NSArray arrayWithObjects:[[[route GHreward] GHimage] GHmd5], nil]];
+    for (GHWaypoint *waypoint in [route GHwaypoints]) {
+        [pictures addObjectsFromArray:[FileUtilities pictureInWaypoint:waypoint]];
+    }
+    return [NSArray arrayWithArray:pictures];
+}
+
 + (GHRoute*)loadRouteFromFileWithId:(int)routeId
 {
     NSString* libraryPath = [FileUtilities getLibraryPath];
@@ -173,6 +204,11 @@
     [[GoHikeHTTPClient sharedClient] downloadFileWithUrl:[[waypoint GHimage] GHurl] savePath:imagePath];
     
     return success;
+}
+
++ (NSArray *)pictureInWaypoint:(GHWaypoint *)waypoint
+{
+    return [NSArray arrayWithObjects:[[waypoint GHimage] GHmd5], nil];
 }
 
 #pragma mark - Rewards
