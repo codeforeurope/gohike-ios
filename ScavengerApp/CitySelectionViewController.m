@@ -62,7 +62,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //load the cities
+    //Get the location, then load the cities
     [self getLocation];
 }
 
@@ -213,9 +213,9 @@
 
 - (void)getLocation
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
     [[AppState sharedInstance] startLocationServices];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
 }
 
 - (void)loadCities
@@ -246,6 +246,7 @@
 
     if ([[notification userInfo] objectForKey:@"error"]) {
         NSLog(@"Error in updating location: %@", [[[notification userInfo] objectForKey:@"error"] description]);
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Could not get location at this time", @"Could not get location at this time")];
     }
     else{
         [self loadCities];

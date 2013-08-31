@@ -236,7 +236,7 @@ NSString* const kFilePathProfiles = @"profiles";
     
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 100;
+    _locationManager.distanceFilter = 20;
     
     [_locationManager startUpdatingLocation];
     [_locationManager startUpdatingHeading];

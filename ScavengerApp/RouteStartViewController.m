@@ -29,15 +29,13 @@
 {
     int receivedFileNotifications;
     int expectedNotifications;
+    BOOL isFacebookLoggedIn;
 }
 
 @property (nonatomic, assign) BOOL routeComplete;
 
 @property (nonatomic, strong) GHRoute *route;
 
-
-//Facebook
-@property (strong, nonatomic) id<FBGraphUser> loggedInUser;
 
 @end
 
@@ -76,6 +74,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded);
     
     if(showRewardOnAppear)
     {
@@ -224,7 +223,7 @@
             }
             else{
                 // See if the app has a valid token for the current state.
-                if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+                if (isFacebookLoggedIn) {
                     // To-do, show logged in view
                     [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
                 } else {
@@ -363,12 +362,28 @@
     }
     else{
         // See if the app has a valid token for the current state.
-        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        if (isFacebookLoggedIn) {
             // To-do, show logged in view
             double size = [[_route objectForKey:@"size"] doubleValue] /1024;
-            UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
-            [alertView setTag:download_warning_alertview_tag];
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") andMessage:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ]];
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",nil)
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alertView) {
+                                  }];
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", nil)
+                                     type:SIAlertViewButtonTypeDefault
+                                  handler:^(SIAlertView *alertView) {
+                                      [alertView dismissAnimated:NO];
+                                      [self downloadRoute];
+                                  }];
+            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+            alertView.didDismissHandler = ^(SIAlertView *alertView) {
+            };
             [alertView show];
+//            UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
+//            [alertView setTag:download_warning_alertview_tag];
+//            [alertView show];
 
             
         } else {
@@ -379,12 +394,17 @@
 
 }
 
+- (void)downloadRoute
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route") maskType:SVProgressHUDMaskTypeBlack];
+    [[GoHikeHTTPClient sharedClient] getRoute:[_route GHid]];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(alertView.tag == download_warning_alertview_tag && buttonIndex == 1){
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route") maskType:SVProgressHUDMaskTypeBlack];
-        [[GoHikeHTTPClient sharedClient] getRoute:[_route GHid]];
+        [self downloadRoute];
     }
 }
 
@@ -484,13 +504,14 @@
     switch (state) {
         case FBSessionStateOpen: {
             NSLog(@"facebook session open");
+            isFacebookLoggedIn = YES;
             [self getUserDetails];
             
         }
             break;
         case FBSessionStateClosed:
         case FBSessionStateClosedLoginFailed:
-            
+            isFacebookLoggedIn = NO;
             [FBSession.activeSession closeAndClearTokenInformation];
 
             break;
@@ -500,7 +521,7 @@
     
     if (error) {
         UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
+                                  initWithTitle:NSLocalizedString(@"Facebook Error", @"Facebook Error")
                                   message:error.localizedDescription
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
