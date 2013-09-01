@@ -37,8 +37,6 @@
 		AC0AF47B1754AB4600B766E0 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4701754AB4600B766E0 /* AFURLConnectionOperation.m */; };
 		AC0AF47C1754AB4600B766E0 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4721754AB4600B766E0 /* AFXMLRequestOperation.m */; };
 		AC0AF47D1754AB4600B766E0 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4741754AB4600B766E0 /* UIImageView+AFNetworking.m */; };
-		AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */; };
-		AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */; };
 		AC0AF4871754BA6300B766E0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */; };
 		AC0AF4891754BA6A00B766E0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */; };
 		AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF48B1754BC0000B766E0 /* RouteDetailTitleCell.m */; };
@@ -51,6 +49,8 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
+		AC11F74E17D3589200E43279 /* collectionviewheader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */; };
+		AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74F17D3589B00E43279 /* collectionviewheader.png */; };
 		AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418F517C6219B00B3783D /* CatalogViewController.m */; };
 		AC2418F817C6219B00B3783D /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418F617C6219B00B3783D /* CatalogViewController.xib */; };
 		AC2418FB17C623CC00B3783D /* CatalogViewCollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2418FA17C623CC00B3783D /* CatalogViewCollectionHeader.xib */; };
@@ -224,9 +224,6 @@
 		AC0AF4721754AB4600B766E0 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		AC0AF4731754AB4600B766E0 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		AC0AF4741754AB4600B766E0 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailViewController.h; sourceTree = "<group>"; };
-		AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailViewController.m; sourceTree = "<group>"; };
-		AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationDetailViewController.xib; sourceTree = "<group>"; };
 		AC0AF4861754BA6300B766E0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AC0AF4881754BA6A00B766E0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		AC0AF48A1754BC0000B766E0 /* RouteDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDetailTitleCell.h; sourceTree = "<group>"; };
@@ -248,6 +245,8 @@
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
+		AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectionviewheader@2x.png"; sourceTree = "<group>"; };
+		AC11F74F17D3589B00E43279 /* collectionviewheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collectionviewheader.png; sourceTree = "<group>"; };
 		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
 		AC2418F517C6219B00B3783D /* CatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewController.m; sourceTree = "<group>"; };
 		AC2418F617C6219B00B3783D /* CatalogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewController.xib; sourceTree = "<group>"; };
@@ -657,6 +656,7 @@
 		ACB534A5175654390065D72D /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				AC11F74F17D3589B00E43279 /* collectionviewheader.png */,
 				AC24194617C7874F00B3783D /* back.png */,
 				ACC893C917609E0F002AC636 /* help1.png */,
 				ACC893CA17609E0F002AC636 /* help2.png */,
@@ -694,6 +694,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */,
 				AC24194817C7875C00B3783D /* back@2x.png */,
 				AC303F8F17C506E300875910 /* verboden@2x.png */,
 				ACC893C117609E07002AC636 /* help1@2x.png */,
@@ -807,9 +808,6 @@
 				ACC893AA175F67B5002AC636 /* MapPoint.m */,
 				ACDD9BD21743CDCE00D64682 /* RouteStartViewController.h */,
 				ACDD9BD31743CDCE00D64682 /* RouteStartViewController.m */,
-				AC0AF4811754B77500B766E0 /* LocationDetailViewController.h */,
-				AC0AF4821754B77500B766E0 /* LocationDetailViewController.m */,
-				AC0AF4831754B77500B766E0 /* LocationDetailViewController.xib */,
 				ACB958DB17D2A8AE007FB821 /* LocationDetailTableViewController.h */,
 				ACB958DC17D2A8AE007FB821 /* LocationDetailTableViewController.m */,
 				AC0AF4951754D51D00B766E0 /* TableBackground.xib */,
@@ -939,7 +937,6 @@
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
 				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
-				AC0AF4851754B77500B766E0 /* LocationDetailViewController.xib in Resources */,
 				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
 				AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */,
 				ACB534D1175654390065D72D /* arrow.png in Resources */,
@@ -1019,6 +1016,8 @@
 				ACB958DF17D2A8C5007FB821 /* LocationDetailPictureCell.xib in Resources */,
 				ACB958E117D2A8DC007FB821 /* LocationDetailTitleCell.xib in Resources */,
 				ACB958E317D2A8E6007FB821 /* LocationDetailBodyCell.xib in Resources */,
+				AC11F74E17D3589200E43279 /* collectionviewheader@2x.png in Resources */,
+				AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,7 +1082,6 @@
 				AC0AF47C1754AB4600B766E0 /* AFXMLRequestOperation.m in Sources */,
 				AC0AF47D1754AB4600B766E0 /* UIImageView+AFNetworking.m in Sources */,
 				1C8053BD1754D30900900C54 /* NavigationStatusView.m in Sources */,
-				AC0AF4841754B77500B766E0 /* LocationDetailViewController.m in Sources */,
 				AC0AF48C1754BC0000B766E0 /* RouteDetailTitleCell.m in Sources */,
 				A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */,
 				A7DABF021757994800A0315E /* CloudView.m in Sources */,

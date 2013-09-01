@@ -45,12 +45,12 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="937909292"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<float key="IBUIAlpha">0.80000001192092896</float>
+						<float key="IBUIAlpha">0.69999998807907104</float>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">overlay-background.png</string>
+							<string key="NSResourceName">collectionviewheader.png</string>
 						</object>
 					</object>
 					<object class="IBUIImageView" id="937909292">
@@ -227,22 +227,6 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="1013944344">
-								<reference key="firstItem" ref="131274289"/>
-								<int key="firstAttribute">6</int>
-								<int key="relation">0</int>
-								<reference key="secondItem" ref="180317795"/>
-								<int key="secondAttribute">6</int>
-								<float key="multiplier">1</float>
-								<object class="IBLayoutConstant" key="constant">
-									<double key="value">0.0</double>
-								</object>
-								<float key="priority">1000</float>
-								<reference key="containingView" ref="180317795"/>
-								<int key="scoringType">8</int>
-								<float key="scoringTypeFloat">29</float>
-								<int key="contentType">3</int>
-							</object>
 							<object class="IBNSLayoutConstraint" id="345093336">
 								<reference key="firstItem" ref="131274289"/>
 								<int key="firstAttribute">3</int>
@@ -407,11 +391,6 @@
 						<reference key="parent" ref="180317795"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">54</int>
-						<reference key="object" ref="1013944344"/>
-						<reference key="parent" ref="180317795"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
 						<reference key="object" ref="568157903"/>
 						<reference key="parent" ref="180317795"/>
@@ -459,7 +438,6 @@
 					<reference ref="988226106"/>
 					<reference ref="252715762"/>
 					<reference ref="345093336"/>
-					<reference ref="1013944344"/>
 					<reference ref="568157903"/>
 					<reference ref="925313152"/>
 					<reference ref="53571239"/>
@@ -472,7 +450,6 @@
 				<string key="51.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="55.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="59.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="65.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -544,8 +521,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">overlay-background.png</string>
-			<string key="NS.object.0">{270, 345}</string>
+			<string key="NS.key.0">collectionviewheader.png</string>
+			<string key="NS.object.0">{320, 30}</string>
 		</object>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

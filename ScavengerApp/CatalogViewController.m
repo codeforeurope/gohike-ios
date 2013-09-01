@@ -135,7 +135,7 @@
         headerView.headerLabel.text = [profile GHname];
 //        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
         headerView.headerImage.image = [UIImage imageWithData:[FileUtilities imageDataForProfile:profile]];
-        headerView.headerBackgroundImage.image  = [[UIImage imageNamed:@"overlay-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
+        headerView.headerBackgroundImage.image  = [[UIImage imageNamed:@"collectionviewheader"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
         
         reusableview = headerView;
     }
