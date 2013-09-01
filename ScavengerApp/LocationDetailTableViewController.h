@@ -10,4 +10,6 @@
 
 @interface LocationDetailTableViewController : UITableViewController
 
+@property (nonatomic, strong) GHWaypoint *location;
+
 @end

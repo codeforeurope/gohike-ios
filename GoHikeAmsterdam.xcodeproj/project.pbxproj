@@ -137,6 +137,7 @@
 		ACB958E317D2A8E6007FB821 /* LocationDetailBodyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB958E217D2A8E6007FB821 /* LocationDetailBodyCell.xib */; };
 		ACB958E617D2A909007FB821 /* LocationDetailPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB958E517D2A909007FB821 /* LocationDetailPictureCell.m */; };
 		ACB958E917D2A994007FB821 /* LocationDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB958E817D2A994007FB821 /* LocationDetailTitleCell.m */; };
+		ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB958EB17D34E51007FB821 /* LocationDetailBodyCell.m */; };
 		ACC01963176A18AF00E8886D /* icon-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC01962176A18AF00E8886D /* icon-feedback.png */; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
@@ -356,6 +357,8 @@
 		ACB958E517D2A909007FB821 /* LocationDetailPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailPictureCell.m; sourceTree = "<group>"; };
 		ACB958E717D2A994007FB821 /* LocationDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailTitleCell.h; sourceTree = "<group>"; };
 		ACB958E817D2A994007FB821 /* LocationDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailTitleCell.m; sourceTree = "<group>"; };
+		ACB958EA17D34E51007FB821 /* LocationDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailBodyCell.h; sourceTree = "<group>"; };
+		ACB958EB17D34E51007FB821 /* LocationDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailBodyCell.m; sourceTree = "<group>"; };
 		ACC01962176A18AF00E8886D /* icon-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-feedback.png"; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
@@ -645,6 +648,8 @@
 				ACB958E717D2A994007FB821 /* LocationDetailTitleCell.h */,
 				ACB958E817D2A994007FB821 /* LocationDetailTitleCell.m */,
 				ACB958E217D2A8E6007FB821 /* LocationDetailBodyCell.xib */,
+				ACB958EA17D34E51007FB821 /* LocationDetailBodyCell.h */,
+				ACB958EB17D34E51007FB821 /* LocationDetailBodyCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1109,6 +1114,7 @@
 				ACB958DD17D2A8AE007FB821 /* LocationDetailTableViewController.m in Sources */,
 				ACB958E617D2A909007FB821 /* LocationDetailPictureCell.m in Sources */,
 				ACB958E917D2A994007FB821 /* LocationDetailTitleCell.m in Sources */,
+				ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
