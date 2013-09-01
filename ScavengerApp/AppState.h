@@ -54,6 +54,10 @@ extern NSString* const kFilePathProfiles;
 - (void) startLocationServices;
 - (void) stopLocationServices;
 
+- (void)startMonitoringForDestination;
+- (void)stopMonitoringForDestination;
+
+
 
 @end
 

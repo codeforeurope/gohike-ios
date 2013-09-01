@@ -181,8 +181,6 @@ NSString* const kFilePathProfiles = @"profiles";
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
     [encoder encodeObject:_cities forKey:@"cities"];
     [encoder encodeObject:_currentCity forKey:@"currentCity"];
-//    [encoder encodeObject:_currentCatalog forKey:@"currentCatalog"];
-//    [encoder encodeObject:_currentRoute forKey:@"currentRoute"];
     
     
     [encoder finishEncoding];
@@ -208,9 +206,9 @@ NSString* const kFilePathProfiles = @"profiles";
         _playerIsInCompass = [decoder decodeBoolForKey:@"playerIsInCompass"];
         _cities = [decoder decodeObjectForKey:@"cities"];
         _currentCity = [decoder decodeObjectForKey:@"currentCity"];
-        _currentCatalog = [FileUtilities loadCatalogFromFileWithId:_currentCity.GHid]; //[GHCatalog loadFromFileWithId:_currentCity.GHid]; //[decoder decodeObjectForKey:@"currentCatalog"];
-        _currentRoute = [FileUtilities loadRouteFromFileWithId:_activeRouteId];  //[decoder decodeObjectForKey:@"currentRoute"];
-
+        _currentCatalog = [FileUtilities loadCatalogFromFileWithId:_currentCity.GHid];
+        _currentRoute = [FileUtilities loadRouteFromFileWithId:_activeRouteId];
+        
         [decoder finishDecoding];
     }
     else
@@ -307,6 +305,38 @@ NSString* const kFilePathProfiles = @"profiles";
     }
 }
 
+- (void)startMonitoringForDestination
+{
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
+    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:200.0 identifier:@"destinationLocation"];
+    [_locationManager startMonitoringForRegion:region];
+    NSLog(@"Started monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+    
+}
+
+- (void)stopMonitoringForDestination
+{
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
+    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:200.0 identifier:@"destinationLocation"];
+    [_locationManager stopMonitoringForRegion:region];
+    NSLog(@"Stopped monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    if([[region identifier] isEqualToString:@"destinationLocation"])
+    {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.fireDate = [NSDate date];
+        NSTimeZone* timezone = [NSTimeZone defaultTimeZone];
+        notification.timeZone = timezone;
+        notification.alertBody = NSLocalizedString(@"You are close to the next check-in! Go for it!", @"Local notification when user getting closer to location");
+        notification.alertAction = NSLocalizedString(@"Play!", @"Text shown next to the notification");
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
 
 
 @end

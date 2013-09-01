@@ -106,14 +106,18 @@
                          id result,
                          NSError *error) {
          NSString *alertText;
+         NSString *alertTitle;
          if (error) {
+             alertTitle = @"Result";
              alertText = [NSString stringWithFormat:
                           @"error: domain = %@, code = %d",
                           error.domain, error.code];
          } else {
-             alertText = [NSString stringWithFormat:
-                          @"Posted action, id: %@",
-                          result[@"id"]];
+             alertTitle = NSLocalizedString(@"Done!", @"Alertview title");
+//             alertText = [NSString stringWithFormat:
+//                          @"Posted action, id: %@",
+//                          result[@"id"]];
+             alertText = NSLocalizedString(@"Posted successfully!", nil);
          }
          // Show the result in an alert
          [[[UIAlertView alloc] initWithTitle:@"Result"
@@ -122,6 +126,12 @@
                            cancelButtonTitle:@"OK!"
                            otherButtonTitles:nil]
           show];
+         
+         SIAlertView *a = [[SIAlertView alloc] initWithTitle:alertTitle andMessage:alertText];
+         [a addButtonWithTitle:NSLocalizedString(@"Ok", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) { [alertView dismissAnimated:YES];   }];
+         a.transitionStyle = SIAlertViewTransitionStyleBounce;
+         a.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+         [a show];
      }];
 }
 
@@ -153,9 +163,10 @@
 - (void)imageSaved
 {
     SIAlertView *a = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Done!", nil) andMessage:nil];
-    [a addButtonWithTitle:NSLocalizedString(@"Ok!", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
-        
-    }];
+    [a addButtonWithTitle:NSLocalizedString(@"Ok!", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView)  { [alertView dismissAnimated:YES];   }];
+    a.transitionStyle = SIAlertViewTransitionStyleBounce;
+    a.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+
     [a show];
 }
 
