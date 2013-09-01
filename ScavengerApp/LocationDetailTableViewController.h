@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocationDetailTableViewController : UITableViewController
+@interface LocationDetailTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+    UIImageView     *_imageView;
+    UIScrollView    *_imageScroller;
+    UITableView     *_tableView;
+}
 
-@property (nonatomic, strong) GHWaypoint *location;
+- (id)initWithImage:(UIImage *)image;@property (nonatomic, strong) GHWaypoint *location;
 
 @end

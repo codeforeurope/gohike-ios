@@ -34,21 +34,7 @@
 {
     [super viewDidLoad];
 
-    //custom back button
-    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                       imageName:@"icon-back"
-                                                                        text:NSLocalizedString(@"Back", nil)
-                                                                          target:self
-                                                                          action:@selector(onBackButton)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    //custom map button
-    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
-                                                                      imageName:@"icon-map"
-                                                                       text:NSLocalizedString(@"View Map", nil)
-                                                                         target:self
-                                                                         action:@selector(onMapButton)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
+    [self customizeButtons];
     
     //route info
     NSData* imageData = [FileUtilities imageDataForWaypoint:_location];
@@ -101,6 +87,25 @@
     [_scrollView setContentOffset:CGPointMake(0, 0)];
     [_scrollView setNeedsDisplayInRect:self.view.bounds];
     
+}
+
+- (void)customizeButtons
+{
+    //custom back button
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                               imageName:@"icon-back"
+                                                                                    text:NSLocalizedString(@"Back", nil)
+                                                                                  target:self
+                                                                                  action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    //custom map button
+    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 120, 32)
+                                                                                imageName:@"icon-map"
+                                                                                     text:NSLocalizedString(@"View Map", nil)
+                                                                                   target:self
+                                                                                   action:@selector(onMapButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
 }
 
 - (void)didReceiveMemoryWarning

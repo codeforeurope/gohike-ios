@@ -10,6 +10,6 @@
 
 @interface LocationDetailTitleCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *label;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 
 @end

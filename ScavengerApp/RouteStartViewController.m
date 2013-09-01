@@ -8,7 +8,7 @@
 
 #import "RouteStartViewController.h"
 #import "CompassViewController.h"
-#import "LocationDetailViewController.h"
+#import "LocationDetailTableViewController.h"
 #import "RouteDetailTitleCell.h"
 #import "RewardViewController.h"
 #import "CustomBarButtonViewLeft.h"
@@ -307,7 +307,8 @@
         GHWaypoint *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
         if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
             //Means that the player checked in already
-            LocationDetailViewController *lvc = [[LocationDetailViewController alloc] initWithNibName:@"LocationDetailViewController" bundle:nil];
+            UIImage *image = [UIImage imageWithData:[FileUtilities imageDataForWaypoint:waypoint]];
+            LocationDetailTableViewController *lvc = [[LocationDetailTableViewController alloc] initWithImage:image ];
             lvc.location = waypoint;
             [self.navigationController pushViewController:lvc animated:YES];
         }
