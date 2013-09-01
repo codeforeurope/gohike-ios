@@ -16,10 +16,7 @@
 #import "CitySelectionViewController.h"
 #import "CannotPlayViewController.h"
 #import "CatalogViewController.h"
-
-#define kGOHIKEAPIURL @"http://gohike.herokuapp.com"
-
-//#define kAppHasFinishedContentUpdate @"AppHasFinishedContentUpdate"
+#import "SIAlertView.h"
 
 @implementation AppDelegate
 
@@ -41,7 +38,7 @@
       //UITextAttributeTextShadowColor,
       //[NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
       //UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"HelveticaNeue" size:24.0],
+      [UIFont fontWithName:@"HelveticaNeue" size:18.0],
       UITextAttributeFont,
       nil]];
     
@@ -50,6 +47,14 @@
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
                                                     barMetrics:UIBarMetricsDefault];
 
+
+    //Set SIAlertView appearance
+    UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+    [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:14]];
+    [[SIAlertView appearance] setTitleColor:blueColor];
+    [[SIAlertView appearance] setMessageColor:blueColor];
+    [[SIAlertView appearance] setCornerRadius:12];
+    [[SIAlertView appearance] setShadowRadius:20];
     
 }
 

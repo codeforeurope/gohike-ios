@@ -12,7 +12,8 @@
 #import "SSKeychain.h"
 #import "Secret.h"
 
-#define BASE_URL @"http://www.gotakeahike.nl"
+
+NSString* const kGOHIKE_BASEURL = @"http://www.gotakeahike.nl";
 
 NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
 NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
@@ -25,7 +26,7 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
     static GoHikeHTTPClient *__instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURL *baseUrl = [NSURL URLWithString:BASE_URL];
+        NSURL *baseUrl = [NSURL URLWithString:kGOHIKE_BASEURL];
         __instance = [[GoHikeHTTPClient alloc] initWithBaseURL:baseUrl];
     });
     return __instance;

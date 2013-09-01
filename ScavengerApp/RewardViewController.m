@@ -10,6 +10,8 @@
 #import "RewardViewController.h"
 #import "CustomBarButtonViewLeft.h"
 #import "CustomBarButtonViewRight.h"
+#import "SIAlertView.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface RewardViewController ()
 
@@ -58,12 +60,69 @@
 
 - (void)onShareButton
 {
-    SLComposeViewController*fvc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    // Ask for publish_actions permissions in context
+    if ([FBSession.activeSession.permissions
+         indexOfObject:@"publish_actions"] == NSNotFound) {
+        // Permission hasn't been granted, so ask for publish_actions
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
+                                           defaultAudience:FBSessionDefaultAudienceFriends
+                                              allowLoginUI:YES
+                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                             if (FBSession.activeSession.isOpen && !error) {
+                                                 // Publish the story if permission was granted
+                                                 [self publishStory];
+                                             }
+                                         }];
+    } else {
+        // If permissions present, publish the story
+        [self publishStory];
+    }
     
-    [fvc setInitialText:[NSString stringWithFormat:NSLocalizedString(@"FacebookMessage", nil),_rewardTitle.text]];
-    //[fvc setInitialText:NSLocalizedString(@"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/", nil)];
-    [fvc addImage:[_rewardImage image]];
-    [self presentViewController:fvc animated:YES completion:nil];
+    //Old
+//    SLComposeViewController*fvc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+//    
+//    [fvc setInitialText:[NSString stringWithFormat:NSLocalizedString(@"FacebookMessage", nil),_rewardTitle.text]];
+//    //[fvc setInitialText:NSLocalizedString(@"I am the first Amsterdam explorer with the Take a Hike Amsterdam App! Have a look at http://http://www.gotakeahike.nl/", nil)];
+//    [fvc addImage:[_rewardImage image]];
+//    [self presentViewController:fvc animated:YES completion:nil];
+}
+
+- (void)publishStory
+{
+    
+    
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"link"] = [NSString stringWithFormat:@"%@/rewards/%d",kGOHIKE_BASEURL, [_reward GHid] ];
+    params[@"name"] = [_reward GHname];
+    params[@"description"] = [_reward GHdescription];
+//    params[@"message"] = [NSString stringWithFormat:NSLocalizedString(@"FacebookMessage", nil),_rewardTitle.text];
+    
+    [FBRequestConnection
+     startWithGraphPath:@"me/feed"
+     parameters:params
+     HTTPMethod:@"POST"
+     completionHandler:^(FBRequestConnection *connection,
+                         id result,
+                         NSError *error) {
+         NSString *alertText;
+         if (error) {
+             alertText = [NSString stringWithFormat:
+                          @"error: domain = %@, code = %d",
+                          error.domain, error.code];
+         } else {
+             alertText = [NSString stringWithFormat:
+                          @"Posted action, id: %@",
+                          result[@"id"]];
+         }
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:alertText
+                                    delegate:self
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+     }];
 }
 
 - (void)onBackButton
@@ -87,8 +146,17 @@
         UIImage* imageToSave = [_rewardImage image]; // alternatively, imageView.image
         
         // Save it to the camera roll / saved photo album
-        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil);
+        UIImageWriteToSavedPhotosAlbum(imageToSave, self, @selector(imageSaved), nil);
     }
+}
+
+- (void)imageSaved
+{
+    SIAlertView *a = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Done!", nil) andMessage:nil];
+    [a addButtonWithTitle:NSLocalizedString(@"Ok!", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
+        
+    }];
+    [a show];
 }
 
 @end

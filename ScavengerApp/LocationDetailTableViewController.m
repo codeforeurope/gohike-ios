@@ -285,7 +285,6 @@ static CGFloat ImageHeight  = 300.0;
             NSString *label =  [_location GHdescription];
             CGSize stringSize = [label sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0]
                                   constrainedToSize:CGSizeMake(280, 9999) lineBreakMode:NSLineBreakByWordWrapping];
-            NSLog(@"%f",stringSize.height);
             return stringSize.height; 
         }
             break;

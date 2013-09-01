@@ -58,15 +58,7 @@
     [self.tableView setBackgroundView:tablebgView];
 
     [self updateNavigationButtons];
-    
 
-    //Set SIAlertView appearance
-    UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
-    [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:14]];
-    [[SIAlertView appearance] setTitleColor:blueColor];
-    [[SIAlertView appearance] setMessageColor:blueColor];
-    [[SIAlertView appearance] setCornerRadius:12];
-    [[SIAlertView appearance] setShadowRadius:20];
 
     _route = [[AppState sharedInstance] currentRoute];
     _routeComplete = [[AppState sharedInstance] isRouteFinished:_route];

@@ -13,6 +13,8 @@ extern NSString* const kFinishedLoadingRoute;
 extern NSString* const kFinishedLoadingCities;
 extern NSString* const kFinishedDownloadingFile;
 
+extern NSString* const kGOHIKE_BASEURL;
+
 @interface GoHikeHTTPClient : AFHTTPClient
 
 + (id)sharedClient;

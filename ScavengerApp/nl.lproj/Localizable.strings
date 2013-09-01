@@ -12,7 +12,7 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* Help page 1. */"Choose your route" = "Kies je route";
 /* Help page 4 */"Get reward!" = "En... finish!";
 /* After check-in done. */"Continue!" = "Verder!";
-/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike Amsterdam App! Neem een kijkje op http://http://www.gotakeahike.nl";
+/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
 /* When player can check-in. */"Found!" = "Gevonden!";
 /* Title for place found. */"FoundPlaceTitle" = "Je hebt %@ gevonden!";
 /* The Go Hike button in route selection. */"Go Hike!" = "Start Hike!";

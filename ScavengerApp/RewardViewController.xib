@@ -44,7 +44,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 504}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="57417983"/>
+						<reference key="NSNextKeyView" ref="57607715"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -68,7 +68,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">c4eu-badge.png</string>
+									<string key="NSResourceName">pin.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="57417983">
@@ -83,7 +83,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Congratulations, Amsterdam Explorer!</string>
+								<string key="IBUIText">Congratulations, Explorer!</string>
 								<object class="NSColor" key="IBUITextColor" id="681657072">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -132,7 +132,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 509}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="574038784"/>
+						<reference key="NSNextKeyView" ref="57417983"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -146,7 +146,7 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 504}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="57607715"/>
+				<reference key="NSNextKeyView" ref="574038784"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -850,7 +850,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="c4eu-badge.png">{16, 16}</string>
+			<string key="pin.png">{320, 320}</string>
 			<string key="viewbackground.png">{320, 461}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
