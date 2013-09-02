@@ -105,9 +105,9 @@
         
     }
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground1"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground2"]  resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
-    cell.backgroundColor = [UIColor redColor];
+//    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground1"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
+//    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground2"]  resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
+//    cell.backgroundColor = [UIColor redColor];
 
     
 //    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
@@ -165,7 +165,9 @@
         [[AppState sharedInstance] save];
 
     }
-           
+    
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:rvc animated:YES];
     
