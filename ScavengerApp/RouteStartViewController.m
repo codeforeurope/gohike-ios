@@ -33,8 +33,6 @@
     BOOL routeComplete;
 }
 
-@property (nonatomic, strong) GHRoute *route;
-
 @end
 
 @implementation RouteStartViewController
@@ -52,12 +50,14 @@
 {
     [super viewDidLoad];
     
+    //set some variables useful for managing the view
+    [self refresh];
+    
     //Styling
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.tableView setBackgroundView:tablebgView];
     [self updateNavigationButtons];
 
-    _route = [[AppState sharedInstance] currentRoute];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -89,7 +89,7 @@
     
     //set the right button to lead to compass or reward
 //    NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[[_route objectForKey:@"id"] intValue]];
-    if (![[AppState sharedInstance] isRouteFinished:_route])
+    if (!routeComplete)
     {
         // Route is not complete, put "go hike" button
         CustomBarButtonViewRight *goHikeButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 100, 32)
@@ -123,7 +123,7 @@
 
 - (void)refresh
 {
-    routeComplete = [[AppState sharedInstance] isRouteFinished:_route];
+    routeComplete = [[AppState sharedInstance] isRouteFinished:[[AppState sharedInstance] currentRoute]];
     isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded);
     [self.tableView reloadData];
 }
@@ -153,7 +153,7 @@
         }
         break;
         default:
-            rows = [[_route GHwaypoints] count];
+            rows = [[[[AppState sharedInstance] currentRoute] GHwaypoints] count];
             break;
     }
     return rows;
@@ -161,6 +161,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    GHRoute *route = [[AppState sharedInstance] currentRoute];
+
     switch (indexPath.section) {
         case 0:
         {
@@ -174,9 +176,9 @@
             
 //            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
 //            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
-            cell.routeImage.image = [UIImage imageWithData:[FileUtilities imageDataForRoute:_route]];
-            cell.routeTitleLabel.text = [_route GHname];
-            cell.routeHighlightsLabel.text = [_route GHdescription];
+            cell.routeImage.image = [UIImage imageWithData:[FileUtilities imageDataForRoute:route]];
+            cell.routeTitleLabel.text = [route GHname];
+            cell.routeHighlightsLabel.text = [route GHdescription];
             
             return cell;
         }
@@ -209,8 +211,8 @@
             startHikeCellButton.layer.masksToBounds = YES;
             
             [startHikeCellButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
-            if([_route GHwaypoints]){
-                if([[_route objectForKey:@"update_available"] boolValue] == YES)
+            if([route GHwaypoints]){
+                if([[route objectForKey:@"update_available"] boolValue] == YES)
                 {
                     NSLog(@"Update available!");
                     [startHikeCellButton setTitle:NSLocalizedString(@"Update Available!", @"Update Available!") forState:UIControlStateNormal];
@@ -251,7 +253,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
                        
-            NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+            NSDictionary *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
             
             if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
                 //Means that the player checked in already
@@ -300,9 +302,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    GHRoute *route = [[AppState sharedInstance] currentRoute];
+
     if(indexPath.section == 2)
     {
-        GHWaypoint *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[_route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
+        GHWaypoint *waypoint = [[[AppState sharedInstance] waypointsWithCheckinsForRoute:[[route objectForKey:@"id"] integerValue]] objectAtIndex:indexPath.row];
         if([[waypoint objectForKey:@"visited"] boolValue] == YES) {
             //Means that the player checked in already
             UIImage *image = [UIImage imageWithData:[FileUtilities imageDataForWaypoint:waypoint]];
@@ -338,9 +342,11 @@
 - (void)startButtonTapped
 {
 
-    if([_route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
+    GHRoute *route = [[AppState sharedInstance] currentRoute];
+
+    if([route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
         
-        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[_route GHid]];
+        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[route GHid]];
         
         if(nextWaypoint)
         {
@@ -363,7 +369,7 @@
         // See if the app has a valid token for the current state.
         if (isFacebookLoggedIn) {
             // To-do, show logged in view
-            double size = [[_route objectForKey:@"size"] doubleValue] /1024;
+            double size = [[route objectForKey:@"size"] doubleValue] /1024;
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") andMessage:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ]];
             [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",nil)
                                      type:SIAlertViewButtonTypeCancel
@@ -395,9 +401,11 @@
 
 - (void)downloadRoute
 {
+    GHRoute *route = [[AppState sharedInstance] currentRoute];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteDownloaded:) name:kFinishedLoadingRoute object:nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading route", @"Downloading route") maskType:SVProgressHUDMaskTypeBlack];
-    [[GoHikeHTTPClient sharedClient] getRoute:[_route GHid]];
+    [[GoHikeHTTPClient sharedClient] getRoute:[route GHid]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -409,8 +417,10 @@
 
 - (void)viewReward
 {
+    GHRoute *route = [[AppState sharedInstance] currentRoute];
+
     RewardViewController *rvc = [[RewardViewController alloc] initWithNibName:@"RewardViewController" bundle:nil];
-    rvc.reward = [_route GHreward];
+    rvc.reward = [route GHreward];
     [self.navigationController pushViewController:rvc animated:YES];
 }
 
@@ -494,8 +504,8 @@
 
 - (void)downloadFinished
 {
-    _route = [[AppState sharedInstance] currentRoute];
     [self refresh];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Facebook

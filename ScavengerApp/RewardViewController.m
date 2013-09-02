@@ -114,12 +114,12 @@
              alertText = NSLocalizedString(@"Posted successfully!", nil);
          }
          // Show the result in an alert
-         [[[UIAlertView alloc] initWithTitle:@"Result"
-                                     message:alertText
-                                    delegate:self
-                           cancelButtonTitle:@"OK!"
-                           otherButtonTitles:nil]
-          show];
+//         [[[UIAlertView alloc] initWithTitle:@"Result"
+//                                     message:alertText
+//                                    delegate:self
+//                           cancelButtonTitle:@"OK!"
+//                           otherButtonTitles:nil]
+//          show];
          
          SIAlertView *a = [[SIAlertView alloc] initWithTitle:alertTitle andMessage:alertText];
          [a addButtonWithTitle:NSLocalizedString(@"Ok", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) { [alertView dismissAnimated:YES];   }];
