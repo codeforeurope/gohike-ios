@@ -153,23 +153,20 @@
     GHRoute *existingRoute = [FileUtilities loadRouteFromFileWithId:[selectedRoute GHid]];
     if(existingRoute)
     {
+        if([[existingRoute GHpublished_key] isEqualToString:[selectedRoute GHpublished_key]] != YES)
+        {
+            //the publish keys differ. Means the route in the catalog is more updated than the one we have on the file. Mark the downloaded route as "To Update"
+            NSMutableDictionary *d = [existingRoute mutableCopy];
+            [d setObject:[NSNumber numberWithBool:YES] forKey:@"update_available"];
+            existingRoute = [d copy];
+            //TODO: how to persist the fact that we need to update between app restarts? 
+        }
         [AppState sharedInstance].currentRoute = existingRoute;
         [[AppState sharedInstance] save];
 
     }
-//    //load the route from disk, if available
-//    NSString* libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *filePath = [libraryPath stringByAppendingPathComponent: [NSString stringWithFormat:@"route_%d", [[selectedRoute objectForKey:@"id"] integerValue]]];
-//    
-//    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-//    {
-//        NSDictionary *route = [NSDictionary dictionaryWithContentsOfFile:filePath];
-//        [AppState sharedInstance].currentRoute = route;
-//    }
-//    [[AppState sharedInstance] save];
-//            
+           
     RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    rvc.route = selectedRoute;
     [self.navigationController pushViewController:rvc animated:YES];
     
     
@@ -191,7 +188,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedLoadingCatalog object:nil];
     
     
-    NSLog(@"Finished loading catalog");
     if([[notification userInfo] objectForKey:@"error"])
     {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];

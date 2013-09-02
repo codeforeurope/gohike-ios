@@ -261,7 +261,6 @@
 
 - (void)handleLoadCitiesCompleted:(NSNotification*)notification
 {
-    NSLog(@"Finished loading cities");
     if([[notification userInfo] objectForKey:@"error"])
     {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading cities", @"Error loading cities")];

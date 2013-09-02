@@ -30,12 +30,10 @@
     int receivedFileNotifications;
     int expectedNotifications;
     BOOL isFacebookLoggedIn;
+    BOOL routeComplete;
 }
 
-@property (nonatomic, assign) BOOL routeComplete;
-
 @property (nonatomic, strong) GHRoute *route;
-
 
 @end
 
@@ -54,19 +52,18 @@
 {
     [super viewDidLoad];
     
+    //Styling
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.tableView setBackgroundView:tablebgView];
-
     [self updateNavigationButtons];
 
-
     _route = [[AppState sharedInstance] currentRoute];
-    _routeComplete = [[AppState sharedInstance] isRouteFinished:_route];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded);
+    [self refresh];
+
     
     if(showRewardOnAppear)
     {
@@ -77,8 +74,6 @@
     
     [self updateNavigationButtons];
     
-    //update the table so that the "Go Hike" button won't be displayed
-    [self.tableView reloadData];
 }
 
 - (void)updateNavigationButtons
@@ -108,7 +103,6 @@
     else
     {
         // Route is complete, put reward button
-        _routeComplete = YES;
 
         CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 140, 32)
                                                                              imageName:@"icon-trophy"
@@ -127,6 +121,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refresh
+{
+    routeComplete = [[AppState sharedInstance] isRouteFinished:_route];
+    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded);
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,7 +138,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int rows;
+    int rows = 0;
     // Return the number of rows in the section.
     switch (section) {
         case 0:
@@ -145,7 +146,7 @@
             break;
         case 1:
         {
-            if(_routeComplete == YES)
+            if(routeComplete == YES)
                 rows = 0;
             else
                 rows = 1;
@@ -196,8 +197,6 @@
             startHikeCellButton.frame = cell.contentView.frame;
             [startHikeCellButton setFrame:CGRectMake(0, 0, cell.bounds.size.width-20, 44)];
 
-            
-//            checkinButton.titleLabel.text = NSLocalizedString(@"Go Hike!", nil);
             // Draw a custom gradient
             UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
             CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -211,7 +210,14 @@
             
             [startHikeCellButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
             if([_route GHwaypoints]){
-                [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", @"Go Hike!") forState:UIControlStateNormal];
+                if([[_route objectForKey:@"update_available"] boolValue] == YES)
+                {
+                    NSLog(@"Update available!");
+                    [startHikeCellButton setTitle:NSLocalizedString(@"Update Available!", @"Update Available!") forState:UIControlStateNormal];
+                }
+                else{
+                    [startHikeCellButton setTitle:NSLocalizedString(@"Go Hike!", @"Go Hike!") forState:UIControlStateNormal];
+                }
             }
             else{
                 // See if the app has a valid token for the current state.
@@ -315,7 +321,7 @@
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                     [alertView dismissAnimated:NO];
-                                    [self startRoute];
+                                    [self startButtonTapped];
                                   }];
             alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
             alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
@@ -329,7 +335,7 @@
 
 #pragma mark - Actions
 
-- (void)startRoute
+- (void)startButtonTapped
 {
 
     if([_route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
@@ -425,7 +431,7 @@
         b.layer.shadowRadius = 0;
         b.clipsToBounds = NO;
     }
-    [self startRoute];
+    [self startButtonTapped];
 }
 
 - (void)onViewRewardButton
@@ -463,8 +469,8 @@
         else{
             [SVProgressHUD showSuccessWithStatus:nil];
             
-            _route = [[AppState sharedInstance] currentRoute];
-        }   
+            [self downloadFinished];
+        }
     }
 }
 
@@ -477,15 +483,19 @@
         [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD showSuccessWithStatus:@""];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
-        _route = [[AppState sharedInstance] currentRoute];
-
-        [self.tableView reloadData];
-
+        
+        [self downloadFinished];
     }
     else
     {
         [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
+}
+
+- (void)downloadFinished
+{
+    _route = [[AppState sharedInstance] currentRoute];
+    [self refresh];
 }
 
 #pragma mark - Facebook
@@ -534,7 +544,7 @@
              if (!error) {
 
                  NSLog(@"we got user: %@", user);
-                 [self.tableView reloadData];
+                 [self refresh];
 
 
              }

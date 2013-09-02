@@ -159,7 +159,7 @@ NSString* const kFilePathProfiles = @"profiles";
         return NO;
     
     NSArray *checkinsForRoute = [self checkinsForRoute:[route GHid]];
-    if ([waypoints count] == [checkinsForRoute count]){
+    if ([waypoints count] <= [checkinsForRoute count]){
         return YES;
     }
     else

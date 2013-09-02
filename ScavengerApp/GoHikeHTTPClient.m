@@ -97,11 +97,21 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
     
     GHCatalog* existingCatalog = [FileUtilities loadCatalogFromFileWithId:cityID];
     if(existingCatalog){
-        [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
-        [[AppState sharedInstance] save];
-        NSDictionary *userInfo = @{ @"expectedFiles" : @0};
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
-        return;
+        NSDate *lastModifiedDate = [FileUtilities lastModifiedDateForCatalogWithId:cityID];
+        if( abs([lastModifiedDate timeIntervalSinceNow]) > 60*60*24)
+        {
+            //need to redownload catalog
+            //continue execution
+        }
+        else{
+            //catalog is recent enough
+            [[AppState sharedInstance] setCurrentCatalog:existingCatalog];
+            [[AppState sharedInstance] save];
+            NSDictionary *userInfo = @{ @"expectedFiles" : @0};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
+            return;
+        }
+
     }
     
     NSString *locale = [Utilities getCurrentLocale];
@@ -114,7 +124,9 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
             GHCatalog *catalog = (GHCatalog*)JSON;
 
             int expected = [[FileUtilities picturesInCatalog:catalog] count];
+#if DEBUG
             NSLog(@"For catalog %d expected %d pictures", cityID, expected);
+#endif
             NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
             
@@ -156,10 +168,12 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
             [[AppState sharedInstance] setCurrentRoute:route];
             
             int expected = [[FileUtilities picturesInRoute:route] count];
+#if DEBUG
             NSLog(@"For route %d expected %d pictures", routeId, expected);
+#endif
             NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil userInfo:userInfo];
-            [FileUtilities saveRoute:route];
+            [FileUtilities saveRoute:route writeRouteFile:YES];
 
             
         }

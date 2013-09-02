@@ -14,6 +14,7 @@
 + (BOOL)saveCatalog:(GHCatalog*)catalog WithId:(int)cityId;
 + (GHCatalog*)loadCatalogFromFileWithId:(int)cityID;
 + (NSArray*)picturesInCatalog:(GHCatalog*)catalog;
++ (NSDate*)lastModifiedDateForCatalogWithId:(int)cityID;
 
 //Profile
 + (NSData*)imageDataForProfile:(GHProfile*)profile;
@@ -23,7 +24,7 @@
 //Route
 + (NSData*)imageDataForRoute:(GHRoute*)route;
 + (NSData*)iconDataForRoute:(GHRoute*)route;
-+ (BOOL)saveRoute:(GHRoute*)route;
++ (BOOL)saveRoute:(GHRoute*)route writeRouteFile:(BOOL)writeRouteFile;
 + (GHRoute*)loadRouteFromFileWithId:(int)routeId;
 + (NSArray*)picturesInRoute:(GHRoute*)route;
 
