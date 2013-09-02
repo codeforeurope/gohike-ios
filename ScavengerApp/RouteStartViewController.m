@@ -350,15 +350,22 @@
         
         if(nextWaypoint)
         {
-            [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
-            [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
-            [[AppState sharedInstance] save];
-#if DEBUG
-            NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
-#endif
-            CompassViewController *compass = [[CompassViewController alloc] init];
-            compass.delegate = self;
-            [self.navigationController pushViewController:compass animated:YES];
+            
+            if([[route objectForKey:@"update_available"] boolValue] == YES)
+            {
+                //there is an update, first we prompt the user to download it!
+                SIAlertView *a = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"New content available!", @"New content available!") andMessage:NSLocalizedString(@"There is new content available for this route. Download it now?", @"There is new content available for this route. Download it now?")];
+                [a addButtonWithTitle:NSLocalizedString(@"Later", nil) type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) { [alertView dismissAnimated:YES];
+                    [self startRouteWithWaypoint:nextWaypoint];
+                }];
+                [a addButtonWithTitle:NSLocalizedString(@"Yes!", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) { [self downloadRoute];  }];
+                a.transitionStyle = SIAlertViewTransitionStyleBounce;
+                a.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+                [a show];
+            }
+            else{
+                [self startRouteWithWaypoint:nextWaypoint];
+            }
         }
         else
         {
@@ -398,6 +405,20 @@
     }
 
 }
+
+- (void)startRouteWithWaypoint:(GHWaypoint*)nextWaypoint
+{
+    [[AppState sharedInstance] setActiveRouteId: [[nextWaypoint objectForKey:@"route_id"] intValue]];
+    [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
+    [[AppState sharedInstance] save];
+#if DEBUG
+    NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+#endif
+    CompassViewController *compass = [[CompassViewController alloc] init];
+    compass.delegate = self;
+    [self.navigationController pushViewController:compass animated:YES];
+}
+
 
 - (void)downloadRoute
 {
