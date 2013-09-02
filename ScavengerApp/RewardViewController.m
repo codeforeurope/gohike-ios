@@ -70,21 +70,29 @@
                                          completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                              if (FBSession.activeSession.isOpen && !error) {
                                                  // Publish the story if permission was granted
-                                                 [self publishStory];
+                                                 [self confirmPublishStory];
                                              }
                                          }];
     } else {
         // If permissions present, publish the story
-        [self publishStory];
+        [self confirmPublishStory];
     }
     
 
 }
 
+- (void)confirmPublishStory
+{
+    SIAlertView *a = [[SIAlertView alloc] initWithTitle:nil andMessage:NSLocalizedString(@"Share the reward with your Facebook friends?", @"Share the reward with your Facebook friends?")];
+    [a addButtonWithTitle:NSLocalizedString(@"No", nil) type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) { [alertView dismissAnimated:YES];   }];
+    [a addButtonWithTitle:NSLocalizedString(@"Yes!", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) { [self publishStory];  }];
+    a.transitionStyle = SIAlertViewTransitionStyleBounce;
+    a.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+    [a show];
+}
+
 - (void)publishStory
 {
-    
-    
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"link"] = [NSString stringWithFormat:@"%@/rewards/%d",kGOHIKE_BASEURL, [_reward GHid] ];

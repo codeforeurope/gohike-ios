@@ -29,10 +29,10 @@
         success = [catalog writeToFile:filePath atomically:YES];
         if(!success)
             NSLog(@"Writing Catalog to file Failed");
-//        for (GHProfile *profile in [catalog GHprofiles]) {
-//            [FileUtilities saveProfile:profile];
-//        }
-    
+        for (GHProfile *profile in [catalog GHprofiles]) {
+            [FileUtilities saveProfile:profile];
+        }
+
 //    });
     return success;
 }

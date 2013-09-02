@@ -124,7 +124,7 @@
 - (void)refresh
 {
     routeComplete = [[AppState sharedInstance] isRouteFinished:[[AppState sharedInstance] currentRoute]];
-    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded);
+    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen);
     [self.tableView reloadData];
 }
 
@@ -223,7 +223,7 @@
             }
             else{
                 // See if the app has a valid token for the current state.
-                if (isFacebookLoggedIn) {
+                if (isFacebookLoggedIn == YES) {
                     // To-do, show logged in view
                     [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
                 } else {
@@ -552,8 +552,9 @@
            NSDictionary<FBGraphUser> *user,
            NSError *error) {
              if (!error) {
-
+#if DEBUG
                  NSLog(@"we got user: %@", user);
+#endif
                  [self refresh];
 
 
