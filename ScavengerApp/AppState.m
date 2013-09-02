@@ -46,9 +46,6 @@ NSString* const kFilePathProfiles = @"profiles";
     }
     
     [_checkins addObject:thisCheckIn];
-#if DEBUG
-    NSLog(@"Checkin added. Check-ins list: %@", _checkins);
-#endif
     [self save];
     
     [[GoHikeHTTPClient sharedClient] pushCheckins]; //try to push check-ins if we have internet connection

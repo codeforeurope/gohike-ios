@@ -158,9 +158,6 @@
     checkinView.buttonAction = @selector(onAcceptCheckIn);
     
     [self.view addSubview:checkinView];
-#if DEBUG
-    NSLog(@"add checkin view");
-#endif
     
     //Play sound
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"mp3"];
@@ -187,9 +184,9 @@
     [self.topView updateDistance:distanceFromDestination];
     
     if (distanceFromDestination < CHECKIN_DISTANCE) {
-#if DEBUG
-        NSLog(@"within distance");
-#endif
+//#if DEBUG
+//        NSLog(@"within distance");
+//#endif
         if(!self.checkinPending)
         {
             self.checkinPending = YES;
@@ -233,59 +230,6 @@
      } completion:nil];
 }
 
-//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-//{
-//    
-//    NSString *langKey = [[AppState sharedInstance] language];
-//    NSString * destinationName = [[[AppState sharedInstance] activeWaypoint] objectForKey:[NSString stringWithFormat:@"name_%@",langKey]];
-//#if DEBUG
-//    NSLog(@"did update with destination: %@",destinationName);
-//#endif
-//    
-//    CLLocation *currentLocation = [locations lastObject];
-//    
-//    NSDate* eventDate = currentLocation.timestamp;
-//    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-//    if (abs(howRecent) < 15.0) {
-//        
-//        // If the event is recent, get the distance from destination
-//        double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
-//        //update the bottom navigation bar
-//        [self.statusView update:destinationName withDistance:distanceFromDestination];
-//        [self.topView updateDistance:distanceFromDestination];
-//        
-//        if (distanceFromDestination < CHECKIN_DISTANCE) {
-//#if DEBUG
-//            NSLog(@"within distance");
-//#endif
-//            if(!self.checkinPending)
-//            {
-//                self.checkinPending = YES;
-//                [self addCheckInView];
-//            }
-//        }
-//    
-//        //if we have a previous location, determine sort of proximation speed
-//        if(self.previousLocation)
-//        {
-//            double previousDistanceFromDestination = [self.previousLocation distanceFromLocation:_destinationLocation];
-//            
-//            float pSpeed = (previousDistanceFromDestination - distanceFromDestination) / ([currentLocation.timestamp timeIntervalSinceNow] - [self.previousLocation.timestamp timeIntervalSinceNow]);
-//            cloudView.speed = pSpeed;
-//        }
-//        
-//        //update radar
-//        destinationRadarView.currentLocation = currentLocation;
-//        [destinationRadarView setNeedsDisplay];
-//        
-//        self.previousLocation = currentLocation;
-//    }
-//}
-//
-//- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-//{
-//    NSLog(@"Could not get location due to error: %@", [error description]);
-//}
 
 #pragma mark - UIViewController
 

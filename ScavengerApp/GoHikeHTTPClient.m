@@ -247,9 +247,6 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
 
             [checkinsToPush addObject:[((Checkin*)obj) dictionaryRepresentation]];
         }];
-#if DEBUG
-        NSLog(@"checkins data: %@", checkinsToPush);
-#endif
         if([checkinsToPush count] > 0)
         {
             NSDictionary *checkinsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:deviceID, @"identifier", checkinsToPush, @"checkins", nil];

@@ -191,7 +191,10 @@
     NSString* libraryPath = [FileUtilities getLibraryPath];
     NSString *savePath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%d", kFilePathRoutes, routeId]];
     NSString *filePath = [savePath stringByAppendingPathComponent:@"route.plist"];
-    return [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+        return [NSDictionary dictionaryWithContentsOfFile:filePath];
+    else
+        return nil;
 }
 
 #pragma mark - Waypoints
