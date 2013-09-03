@@ -327,7 +327,7 @@
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                     [alertView dismissAnimated:NO];
-                                    [self startButtonTapped];
+                                    [self startRouteWithWaypoint:waypoint];
                                   }];
             alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
             alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
@@ -348,7 +348,7 @@
 
     if([route GHwaypoints]){ //The presence of waypoints is a guarantee that we have the full route, not only the one from catalog
         
-        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[route GHid]];
+        NSDictionary *nextWaypoint = [[AppState sharedInstance] nextCheckinForRoute:[route GHid] startingFromWaypointRank:0];
         
         if(nextWaypoint)
         {
@@ -416,7 +416,7 @@
 #if DEBUG
     NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
 #endif
-    CompassViewController *compass = [[CompassViewController alloc] init];
+    CompassViewController *compass = [[CompassViewController alloc] initWithNibName:@"CompassViewController" bundle:nil];
     compass.delegate = self;
     [self.navigationController pushViewController:compass animated:YES];
 }

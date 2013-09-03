@@ -172,6 +172,8 @@
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
 		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
 		ACFC841317D4D89E00FB252E /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFC840D17D4D86000FB252E /* libTestFlight.a */; };
+		ACFC843917D60E7000FB252E /* CompassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACFC843817D60E7000FB252E /* CompassViewController.xib */; };
+		ACFC843D17D624C400FB252E /* NavigationStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACFC843C17D624C300FB252E /* NavigationStatusView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -407,6 +409,8 @@
 		ACFC841017D4D87700FB252E /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = TestFlightSDK2.0.0/TestFlight.h; sourceTree = "<group>"; };
 		ACFC841117D4D87700FB252E /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TestFlight+AsyncLogging.h"; path = "TestFlightSDK2.0.0/TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		ACFC841217D4D87700FB252E /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "TestFlightSDK2.0.0/TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		ACFC843817D60E7000FB252E /* CompassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompassViewController.xib; sourceTree = "<group>"; };
+		ACFC843C17D624C300FB252E /* NavigationStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationStatusView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,10 +568,12 @@
 				AC41F80D176245C800ED3F14 /* CompassTopView.xib */,
 				1CB18463174BB55600D71DA4 /* CompassViewController.h */,
 				1CB18464174BB55600D71DA4 /* CompassViewController.m */,
+				ACFC843817D60E7000FB252E /* CompassViewController.xib */,
 				A7DABF001757994800A0315E /* CloudView.h */,
 				A7DABF011757994800A0315E /* CloudView.m */,
 				1C8053BB1754D30900900C54 /* NavigationStatusView.h */,
 				1C8053BC1754D30900900C54 /* NavigationStatusView.m */,
+				ACFC843C17D624C300FB252E /* NavigationStatusView.xib */,
 				A7DB5E3617588DB1006FD951 /* DestinationRadarView.h */,
 				A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */,
 				1C1684F5174E3BAF00A77192 /* CheckinView.h */,
@@ -1022,6 +1028,8 @@
 				ACB958E317D2A8E6007FB821 /* LocationDetailBodyCell.xib in Resources */,
 				AC11F74E17D3589200E43279 /* collectionviewheader@2x.png in Resources */,
 				AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */,
+				ACFC843917D60E7000FB252E /* CompassViewController.xib in Resources */,
+				ACFC843D17D624C400FB252E /* NavigationStatusView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

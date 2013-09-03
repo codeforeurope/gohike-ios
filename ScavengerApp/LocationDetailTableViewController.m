@@ -179,7 +179,7 @@ static CGFloat ImageHeight  = 300.0;
         [[AppState sharedInstance] setActiveTargetId: [_location GHlocation_id]];
         [[AppState sharedInstance] save];
         
-        CompassViewController *compass = [[CompassViewController alloc] init];
+        CompassViewController *compass = [[CompassViewController alloc] initWithNibName:@"CompassViewController" bundle:nil];
         [self.navigationController pushViewController:compass animated:YES];
         
     }

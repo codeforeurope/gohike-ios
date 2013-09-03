@@ -10,6 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface NavigationStatusView : UIView
--(void) update:(NSString *)locationName withDistance:(double)distance;//update the view
--(void) setCheckinsComplete:(int)complete ofTotal:(int)total;
+//-(void) update:(NSString *)locationName withDistance:(double)distance;//update the view
+-(void)setCheckinsCompleteWithArray:(NSArray*)array;
 @end

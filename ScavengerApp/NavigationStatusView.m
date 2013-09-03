@@ -10,15 +10,17 @@
 
 #import "NavigationStatusView.h"
 #define SPACER 5
+#define CHECKIN_IMAGE_PADDING 5
+#define CHECKIN_VIEW_PADDING 10
+#define CHECKIN_VIEW_VERTICAL_OFFSET -5
 
 @interface NavigationStatusView()
-    @property(nonatomic,retain) UILabel * distanceLabel;
-    @property(nonatomic,retain) UIView * checkinsView;//just a container view
+//    @property(nonatomic,retain) UILabel * distanceLabel;
+    @property(nonatomic,retain) IBOutlet UIView * checkinsView;//just a container view
 @end
 
 @implementation NavigationStatusView
-@synthesize distanceLabel;
-@synthesize checkinsView;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,55 +28,40 @@
     if (self) {
         // Initialization code
         
-        //add background
-        UIImage *backgroundImage = [UIImage imageNamed:@"navigation-bottom-background"];
-        UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
-        background.contentMode = UIViewContentModeScaleToFill;
-        [background setFrame:self.bounds];
-        [self addSubview:background];
-        
-        //add divider as rectangle, maybe use coregraphics later instead?
-        int insetY = (self.bounds.size.height/2) - 1;
-        CGRect dividerRect = CGRectInset(self.bounds, insetY, insetY);
-        dividerRect.origin.y = dividerRect.origin.y + 1;
-        UIView * divider = [[UIView alloc] initWithFrame:dividerRect];
-        [divider setBackgroundColor:[UIColor whiteColor]];
-        [self addSubview:divider];
-        
-        //frame of the distance label is the top half
-        CGRect distanceRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height/2);
-        distanceRect.origin.y = distanceRect.origin.y + 2;
-        self.distanceLabel = [[UILabel alloc] initWithFrame:distanceRect];
-        [self.distanceLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.distanceLabel setText:@""];
-        [self.distanceLabel setBackgroundColor:[UIColor clearColor]];
-        [self.distanceLabel setTextColor:[UIColor whiteColor]];
-        [self.distanceLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-        
-        CGRect checkinsRect = CGRectMake(0,self.bounds.size.height/2,self.bounds.size.width,self.bounds.size.height/2);
-        self.checkinsView = [[UIView alloc] initWithFrame:checkinsRect];
-        //[self.checkinsView setBackgroundColor:[UIColor yellowColor]];
-        
-        [self addSubview:self.checkinsView];
-        [self addSubview:self.distanceLabel];
+//        //add background
+//        UIImage *backgroundImage = [UIImage imageNamed:@"navigation-bottom-background"];
+//        UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
+//        background.contentMode = UIViewContentModeScaleToFill;
+//        [background setFrame:self.bounds];
+//        [self addSubview:background];
+    
+//        
+//        CGRect checkinsRect = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height-CHECKIN_VIEW_PADDING);
+//        CGPoint viewCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2+CHECKIN_VIEW_VERTICAL_OFFSET);
+//        NSLog(@"bounds: %@", NSStringFromCGRect(self.bounds));
+//        NSLog(@"center: %@", NSStringFromCGPoint(viewCenter));
+//        self.checkinsView = [[UIView alloc] initWithFrame:checkinsRect];
+//        [self.checkinsView setCenter:viewCenter];
+//        
+//        [self addSubview:self.checkinsView];
         
     }
     return self;
 }
 
 //update the displayed information about the current target
--(void) update:(NSString *)locationName withDistance:(double)distance
-{
-    [self.distanceLabel setText:[NSString stringWithFormat:@"%@",locationName]];
-}
+//-(void) update:(NSString *)locationName withDistance:(double)distance
+//{
+//    [self.distanceLabel setText:[NSString stringWithFormat:@"%@",locationName]];
+//}
 
 //update the collection of completed checkins
--(void) setCheckinsComplete:(int)complete ofTotal:(int)total
+-(void)setCheckinsCompleteWithArray:(NSArray*)array
 {
     UIImage * targetImage = [UIImage imageNamed:@"target-white-small.png"];
     UIImage * targetCompleteImage = [UIImage imageNamed:@"target-checked-white-small.png"];
     
-    float side = self.checkinsView.bounds.size.height - 2;
+    float side = self.checkinsView.bounds.size.height - CHECKIN_IMAGE_PADDING; //should scale proportionally?
     
     //clear all
     for(UIView * aView in self.checkinsView.subviews)
@@ -82,16 +69,17 @@
         [aView removeFromSuperview];
     }
     
+    int total = [array count];
     //add subviews
     for(int i = 0; i < total; i++)
     {
         CGRect targetRect = CGRectMake(i * (side + SPACER), 2, side, side);
         UIImageView * image;
         
-        if(i < complete)
+        if([[[array objectAtIndex:i] objectForKey:@"visited"] boolValue] == YES)
         {
             //draw a completed icon
-             image = [[UIImageView alloc] initWithImage:targetCompleteImage];
+            image = [[UIImageView alloc] initWithImage:targetCompleteImage];
         }
         else
         {
@@ -104,11 +92,18 @@
         [self.checkinsView addSubview:image];
     }
     
+    CGSize checkinsSize = CGSizeMake(total * (side + SPACER), self.bounds.size.height/2);
+    [self.checkinsView sizeThatFits:checkinsSize];
+    
     //resize and center checkinsView
-    CGRect checkinsRect = CGRectMake(0,self.bounds.size.height/2,total * (side + SPACER),self.bounds.size.height/2);
-    self.checkinsView.frame = checkinsRect;
-    self.checkinsView.center = CGPointMake(self.center.x, self.checkinsView.center.y);
+//    CGPoint viewCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2+CHECKIN_VIEW_VERTICAL_OFFSET);
+//    [self.checkinsView setCenter:viewCenter];
+//    CGRect checkinsRect = CGRectMake(0,0,self.bounds.size.width,self.bounds.size.height-CHECKIN_VIEW_PADDING);
+//    CGRect checkinsRect = CGRectMake(0,self.bounds.size.height/2,total * (side + SPACER),self.bounds.size.height/2);
+//    self.checkinsView.frame = checkinsRect;
+//    self.checkinsView.center = viewCenter;
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

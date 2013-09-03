@@ -117,7 +117,7 @@
         CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil];
         RouteStartViewController *rvc = [[RouteStartViewController alloc] initWithStyle:UITableViewStyleGrouped];
 //        rvc.route = [[AppState sharedInstance] currentRoute];
-        CompassViewController *cvc = [[CompassViewController alloc] init];
+        CompassViewController *cvc = [[CompassViewController alloc] initWithNibName:@"CompassViewController" bundle:nil];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:cityVC];
         [self.navigationController pushViewController:catalogVC animated:NO];
         [self.navigationController pushViewController:rvc animated:NO];

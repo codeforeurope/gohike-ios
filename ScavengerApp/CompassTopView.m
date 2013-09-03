@@ -35,13 +35,4 @@
 }
 */
 
-- (void)updateDistance:(double)distance
-{
-    if(distance > 1000){
-        _label.text = [NSString stringWithFormat:@"%.2f Km",distance/1000];
-    }
-    else{
-        _label.text = [NSString stringWithFormat:@"%.0f m",distance];
-    }
-}
 @end

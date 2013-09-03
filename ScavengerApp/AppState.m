@@ -53,10 +53,10 @@ NSString* const kFilePathProfiles = @"profiles";
 
 - (BOOL)setNextTarget
 {
-    NSDictionary *nextTarget = [self nextCheckinForRoute:self.activeRouteId];
+    GHWaypoint *nextTarget = [self nextCheckinForRoute:self.activeRouteId startingFromWaypointRank:[[self activeWaypoint] GHrank]];
     if(nextTarget)
     {
-        _activeTargetId = [[nextTarget objectForKey:@"location_id"] integerValue];
+        _activeTargetId = [nextTarget GHlocation_id];
         [self save];
         return YES; 
     }
@@ -81,22 +81,27 @@ NSString* const kFilePathProfiles = @"profiles";
     }
 }
 
-- (GHWaypoint*)nextCheckinForRoute:(int)routeId
+- (GHWaypoint*)nextCheckinForRoute:(int)routeId startingFromWaypointRank:(int)rank
 {
     NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
     
     if([waypoints count] <1){
-        return [[GHWaypoint alloc] init]; //an empty dictionary
+        return [[GHWaypoint alloc] init]; //should return nil
     }
-        
+    
     NSUInteger firstUncheckedIndex = [waypoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return [[obj objectForKey:@"visited"] boolValue] == NO;
+        return ([[obj objectForKey:@"visited"] boolValue] == NO && [obj GHrank] >= rank);
     }];
     
     if (firstUncheckedIndex != NSNotFound) {
         return  [waypoints objectAtIndex:firstUncheckedIndex];
     }
+    else if(rank > 0){
+        return [self nextCheckinForRoute:routeId startingFromWaypointRank:0];
+    }
+    else{
     return nil;
+    }
 }
 
 - (NSArray*)checkinsForRoute:(int)routeId

@@ -41,8 +41,9 @@
 #define NAVBAR_HEIGHT 44
 
 @interface CompassViewController ()
-@property (nonatomic, strong) UIImageView *arrow;
-@property (nonatomic, strong) UIImageView *compass;
+@property (nonatomic, strong) IBOutlet UIImageView *arrow;
+@property (nonatomic, strong) IBOutlet UIImageView *compass;
+@property (nonatomic, strong) IBOutlet UILabel *labelDistance;
 @property (nonatomic,strong) NavigationStatusView *statusView;
 //@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *destinationLocation;
@@ -104,43 +105,28 @@
 
 #pragma mark - CLLocation
 
-//- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-//{
-//    if (newHeading.headingAccuracy > 0) {
-//        float magneticHeading = newHeading.magneticHeading;
-//        float trueHeading = newHeading.trueHeading;
-//
-//        //current heading in degrees and radians
-//        //use true heading if it is available
-//        float heading = (trueHeading > 0) ? trueHeading : magneticHeading;
-//        float heading_radians = DEGREES_TO_RADIANS(heading);
-//
-//        
-//        compass.transform = CGAffineTransformMakeRotation(-1 * heading_radians); //set the compass to current heading
-//        
-//        CLLocationDirection destinationHeading = [locationManager.location directionToLocation:_destinationLocation];
-//        float adjusted_heading = destinationHeading - heading;
-//        float adjusted_heading_radians = DEGREES_TO_RADIANS(adjusted_heading);
-//        
-//        [UIView animateWithDuration:0.1 delay:0.0 options:
-//            UIViewAnimationOptionCurveLinear animations:^{
-//                CGAffineTransform transform = CGAffineTransformMakeRotation(adjusted_heading_radians);
-//                arrow.transform = transform;
-//                destinationRadarView.transform = transform;
-//            } completion:nil];
-//        
-//    }
-//}
-
 //updates the statusview checkin display
 -(void) updateCheckinStatus
 {
     //update the statusview
-    NSArray *waypoints = [[[AppState sharedInstance] currentRoute] GHwaypoints];
-    NSArray *checkins = [[AppState sharedInstance] checkinsForRoute:[AppState sharedInstance].activeRouteId];
-    [self.statusView setCheckinsComplete:[checkins count] ofTotal:[waypoints count]];
+    NSArray *waypointsWithCheckins = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[AppState sharedInstance].activeRouteId];
+    [self.statusView setCheckinsCompleteWithArray:waypointsWithCheckins];
+    
 }
 
+- (void)updateLabelsWithDistance:(double)distance destination:(NSString*)destination
+{
+    if(distance > 1000){
+        self.labelDistance.text = [NSString stringWithFormat:@"%.2f Km",distance/1000];
+    }
+    else{
+        self.labelDistance.text = [NSString stringWithFormat:@"%.0f m",distance];
+    }
+    
+    self.topView.label.text = destination;
+
+
+}
 
 
 - (void)addCheckInView
@@ -149,7 +135,7 @@
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
     NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] GHname];
     
-    [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", nil), destinationName]];
+    [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", @"Text for checkin view when lcation is found: You are close to {name of location}"), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
     [checkinView setDestinationImage:[FileUtilities imageDataForWaypoint:[[AppState sharedInstance] activeWaypoint]]];
     checkinView.closeTarget = self;
@@ -180,9 +166,10 @@
 
     // If the event is recent, get the distance from destination
     double distanceFromDestination = [currentLocation distanceFromLocation:_destinationLocation];
-    //update the bottom navigation bar
-    [self.statusView update:destinationName withDistance:distanceFromDestination];
-    [self.topView updateDistance:distanceFromDestination];
+    //update all the labels and navigation bars
+    [self updateLabelsWithDistance:distanceFromDestination destination:destinationName];
+//    [self.statusView update:destinationName withDistance:distanceFromDestination];
+//    [self.topView updateDistance:distanceFromDestination];
     
     if (distanceFromDestination < CHECKIN_DISTANCE) {
 //#if DEBUG
@@ -237,57 +224,67 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //custom back button
-    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                       imageName:@"icon-back"
-                                                                        text:NSLocalizedString(@"Back", nil)
-                                                                          target:self
-                                                                          action:@selector(onBackButton)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+
+    //buttons
+    [self customizeButtons];
     
     
-    //custom map button
-    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
-                                                                      imageName:@"icon-map"
-                                                                       text:nil
-                                                                          target:self
-                                                                          action:@selector(onMapButton)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
+    //Constraints
+    NSLayoutConstraint *constrainArrow = [NSLayoutConstraint constraintWithItem:arrow
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.view
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                multiplier:1.1
+                                                                  constant:0];
     
-    
+    NSLayoutConstraint *constrainCompass = [NSLayoutConstraint constraintWithItem:compass
+                                                                        attribute:NSLayoutAttributeCenterY
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.view
+                                                                        attribute:NSLayoutAttributeCenterY
+                                                                       multiplier:1.1
+                                                                         constant:0];
+    [self.view addConstraints:@[constrainArrow, constrainCompass]];
     
     //UI
-    CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
-    self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
+    CGRect frame, remain;
+    CGRectDivide(self.view.bounds, &frame, &remain, STATUS_HEIGHT, CGRectMaxYEdge);
+//    self.statusView = [[NSBundle mainBundle] loadNibNamed:@"NavigationStatusView" owner:self options:nil];;
+    self.statusView = [[NavigationStatusView alloc] initWithFrame:frame];
+    [self.statusView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+    
+//    CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
+//    self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
+    
     [self updateCheckinStatus];
 
     
-    CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
-    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];
+//    CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
+//    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];
     
-    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
-    [compass setFrame:compassRect];
-    [compass setCenter:screenCenter];
+//    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
+//    [compass setFrame:compassRect];
+//    [compass setCenter:screenCenter];
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    UIImage *backgroundImage = [UIImage imageNamed:@"viewbackground"];
-    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
-    background.contentMode = UIViewContentModeScaleToFill;
-    [background setFrame:self.view.bounds];
-    [self.view addSubview:background];
+//    [self.view setBackgroundColor:[UIColor whiteColor]];
+//    UIImage *backgroundImage = [UIImage imageNamed:@"viewbackground"];
+//    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
+//    background.contentMode = UIViewContentModeScaleToFill;
+//    [background setFrame:self.view.bounds];
+//    [self.view addSubview:background];
     
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
-    UIImage *gridImage = [UIImage imageNamed:@"compassbackground"];
-    UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
-    grid.contentMode = UIViewContentModeScaleToFill;
-    [grid setFrame:gridRect];
-    [grid setCenter:screenCenter];
+//    UIImage *gridImage = [UIImage imageNamed:@"compassbackground"];
+//    UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
+//    grid.contentMode = UIViewContentModeScaleToFill;
+//    [grid setFrame:gridRect];
+//    [grid setCenter:screenCenter];
     
     
-    UIImage * arrowImage = [UIImage imageNamed:@"arrow.png"];
-    arrow = [[UIImageView alloc] initWithImage:arrowImage];
-    arrow.contentMode = UIViewContentModeScaleAspectFit;
+//    UIImage * arrowImage = [UIImage imageNamed:@"arrow.png"];
+//    arrow = [[UIImageView alloc] initWithImage:arrowImage];
+//    arrow.contentMode = UIViewContentModeScaleAspectFit;
     //shadow stuff
     arrow.layer.shadowOffset = CGSizeMake(1.0f, 2.0f);
     arrow.layer.shadowColor = [[UIColor blackColor] CGColor] ;
@@ -298,9 +295,9 @@
 //    arrow.layer.shadowPath = path.CGPath;
     
     //add arrow
-    CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
-    [arrow setFrame:arrowRect];
-    [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
+//    CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
+//    [arrow setFrame:arrowRect];
+//    [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
     
     //add clouds
     cloudView = [[CloudView alloc] initWithFrame:gridRect];
@@ -319,16 +316,15 @@
     //[[CompassTopView alloc] initWithFrame:CGRectMake(0, 0, gridRect.size.width, 44)];
     
     
-    [self.view addSubview:grid];
-    [self.view addSubview:compass];
+//    [self.view addSubview:grid];
+//    [self.view addSubview:compass];
     [self.view addSubview:destinationRadarView];
-    [self.view addSubview:arrow];
+//    [self.view addSubview:arrow];
     [self.view addSubview:cloudView];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];
     [self.view addSubview:_topView];
-    
-//    [cloudView startAnimation]; //it is already started when viewDidAppear
+        
 }
 
 - (void)didReceiveMemoryWarning
@@ -337,6 +333,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)customizeButtons
+{
+    //custom back button
+    CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                               imageName:@"icon-back"
+                                                                                    text:NSLocalizedString(@"Back", nil)
+                                                                                  target:self
+                                                                                  action:@selector(onBackButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    
+    //custom map button
+    CustomBarButtonViewRight *mapButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                                imageName:@"icon-map"
+                                                                                     text:nil
+                                                                                   target:self
+                                                                                   action:@selector(onMapButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mapButton];
+}
 
 #pragma mark - CustomButtonHandlers
 - (void)onBackButton

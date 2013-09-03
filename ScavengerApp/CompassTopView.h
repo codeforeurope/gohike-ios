@@ -12,6 +12,4 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *label;
 
-- (void)updateDistance:(double)distance;
-
 @end
