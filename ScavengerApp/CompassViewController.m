@@ -135,7 +135,7 @@
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
     NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] GHname];
     
-    [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", @"Text for checkin view when lcation is found: You are close to {name of location}"), destinationName]];
+    [checkinView setBodyText:[NSString stringWithFormat:NSLocalizedString(@"LocationFound", @"Text for checkin view when lcation is found: Look around! You're close to %@, can you see it?"), destinationName]];
     [checkinView setTitle:NSLocalizedString(@"You are almost there!", nil)];
     [checkinView setDestinationImage:[FileUtilities imageDataForWaypoint:[[AppState sharedInstance] activeWaypoint]]];
     checkinView.closeTarget = self;

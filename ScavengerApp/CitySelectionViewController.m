@@ -214,7 +214,7 @@
 - (void)getLocation
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting position", @"Getting position") maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Locating you", @"Locating you") maskType:SVProgressHUDMaskTypeBlack];
     [[AppState sharedInstance] startLocationServices];
 }
 
@@ -232,7 +232,7 @@
         return;
     }
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting cities", @"Getting cities") maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating cities", @"Updating cities") maskType:SVProgressHUDMaskTypeBlack];
     
     [[GoHikeHTTPClient sharedClient] locate];
 }

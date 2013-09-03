@@ -179,7 +179,7 @@
 - (void)loadCatalogForCity:(int)city
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Getting routes to play", @"Getting routes to play") maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating routes to play", @"Updating routes to play") maskType:SVProgressHUDMaskTypeBlack];
     [[GoHikeHTTPClient sharedClient] getCatalogForCity:city];
 }
 
@@ -198,7 +198,7 @@
         
         if([[[notification userInfo] objectForKey:@"expectedFiles"] integerValue] > 0)
         {
-            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
             receivedFileNotifications = 0;
             expectedNotifications = [[[notification userInfo] objectForKey:@"expectedFiles"] integerValue];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFileCompleted:) name:kFinishedDownloadingFile object:nil];
@@ -218,7 +218,7 @@
     receivedFileNotifications+=1;
     if(receivedFileNotifications >= expectedNotifications)
     {
-        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD showSuccessWithStatus:@""];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
         [self reloadCollectionView];
@@ -226,7 +226,7 @@
     }
     else
     {
-        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 

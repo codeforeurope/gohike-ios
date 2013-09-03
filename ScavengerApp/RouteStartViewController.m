@@ -318,12 +318,12 @@
         }
         else{
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"RouteAlertViewTitle", nil) andMessage:NSLocalizedString(@"RouteAlertViewMessage", nil)];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",nil)
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"RouteAlertViewTitle", @"Not found yet!") andMessage:NSLocalizedString(@"RouteAlertViewMessage", @"Go Hike now?")];
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",@"Later")
                                      type:SIAlertViewButtonTypeCancel
                                   handler:^(SIAlertView *alertView) {
                                   }];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", nil)
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", @"Yes!")
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                     [alertView dismissAnimated:NO];
@@ -379,12 +379,13 @@
         if (isFacebookLoggedIn) {
             // To-do, show logged in view
             double size = [[route objectForKey:@"size"] doubleValue] /1024;
+            if(size > 0){
             SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") andMessage:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ]];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",nil)
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",@"Later")
                                      type:SIAlertViewButtonTypeCancel
                                   handler:^(SIAlertView *alertView) {
                                   }];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", nil)
+            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", @"Yes!")
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alertView) {
                                       [alertView dismissAnimated:NO];
@@ -395,11 +396,12 @@
             alertView.didDismissHandler = ^(SIAlertView *alertView) {
             };
             [alertView show];
-//            UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") message:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No")otherButtonTitles:NSLocalizedString(@"Go ahead", @"Go ahead"), nil];
-//            [alertView setTag:download_warning_alertview_tag];
-//            [alertView show];
+            }
+            else{
+                //if size is 0, makes no sense to display the confirmation
+                [self downloadRoute];
+            }
 
-            
         } else {
             // No, display the login page.
             [self openSession];
@@ -497,7 +499,7 @@
         
         if([[[notification userInfo] objectForKey:@"expectedFiles"] integerValue] > 0)
         {
-            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showProgress:10.0/100 status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
             receivedFileNotifications = 0;
             expectedNotifications = [[[notification userInfo] objectForKey:@"expectedFiles"] integerValue];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFileCompleted:) name:kFinishedDownloadingFile object:nil];
@@ -516,7 +518,7 @@
     NSLog(@"received file %@", [[notification userInfo] objectForKey:@"file"]);
     if(receivedFileNotifications >= expectedNotifications)
     {
-        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:100/100 status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD showSuccessWithStatus:@""];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kFinishedDownloadingFile object:nil];
         
@@ -524,7 +526,7 @@
     }
     else
     {
-        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Getting pictures", @"Getting pictures") maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showProgress:((receivedFileNotifications*100.0)/expectedNotifications)/100.0+(10.0/100) status:NSLocalizedString(@"Updating pictures", @"Updating pictures") maskType:SVProgressHUDMaskTypeBlack];
     }
 }
 
