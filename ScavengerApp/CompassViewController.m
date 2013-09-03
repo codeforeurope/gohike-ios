@@ -28,7 +28,7 @@
 
 #import "MapViewController.h"
 
-#define ARROW_SIZE 150
+#define ARROW_SIZE 200
 #define COMPASS_SIZE 300
 #if DEBUG
 #define CHECKIN_DISTANCE 20 //meters
@@ -110,7 +110,7 @@
 {
     //update the statusview
     NSArray *waypointsWithCheckins = [[AppState sharedInstance] waypointsWithCheckinsForRoute:[AppState sharedInstance].activeRouteId];
-    [self.statusView setCheckinsCompleteWithArray:waypointsWithCheckins];
+    [self.statusView setCheckinsCompleteWithArray:waypointsWithCheckins nextLocationId:[[AppState sharedInstance] activeTargetId]];
     
 }
 
@@ -362,7 +362,8 @@
     
     //change the active target
     if ([[AppState sharedInstance] setNextTarget])
-    {        
+    {
+        [self updateCheckinStatus]; //this is to set the new color on the current destination
         float latitude = [[[AppState sharedInstance] activeWaypoint] GHlatitude];
         float longitude = [[[AppState sharedInstance] activeWaypoint] GHlongitude];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];

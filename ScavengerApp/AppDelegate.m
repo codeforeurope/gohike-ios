@@ -70,14 +70,16 @@
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication
                     fallbackHandler:^(FBAppCall *call) {
-                        NSLog(@"In fallback handler");
+//                        NSLog(@"In fallback handler");
                     }];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+#if DEBUG
     NSLog(@"Launchoptions: %@", launchOptions);
+#endif
     
 #if !TARGET_IPHONE_SIMULATOR
     //TestFlight

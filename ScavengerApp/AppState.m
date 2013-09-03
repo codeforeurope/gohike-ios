@@ -316,7 +316,9 @@ NSString* const kFilePathProfiles = @"profiles";
             CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:5000.0 identifier:@"destinationLocation"];
             [_locationManager startMonitoringForRegion:region];
             [_locationManager startMonitoringSignificantLocationChanges];
+#if DEBUG
             NSLog(@"Started monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+#endif
         }
         else {
             NSLog(@"Significant location change monitoring is not available.");
@@ -330,7 +332,9 @@ NSString* const kFilePathProfiles = @"profiles";
 {
     [[_locationManager monitoredRegions] enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         [_locationManager stopMonitoringForRegion:(CLRegion*)obj];
+#if DEBUG
         NSLog(@"Stopped monitoring for region: %@", (CLRegion*)obj);
+#endif
     }];
     
     [_locationManager stopMonitoringSignificantLocationChanges];    

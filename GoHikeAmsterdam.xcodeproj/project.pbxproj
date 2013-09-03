@@ -51,6 +51,8 @@
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
 		AC10B1AA17D6781900E9FD78 /* amsterdam-museumplein.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */; };
 		AC10B1AD17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */; };
+		AC10B1B317D69FA000E9FD78 /* target-red.png in Resources */ = {isa = PBXBuildFile; fileRef = AC10B1B217D69FA000E9FD78 /* target-red.png */; };
+		AC10B1B517D69FAF00E9FD78 /* target-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC10B1B417D69FAF00E9FD78 /* target-red@2x.png */; };
 		AC11F74E17D3589200E43279 /* collectionviewheader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */; };
 		AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74F17D3589B00E43279 /* collectionviewheader.png */; };
 		AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418F517C6219B00B3783D /* CatalogViewController.m */; };
@@ -252,6 +254,8 @@
 		AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "amsterdam-museumplein.gpx"; sourceTree = SOURCE_ROOT; };
 		AC10B1AB17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+EvenDistribution.h"; sourceTree = "<group>"; };
 		AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+EvenDistribution.m"; sourceTree = "<group>"; };
+		AC10B1B217D69FA000E9FD78 /* target-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-red.png"; sourceTree = "<group>"; };
+		AC10B1B417D69FAF00E9FD78 /* target-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-red@2x.png"; sourceTree = "<group>"; };
 		AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectionviewheader@2x.png"; sourceTree = "<group>"; };
 		AC11F74F17D3589B00E43279 /* collectionviewheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collectionviewheader.png; sourceTree = "<group>"; };
 		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
@@ -689,6 +693,7 @@
 				ACB534B5175654390065D72D /* overlay-background.png */,
 				ACB534B6175654390065D72D /* target-checked-white-small.png */,
 				ACB534B7175654390065D72D /* target-checked.png */,
+				AC10B1B217D69FA000E9FD78 /* target-red.png */,
 				ACB534B8175654390065D72D /* target-white-small.png */,
 				ACB534B9175654390065D72D /* target.png */,
 				AC303F9117C506EB00875910 /* verboden.png */,
@@ -730,6 +735,7 @@
 				ACB534CD175654390065D72D /* target-checked@2x.png */,
 				ACB534CE175654390065D72D /* target-white-small@2x.png */,
 				ACB534CF175654390065D72D /* target@2x.png */,
+				AC10B1B417D69FAF00E9FD78 /* target-red@2x.png */,
 				ACB534D0175654390065D72D /* viewbackground@2x.png */,
 			);
 			path = 2x;
@@ -1039,6 +1045,8 @@
 				ACFC843917D60E7000FB252E /* CompassViewController.xib in Resources */,
 				ACFC843D17D624C400FB252E /* NavigationStatusView.xib in Resources */,
 				AC10B1AA17D6781900E9FD78 /* amsterdam-museumplein.gpx in Resources */,
+				AC10B1B317D69FA000E9FD78 /* target-red.png in Resources */,
+				AC10B1B517D69FAF00E9FD78 /* target-red@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
