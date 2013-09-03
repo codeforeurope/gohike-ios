@@ -9,6 +9,7 @@
 #import "CompassViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 #import "CLLocation+measuring.h"
 
@@ -264,6 +265,7 @@
     
     CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
     compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];
+    
     CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
     [compass setFrame:compassRect];
     [compass setCenter:screenCenter];
@@ -286,6 +288,14 @@
     UIImage * arrowImage = [UIImage imageNamed:@"arrow.png"];
     arrow = [[UIImageView alloc] initWithImage:arrowImage];
     arrow.contentMode = UIViewContentModeScaleAspectFit;
+    //shadow stuff
+    arrow.layer.shadowOffset = CGSizeMake(1.0f, 2.0f);
+    arrow.layer.shadowColor = [[UIColor blackColor] CGColor] ;
+    arrow.layer.shadowOpacity = 0.8f;
+//    arrow.layer.shadowRadius = 1.0f;
+    arrow.layer.masksToBounds = YES;
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRect:arrow.bounds];
+//    arrow.layer.shadowPath = path.CGPath;
     
     //add arrow
     CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);

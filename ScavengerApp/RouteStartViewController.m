@@ -234,11 +234,13 @@
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
             
             
-            startHikeCellButton.layer.shadowColor = [UIColor blackColor].CGColor;
-            startHikeCellButton.layer.shadowOffset = CGSizeMake(0, 1);
-            startHikeCellButton.layer.shadowOpacity = 0.8;
-            startHikeCellButton.layer.shadowRadius = 0.9;
-            startHikeCellButton.clipsToBounds = NO;
+//            startHikeCellButton.layer.shadowColor = [UIColor blackColor].CGColor;
+//            startHikeCellButton.layer.shadowOffset = CGSizeMake(0, 1);
+//            startHikeCellButton.layer.shadowOpacity = 0.8;
+//            startHikeCellButton.layer.shadowRadius = 0.9;
+//            startHikeCellButton.clipsToBounds = NO;
+//            startHikeCellButton.layer.shadowPath =
+//            [UIBezierPath bezierPathWithRect:startHikeCellButton.layer.bounds].CGPath;
             
             [cell.contentView addSubview:startHikeCellButton];
             
@@ -461,6 +463,9 @@
         b.layer.shadowOpacity = 0;
         b.layer.shadowRadius = 0;
         b.clipsToBounds = NO;
+        b.layer.shouldRasterize  = YES;
+        b.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        b.layer.shadowPath = [UIBezierPath bezierPathWithRect:b.layer.bounds].CGPath;
     }
     [self startButtonTapped];
 }

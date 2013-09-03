@@ -26,6 +26,9 @@
     _routeImage.layer.shadowOpacity = 1;
     _routeImage.layer.shadowRadius = 1.0;
     _routeImage.clipsToBounds = NO;
+    _routeImage.layer.shouldRasterize  = YES;
+    _routeImage.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    _routeImage.layer.shadowPath = [UIBezierPath bezierPathWithRect:_routeImage.layer.bounds].CGPath;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
