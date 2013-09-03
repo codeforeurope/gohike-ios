@@ -229,62 +229,42 @@
     [self customizeButtons];
     
     
-    //Constraints
-    NSLayoutConstraint *constrainArrow = [NSLayoutConstraint constraintWithItem:arrow
-                                                                 attribute:NSLayoutAttributeCenterY
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.view
-                                                                 attribute:NSLayoutAttributeCenterY
-                                                                multiplier:1.1
-                                                                  constant:0];
-    
-    NSLayoutConstraint *constrainCompass = [NSLayoutConstraint constraintWithItem:compass
-                                                                        attribute:NSLayoutAttributeCenterY
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.view
-                                                                        attribute:NSLayoutAttributeCenterY
-                                                                       multiplier:1.1
-                                                                         constant:0];
-    [self.view addConstraints:@[constrainArrow, constrainCompass]];
+    //Constraints. Watch out when animating!
+//    NSLayoutConstraint *constrainArrow = [NSLayoutConstraint constraintWithItem:arrow
+//                                                                 attribute:NSLayoutAttributeCenterY
+//                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                    toItem:self.view
+//                                                                 attribute:NSLayoutAttributeCenterY
+//                                                                multiplier:1.1
+//                                                                  constant:0];
+//    
+//    NSLayoutConstraint *constrainCompass = [NSLayoutConstraint constraintWithItem:compass
+//                                                                        attribute:NSLayoutAttributeCenterY
+//                                                                        relatedBy:NSLayoutRelationEqual
+//                                                                           toItem:self.view
+//                                                                        attribute:NSLayoutAttributeCenterY
+//                                                                       multiplier:1.1
+//                                                                         constant:0];
+//    [self.view addConstraints:@[constrainArrow, constrainCompass]];
     
     //UI
     CGRect frame, remain;
     CGRectDivide(self.view.bounds, &frame, &remain, STATUS_HEIGHT, CGRectMaxYEdge);
-//    self.statusView = [[NSBundle mainBundle] loadNibNamed:@"NavigationStatusView" owner:self options:nil];;
-    self.statusView = [[NavigationStatusView alloc] initWithFrame:frame];
+    self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"NavigationStatusView" owner:self options:nil] objectAtIndex:0];
+    [self.statusView setFrame:frame];
     [self.statusView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-    
-//    CGRect statusRect = CGRectMake(0, self.view.bounds.size.height - (STATUS_HEIGHT + NAVBAR_HEIGHT), self.view.bounds.size.width, STATUS_HEIGHT);
-//    self.statusView = [[NavigationStatusView alloc] initWithFrame:statusRect];
-    
     [self updateCheckinStatus];
 
     
 //    CGPoint screenCenter = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 2) - NAVBAR_HEIGHT);
-//    compass = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass"]];
+    CGPoint screenCenterProportional = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height / 10 * 6) - NAVBAR_HEIGHT);
     
-//    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
-//    [compass setFrame:compassRect];
-//    [compass setCenter:screenCenter];
-    
-//    [self.view setBackgroundColor:[UIColor whiteColor]];
-//    UIImage *backgroundImage = [UIImage imageNamed:@"viewbackground"];
-//    UIImageView *background = [[UIImageView alloc] initWithImage:backgroundImage];
-//    background.contentMode = UIViewContentModeScaleToFill;
-//    [background setFrame:self.view.bounds];
-//    [self.view addSubview:background];
-    
+    CGRect compassRect = CGRectMake(0, 0, COMPASS_SIZE, COMPASS_SIZE);
+    [compass setFrame:compassRect];
+    [compass setCenter:screenCenterProportional];
+        
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
-//    UIImage *gridImage = [UIImage imageNamed:@"compassbackground"];
-//    UIImageView *grid = [[UIImageView alloc] initWithImage:gridImage];
-//    grid.contentMode = UIViewContentModeScaleToFill;
-//    [grid setFrame:gridRect];
-//    [grid setCenter:screenCenter];
-    
-    
-//    UIImage * arrowImage = [UIImage imageNamed:@"arrow.png"];
-//    arrow = [[UIImageView alloc] initWithImage:arrowImage];
-//    arrow.contentMode = UIViewContentModeScaleAspectFit;
+
     //shadow stuff
     arrow.layer.shadowOffset = CGSizeMake(1.0f, 2.0f);
     arrow.layer.shadowColor = [[UIColor blackColor] CGColor] ;
@@ -295,9 +275,9 @@
 //    arrow.layer.shadowPath = path.CGPath;
     
     //add arrow
-//    CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
-//    [arrow setFrame:arrowRect];
-//    [arrow setCenter:CGPointMake(screenCenter.x + 1, screenCenter.y)];//manual calibration
+    CGRect arrowRect = CGRectMake(0, 0, ARROW_SIZE, ARROW_SIZE);
+    [arrow setFrame:arrowRect];
+    [arrow setCenter:CGPointMake(screenCenterProportional.x + 1, screenCenterProportional.y)];//manual calibration
     
     //add clouds
     cloudView = [[CloudView alloc] initWithFrame:gridRect];
@@ -313,15 +293,10 @@
     
     //add top view with distance
     _topView = [[[NSBundle mainBundle] loadNibNamed:@"CompassTopView" owner:self options:nil] objectAtIndex:0];
-    //[[CompassTopView alloc] initWithFrame:CGRectMake(0, 0, gridRect.size.width, 44)];
     
     
-//    [self.view addSubview:grid];
-//    [self.view addSubview:compass];
     [self.view addSubview:destinationRadarView];
-//    [self.view addSubview:arrow];
     [self.view addSubview:cloudView];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.statusView];
     [self.view addSubview:_topView];
         
@@ -388,11 +363,11 @@
     //change the active target
     if ([[AppState sharedInstance] setNextTarget])
     {        
-        float latitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"latitude"] floatValue];
-        float longitude = [[[[AppState sharedInstance] activeWaypoint] objectForKey:@"longitude"] floatValue];
+        float latitude = [[[AppState sharedInstance] activeWaypoint] GHlatitude];
+        float longitude = [[[AppState sharedInstance] activeWaypoint] GHlongitude];
         _destinationLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
 #if DEBUG
-        NSLog(@"Destination: %@ lat: %f long %f", [[[AppState sharedInstance] activeWaypoint] objectForKey:@"name"], latitude, longitude);
+        NSLog(@"Destination: %@ lat: %f long %f", [[[AppState sharedInstance] activeWaypoint] GHname], latitude, longitude);
 #endif
         [destinationRadarView setNeedsDisplay];
     }

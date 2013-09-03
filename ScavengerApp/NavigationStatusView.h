@@ -14,6 +14,6 @@
 
 @property (nonatomic, weak) IBOutlet UIView * checkinsView;//just a container view
 
-//-(void) update:(NSString *)locationName withDistance:(double)distance;//update the view
 -(void)setCheckinsCompleteWithArray:(NSArray*)array;
+
 @end
