@@ -49,6 +49,8 @@
 		AC101687174D6F0F00761AC2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10167F174D6F0F00761AC2 /* CLLocation+routeInfo.m */; };
 		AC101688174D6F0F00761AC2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101681174D6F0F00761AC2 /* CLLocationDeadReckoning.m */; };
 		AC101689174D6F0F00761AC2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */; };
+		AC10B1AA17D6781900E9FD78 /* amsterdam-museumplein.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */; };
+		AC10B1AD17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */; };
 		AC11F74E17D3589200E43279 /* collectionviewheader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */; };
 		AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */ = {isa = PBXBuildFile; fileRef = AC11F74F17D3589B00E43279 /* collectionviewheader.png */; };
 		AC2418F717C6219B00B3783D /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2418F517C6219B00B3783D /* CatalogViewController.m */; };
@@ -247,6 +249,9 @@
 		AC101683174D6F0F00761AC2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
 		AC101684174D6F0F00761AC2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		AC1016F91752B2CF00761AC2 /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
+		AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "amsterdam-museumplein.gpx"; sourceTree = SOURCE_ROOT; };
+		AC10B1AB17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+EvenDistribution.h"; sourceTree = "<group>"; };
+		AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+EvenDistribution.m"; sourceTree = "<group>"; };
 		AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectionviewheader@2x.png"; sourceTree = "<group>"; };
 		AC11F74F17D3589B00E43279 /* collectionviewheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collectionviewheader.png; sourceTree = "<group>"; };
 		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
@@ -623,6 +628,8 @@
 			children = (
 				ACECFB8C17565CCC0074EBBE /* NSDataAdditions.h */,
 				ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */,
+				AC10B1AB17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.h */,
+				AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -835,6 +842,7 @@
 		ACDD9B721743B20200D64682 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */,
 				ACC893D11760AE69002AC636 /* Icons */,
 				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
@@ -1030,6 +1038,7 @@
 				AC11F75017D3589B00E43279 /* collectionviewheader.png in Resources */,
 				ACFC843917D60E7000FB252E /* CompassViewController.xib in Resources */,
 				ACFC843D17D624C400FB252E /* NavigationStatusView.xib in Resources */,
+				AC10B1AA17D6781900E9FD78 /* amsterdam-museumplein.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1134,7 @@
 				ACB958E617D2A909007FB821 /* LocationDetailPictureCell.m in Sources */,
 				ACB958E917D2A994007FB821 /* LocationDetailTitleCell.m in Sources */,
 				ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */,
+				AC10B1AD17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

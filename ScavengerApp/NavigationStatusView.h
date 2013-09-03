@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "NSLayoutConstraint+EvenDistribution.h"
 
 @interface NavigationStatusView : UIView
+
+@property (nonatomic, weak) IBOutlet UIView * checkinsView;//just a container view
+
 //-(void) update:(NSString *)locationName withDistance:(double)distance;//update the view
 -(void)setCheckinsCompleteWithArray:(NSArray*)array;
 @end

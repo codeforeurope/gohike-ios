@@ -45,13 +45,17 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>636</string>
+	<string>690</string>
 	<key>FacebookAppID</key>
 	<string>547542925309510</string>
 	<key>FacebookDisplayName</key>
 	<string>Take a Hike!</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
