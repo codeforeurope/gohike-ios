@@ -309,19 +309,31 @@ NSString* const kFilePathProfiles = @"profiles";
 
 - (void)startMonitoringForDestination
 {
-    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
-    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:200.0 identifier:@"destinationLocation"];
-    [_locationManager startMonitoringForRegion:region];
-    NSLog(@"Started monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+    {
+        if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
+            // Stop normal location updates and start significant location change updates for battery efficiency.
+            CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
+            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:5000.0 identifier:@"destinationLocation"];
+            [_locationManager startMonitoringForRegion:region];
+            [_locationManager startMonitoringSignificantLocationChanges];
+            NSLog(@"Started monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+        }
+        else {
+            NSLog(@"Significant location change monitoring is not available.");
+        }
+    }
+
     
 }
 
 - (void)stopMonitoringForDestination
 {
-    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
-    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:200.0 identifier:@"destinationLocation"];
-    [_locationManager stopMonitoringForRegion:region];
-    NSLog(@"Stopped monitoring for destination: %f %f", coordinates.latitude, coordinates.longitude);
+    [[_locationManager monitoredRegions] enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [_locationManager stopMonitoringForRegion:(CLRegion*)obj];
+        NSLog(@"Stopped monitoring for region: %@", (CLRegion*)obj);
+    }];
+    
+    [_locationManager stopMonitoringSignificantLocationChanges];    
 
 }
 
@@ -335,10 +347,15 @@ NSString* const kFilePathProfiles = @"profiles";
         notification.timeZone = timezone;
         notification.alertBody = NSLocalizedString(@"You are close to the next check-in! Go for it!", @"Local notification when user getting closer to location");
         notification.alertAction = NSLocalizedString(@"Play!", @"Text shown next to the notification");
-        notification.soundName = UILocalNotificationDefaultSoundName;
+//        notification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     }
 }
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    NSLog(@"Monitoring did fail for region: %@ Error %@",region, error);
+}
+
 
 
 @end

@@ -77,6 +77,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    NSLog(@"Launchoptions: %@", launchOptions);
+    
 #if !TARGET_IPHONE_SIMULATOR
     //TestFlight
 #warning Check that the following lines are commented out for submission to App Store
@@ -163,21 +165,21 @@
     //This method is called also when the user clicks on the "lock" screen on the iPhone
     if([[AppState sharedInstance] playerIsInCompass])
         [[AppState sharedInstance]  startMonitoringForDestination];
+
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    if([[AppState sharedInstance] playerIsInCompass])
-        [[AppState sharedInstance]  startMonitoringForDestination];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
-    [[AppState sharedInstance] stopMonitoringForDestination];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -185,8 +187,8 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[GoHikeHTTPClient sharedClient] pushCheckins];
     [FBAppCall handleDidBecomeActive];
-    
-//    NSLog(@"back to active, delete fence");
+    [[AppState sharedInstance] stopMonitoringForDestination];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -197,6 +199,9 @@
     
     [[AppState sharedInstance] stopLocationServices];
     [FBSession.activeSession close];
+    
+    //If the user closes the app, we don't want to monitor for regions anymore. It's game over!
+    [[AppState sharedInstance] stopMonitoringForDestination];
 }
 
 - (void)performCleanupOldVersion
@@ -225,6 +230,13 @@
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
     self.window.rootViewController = self.navigationController;
 
+}
+
+#pragma mark - Location Manager
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    NSLog(@"Did enter region %@", region);
 }
 
 @end
