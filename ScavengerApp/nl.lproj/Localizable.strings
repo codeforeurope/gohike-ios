@@ -3,39 +3,36 @@ Created by Giovanni Maggini on 5/15/13.
 Copyright (c) 2013 Code for Europe. All rights reserved.*/
 
 
-/* Selection screen cell. */"ManyRoutes" = "%d Routes";"OneRoute" = "%d Route";
-/* Selection screen title. */"SelectionPageTitle" = "Waar heb je zin in?";
 
-/* No comment provided by engineer. */"Back" = "Terug";
-/* Help page 3. */"Find places" = "Ontdek de plekken";
-/* Help screen 2. */"Follow the arrow" = "Koers op de pijl";
-/* Help page 1. */"Choose your route" = "Kies je route";
-/* Help page 4 */"Get reward!" = "En... finish!";
-/* After check-in done. */"Continue!" = "Verder!";
-/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
-/* When player can check-in. */"Found!" = "Gevonden!";
-/* Title for place found. */"FoundPlaceTitle" = "Je hebt %@ gevonden!";
-/* The Go Hike button in route selection. */"Go Hike!" = "Start Hike!";
-/* Help end button. */"Let's play!" = "Start";
-/* When user can check-in. */"LocationFound" = "Kijk om je heen! Je bent nu dichtbij %@, heb je het al gespot?";
-/* No comment provided by engineer. */"Locations in Route" = "Locaties op de route";
+/* Section title for other cities outside of player range */
+"All playable cities" = "Alle speelbare steden";
 
-/* No comment provided by engineer. */"Route Information" = "Route-informatie";
-/* Ask user to save badge to camera roll. */"SavePictureQuestion" = "Onderscheiding bewaren?";
-/* Option to save picture to camera roll */"Save" = "Bewaren";
+/* No comment provided by engineer. */
+"Back" = "Terug";
 
-/* Do not save picture to camera roll. */"Don't save" = "Niet bewaren";
-/* Button to view Map. */"View Map" = "Bekijk kaart";
-/* Button to view reward. */"View Reward" = "Onderscheiding"; /* Bekijk onderscheiding */
+/* Cities */
+"Cities" = "Steden";
 
-/* When player is in range of destination. */"You are almost there!" = "Je bent er bijna!";
-/* These are the messages in the alert view when user taps on a location not yet found */"RouteAlertViewTitle" = "Nog niet gevonden!";
-"RouteAlertViewMessage" = "Hike naar interessante plekken om meer over ze te ontdekken. Nu vertrekken?";
-"RouteAlertViewNo" = "Later";
-"RouteAlertViewYes" = "Ja!"; /* Ja! Gaan met die banaan! */
+/* Could not get location at this time */
+"Could not get location at this time" = "Locatie kon niet krijgen op dit moment";
 
-/* button Next */
-"Next" = "Volgende";
+/* After check-in done. */
+"Continue!" = "Verder!";
+
+/* Alertview title */
+"Done!" = "Finish!";
+
+/* Do not save picture to camera roll. */
+"Don't save" = "Niet bewaren";
+
+/* Download error */
+"Download error" = "Download error";
+
+/* Download this route! */
+"Download this route!" = "Download deze route!";
+
+/* Downloading route */
+"Downloading route" = "Downloaden route";
 
 /* No routes! :( */
 "EmptyCatalogAlertViewTitle" = "Geen routes! :(";
@@ -45,3 +42,166 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 
 /* "Ok, got it!" */
 "EmptyCatalogAlertViewNo" = "Ok!";
+
+/* "Almost there!" */
+"EnteredRegionAlertTitle" = "We zijn er bijna!";
+
+/* "You are getting closer to the next location!" */
+"EnteredRegionAlertMessage" = "Je bent dichter bij de volgende locatie!";
+
+/* Yeah!" */
+"EnteredRegionAlertOk" = "😃";
+
+/* Error loading catalog */
+"Error loading catalog" = "Fout bij het laden catalogus";
+
+/* Error loading cities */
+"Error loading cities" = "Fout bij het laden steden";
+
+
+/* Facebook Error */
+"Facebook Error" = "Facebook Error";
+
+/* No comment provided by engineer. */
+/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
+
+/* When player can check-in. */"Found!" = "Gevonden!";
+
+/* You found {locationName} */
+/* Title for place found. */"FoundPlaceTitle" = "Je hebt %@ gevonden!";
+
+/* Go ahead */
+"Go ahead" = "Go ahead";
+
+/* Go Hike! */
+/* The Go Hike button in route selection. */"Go Hike!" = "Start Hike!";
+
+/* Heads up! */
+"Heads up!" = "Heads up!";
+
+
+/* Help page 3. */"Help1" = "Ontdek de plekken";
+/* Help screen 2. */"Help2" = "Koers op de pijl";
+/* Help page 1. */"Help3" = "Kies je route";
+/* Help page 4 */"Help4" = "En... finish!";
+
+/* Invalid JSON data */
+"Invalid JSON data" = "Invalid JSON data";
+
+/* JSON data not valid */
+"JSON data not valid" = "JSON data not valid";
+
+/* No comment provided by engineer. */
+"Later" = "Later";
+
+/* No comment provided by engineer. */
+/* Help end button. */"Let's play!" = "Start";
+
+
+/* Locating you */
+"Locating you" = "Locating you";
+
+/* No comment provided by engineer. */
+/* When user can check-in. */"LocationFound" = "Kijk om je heen! Je bent nu dichtbij %@, heb je het al gespot?";
+
+/* Login to Facebook to Download! */
+"Login to Facebook to Download!" = "Login to Facebook to Download!";
+
+
+/* button Next */
+"Next" = "Volgende";
+
+/* Local notification when user getting closer to location */
+"NotificationAlertBody" = "U bent dicht bij de check-in!";
+
+/* Text shown next to the notification */
+"NotificationAlertAction" = "Check-in!";
+
+/* Text shown next to the notification  REGION */
+"NotificationAlertActionRegion" = "Hike!";
+
+/* Section title for cities the player is within */
+"Nearby cities" = "Nabijgelegen steden";
+
+/* New content available! */
+"New content available!" = "Nieuwe content beschikbaar!";
+
+/* No */
+"No" = "Nee";
+
+/* No location available. Please turn on location in Settings */
+"No location available. Please turn on location in Settings" = "Geen locatie beschikbaar. Schakel op locatie in de instellingen";
+
+/* No comment provided by engineer. */
+"Ok" = "Ok";
+
+/* No comment provided by engineer. */
+"Ok!" = "Ok!";
+
+/* No comment provided by engineer. */
+"Posted successfully!" = "Succesvol geplaatst!";
+
+/* These are the messages in the alert view when user taps on a location not yet found */"RouteAlertViewTitle" = "Nog niet gevonden!";
+"RouteAlertViewMessage" = "Hike naar interessante plekken om meer over ze te ontdekken. Nu vertrekken?";
+"RouteAlertViewNo" = "Later";
+"RouteAlertViewYes" = "Ja!"; /* Ja! Gaan met die banaan! */
+
+/* No comment provided by engineer. */
+/* Option to save picture to camera roll */"Save" = "Bewaren";
+
+/* No comment provided by engineer. */
+/* Ask user to save badge to camera roll. */"SavePictureQuestion" = "Onderscheiding bewaren?";
+
+/* Share the reward with your Facebook friends? */
+"Share the reward with your Facebook friends?" = "Share the reward with your Facebook friends?";
+
+/* There is new content available for this route. Download it now? */
+"There is new content available for this route. Download it now?" = "There is new content available for this route. Download it now?";
+
+/* Unreachable */
+"Unreachable" = "Unreachable";
+
+/* Updating cities */
+"Updating cities" = "Steden updaten";
+
+/* Updating pictures */
+"Updating pictures" = "Foto's bijwerken";
+
+/* Locating you */
+"Locating you" = "Lokaliseren u";
+
+/* Updating routes to play */
+"Updating routes to play" = "Updaten routes om te spelen";
+
+/* Update Available! */
+"Update Available!" = "Update beschikbaar!";
+
+
+/* No comment provided by engineer. */
+/* Button to view Map. */"View Map" = "Bekijk kaart";
+
+/* No comment provided by engineer. */
+/* Button to view reward. */"View Reward" = "Onderscheiding"; /* Bekijk onderscheiding */
+
+/* Where do you want to play? */
+"Where do you want to play?" = "Where do you want to play?";
+
+/* No comment provided by engineer. */
+"Yes!" = "Yes!";
+
+/* You are about to download %f bytes of data, ok? */
+"You are about to download %.0f Kb of data, is that ok?" = "You are about to download %.0f Kb of data, is that ok?";
+
+/* When player is in range of destination. */"You are almost there!" = "Je bent er bijna!";
+
+
+
+
+
+
+
+
+
+
+
+
