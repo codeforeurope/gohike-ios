@@ -332,10 +332,10 @@
     _overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
     
     NSArray *subvArray = [NSArray arrayWithObjects:
-                          [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Choose your route", nil), @"label", nil],
-                          [NSDictionary dictionaryWithObjectsAndKeys:@"help2",@"image",NSLocalizedString(@"Follow the arrow", nil), @"label", nil],
-                          [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Find places", nil), @"label", nil],
-                          [NSDictionary dictionaryWithObjectsAndKeys:@"help4",@"image",NSLocalizedString(@"Get reward!", nil), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Help1", @"Help page 1"), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help2",@"image",NSLocalizedString(@"Help2", @"Follow the arrow"), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Help3", @"Find places"), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help4",@"image",NSLocalizedString(@"Help4", @"Get reward!"), @"label", nil],
                           nil];
     
     //Set the content size of our scrollview according to the total width of our imageView objects.
