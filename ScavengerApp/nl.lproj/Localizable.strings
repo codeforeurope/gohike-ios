@@ -33,3 +33,15 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 "RouteAlertViewMessage" = "Hike naar interessante plekken om meer over ze te ontdekken. Nu vertrekken?";
 "RouteAlertViewNo" = "Later";
 "RouteAlertViewYes" = "Ja!"; /* Ja! Gaan met die banaan! */
+
+/* button Next */
+"Next" = "Volgende";
+
+/* No routes! :( */
+"EmptyCatalogAlertViewTitle" = "Geen routes! :(";
+
+/* Looks like this city has no routes to play. Please go back and pick another one! */
+"EmptyCatalogAlertViewMessage" = "Deze stad heeft geen routes te spelen. Ga terug en kies een andere!";
+
+/* "Ok, got it!" */
+"EmptyCatalogAlertViewNo" = "Ok!";

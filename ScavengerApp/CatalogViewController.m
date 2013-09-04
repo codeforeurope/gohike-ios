@@ -13,6 +13,9 @@
 #import "RouteStartViewController.h"
 #import "SVProgressHUD.h"
 #import "CustomBarButtonViewLeft.h"
+#import "OverlayView.h"
+#import "HelpView.h"
+#import "SIAlertView.h"
 
 
 #define kSELECTION_CELL_IDENTIFIER @"SelectionCell"
@@ -23,6 +26,8 @@
     int receivedFileNotifications;
     int expectedNotifications;
 }
+
+@property (nonatomic, strong) OverlayView *overlayView;
 
 @end
 
@@ -47,17 +52,26 @@
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     [_collectionView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viewbackground"]]];
     
-    
-//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
+    //Register cells
     [self.collectionView registerNib:[UINib nibWithNibName:kSELECTION_CELL_IDENTIFIER bundle:nil] forCellWithReuseIdentifier:kSELECTION_CELL_IDENTIFIER];
     [self.collectionView registerNib:[UINib nibWithNibName:kSECTION_HEADER_IDENTIFIER bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kSECTION_HEADER_IDENTIFIER];
-
+    
+        
+    //buttons
+    [self updateNavigationButtons];
+    
+//Load catalog
     [self loadCatalogForCity:[[AppState sharedInstance] currentCity].GHid];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self updateNavigationButtons];
+    //How to play screen
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"howtoplay_displayed"] == nil) {
+        
+        [self onHelpButton];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"howtoplay_displayed"];
+    }
 }
 
 - (void)updateNavigationButtons
@@ -68,6 +82,13 @@
                                                                                   target:self
                                                                                   action:@selector(onBackButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    CustomBarButtonViewLeft *helpButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
+                                                                               imageName:@"help2"
+                                                                                    text:nil
+                                                                                  target:self
+                                                                                  action:@selector(onHelpButton)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
 }
 
 - (void)onBackButton
@@ -233,9 +254,20 @@
 
 - (void)reloadCollectionView
 {
-//    [self.collectionView performBatchUpdates:^{
-        [self.collectionView reloadData];
-//    } completion:^(BOOL finished) {}];
+    [self.collectionView reloadData];
+    if([[[[AppState sharedInstance] currentCatalog] GHprofiles] count ] < 1)
+    {
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"EmptyCatalogAlertViewTitle", @"No routes!") andMessage:NSLocalizedString(@"EmptyCatalogAlertViewMessage", @"Looks like this city has no routes to play. Please go back and pick another one!")];
+        [alertView addButtonWithTitle:NSLocalizedString(@"EmptyCatalogAlertViewNo",@"Ok, got it")
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:YES];
+                              }];
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+
+        [alertView show];
+    }
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout
@@ -250,6 +282,81 @@
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(30, 20, 30, 20);
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    // Update the page when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = _overlayView.scrollView.frame.size.width;
+    int page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    _overlayView.pageControl.currentPage = page;
+    if (page < 3) {
+        [_overlayView.playButton setTitle:NSLocalizedString(@"Next", nil) forState:UIControlStateNormal];
+    }
+    else{
+        [_overlayView.playButton setTitle:NSLocalizedString(@"Let's play!", nil) forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - Buttons
+
+- (void)onHelpButton
+{
+    void (^jobFinished)(void) = ^{
+        // We need the view to be reloaded by the main thread
+        dispatch_async(dispatch_get_main_queue(),^{
+            
+            [UIView transitionWithView:self.view
+                              duration:0.5
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+                                [self.view addSubview:_overlayView];
+                            }
+                            completion:nil];        });
+    };
+
+    // create the async job
+    NSBlockOperation *job = [NSBlockOperation blockOperationWithBlock:^{ [self setupHelpView]; }];
+    [job setCompletionBlock:jobFinished];
+    
+    // put it in the queue for execution
+    [[NSOperationQueue mainQueue] addOperation:job];
+    
+}
+
+- (void)setupHelpView
+{
+    //Setup help views
+    _overlayView = [[NSBundle mainBundle] loadNibNamed:@"OverlayView"owner:self options:nil][0];
+    
+    NSArray *subvArray = [NSArray arrayWithObjects:
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help1",@"image",NSLocalizedString(@"Choose your route", nil), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help2",@"image",NSLocalizedString(@"Follow the arrow", nil), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help3",@"image",NSLocalizedString(@"Find places", nil), @"label", nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:@"help4",@"image",NSLocalizedString(@"Get reward!", nil), @"label", nil],
+                          nil];
+    
+    //Set the content size of our scrollview according to the total width of our imageView objects.
+    _overlayView.scrollView.contentSize = CGSizeMake(_overlayView.scrollView.frame.size.width * 4, _overlayView.scrollView.frame.size.height);
+    [_overlayView.playButton setTitle:NSLocalizedString(@"Next", nil) forState:UIControlStateNormal];
+
+    
+    for (int i = 0; i < 4; i++) {
+        //We'll create a view object in every 'page' of our scrollView.
+        CGRect frame;
+        frame.origin.x = _overlayView.scrollView.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = _overlayView.scrollView.frame.size;
+        
+        HelpView *help1 = [[NSBundle mainBundle] loadNibNamed:@"HelpView"owner:self options:nil][0]; //[[HelpView alloc] initWithFrame:frame];
+        [help1 setFrame:frame];
+        help1.label.text = [[subvArray objectAtIndex:i] objectForKey:@"label"];
+        help1.imageView.image = [UIImage imageNamed:[[subvArray objectAtIndex:i] objectForKey:@"image"]];
+        
+        [_overlayView.scrollView addSubview:help1];
+    }
 }
 
 @end
