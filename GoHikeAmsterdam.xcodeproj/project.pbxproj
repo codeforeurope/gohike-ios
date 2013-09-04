@@ -175,6 +175,8 @@
 		ACECFB8F17565CCC0074EBBE /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */; };
 		ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9D1756A8D70074EBBE /* pin@2x.png */; };
 		ACECFBA01756A8D70074EBBE /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = ACECFB9E1756A8D70074EBBE /* pin.png */; };
+		ACF6475517D7DA3F00EF9806 /* CitiesOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF6475417D7DA3F00EF9806 /* CitiesOverlayView.xib */; };
+		ACF6475817D7DA5400EF9806 /* CitiesOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF6475717D7DA5400EF9806 /* CitiesOverlayView.m */; };
 		ACF79F2D17CA6CD7003165DB /* GoHikeHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */; };
 		ACFC841317D4D89E00FB252E /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFC840D17D4D86000FB252E /* libTestFlight.a */; };
 		ACFC843917D60E7000FB252E /* CompassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACFC843817D60E7000FB252E /* CompassViewController.xib */; };
@@ -257,7 +259,7 @@
 		AC10B1AC17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+EvenDistribution.m"; sourceTree = "<group>"; };
 		AC10B1B217D69FA000E9FD78 /* target-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-red.png"; sourceTree = "<group>"; };
 		AC10B1B417D69FAF00E9FD78 /* target-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-red@2x.png"; sourceTree = "<group>"; };
-		AC10B1C617D73AC200E9FD78 /* Exploring Zuid .gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Exploring Zuid .gpx"; sourceTree = "<group>"; };
+		AC10B1C617D73AC200E9FD78 /* Exploring Zuid .gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Exploring Zuid .gpx"; path = "../Exploring Zuid .gpx"; sourceTree = "<group>"; };
 		AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collectionviewheader@2x.png"; sourceTree = "<group>"; };
 		AC11F74F17D3589B00E43279 /* collectionviewheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collectionviewheader.png; sourceTree = "<group>"; };
 		AC2418F417C6219B00B3783D /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
@@ -404,9 +406,9 @@
 		ACDD9BD81743D0E600D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACDD9BDC1743D1D700D64682 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ACDD9BDE1743D1DB00D64682 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		ACDD9BE41743E93C00D64682 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
-		ACDD9BE51743E93C00D64682 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
-		ACDD9BE61743E93C00D64682 /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
+		ACDD9BE41743E93C00D64682 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverlayView.h; path = ../OverlayView.h; sourceTree = "<group>"; };
+		ACDD9BE51743E93C00D64682 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverlayView.m; path = ../OverlayView.m; sourceTree = "<group>"; };
+		ACDD9BE61743E93C00D64682 /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../OverlayView.xib; sourceTree = "<group>"; };
 		ACDD9BE91743EBAB00D64682 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACE2AD3F17628D94004C6AF8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		ACE31CF3175E23A1009916EE /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Secret.h; path = ScavengerApp/Secret.h; sourceTree = "<group>"; };
@@ -414,6 +416,9 @@
 		ACECFB8D17565CCC0074EBBE /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		ACECFB9D1756A8D70074EBBE /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@2x.png"; sourceTree = "<group>"; };
 		ACECFB9E1756A8D70074EBBE /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		ACF6475417D7DA3F00EF9806 /* CitiesOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitiesOverlayView.xib; sourceTree = "<group>"; };
+		ACF6475617D7DA5400EF9806 /* CitiesOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitiesOverlayView.h; sourceTree = "<group>"; };
+		ACF6475717D7DA5400EF9806 /* CitiesOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitiesOverlayView.m; sourceTree = "<group>"; };
 		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
 		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
 		ACFC840D17D4D86000FB252E /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = TestFlightSDK2.0.0/libTestFlight.a; sourceTree = "<group>"; };
@@ -746,9 +751,15 @@
 		ACC893BB1760931F002AC636 /* HelpViews */ = {
 			isa = PBXGroup;
 			children = (
+				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
+				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
+				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
 				ACC893BC17609331002AC636 /* HelpView.xib */,
 				ACC893BE17609588002AC636 /* HelpView.h */,
 				ACC893BF17609588002AC636 /* HelpView.m */,
+				ACF6475417D7DA3F00EF9806 /* CitiesOverlayView.xib */,
+				ACF6475617D7DA5400EF9806 /* CitiesOverlayView.h */,
+				ACF6475717D7DA5400EF9806 /* CitiesOverlayView.m */,
 			);
 			path = HelpViews;
 			sourceTree = "<group>";
@@ -763,7 +774,6 @@
 		ACDD9B5F1743B20200D64682 = {
 			isa = PBXGroup;
 			children = (
-				AC10B1C617D73AC200E9FD78 /* Exploring Zuid .gpx */,
 				AC303F8017C4F53100875910 /* ThirdParties */,
 				ACE31CF3175E23A1009916EE /* Secret.h */,
 				ACDD9BDF1743E8D700D64682 /* Assets */,
@@ -827,9 +837,6 @@
 				ACB958DB17D2A8AE007FB821 /* LocationDetailTableViewController.h */,
 				ACB958DC17D2A8AE007FB821 /* LocationDetailTableViewController.m */,
 				AC0AF4951754D51D00B766E0 /* TableBackground.xib */,
-				ACDD9BE41743E93C00D64682 /* OverlayView.h */,
-				ACDD9BE51743E93C00D64682 /* OverlayView.m */,
-				ACDD9BE61743E93C00D64682 /* OverlayView.xib */,
 				ACA60BC917539FC600EA4D53 /* RewardViewController.h */,
 				ACA60BCA17539FC600EA4D53 /* RewardViewController.m */,
 				ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */,
@@ -851,6 +858,7 @@
 		ACDD9B721743B20200D64682 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC10B1C617D73AC200E9FD78 /* Exploring Zuid .gpx */,
 				AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */,
 				ACC893D11760AE69002AC636 /* Icons */,
 				ACDD9C111744CB6500D64682 /* Data */,
@@ -1051,6 +1059,7 @@
 				AC10B1B317D69FA000E9FD78 /* target-red.png in Resources */,
 				AC10B1B517D69FAF00E9FD78 /* target-red@2x.png in Resources */,
 				AC10B1C717D73AC200E9FD78 /* Exploring Zuid .gpx in Resources */,
+				ACF6475517D7DA3F00EF9806 /* CitiesOverlayView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,6 +1156,7 @@
 				ACB958E917D2A994007FB821 /* LocationDetailTitleCell.m in Sources */,
 				ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */,
 				AC10B1AD17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m in Sources */,
+				ACF6475817D7DA5400EF9806 /* CitiesOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

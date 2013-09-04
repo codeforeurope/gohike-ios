@@ -189,11 +189,12 @@
             break;
         case 1:
         {
-            static NSString *CellIdentifier = @"ButtonCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            }
+//            static NSString *CellIdentifier = @"ButtonCell";
+//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//            if (cell == nil) {
+//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//            }
+            UITableViewCell *cell = cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
             cell.selectionStyle = UITableViewCellEditingStyleNone;
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
 
@@ -201,8 +202,11 @@
             //button with gradient
             UIButton *startHikeCellButton = [UIButton buttonWithType:UIButtonTypeCustom];
             startHikeCellButton.frame = cell.contentView.frame;
-            [startHikeCellButton setFrame:CGRectMake(0, 0, cell.bounds.size.width-20, 44)];
+            [startHikeCellButton setFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width-20, 44)];
             [startHikeCellButton setCenter:cell.center];
+//            UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+//            [startHikeCellButton setBackgroundColor:blueColor];
+
 
             // Draw a custom gradient
             UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
@@ -219,7 +223,6 @@
             if([route GHwaypoints]){
                 if([[route objectForKey:@"update_available"] boolValue] == YES)
                 {
-                    NSLog(@"Update available!");
                     [startHikeCellButton setTitle:NSLocalizedString(@"Update Available!", @"Update Available!") forState:UIControlStateNormal];
                 }
                 else{
@@ -247,7 +250,7 @@
 //            startHikeCellButton.layer.shadowPath =
 //            [UIBezierPath bezierPathWithRect:startHikeCellButton.layer.bounds].CGPath;
             
-            [cell.contentView addSubview:startHikeCellButton];
+            [cell addSubview:startHikeCellButton];
             
             return cell;
         }

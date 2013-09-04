@@ -174,7 +174,7 @@
     GHRoute *existingRoute = [FileUtilities loadRouteFromFileWithId:[selectedRoute GHid]];
     if(existingRoute)
     {
-        if([[existingRoute GHpublished_key] isEqualToString:[selectedRoute GHpublished_key]] != YES)
+        if(![[existingRoute GHpublished_key] isEqualToString:[selectedRoute GHpublished_key]])
         {
             //the publish keys differ. Means the route in the catalog is more updated than the one we have on the file. Mark the downloaded route as "To Update"
             NSMutableDictionary *d = [existingRoute mutableCopy];

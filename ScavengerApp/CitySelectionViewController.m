@@ -10,6 +10,7 @@
 #import "CatalogViewController.h"
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
+#import "CitiesOverlayView.h"
 
 #define base_url @"http://www.gotakeahike.nl/"
 
@@ -275,13 +276,21 @@
             [self onHelpButton];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"howtoplay_cities_displayed"];
         }
+
         
     }
 }
 
 - (void)onHelpButton
 {
-    
+    CitiesOverlayView *citiesOverlayView = [[[NSBundle mainBundle] loadNibNamed:@"CitiesOverlayView" owner:self options:nil] objectAtIndex:0];
+    citiesOverlayView.textView.text = NSLocalizedString(@"WelcomeText", @"Welcome text to the app");
+    citiesOverlayView.playButton.titleLabel.text = NSLocalizedString(@"Let's play!", @"Button to play");
+    CGRect frame = self.tableView.bounds;
+    [citiesOverlayView setFrame:frame];
+//    [self.view addSubview:citiesOverlayView];
+    [self.tableView.superview insertSubview:citiesOverlayView aboveSubview:self.tableView];
+
 }
 
 @end

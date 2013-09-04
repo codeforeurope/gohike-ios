@@ -183,6 +183,10 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* No comment provided by engineer. */
 /* Button to view reward. */"View Reward" = "Onderscheiding"; /* Bekijk onderscheiding */
 
+
+/* Welcome text */
+"WelcomeText" = "Welkom bij Take a Hike!\r\n Selecteer een stad waar je wilt spelen uit de lijst. Sluit steden zijn vaak automatisch bovenaan geselecteerd.\r\n U kunt de stad op elk moment wisselen!";
+
 /* Where do you want to play? */
 "Where do you want to play?" = "playwear wil je spelen?";
 
