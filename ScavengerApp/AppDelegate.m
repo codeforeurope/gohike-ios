@@ -23,7 +23,7 @@
 - (void)customizeAppearance
 {
     // Create resizable images
-    UIImage *topNavbarImage = [[UIImage imageNamed:@"navigation-top-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *topNavbarImage = [[UIImage imageNamed:@"navigation-top-background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 30, 0)];
 
     // Set the background image for *all* UINavigationBars
     [[UINavigationBar appearance] setBackgroundImage:topNavbarImage

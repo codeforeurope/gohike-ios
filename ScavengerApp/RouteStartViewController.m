@@ -202,6 +202,7 @@
             UIButton *startHikeCellButton = [UIButton buttonWithType:UIButtonTypeCustom];
             startHikeCellButton.frame = cell.contentView.frame;
             [startHikeCellButton setFrame:CGRectMake(0, 0, cell.bounds.size.width-20, 44)];
+            [startHikeCellButton setCenter:cell.center];
 
             // Draw a custom gradient
             UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
