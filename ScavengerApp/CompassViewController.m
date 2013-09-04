@@ -28,6 +28,8 @@
 
 #import "MapViewController.h"
 
+#import "SIAlertView.h"
+
 #define ARROW_SIZE 200
 #define COMPASS_SIZE 300
 #if DEBUG
@@ -78,6 +80,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesGotBestAccuracyLocation object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesUpdateHeading object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServicesEnteredDestinationRegion object:nil];
     
     [cloudView stopAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:NO];
@@ -90,10 +93,13 @@
 {
     //start location services
     [[AppState sharedInstance] startLocationServices];
+    [[AppState sharedInstance] startMonitoringForDestination];
+
     
     //register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleHeadingUpdate:) name:kLocationServicesUpdateHeading object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnteredRegion:) name:kLocationServicesEnteredDestinationRegion object:nil];
     
     [cloudView startAnimation];
     [[AppState sharedInstance] setPlayerIsInCompass:YES];
@@ -117,7 +123,7 @@
 - (void)updateLabelsWithDistance:(double)distance destination:(NSString*)destination
 {
     if(distance > 1000){
-        self.labelDistance.text = [NSString stringWithFormat:@"%.2f Km",distance/1000];
+        self.labelDistance.text = [NSString stringWithFormat:@"%.2f km",distance/1000];
     }
     else{
         self.labelDistance.text = [NSString stringWithFormat:@"%.0f m",distance];
@@ -128,9 +134,23 @@
 
 }
 
+- (void)scheduleLocalNotification
+{
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = NSLocalizedString(@"NotificationAlertBody", @"You are close to the next check-in!");
+    notification.alertAction = NSLocalizedString(@"NotificationAlertAction", @"Check-in");
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
 
 - (void)addCheckInView
 {
+    if([UIApplication sharedApplication].applicationState != UIApplicationStateActive)
+    {
+        [self scheduleLocalNotification];
+    }
+
+    
     CGRect gridRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - STATUS_HEIGHT);
     CheckinView *checkinView = [[CheckinView alloc] initWithFrame:CGRectInset(gridRect, 10, 10)];
     NSString *destinationName = [[[AppState sharedInstance] activeWaypoint] GHname];
@@ -216,6 +236,21 @@
          arrow.transform = transform;
          destinationRadarView.transform = transform;
      } completion:nil];
+}
+
+- (void)handleEnteredRegion:(NSNotification*)notification
+{
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"EnteredRegionAlertTitle", @"Almost there!") andMessage:NSLocalizedString(@"EnteredRegionAlertMessage", @"You are getting closer to the next location!")];
+    [alertView addButtonWithTitle:NSLocalizedString(@"EnteredRegionAlertOk", @"Yeah!")
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              [alertView dismissAnimated:YES];
+                          }];
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+    alertView.didDismissHandler = ^(SIAlertView *alertView) {
+    };
+    [alertView show];
 }
 
 
@@ -363,6 +398,7 @@
     //change the active target
     if ([[AppState sharedInstance] setNextTarget])
     {
+        [[AppState sharedInstance] startMonitoringForDestination];
         [self updateCheckinStatus]; //this is to set the new color on the current destination
         float latitude = [[[AppState sharedInstance] activeWaypoint] GHlatitude];
         float longitude = [[[AppState sharedInstance] activeWaypoint] GHlongitude];

@@ -14,6 +14,7 @@ extern NSString* const kLocationServicesFailure;
 extern NSString* const kLocationServicesForbidden;
 extern NSString* const kLocationServicesGotBestAccuracyLocation;
 extern NSString* const kLocationServicesUpdateHeading;
+extern NSString* const kLocationServicesEnteredDestinationRegion;
 
 
 extern NSString* const kFilePathCatalogs;

@@ -60,7 +60,9 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+#if DEBUG
     NSLog(@"Received local notification");
+#endif
 }
 
 
@@ -195,7 +197,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[GoHikeHTTPClient sharedClient] pushCheckins];
     [FBAppCall handleDidBecomeActive];
-    [[AppState sharedInstance] stopMonitoringForDestination];
+//    [[AppState sharedInstance] stopMonitoringForDestination];
 
 }
 

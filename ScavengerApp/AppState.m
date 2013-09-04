@@ -15,6 +15,7 @@ NSString* const kLocationServicesFailure = @"kLocationServicesFailure";
 NSString* const kLocationServicesForbidden = @"kLocationServicesForbidden";
 NSString* const kLocationServicesGotBestAccuracyLocation = @"kLocationServicesGotBestAccuracyLocation";
 NSString* const kLocationServicesUpdateHeading =  @"kLocationServicesUpdateHeading";
+NSString* const kLocationServicesEnteredDestinationRegion =  @"kLocationServicesEnteredDestinationRegion";
 
 NSString* const kFilePathCatalogs = @"catalogs";
 NSString* const kFilePathRoutes = @"routes";
@@ -309,6 +310,7 @@ NSString* const kFilePathProfiles = @"profiles";
 
 - (void)startMonitoringForDestination
 {
+   
     {
         if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
             // Stop normal location updates and start significant location change updates for battery efficiency.
@@ -325,7 +327,6 @@ NSString* const kFilePathProfiles = @"profiles";
         }
     }
 
-    
 }
 
 - (void)stopMonitoringForDestination
@@ -343,18 +344,23 @@ NSString* const kFilePathProfiles = @"profiles";
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
+#if DEBUG
     NSLog(@"Did Enter Region! %@", [region identifier]);
+#endif
     if([[region identifier] isEqualToString:@"destinationLocation"] && [UIApplication sharedApplication].applicationState != UIApplicationStateActive)
     {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
 //        notification.fireDate = [NSDate date];
 //        NSTimeZone* timezone = [NSTimeZone defaultTimeZone];
 //        notification.timeZone = timezone;
-        notification.alertBody = NSLocalizedString(@"You are close to the next check-in! Go for it!", @"Local notification when user getting closer to location");
-        notification.alertAction = NSLocalizedString(@"Play!", @"Text shown next to the notification");
+        notification.alertBody = NSLocalizedString(@"NotificationAlertBody", @"Local notification when user getting closer to location");
+        notification.alertAction = NSLocalizedString(@"NotificationAlertActionRegion", @"Text shown next to the notification when entering REGION");
 //        notification.soundName = UILocalNotificationDefaultSoundName;
 //        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    }
+    else if([[region identifier] isEqualToString:@"destinationLocation"] && [[AppState sharedInstance] playerIsInCompass] == YES){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesEnteredDestinationRegion object:nil];
     }
 }
 
