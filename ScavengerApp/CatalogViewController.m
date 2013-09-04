@@ -180,7 +180,6 @@
             NSMutableDictionary *d = [existingRoute mutableCopy];
             [d setObject:[NSNumber numberWithBool:YES] forKey:@"update_available"];
             existingRoute = [d copy];
-            //TODO: how to persist the fact that we need to update between app restarts? 
         }
         [AppState sharedInstance].currentRoute = existingRoute;
         [[AppState sharedInstance] save];
