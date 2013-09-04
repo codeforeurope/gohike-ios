@@ -587,7 +587,21 @@
 #if DEBUG
                  NSLog(@"we got user: %@", user);
 #endif
-                 [self refresh];
+                 @try {
+                     NSString *username = user.first_name;
+                     NSString *FBid = [NSString stringWithFormat:@"%@", user.id];
+                     NSString *email = [user objectForKey:@"email"];
+                     NSDate *expirationDate = FBSession.activeSession.accessTokenData.expirationDate;
+                     NSString *token = FBSession.activeSession.accessTokenData.accessToken;
+                     
+                    [[GoHikeHTTPClient sharedClient] connectFBId:FBid name:username email:email token:token expDate:expirationDate];
+                 }
+                 @catch (NSException *exception) {
+                     NSLog(@"%@", [exception description]);
+                 }
+                 @finally {
+                     [self refresh];
+                 }
 
 
              }

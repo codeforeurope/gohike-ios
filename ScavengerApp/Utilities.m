@@ -57,4 +57,18 @@
     return[[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
++ (NSString*)formattedStringFromDate:(NSDate*)date
+{
+    //Use the string for correct conversion to JSON
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss Z"];
+    NSString *dateToString = [formatter stringFromDate:date];
+    return dateToString;
+}
+
++ (NSNumber*)formattedNumberFromDate:(NSDate*)date
+{
+    return [NSNumber numberWithInt:[date timeIntervalSince1970]];
+}
+
 @end

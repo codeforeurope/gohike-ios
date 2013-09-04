@@ -19,6 +19,8 @@ NSString* const kFinishedLoadingCatalog = @"kFinishedLoadingCatalog";
 NSString* const kFinishedLoadingRoute = @"kFinishedLoadingRoute";
 NSString* const kFinishedLoadingCities = @"kFinishedLoadingCities";
 NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
+NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
+
 
 @implementation GoHikeHTTPClient
 
@@ -278,6 +280,59 @@ NSString* const kFinishedDownloadingFile = @"kFinishedDownloadingFile";
         }
         
     }
+
+}
+
+- (void)connectFBId:(NSString*)facebookID name:(NSString*)name email:(NSString*)email token:(NSString*)token expDate:(NSDate*)expDate
+{
+    // Get device UDID
+    // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
+    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
+    if (deviceID == nil) { // if this is the first time app lunching , create key for device
+        NSString *uuid  = [Utilities createNewUUID];
+        // save newly created key to Keychain
+        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
+        // this is the one time process
+        deviceID = uuid;
+    }
+
+    NSString *devicePlatform = @"iOS";
+    NSString *deviceVersion = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] systemVersion]] ;
+    
+
+    NSDictionary *parameters = @{
+        @"device_id": deviceID,
+        @"device_platform" : devicePlatform,
+        @"device_version" : deviceVersion,
+        @"user_name": name,
+        @"user_email": email,
+        @"fb_id" : facebookID,
+        @"fb_token": token,
+        @"fb_expires_at" : [Utilities formattedStringFromDate:expDate]
+    };
+
+    __autoreleasing NSError *checkinsError;
+    NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&checkinsError];
+    NSMutableURLRequest *checkinRequest = [self requestWithMethod:@"POST" path:@"/api/connect" parameters:nil];
+    
+    [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
+    [checkinRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [checkinRequest setHTTPBody:postBodyData];
+    
+    AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+#if DEBUG
+        NSLog(@"Connected device OK!");
+#endif
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedConnectingDevice object:nil];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Failed to connect device: %@",[error description]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedConnectingDevice object:nil userInfo:@{@"error":error}];
+    }];
+    
+    [self enqueueHTTPRequestOperation:checkinOperation];
+    
 }
 
 @end

@@ -15,7 +15,6 @@
 
 @interface CitySelectionViewController ()
 
-
 @end
 
 @implementation CitySelectionViewController
@@ -269,7 +268,20 @@
         [SVProgressHUD showSuccessWithStatus:nil];
         _cities = [[AppState sharedInstance] cities];
         [self.tableView reloadData];
+        
+        //How to play screen
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"howtoplay_cities_displayed"] == nil) {
+            
+            [self onHelpButton];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"howtoplay_cities_displayed"];
+        }
+        
     }
+}
+
+- (void)onHelpButton
+{
+    
 }
 
 @end

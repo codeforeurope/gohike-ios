@@ -15,5 +15,7 @@
 + (NSString*)getStringForCurrentLocaleFromDictionary:(NSDictionary*)dictionary;
 + (NSString *)createNewUUID;
 + (NSString*)getCurrentLocale;
++ (NSString*)formattedStringFromDate:(NSDate*)date;
++ (NSNumber*)formattedNumberFromDate:(NSDate*)date;
 
 @end

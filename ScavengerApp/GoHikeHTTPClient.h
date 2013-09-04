@@ -12,6 +12,7 @@ extern NSString* const kFinishedLoadingCatalog;
 extern NSString* const kFinishedLoadingRoute;
 extern NSString* const kFinishedLoadingCities;
 extern NSString* const kFinishedDownloadingFile;
+extern NSString* const kFinishedConnectingDevice;
 
 extern NSString* const kGOHIKE_BASEURL;
 
@@ -24,6 +25,6 @@ extern NSString* const kGOHIKE_BASEURL;
 - (void)getRoute:(NSInteger)routeId;
 - (void)downloadFileWithUrl:(NSString*)fileUrl savePath:(NSString*)savePath;
 - (void)pushCheckins;
-
+- (void)connectFBId:(NSString*)facebookID name:(NSString*)name email:(NSString*)email token:(NSString*)token expDate:(NSDate*)expDate;
 
 @end
