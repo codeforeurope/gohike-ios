@@ -419,6 +419,8 @@
 		ACF6475417D7DA3F00EF9806 /* CitiesOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitiesOverlayView.xib; sourceTree = "<group>"; };
 		ACF6475617D7DA5400EF9806 /* CitiesOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitiesOverlayView.h; sourceTree = "<group>"; };
 		ACF6475717D7DA5400EF9806 /* CitiesOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitiesOverlayView.m; sourceTree = "<group>"; };
+		ACF6475917D7EE1E00EF9806 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ACF6475A17D7EE1E00EF9806 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ACF79F2B17CA6CD7003165DB /* GoHikeHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoHikeHTTPClient.h; sourceTree = "<group>"; };
 		ACF79F2C17CA6CD7003165DB /* GoHikeHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoHikeHTTPClient.m; sourceTree = "<group>"; };
 		ACFC840D17D4D86000FB252E /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = TestFlightSDK2.0.0/libTestFlight.a; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 			knownRegions = (
 				en,
 				nl,
+				it,
 			);
 			mainGroup = ACDD9B5F1743B20200D64682;
 			productRefGroup = ACDD9B691743B20200D64682 /* Products */;
@@ -1168,6 +1171,7 @@
 			children = (
 				ACDD9B751743B20200D64682 /* en */,
 				ACDD9BD81743D0E600D64682 /* nl */,
+				ACF6475917D7EE1E00EF9806 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1177,6 +1181,7 @@
 			children = (
 				ACDD9BDC1743D1D700D64682 /* en */,
 				ACDD9BDE1743D1DB00D64682 /* nl */,
+				ACF6475A17D7EE1E00EF9806 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
