@@ -123,8 +123,12 @@
 
 - (void)refresh
 {
+    //first check if route is complete and Facebook logged in
     routeComplete = [[AppState sharedInstance] isRouteFinished:[[AppState sharedInstance] currentRoute]];
     isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen);
+    
+    //update UI accordingly to the new values
+    [self updateNavigationButtons];
     [self.tableView reloadData];
 }
 

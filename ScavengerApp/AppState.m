@@ -313,7 +313,7 @@ NSString* const kFilePathProfiles = @"profiles";
         if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
             // Stop normal location updates and start significant location change updates for battery efficiency.
             CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake([[self activeWaypoint] GHlatitude], [[self activeWaypoint] GHlongitude]);
-            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:5000.0 identifier:@"destinationLocation"];
+            CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:coordinates radius:500.0 identifier:@"destinationLocation"];
             [_locationManager startMonitoringForRegion:region];
             [_locationManager startMonitoringSignificantLocationChanges];
 #if DEBUG
@@ -343,16 +343,18 @@ NSString* const kFilePathProfiles = @"profiles";
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    if([[region identifier] isEqualToString:@"destinationLocation"])
+    NSLog(@"Did Enter Region! %@", [region identifier]);
+    if([[region identifier] isEqualToString:@"destinationLocation"] && [UIApplication sharedApplication].applicationState != UIApplicationStateActive)
     {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = [NSDate date];
-        NSTimeZone* timezone = [NSTimeZone defaultTimeZone];
-        notification.timeZone = timezone;
+//        notification.fireDate = [NSDate date];
+//        NSTimeZone* timezone = [NSTimeZone defaultTimeZone];
+//        notification.timeZone = timezone;
         notification.alertBody = NSLocalizedString(@"You are close to the next check-in! Go for it!", @"Local notification when user getting closer to location");
         notification.alertAction = NSLocalizedString(@"Play!", @"Text shown next to the notification");
 //        notification.soundName = UILocalNotificationDefaultSoundName;
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+//        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
     }
 }
 
