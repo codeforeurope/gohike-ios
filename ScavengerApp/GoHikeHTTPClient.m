@@ -308,11 +308,11 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
         @"user_email": email,
         @"fb_id" : facebookID,
         @"fb_token": token,
-        @"fb_expires_at" : [Utilities formattedStringFromDate:expDate]
+        @"fb_expires_at" : [Utilities formattedNumberFromDate:expDate]
     };
 
     __autoreleasing NSError *checkinsError;
-    NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:&checkinsError];
+    NSData *postBodyData = [NSJSONSerialization dataWithJSONObject:parameters options:kNilOptions error:&checkinsError];
     NSMutableURLRequest *checkinRequest = [self requestWithMethod:@"POST" path:@"/api/connect" parameters:nil];
     
     [checkinRequest addValue:kAPISecret forHTTPHeaderField:@"Take-A-Hike-Secret"];
@@ -320,19 +320,20 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
     
     [checkinRequest setHTTPBody:postBodyData];
     
-    AFJSONRequestOperation *checkinOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:checkinRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFHTTPRequestOperation *connectOperation = [[AFHTTPRequestOperation alloc] initWithRequest:checkinRequest];
+    [connectOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 #if DEBUG
         NSLog(@"Connected device OK!");
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedConnectingDevice object:nil];
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to connect device: %@",[error description]);
         [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedConnectingDevice object:nil userInfo:@{@"error":error}];
+
     }];
-    
-    [self enqueueHTTPRequestOperation:checkinOperation];
-    
+    [self enqueueHTTPRequestOperation:connectOperation];
+
 }
 
 @end

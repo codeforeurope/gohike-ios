@@ -16,6 +16,7 @@
 #import "OverlayView.h"
 #import "HelpView.h"
 #import "SIAlertView.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 #define kSELECTION_CELL_IDENTIFIER @"SelectionCell"
@@ -131,8 +132,9 @@
 //    cell.backgroundColor = [UIColor redColor];
 
     
-//    [cell.profileImage setImageWithURL:[NSURL URLWithString:[[route GHicon] GHurl]]];
     cell.profileImage.image = [UIImage imageWithData:[FileUtilities iconDataForRoute:route]];
+    cell.profileImage.layer.cornerRadius = 6;
+    cell.profileImage.layer.masksToBounds = YES;
     cell.profileLabel.text = [route GHname];
     cell.bottomLabel.text = @"";
     
@@ -212,7 +214,7 @@
     
     if([[notification userInfo] objectForKey:@"error"])
     {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Error loading catalog", @"Error loading catalog")];
+        [SVProgressHUD dismiss];
     }
     else{
         
@@ -357,5 +359,6 @@
         [_overlayView.scrollView addSubview:help1];
     }
 }
+
 
 @end

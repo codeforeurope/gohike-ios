@@ -1,9 +1,3 @@
-/*   Localizable.strings  ScavengerApp
-Created by Giovanni Maggini on 5/15/13.
-Copyright (c) 2013 Code for Europe. All rights reserved.*/
-
-
-
 /* Section title for other cities outside of player range */
 "All playable cities" = "Alle speelbare steden";
 
@@ -13,17 +7,17 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* Cities */
 "Cities" = "Steden";
 
+/* No comment provided by engineer. */
+"Continue!" = "Verder!";
+
 /* Could not get location at this time */
 "Could not get location at this time" = "Kan nu de locatie niet krijgen ";
 
-/* After check-in done. */
-"Continue!" = "Verder!";
+/* No comment provided by engineer. */
+"Don't save" = "Niet bewaren";
 
 /* Alertview title */
 "Done!" = "Klaar!";
-
-/* Do not save picture to camera roll. */
-"Don't save" = "Niet bewaren";
 
 /* Download error */
 "Download error" = "Download error";
@@ -58,32 +52,31 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* Error loading cities */
 "Error loading cities" = "Fout bij het laden steden";
 
-
 /* Facebook Error */
 "Facebook Error" = "Facebook Error";
 
 /* No comment provided by engineer. */
-/* The Facebook share message. */"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
+"FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
 
-/* When player can check-in. */"Found!" = "Gevonden!";
+/* No comment provided by engineer. */
+"Found!" = "Gevonden!";
 
 /* You found {locationName} */
-/* Title for place found. */"FoundPlaceTitle" = "Je hebt %@ gevonden!";
+"FoundPlaceTitle" = "Je hebt %@ gevonden!";
 
 /* Go ahead */
 "Go ahead" = "Ga door";
 
 /* Go Hike! */
-/* The Go Hike button in route selection. */"Go Hike!" = "Start Hike!";
+"Go Hike!" = "Start Hike!";
 
 /* Heads up! */
 "Heads up!" = "Heads up!";
 
-
-/* Help page 3. */"Help1" = "Ontdek de plekken";
-/* Help screen 2. */"Help2" = "Koers op de pijl";
-/* Help page 1. */"Help3" = "Kies je route";
-/* Help page 4 */"Help4" = "En... finish!";
+"Help1" = "Ontdek de plekken";
+"Help2" = "Koers op de pijl";
+"Help3" = "Kies je route";
+"Help4" = "En... finish!";
 
 /* Invalid JSON data */
 "Invalid JSON data" = " JSON data niet geldig";
@@ -95,21 +88,16 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 "Later" = "Later";
 
 /* No comment provided by engineer. */
-/* Help end button. */"Let's play!" = "Start";
-
+"Let's play!" = "Start";
 
 /* Locating you */
-"Locating you" = "Op zoek naar jou!";
+"Locating you" = "We proberen je te localiseren ";
 
 /* No comment provided by engineer. */
-/* When user can check-in. */"LocationFound" = "Kijk om je heen! Je bent nu dichtbij %@, heb je het al gespot?";
+"LocationFound" = "Kijk om je heen! Je bent nu dichtbij %@, heb je het al gespot?";
 
 /* Login to Facebook to Download! */
 "Login to Facebook to Download!" = "Login to Facebook to Download!";
-
-
-/* button Next */
-"Next" = "Volgende";
 
 /* Local notification when user getting closer to location */
 "NotificationAlertBody" = "Je bent dicht bij de check-in!";
@@ -119,6 +107,9 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 
 /* Text shown next to the notification  REGION */
 "NotificationAlertActionRegion" = "Hike!";
+
+/* button Next */
+"Next" = "Volgende";
 
 /* Section title for cities the player is within */
 "Nearby cities" = "Nabijgelegen steden";
@@ -138,19 +129,44 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* No comment provided by engineer. */
 "Ok!" = "Ok!";
 
-/* No comment provided by engineer. */
+/* Posted successfully! */
 "Posted successfully!" = "Succesvol geplaatst!";
 
-/* These are the messages in the alert view when user taps on a location not yet found */"RouteAlertViewTitle" = "Nog niet gevonden!";
+/* "Connect this device with Take a Hike?" */
+"PrivacyAlertViewTitle" = "Verbind dit apparaat met Take a Hike?";
+
+/* By continuing, you agree with Take a Hike Terms of Use and Privacy Policy. */
+"PrivacyAlertViewMessage" = "Door verder te gaan, gaat u akkoord met Take a Hike Gebruiksvoorwaarden en Privacy beleid.";
+
+/* View Tems of Use */
+"PrivacyTermsButtonText" = "Gebruiksvoorwaarden";
+
+/* View Provacy Policy */
+"PrivacyButtonText" = "Privacybeleid";
+
+/* I agree */
+"PrivacyAgree" = "Akkoord";
+
+/* I do not agree */
+"PrivacyNotAgree" = "Nee, bedankt";
+
+/* No comment provided by engineer. */
 "RouteAlertViewMessage" = "Hike naar interessante plekken om meer over ze te ontdekken. Nu vertrekken?";
+
+/* No comment provided by engineer. */
 "RouteAlertViewNo" = "Later";
-"RouteAlertViewYes" = "Ja!"; /* Ja! Gaan met die banaan! */
 
 /* No comment provided by engineer. */
-/* Option to save picture to camera roll */"Save" = "Bewaren";
+"RouteAlertViewTitle" = "Nog niet gevonden!";
 
 /* No comment provided by engineer. */
-/* Ask user to save badge to camera roll. */"SavePictureQuestion" = "Onderscheiding bewaren?";
+"RouteAlertViewYes" = "Ja!";
+
+/* No comment provided by engineer. */
+"Save" = "Bewaren";
+
+/* No comment provided by engineer. */
+"SavePictureQuestion" = "Onderscheiding bewaren?";
 
 /* Share the reward with your Facebook friends? */
 "Share the reward with your Facebook friends?" = "De belonging met je Facebook friends delen?";
@@ -161,34 +177,29 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* Unreachable */
 "Unreachable" = "Onbereikbaar";
 
+/* Update Available! */
+"Update Available!" = "Update beschikbaar!";
+
 /* Updating cities */
 "Updating cities" = "Steden updaten";
 
 /* Updating pictures */
 "Updating pictures" = "Foto's bijwerken";
 
-/* Locating you */
-"Locating you" = "We proberen je te localiseren ";
-
 /* Updating routes to play */
 "Updating routes to play" = " Routes updaten om te spelen";
 
-/* Update Available! */
-"Update Available!" = "Update beschikbaar!";
-
+/* No comment provided by engineer. */
+"View Map" = "Bekijk de kaart";
 
 /* No comment provided by engineer. */
-/* Button to view Map. */"View Map" = "Bekijk de kaart";
-
-/* No comment provided by engineer. */
-/* Button to view reward. */"View Reward" = "Onderscheiding"; /* Bekijk onderscheiding */
-
-
-/* Welcome text */
-"WelcomeText" = "Welkom bij Take a Hike!\r\n Selecteer een stad waar je wilt spelen uit de lijst. Sluit steden zijn vaak automatisch bovenaan geselecteerd.\r\n U kunt de stad op elk moment wisselen!";
+"View Reward" = "Onderscheiding";
 
 /* Where do you want to play? */
-"Where do you want to play?" = "playwear wil je spelen?";
+"Where do you want to play?" = "Playwear wil je spelen?";
+
+/*WelcomeText */
+"WelcomeText" = "Welkom bij Take a Hike!\r\n Selecteer een stad waar je wilt spelen uit de lijst. Sluit steden zijn vaak automatisch bovenaan geselecteerd.\r\n U kunt de stad op elk moment wisselen!";
 
 /* No comment provided by engineer. */
 "Yes!" = "Ja!";
@@ -196,15 +207,6 @@ Copyright (c) 2013 Code for Europe. All rights reserved.*/
 /* You are about to download %f bytes of data, ok? */
 "You are about to download %.0f Kb of data, is that ok?" = "Je gaat %Kb data downloaden. Oké?";
 
-/* When player is in range of destination. */"You are almost there!" = "Je bent er bijna!";
-
-
-
-
-
-
-
-
-
-
+/* No comment provided by engineer. */
+"You are almost there!" = "Je bent er bijna!";
 

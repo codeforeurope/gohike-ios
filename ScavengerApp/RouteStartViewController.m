@@ -189,11 +189,7 @@
             break;
         case 1:
         {
-//            static NSString *CellIdentifier = @"ButtonCell";
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//            if (cell == nil) {
-//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//            }
+
             UITableViewCell *cell = cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
             cell.selectionStyle = UITableViewCellEditingStyleNone;
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -204,8 +200,6 @@
             startHikeCellButton.frame = cell.contentView.frame;
             [startHikeCellButton setFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width-20, 44)];
             [startHikeCellButton setCenter:cell.center];
-//            UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
-//            [startHikeCellButton setBackgroundColor:blueColor];
 
 
             // Draw a custom gradient
@@ -412,7 +406,7 @@
 
         } else {
             // No, display the login page.
-            [self openSession];
+            [self dealWithPrivacy];
         }
     }
 
@@ -591,25 +585,29 @@
 #if DEBUG
                  NSLog(@"we got user: %@", user);
 #endif
-                 @try {
-                     NSString *username = user.first_name;
-                     NSString *FBid = [NSString stringWithFormat:@"%@", user.id];
-                     NSString *email = [user objectForKey:@"email"];
-                     NSDate *expirationDate = FBSession.activeSession.accessTokenData.expirationDate;
-                     NSString *token = FBSession.activeSession.accessTokenData.accessToken;
-                     
-                    [[GoHikeHTTPClient sharedClient] connectFBId:FBid name:username email:email token:token expDate:expirationDate];
-                 }
-                 @catch (NSException *exception) {
-                     NSLog(@"%@", [exception description]);
-                 }
-                 @finally {
-                     [self refresh];
-                 }
-
-
+                 [self connectUser:user];
              }
          }];
+    }
+}
+
+- (void)connectUser:(NSDictionary<FBGraphUser> *)user
+{
+    @try {
+        NSString *username = user.first_name;
+        NSString *FBid = [NSString stringWithFormat:@"%@", user.id];
+        NSString *email = [user objectForKey:@"email"];
+        NSDate *expirationDate = FBSession.activeSession.accessTokenData.expirationDate;
+        NSString *token = FBSession.activeSession.accessTokenData.accessToken;
+        
+        [[GoHikeHTTPClient sharedClient] connectFBId:FBid name:username email:email token:token expDate:expirationDate];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", [exception description]);
+    }
+    @finally {
+        [self refresh];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"user_connected"];
     }
 }
 
@@ -622,6 +620,59 @@
        FBSessionState state, NSError *error) {
          [self sessionStateChanged:session state:state error:error];
      }];
+}
+
+#pragma mark - Privacy and Terms of Use
+
+- (void)dealWithPrivacy
+{
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"user_connected"])
+    {
+        NSString *title = NSLocalizedString(@"PrivacyAlertViewTitle", @"Connect with Take a Hike?");
+        NSString *message = NSLocalizedString(@"PrivacyAlertViewMessage", @"By continuing, you agree with Take a Hike Terms of Use and Privacy Policy.");
+        NSString *termsButtonText = NSLocalizedString(@"PrivacyTermsButtonText", @"View Tems of Use");
+        NSString *privacyButtonText = NSLocalizedString(@"PrivacyButtonText", @"View Provacy Policy");
+        NSString *agreeTerms = NSLocalizedString(@"PrivacyAgree", @"I agree");
+        NSString *dontagreeTerms = NSLocalizedString(@"PrivacyNotAgree", @"I do not agree");
+        
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+        [alertView addButtonWithTitle:termsButtonText
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TermsOfUseURL"]];
+                                  [[UIApplication sharedApplication] openURL:url];
+                                  
+                              }];
+        [alertView addButtonWithTitle:privacyButtonText
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PrivacyPolicyURL"]];
+                                  [[UIApplication sharedApplication] openURL:url];
+                                  
+                              }];
+        [alertView addButtonWithTitle:dontagreeTerms
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:NO];
+                              }];
+        [alertView addButtonWithTitle:agreeTerms
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:NO];
+                                  [self openSession];
+                              }];
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+        alertView.didDismissHandler = ^(SIAlertView *alertView) {
+        };
+        [alertView show];
+    }
+    else{
+        //user has already opted in before
+        [self openSession];
+
+    }
 }
 
 @end

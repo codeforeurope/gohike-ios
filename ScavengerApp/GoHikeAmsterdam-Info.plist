@@ -45,13 +45,17 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>87</string>
+	<string>130</string>
 	<key>FacebookAppID</key>
 	<string>547542925309510</string>
 	<key>FacebookDisplayName</key>
 	<string>Take a Hike!</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>PrivacyPolicyURL</key>
+	<string>http://www.gotakeahike.nl/privacy-policy.html</string>
+	<key>TermsOfUseURL</key>
+	<string>http://www.gotakeahike.nl/terms-of-use.html</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

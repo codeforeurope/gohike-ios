@@ -183,7 +183,11 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
+    
+    if(![[AppState sharedInstance] playerIsInCompass]){
+        [[AppState sharedInstance] stopMonitoringForDestination];
+        [[AppState sharedInstance] stopLocationServices];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -242,11 +246,5 @@
 
 }
 
-#pragma mark - Location Manager
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    NSLog(@"Did enter region %@", region);
-}
 
 @end
