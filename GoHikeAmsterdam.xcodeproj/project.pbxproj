@@ -20,8 +20,6 @@
 		A7DABF021757994800A0315E /* CloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DABF011757994800A0315E /* CloudView.m */; };
 		A7DB5E3817588DB1006FD951 /* DestinationRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */; };
 		A7E846251757486300944FF6 /* CustomBarButtonViewLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */; };
-		A7E846271757591400944FF6 /* icon-trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846261757591300944FF6 /* icon-trophy.png */; };
-		A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E846281757591B00944FF6 /* icon-trophy@2x.png */; };
 		A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462A17575CA100944FF6 /* icon-facebook.png */; };
 		A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */; };
 		AC06F90F17CFE375002E6B67 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */; };
@@ -208,8 +206,6 @@
 		A7DB5E3717588DB1006FD951 /* DestinationRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationRadarView.m; sourceTree = "<group>"; };
 		A7E846231757486300944FF6 /* CustomBarButtonViewLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBarButtonViewLeft.h; sourceTree = "<group>"; };
 		A7E846241757486300944FF6 /* CustomBarButtonViewLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBarButtonViewLeft.m; sourceTree = "<group>"; };
-		A7E846261757591300944FF6 /* icon-trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy.png"; sourceTree = "<group>"; };
-		A7E846281757591B00944FF6 /* icon-trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-trophy@2x.png"; sourceTree = "<group>"; };
 		A7E8462A17575CA100944FF6 /* icon-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook.png"; sourceTree = "<group>"; };
 		A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-facebook@2x.png"; sourceTree = "<group>"; };
 		AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -700,7 +696,6 @@
 				ACB534B0175654390065D72D /* icon-back.png */,
 				ACB534B1175654390065D72D /* icon-compass.png */,
 				ACB534B2175654390065D72D /* icon-map.png */,
-				A7E846261757591300944FF6 /* icon-trophy.png */,
 				A7E8462A17575CA100944FF6 /* icon-facebook.png */,
 				ACB534B3175654390065D72D /* navigation-bottom-background.png */,
 				ACB534B4175654390065D72D /* navigation-top-background.png */,
@@ -741,7 +736,6 @@
 				ACB534C6175654390065D72D /* icon-back@2x.png */,
 				ACB534C7175654390065D72D /* icon-compass@2x.png */,
 				ACB534C8175654390065D72D /* icon-map@2x.png */,
-				A7E846281757591B00944FF6 /* icon-trophy@2x.png */,
 				A7E8462C17575CAB00944FF6 /* icon-facebook@2x.png */,
 				ACB534C9175654390065D72D /* navigation-bottom-background@2x.png */,
 				ACB534CA175654390065D72D /* navigation-top-background@2x.png */,
@@ -1027,8 +1021,6 @@
 				ACB534FA175654390065D72D /* viewbackground@2x.png in Resources */,
 				ACECFB9F1756A8D70074EBBE /* pin@2x.png in Resources */,
 				ACECFBA01756A8D70074EBBE /* pin.png in Resources */,
-				A7E846271757591400944FF6 /* icon-trophy.png in Resources */,
-				A7E846291757591C00944FF6 /* icon-trophy@2x.png in Resources */,
 				A7E8462B17575CA100944FF6 /* icon-facebook.png in Resources */,
 				A7E8462D17575CAC00944FF6 /* icon-facebook@2x.png in Resources */,
 				ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */,
