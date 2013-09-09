@@ -143,6 +143,8 @@
 		ACB958E917D2A994007FB821 /* LocationDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB958E817D2A994007FB821 /* LocationDetailTitleCell.m */; };
 		ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB958EB17D34E51007FB821 /* LocationDetailBodyCell.m */; };
 		ACC01963176A18AF00E8886D /* icon-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC01962176A18AF00E8886D /* icon-feedback.png */; };
+		ACC0DDE217DE0B2D008008EF /* 85-trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC0DDE117DE0B2D008008EF /* 85-trophy.png */; };
+		ACC0DDE417DE0B37008008EF /* 85-trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC0DDE317DE0B37008008EF /* 85-trophy@2x.png */; };
 		ACC893AB175F67B5002AC636 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC893AA175F67B5002AC636 /* MapPoint.m */; };
 		ACC893B6175F7A3C002AC636 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC893B5175F7A3C002AC636 /* libz.dylib */; };
 		ACC893B8175F83DE002AC636 /* no-picture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC893B7175F83DE002AC636 /* no-picture@2x.png */; };
@@ -372,6 +374,8 @@
 		ACB958EA17D34E51007FB821 /* LocationDetailBodyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailBodyCell.h; sourceTree = "<group>"; };
 		ACB958EB17D34E51007FB821 /* LocationDetailBodyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailBodyCell.m; sourceTree = "<group>"; };
 		ACC01962176A18AF00E8886D /* icon-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-feedback.png"; sourceTree = "<group>"; };
+		ACC0DDE117DE0B2D008008EF /* 85-trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "85-trophy.png"; sourceTree = "<group>"; };
+		ACC0DDE317DE0B37008008EF /* 85-trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "85-trophy@2x.png"; sourceTree = "<group>"; };
 		ACC893A9175F67B5002AC636 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		ACC893AA175F67B5002AC636 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		ACC893B5175F7A3C002AC636 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -675,6 +679,7 @@
 		ACB534A5175654390065D72D /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				ACC0DDE117DE0B2D008008EF /* 85-trophy.png */,
 				AC11F74F17D3589B00E43279 /* collectionviewheader.png */,
 				AC24194617C7874F00B3783D /* back.png */,
 				ACC893C917609E0F002AC636 /* help1.png */,
@@ -714,6 +719,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				ACC0DDE317DE0B37008008EF /* 85-trophy@2x.png */,
 				AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */,
 				AC24194817C7875C00B3783D /* back@2x.png */,
 				AC303F8F17C506E300875910 /* verboden@2x.png */,
@@ -1063,6 +1069,8 @@
 				AC10B1B517D69FAF00E9FD78 /* target-red@2x.png in Resources */,
 				AC10B1C717D73AC200E9FD78 /* Exploring Zuid .gpx in Resources */,
 				ACF6475517D7DA3F00EF9806 /* CitiesOverlayView.xib in Resources */,
+				ACC0DDE217DE0B2D008008EF /* 85-trophy.png in Resources */,
+				ACC0DDE417DE0B37008008EF /* 85-trophy@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

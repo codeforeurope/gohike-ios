@@ -46,6 +46,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Setup the refreshcontrol
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(startRefresh:)
+             forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:refreshControl];
 
     //I set the catalog of the file as the app currentCatalog
 //    _catalog = [[AppState sharedInstance] currentCatalog];
@@ -197,6 +203,12 @@
 }
 
 #pragma mark - Actions
+
+- (void)startRefresh:(id)sender
+{
+    [((UIRefreshControl*)sender) endRefreshing];
+    [self loadCatalogForCity:[[AppState sharedInstance] currentCity].GHid];
+}
 
 - (void)loadCatalogForCity:(int)city
 {

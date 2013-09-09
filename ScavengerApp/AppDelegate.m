@@ -149,7 +149,6 @@
         else{
             //player has to select a city
             CitySelectionViewController *cvc = [[CitySelectionViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            cvc.cities = [[AppState sharedInstance] cities];
             self.navigationController = [[UINavigationController alloc] initWithRootViewController:cvc];
         }
     }

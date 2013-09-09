@@ -105,7 +105,7 @@
         // Route is complete, put reward button
 
         CustomBarButtonViewRight *showTrophyButton = [[CustomBarButtonViewRight alloc] initWithFrame:CGRectMake(0, 0, 140, 32)
-                                                                             imageName:@"icon-trophy"
+                                                                             imageName:@"85-trophy"
                                                                               text:NSLocalizedString(@"View Reward", nil)
                                                                                 target:self
                                                                                 action:@selector(onViewRewardButton)];

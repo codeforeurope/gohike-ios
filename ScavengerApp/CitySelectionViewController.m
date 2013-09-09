@@ -56,8 +56,6 @@
     refreshControl.tintColor = [UIColor grayColor];
     self.refreshControl = refreshControl;
     
-    //maybe we have it already, restored from before
-    _cities = [[AppState sharedInstance] cities];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,12 +82,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    GHCities *cities = [[AppState sharedInstance] cities];
     switch (section) {
         case 0:
-            return [[_cities GHwithin] count];
+            return [[cities GHwithin] count];
             break;
         case 1:
-            return  [[_cities GHother] count];
+            return  [[cities GHother] count];
             break;
         default:
             break;
@@ -101,18 +100,19 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    switch (indexPath.row) {
+    GHCities *cities = [[AppState sharedInstance] cities];
+
+    switch (indexPath.section) {
         case 0:
         {
             //cities within
-            cell.textLabel.text =  [[[_cities GHwithin] objectAtIndex:indexPath.row] GHname]; 
+            cell.textLabel.text =  [[[cities GHwithin] objectAtIndex:indexPath.row] GHname];
         }
             break;
         case 1:
         {
             //cities other
-            cell.textLabel.text = [[[_cities GHother] objectAtIndex:indexPath.row] GHname];
+            cell.textLabel.text = [[[cities GHother] objectAtIndex:indexPath.row] GHname];
         }
             break;
         default:
@@ -185,18 +185,20 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GHCity *city;
+    GHCities *cities = [[AppState sharedInstance] cities];
+
     
     switch (indexPath.section) {
         case 0:
         {
             //within
-            city = [[_cities GHwithin] objectAtIndex:indexPath.row];
+            city = [[cities GHwithin] objectAtIndex:indexPath.row];
         }
             break;
         case 1:
         {
             //others
-            city = [[_cities GHother] objectAtIndex:indexPath.row];
+            city = [[cities GHother] objectAtIndex:indexPath.row];
         }
             break;
         default:
@@ -267,7 +269,6 @@
     }
     else{
         [SVProgressHUD showSuccessWithStatus:nil];
-        _cities = [[AppState sharedInstance] cities];
         [self.tableView reloadData];
         
         //How to play screen
@@ -288,7 +289,6 @@
     [citiesOverlayView.playButton setTitle:NSLocalizedString(@"Let's play!", @"Button to play") forState:UIControlStateNormal];
     CGRect frame = self.tableView.bounds;
     [citiesOverlayView setFrame:frame];
-//    [self.view addSubview:citiesOverlayView];
     [self.tableView.superview insertSubview:citiesOverlayView aboveSubview:self.tableView];
 
 }
