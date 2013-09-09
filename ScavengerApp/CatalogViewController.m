@@ -133,14 +133,14 @@
         
     }
     
-//    cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground1"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
-//    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"cellbackground2"]  resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch]];
-//    cell.backgroundColor = [UIColor redColor];
-
-    
-    cell.profileImage.image = [UIImage imageWithData:[FileUtilities iconDataForRoute:route]];
-    cell.profileImage.layer.cornerRadius = 6;
-    cell.profileImage.layer.masksToBounds = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *cellImage = [UIImage imageWithData:[FileUtilities iconDataForRoute:route]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            cell.profileImage.image = cellImage;
+            cell.profileImage.layer.cornerRadius = 6;
+            cell.profileImage.layer.masksToBounds = YES;
+        });
+    });
     cell.profileLabel.text = [route GHname];
     cell.bottomLabel.text = @"";
     
