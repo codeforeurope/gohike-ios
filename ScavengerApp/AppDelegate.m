@@ -10,7 +10,6 @@
 #import "RouteStartViewController.h"
 #import "CompassViewController.h"
 #import "AFNetworking.h"
-#import "Secret.h"
 #import "SSKeychain.h"
 #import <AdSupport/AdSupport.h>
 #import "CitySelectionViewController.h"

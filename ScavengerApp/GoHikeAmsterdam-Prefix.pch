@@ -21,4 +21,5 @@
     #import "DataModels.h"
     #import "NSDataAdditions.h"
     #import "TestFlight.h"
+    #import "Secret.h"
 #endif

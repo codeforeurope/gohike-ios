@@ -26,6 +26,9 @@
 		AC06F91117CFE38A002E6B67 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC06F91017CFE38A002E6B67 /* FacebookSDKResources.bundle */; };
 		AC06F91317CFE3B7002E6B67 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F91217CFE3B7002E6B67 /* Accounts.framework */; };
 		AC06F91517CFE3DB002E6B67 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC06F91417CFE3DB002E6B67 /* libsqlite3.dylib */; };
+		AC07860217DF452200FDB1BE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC07860117DF452200FDB1BE /* SettingsViewController.m */; };
+		AC07860417DF606100FDB1BE /* 19-gear@2.png in Resources */ = {isa = PBXBuildFile; fileRef = AC07860317DF606100FDB1BE /* 19-gear@2.png */; };
+		AC07860617DF606700FDB1BE /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = AC07860517DF606700FDB1BE /* 19-gear.png */; };
 		AC0AF4751754AB4600B766E0 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */; };
 		AC0AF4761754AB4600B766E0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4651754AB4600B766E0 /* AFHTTPRequestOperation.m */; };
 		AC0AF4771754AB4600B766E0 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF4671754AB4600B766E0 /* AFImageRequestOperation.m */; };
@@ -88,7 +91,6 @@
 		AC7390EB17CCD3E7002E4BE6 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390EA17CCD3E6002E4BE6 /* Utilities.m */; };
 		AC7390F817CE2EEE002E4BE6 /* NSDictionary+GHReward.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */; };
 		AC844BFA17629EE30092D79C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AC844BF917629EE30092D79C /* SSKeychain.m */; };
-		ACA60BBA17535BEF00EA4D53 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BB917535BEF00EA4D53 /* content.json */; };
 		ACA60BCC17539FC700EA4D53 /* RewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA60BCA17539FC600EA4D53 /* RewardViewController.m */; };
 		ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */; };
 		ACB534D1175654390065D72D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB534A6175654390065D72D /* arrow.png */; };
@@ -212,6 +214,10 @@
 		AC06F91017CFE38A002E6B67 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		AC06F91217CFE3B7002E6B67 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AC06F91417CFE3DB002E6B67 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AC07860017DF452200FDB1BE /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		AC07860117DF452200FDB1BE /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		AC07860317DF606100FDB1BE /* 19-gear@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear@2.png"; sourceTree = "<group>"; };
+		AC07860517DF606700FDB1BE /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		AC0AF4621754AB4600B766E0 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		AC0AF4631754AB4600B766E0 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		AC0AF4641754AB4600B766E0 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -312,7 +318,6 @@
 		AC7390F717CE2EED002E4BE6 /* NSDictionary+GHReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GHReward.m"; sourceTree = "<group>"; };
 		AC844BF817629EE30092D79C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		AC844BF917629EE30092D79C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
-		ACA60BB917535BEF00EA4D53 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		ACA60BC917539FC600EA4D53 /* RewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RewardViewController.h; sourceTree = "<group>"; };
 		ACA60BCA17539FC600EA4D53 /* RewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardViewController.m; sourceTree = "<group>"; };
 		ACA60BCB17539FC700EA4D53 /* RewardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RewardViewController.xib; sourceTree = "<group>"; };
@@ -481,6 +486,15 @@
 				AC06F90E17CFE375002E6B67 /* FacebookSDK.framework */,
 			);
 			name = "FacebookSDK Stuff";
+			sourceTree = "<group>";
+		};
+		AC0785FF17DF451100FDB1BE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AC07860017DF452200FDB1BE /* SettingsViewController.h */,
+				AC07860117DF452200FDB1BE /* SettingsViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		AC0AF4611754AB4600B766E0 /* AFNetworking */ = {
@@ -675,6 +689,7 @@
 		ACB534A5175654390065D72D /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				AC07860517DF606700FDB1BE /* 19-gear.png */,
 				ACC0DDE117DE0B2D008008EF /* 85-trophy.png */,
 				AC11F74F17D3589B00E43279 /* collectionviewheader.png */,
 				AC24194617C7874F00B3783D /* back.png */,
@@ -714,6 +729,7 @@
 		ACB534BB175654390065D72D /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				AC07860317DF606100FDB1BE /* 19-gear@2.png */,
 				ACC0DDE317DE0B37008008EF /* 85-trophy@2x.png */,
 				AC11F74D17D3589200E43279 /* collectionviewheader@2x.png */,
 				AC24194817C7875C00B3783D /* back@2x.png */,
@@ -818,6 +834,7 @@
 		ACDD9B711743B20200D64682 /* ScavengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC0785FF17DF451100FDB1BE /* Settings */,
 				AC06F90D17CFE164002E6B67 /* Managers */,
 				AC41F8031762122100ED3F14 /* CompassViews */,
 				ACC893BB1760931F002AC636 /* HelpViews */,
@@ -863,7 +880,6 @@
 				AC10B1C617D73AC200E9FD78 /* Exploring Zuid .gpx */,
 				AC10B1A917D6781900E9FD78 /* amsterdam-museumplein.gpx */,
 				ACC893D11760AE69002AC636 /* Icons */,
-				ACDD9C111744CB6500D64682 /* Data */,
 				ACDD9B731743B20200D64682 /* GoHikeAmsterdam-Info.plist */,
 				AC41F812176254FF00ED3F14 /* amsterdamcentrum.gpx */,
 				ACDD9B741743B20200D64682 /* InfoPlist.strings */,
@@ -889,14 +905,6 @@
 				AC5BEDA8174CC82D0067F08F /* default-profile.png */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		ACDD9C111744CB6500D64682 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				ACA60BB917535BEF00EA4D53 /* content.json */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		ACFC840F17D4D86A00FB252E /* TestFlight */ = {
@@ -973,7 +981,6 @@
 				AC5BEDA7174CC5970067F08F /* SelectionCell.xib in Resources */,
 				AC5BEDA9174CC82D0067F08F /* default-profile.png in Resources */,
 				1C1684F4174E3B3100A77192 /* CheckinView.xib in Resources */,
-				ACA60BBA17535BEF00EA4D53 /* content.json in Resources */,
 				ACA60BCD17539FC700EA4D53 /* RewardViewController.xib in Resources */,
 				AC0AF48E1754BC1800B766E0 /* RouteDetailTitleCell.xib in Resources */,
 				AC0AF4961754D51D00B766E0 /* TableBackground.xib in Resources */,
@@ -1063,6 +1070,8 @@
 				ACF6475517D7DA3F00EF9806 /* CitiesOverlayView.xib in Resources */,
 				ACC0DDE217DE0B2D008008EF /* 85-trophy.png in Resources */,
 				ACC0DDE417DE0B37008008EF /* 85-trophy@2x.png in Resources */,
+				AC07860417DF606100FDB1BE /* 19-gear@2.png in Resources */,
+				AC07860617DF606700FDB1BE /* 19-gear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1160,6 +1169,7 @@
 				ACB958EC17D34E52007FB821 /* LocationDetailBodyCell.m in Sources */,
 				AC10B1AD17D681AB00E9FD78 /* NSLayoutConstraint+EvenDistribution.m in Sources */,
 				ACF6475817D7DA5400EF9806 /* CitiesOverlayView.m in Sources */,
+				AC07860217DF452200FDB1BE /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

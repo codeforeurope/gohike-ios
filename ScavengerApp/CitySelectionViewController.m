@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 #import "CitiesOverlayView.h"
+#import "SettingsViewController.h"
 
 #define base_url @"http://www.gotakeahike.nl/"
 
@@ -41,6 +42,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+//    UIBarButtonItem *settingsBarButton =
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [settingsBtn setImage:[UIImage imageNamed:@"19-gear"] forState:UIControlStateNormal];
+    [settingsBtn addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+//    [settingsButton addt]
+//    [settingsButton setTarget:self];
+//    [settingsButton setAction:@selector(settingsButtonTapped:)];
+    self.navigationItem.leftBarButtonItem = settingsBarButton;
+    
     //Tableview background
     UIView *tablebgView = [[[NSBundle mainBundle] loadNibNamed:@"TableBackground" owner:self options:nil] objectAtIndex:0];
     [self.tableView setBackgroundView:tablebgView];
@@ -69,6 +80,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)settingsButtonTapped:(id)sender
+{
+    SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    [self.navigationController presentViewController:settingsNavController animated:YES completion:^{    }];
 }
 
 #pragma mark - Table view data source

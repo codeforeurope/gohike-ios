@@ -10,8 +10,6 @@
 #import "AFJSONRequestOperation.h"
 #import "AFImageRequestOperation.h"
 #import "SSKeychain.h"
-#import "Secret.h"
-
 
 NSString* const kGOHIKE_BASEURL = @"http://www.gotakeahike.nl";
 
@@ -226,11 +224,11 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
 {
     // Get device UDID
     // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
-    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
+    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:kAccountNameForKeychainDevice];
     if (deviceID == nil) { // if this is the first time app lunching , create key for device
         NSString *uuid  = [Utilities createNewUUID];
         // save newly created key to Keychain
-        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
+        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:kAccountNameForKeychainDevice];
         // this is the one time process
         deviceID = uuid;
     }
@@ -287,11 +285,11 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
 {
     // Get device UDID
     // getting the unique key (if present ) from keychain , assuming "your app identifier" as a key
-    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:@"user"];
+    NSString *deviceID = [SSKeychain passwordForService:kServiceNameForKeychain account:kAccountNameForKeychainDevice];
     if (deviceID == nil) { // if this is the first time app lunching , create key for device
         NSString *uuid  = [Utilities createNewUUID];
         // save newly created key to Keychain
-        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:@"user"];
+        [SSKeychain setPassword:uuid forService:kServiceNameForKeychain account:kAccountNameForKeychainDevice];
         // this is the one time process
         deviceID = uuid;
     }

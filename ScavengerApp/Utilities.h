@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SSKeychain.h"
+
 
 @interface Utilities : NSObject
 
@@ -17,5 +19,6 @@
 + (NSString*)getCurrentLocale;
 + (NSString*)formattedStringFromDate:(NSDate*)date;
 + (NSNumber*)formattedNumberFromDate:(NSDate*)date;
++ (void)clearDownloadedData;
 
 @end

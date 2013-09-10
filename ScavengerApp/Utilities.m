@@ -71,4 +71,24 @@
     return [NSNumber numberWithInt:[date timeIntervalSince1970]];
 }
 
++ (void)clearDownloadedData
+{
+    //TODO
+    NSString *cacheDir = [FileUtilities getLibraryPath];
+    
+    // check if cache dir exists
+    
+    // get all files in this directory
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *fileList = [fm contentsOfDirectoryAtPath: cacheDir error: nil];
+    
+    // remove
+    for(NSInteger i = 0; i < [fileList count]; ++i)
+    {
+        NSString *fp =  [fileList objectAtIndex: i];
+        NSString *remPath = [cacheDir stringByAppendingPathComponent: fp];
+        [fm removeItemAtPath: remPath error: nil];
+    }
+}
+
 @end

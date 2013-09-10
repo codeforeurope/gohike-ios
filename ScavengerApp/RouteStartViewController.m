@@ -16,6 +16,7 @@
 #import "SIAlertView.h"
 #import "UIImageView+AFNetworking.h"
 #import "SVProgressHUD.h"
+#import "SSKeychain.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -178,8 +179,6 @@
             }
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
-//            NSString *imageUrl = [[_route objectForKey:@"image"] objectForKey:@"url"];
-//            [cell.routeImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no-picture"]];
             cell.routeImage.image = [UIImage imageWithData:[FileUtilities imageDataForRoute:route]];
             cell.routeTitleLabel.text = [route GHname];
             cell.routeHighlightsLabel.text = [route GHdescription];
@@ -234,15 +233,7 @@
                 }
             }
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
-            
-            
-//            startHikeCellButton.layer.shadowColor = [UIColor blackColor].CGColor;
-//            startHikeCellButton.layer.shadowOffset = CGSizeMake(0, 1);
-//            startHikeCellButton.layer.shadowOpacity = 0.8;
-//            startHikeCellButton.layer.shadowRadius = 0.9;
-//            startHikeCellButton.clipsToBounds = NO;
-//            startHikeCellButton.layer.shadowPath =
-//            [UIBezierPath bezierPathWithRect:startHikeCellButton.layer.bounds].CGPath;
+        
             
             [cell addSubview:startHikeCellButton];
             
@@ -585,6 +576,7 @@
 #if DEBUG
                  NSLog(@"we got user: %@", user);
 #endif
+                 [SSKeychain setPassword:user.name forService:kServiceNameForKeychain account:kAccountNameForKeychainFacebook];
                  [self connectUser:user];
              }
          }];
