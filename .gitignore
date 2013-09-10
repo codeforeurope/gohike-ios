@@ -29,3 +29,12 @@ DerivedData
 .env
 secret
 ScavengerApp/Secret.h
+
+#Pictures, useful in case covered by copyright
+#So that won't be pushed to github
+**Default*png
+**Icon*png
+**iTunes*png
+
+#patch files
+**.patch
