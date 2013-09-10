@@ -58,6 +58,11 @@
 /* No comment provided by engineer. */
 "FacebookMessage" = "Ik heb heb de %@ onderscheiding verdiend met de Take a Hike App!";
 
+/* Inform user they can delete data by pressing button */
+"footer_cache_settings" = "De app slaat routes voor offline spelen.\nU kunt de cache bestanden verwijderen door op de \"Clear offline routes\" knop. Echter, vergeet dan niet moet u een internetverbinding hebben als u wenst om de gegevens opnieuw te downloaden.";
+/* Inform the user they can disconnect from Facebook */
+"footer_social_settings" = "De app is gekoppeld aan je Facebook-profiel om de routes te downloaden. Wilt u de app van Facebook ontkoppelen, kunt u dit doen vanaf hier.";
+
 /* No comment provided by engineer. */
 "Found!" = "Gevonden!";
 
@@ -69,6 +74,12 @@
 
 /* Go Hike! */
 "Go Hike!" = "Start Hike!";
+
+/* Local Cache Settings header */
+"header_cache_settings" = "Offline Data";
+
+/* Social Network Profile Settings header */
+"header_social_settings" = "Sociaal Netwerk Profiel";
 
 /* Heads up! */
 "Heads up!" = "Heads up!";
@@ -168,6 +179,18 @@
 /* No comment provided by engineer. */
 "SavePictureQuestion" = "Onderscheiding bewaren?";
 
+/* button to clear data in settings */
+"settings_clear_data" = "Clear offline data";
+
+/* Settings */
+"settings_title" = "Instellingen";
+
+/* cell not connected to facebook */
+"settings_not_connected" = "Niet verbonden met Facebook";
+
+/* button to unlink facebook */
+"settings_unlink" = "Loskoppelen van Facebook";
+
 /* Share the reward with your Facebook friends? */
 "Share the reward with your Facebook friends?" = "De belonging met je Facebook friends delen?";
 
@@ -196,7 +219,7 @@
 "View Reward" = "Onderscheiding";
 
 /* Where do you want to play? */
-"Where do you want to play?" = "Playwear wil je spelen?";
+"Where do you want to play?" = "playwear wil je spelen?";
 
 /*WelcomeText */
 "WelcomeText" = "Welkom bij Take a Hike!\r\n Selecteer een stad waar je wilt spelen uit de lijst. Sluit steden zijn vaak automatisch bovenaan geselecteerd.\r\n U kunt de stad op elk moment wisselen!";
@@ -209,4 +232,9 @@
 
 /* No comment provided by engineer. */
 "You are almost there!" = "Je bent er bijna!";
+
+
+
+
+
 

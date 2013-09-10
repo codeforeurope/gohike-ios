@@ -124,7 +124,7 @@
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
             
             UIButton *clearCacheButton = [self makeButtonForCell:cell];
-            [clearCacheButton setTitle:NSLocalizedString(@"Clear downloaded data", @"Clear downloaded data") forState:UIControlStateNormal];
+            [clearCacheButton setTitle:NSLocalizedString(@"settings_clear_data", @"Clear downloaded data") forState:UIControlStateNormal];
             [clearCacheButton addTarget:self action:@selector(clearCacheButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:clearCacheButton];
         }
@@ -137,11 +137,10 @@
                 {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"B"];
                     if (isFacebookLoggedIn) {
-                        cell.textLabel.text = NSLocalizedString(@"Currently logged in as:", @"Currently logged in as:");
-                        cell.detailTextLabel.text = facebookUsername;
+                        cell.textLabel.text = facebookUsername;
                     }
                     else{
-                        cell.detailTextLabel.text = NSLocalizedString(@"Not connected to Facebook", @"Not connected to Facebook");
+                        cell.detailTextLabel.text = NSLocalizedString(@"settings_not_connected", @"Not linked with Facebook");
                     }
                 }
                     break;
@@ -150,7 +149,7 @@
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"C"];
                     //logout
                     UIButton *logoutButton = [self makeButtonForCell:cell];
-                    [logoutButton setTitle:NSLocalizedString(@"Disconnect", @"Disconnect") forState:UIControlStateNormal];
+                    [logoutButton setTitle:NSLocalizedString(@"settings_unlink", @"Unlink") forState:UIControlStateNormal];
                     if(isFacebookLoggedIn){
                         [logoutButton setEnabled:YES];
                     }
@@ -221,9 +220,9 @@
 - (void)clearCacheButtonTapped:(id)sender
 {
     NSLog(@"Clear cache button tapped");
-//    [SVProgressHUD show];
+    [SVProgressHUD show];
 //    //delete all data in cache folder
-//    [Utilities clearDownloadedData];
+    [Utilities clearDownloadedData];
     [SVProgressHUD showSuccessWithStatus:nil];
 }
 
