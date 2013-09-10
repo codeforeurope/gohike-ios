@@ -236,8 +236,25 @@ NSString* const kFilePathProfiles = @"profiles";
     }
     
     _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 20;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    _locationManager.distanceFilter = 40;
+    
+    [_locationManager startUpdatingLocation];
+    [_locationManager startUpdatingHeading];
+}
+
+- (void)startLocationServicesLowPrecision
+{
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"location services are disabled");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServicesForbidden object:nil];
+        return;
+    }
+    
+    _locationManager = [[CLLocationManager alloc] init];
+
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     [_locationManager startUpdatingLocation];
     [_locationManager startUpdatingHeading];

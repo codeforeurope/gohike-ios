@@ -235,7 +235,7 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLocationUpdate:) name:kLocationServicesGotBestAccuracyLocation object:nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Locating you", @"Locating you") maskType:SVProgressHUDMaskTypeBlack];
-    [[AppState sharedInstance] startLocationServices];
+    [[AppState sharedInstance] startLocationServicesLowPrecision];
 }
 
 - (void)loadCities
