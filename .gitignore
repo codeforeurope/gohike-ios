@@ -35,6 +35,7 @@ ScavengerApp/Secret.h
 **Default*png
 **Icon*png
 **iTunes*png
+**AppIcon*png
 
 #patch files
 **.patch
