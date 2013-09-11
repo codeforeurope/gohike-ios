@@ -46,6 +46,8 @@
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
                                                     barMetrics:UIBarMetricsDefault];
 
+    //White color for navigation icons
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
     //Set SIAlertView appearance
     UIColor *color = [Utilities appColor];
