@@ -25,12 +25,11 @@
 #define BUTTON_HEIGHT 32
 #define BUTTON_WIDTH 200
 
-@interface RouteStartViewController () <FBLoginViewDelegate>
+@interface RouteStartViewController ()
 
 {
     int receivedFileNotifications;
     int expectedNotifications;
-    BOOL isFacebookLoggedIn;
     BOOL routeComplete;
 }
 
@@ -126,7 +125,6 @@
 {
     //first check if route is complete and Facebook logged in
     routeComplete = [[AppState sharedInstance] isRouteFinished:[[AppState sharedInstance] currentRoute]];
-    isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen);
     
     //update UI accordingly to the new values
     [self updateNavigationButtons];
@@ -223,14 +221,7 @@
                 }
             }
             else{
-                // See if the app has a valid token for the current state.
-                if (isFacebookLoggedIn == YES) {
-                    // To-do, show logged in view
-                    [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
-                } else {
-                    // No, display the login page.
-                    [startHikeCellButton setTitle:NSLocalizedString(@"Login to Facebook to Download!", @"Login to Facebook to Download!") forState:UIControlStateNormal];
-                }
+                  [startHikeCellButton setTitle:NSLocalizedString(@"Download this route!", @"Download this route!") forState:UIControlStateNormal];
             }
             [startHikeCellButton addTarget:self action:@selector(onGoHikeButton:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -368,37 +359,32 @@
         }
     }
     else{
-        // See if the app has a valid token for the current state.
-        if (isFacebookLoggedIn) {
-            // To-do, show logged in view
-            double size = [[route objectForKey:@"size"] doubleValue] /1024;
-            if(size > 0){
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") andMessage:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ]];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",@"Later")
-                                     type:SIAlertViewButtonTypeCancel
-                                  handler:^(SIAlertView *alertView) {
-                                  }];
-            [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", @"Yes!")
-                                     type:SIAlertViewButtonTypeDefault
-                                  handler:^(SIAlertView *alertView) {
-                                      [alertView dismissAnimated:NO];
-                                      [self downloadRoute];
-                                  }];
-            alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-            alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-            alertView.didDismissHandler = ^(SIAlertView *alertView) {
-            };
-            [alertView show];
-            }
-            else{
-                //if size is 0, makes no sense to display the confirmation
-                [self downloadRoute];
-            }
-
-        } else {
-            // No, display the login page.
-            [self dealWithPrivacy];
+        // To-do, show logged in view
+        double size = [[route objectForKey:@"size"] doubleValue] /1024;
+        if(size > 0){
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"Heads up!", @"Heads up!") andMessage:[NSString stringWithFormat:NSLocalizedString(@"You are about to download %.0f Kb of data, is that ok?", @"You are about to download %f bytes of data, ok?"),size ]];
+        [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewNo",@"Later")
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                              }];
+        [alertView addButtonWithTitle:NSLocalizedString(@"RouteAlertViewYes", @"Yes!")
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:NO];
+                                  [self downloadRoute];
+                              }];
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+        alertView.didDismissHandler = ^(SIAlertView *alertView) {
+        };
+        [alertView show];
         }
+        else{
+            //if size is 0, makes no sense to display the confirmation
+            [self downloadRoute];
+        }
+
+
     }
 
 }
@@ -529,142 +515,5 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - Facebook
-
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState) state
-                      error:(NSError *)error
-{
-    switch (state) {
-        case FBSessionStateOpen: {
-            NSLog(@"facebook session open");
-            isFacebookLoggedIn = YES;
-            [self getUserDetails];
-            
-        }
-            break;
-        case FBSessionStateClosed:
-        case FBSessionStateClosedLoginFailed:
-            isFacebookLoggedIn = NO;
-            [FBSession.activeSession closeAndClearTokenInformation];
-
-            break;
-        default:
-            break;
-    }
-    
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:NSLocalizedString(@"Facebook Error", @"Facebook Error")
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }
-}
-
-
-- (void)getUserDetails
-{
-    if (FBSession.activeSession.isOpen) {
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection,
-           NSDictionary<FBGraphUser> *user,
-           NSError *error) {
-             if (!error) {
-#if DEBUG
-                 NSLog(@"we got user: %@", user);
-#endif
-                 [SSKeychain setPassword:user.name forService:kServiceNameForKeychain account:kAccountNameForKeychainFacebook];
-                 [self connectUser:user];
-             }
-         }];
-    }
-}
-
-- (void)connectUser:(NSDictionary<FBGraphUser> *)user
-{
-    @try {
-        NSString *username = user.first_name;
-        NSString *FBid = [NSString stringWithFormat:@"%@", user.id];
-        NSString *email = [user objectForKey:@"email"];
-        NSDate *expirationDate = FBSession.activeSession.accessTokenData.expirationDate;
-        NSString *token = FBSession.activeSession.accessTokenData.accessToken;
-        
-        [[GoHikeHTTPClient sharedClient] connectFBId:FBid name:username email:email token:token expDate:expirationDate];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", [exception description]);
-    }
-    @finally {
-        [self refresh];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"user_connected"];
-    }
-}
-
-- (void)openSession
-{
-    [FBSession openActiveSessionWithReadPermissions:@[@"email"]
-                                       allowLoginUI:YES
-                                  completionHandler:
-     ^(FBSession *session,
-       FBSessionState state, NSError *error) {
-         [self sessionStateChanged:session state:state error:error];
-     }];
-}
-
-#pragma mark - Privacy and Terms of Use
-
-- (void)dealWithPrivacy
-{
-    
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"user_connected"])
-    {
-        NSString *title = NSLocalizedString(@"PrivacyAlertViewTitle", @"Connect with Take a Hike?");
-        NSString *message = NSLocalizedString(@"PrivacyAlertViewMessage", @"By continuing, you agree with Take a Hike Terms of Use and Privacy Policy.");
-        NSString *termsButtonText = NSLocalizedString(@"PrivacyTermsButtonText", @"View Tems of Use");
-        NSString *privacyButtonText = NSLocalizedString(@"PrivacyButtonText", @"View Provacy Policy");
-        NSString *agreeTerms = NSLocalizedString(@"PrivacyAgree", @"I agree");
-        NSString *dontagreeTerms = NSLocalizedString(@"PrivacyNotAgree", @"I do not agree");
-        
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
-        [alertView addButtonWithTitle:termsButtonText
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TermsOfUseURL"]];
-                                  [[UIApplication sharedApplication] openURL:url];
-                                  
-                              }];
-        [alertView addButtonWithTitle:privacyButtonText
-                                 type:SIAlertViewButtonTypeCancel
-                              handler:^(SIAlertView *alertView) {
-                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PrivacyPolicyURL"]];
-                                  [[UIApplication sharedApplication] openURL:url];
-                                  
-                              }];
-        [alertView addButtonWithTitle:dontagreeTerms
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {
-                                  [alertView dismissAnimated:NO];
-                              }];
-        [alertView addButtonWithTitle:agreeTerms
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alertView) {
-                                  [alertView dismissAnimated:NO];
-                                  [self openSession];
-                              }];
-        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
-        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
-        alertView.didDismissHandler = ^(SIAlertView *alertView) {
-        };
-        [alertView show];
-    }
-    else{
-        //user has already opted in before
-        [self openSession];
-
-    }
-}
 
 @end

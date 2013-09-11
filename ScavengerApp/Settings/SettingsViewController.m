@@ -120,8 +120,10 @@
         case 0:
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"A"];
-            cell.selectionStyle = UITableViewCellEditingStyleNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor clearColor];
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+            
             
             UIButton *clearCacheButton = [self makeButtonForCell:cell];
             [clearCacheButton setTitle:NSLocalizedString(@"settings_clear_data", @"Clear downloaded data") forState:UIControlStateNormal];
@@ -136,6 +138,7 @@
                 case 0:
                 {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"B"];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     if (isFacebookLoggedIn) {
                         cell.textLabel.text = facebookUsername;
                     }
@@ -147,6 +150,9 @@
                 case 1:
                 {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"C"];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = [UIColor clearColor];
+
                     //logout
                     UIButton *logoutButton = [self makeButtonForCell:cell];
                     [logoutButton setTitle:NSLocalizedString(@"settings_unlink", @"Unlink") forState:UIControlStateNormal];

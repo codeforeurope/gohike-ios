@@ -13,8 +13,8 @@
 #import "SIAlertView.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface RewardViewController ()
 
+@interface RewardViewController () <FBLoginViewDelegate>
 
 @end
 
@@ -60,24 +60,33 @@
 
 - (void)onShareButton
 {
-    // Ask for publish_actions permissions in context
-    if ([FBSession.activeSession.permissions
-         indexOfObject:@"publish_actions"] == NSNotFound) {
-        // Permission hasn't been granted, so ask for publish_actions
-        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
-                                           defaultAudience:FBSessionDefaultAudienceFriends
-                                              allowLoginUI:YES
-                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                             if (FBSession.activeSession.isOpen && !error) {
-                                                 // Publish the story if permission was granted
-                                                 [self confirmPublishStory];
-                                             }
-                                         }];
-    } else {
-        // If permissions present, publish the story
-        [self confirmPublishStory];
-    }
     
+    BOOL isFacebookLoggedIn = (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen);
+    if(isFacebookLoggedIn){
+        //If Facebook IsLoggedIn then we can go for publish directly
+    
+        // Ask for publish_actions permissions in context
+        if ([FBSession.activeSession.permissions
+             indexOfObject:@"publish_actions"] == NSNotFound) {
+            // Permission hasn't been granted, so ask for publish_actions
+            [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
+                                               defaultAudience:FBSessionDefaultAudienceFriends
+                                                  allowLoginUI:YES
+                                             completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                                 if (FBSession.activeSession.isOpen && !error) {
+                                                     // Publish the story if permission was granted
+                                                     [self confirmPublishStory];
+                                                 }
+                                             }];
+        } else {
+            // If permissions present, publish the story
+            [self confirmPublishStory];
+        }
+    }
+    else{
+        //We have no FB Connection, we need to open it, and register the user if has not registered already to API
+        [self openSession];
+    }
 
 }
 
@@ -93,7 +102,6 @@
 
 - (void)publishStory
 {
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"link"] = [NSString stringWithFormat:@"%@/rewards/%d",kGOHIKE_BASEURL, [_reward GHid] ];
     params[@"name"] = [_reward GHname];
@@ -116,18 +124,8 @@
                           error.domain, error.code];
          } else {
              alertTitle = NSLocalizedString(@"Done!", @"Alertview title");
-//             alertText = [NSString stringWithFormat:
-//                          @"Posted action, id: %@",
-//                          result[@"id"]];
              alertText = NSLocalizedString(@"Posted successfully!", nil);
          }
-         // Show the result in an alert
-//         [[[UIAlertView alloc] initWithTitle:@"Result"
-//                                     message:alertText
-//                                    delegate:self
-//                           cancelButtonTitle:@"OK!"
-//                           otherButtonTitles:nil]
-//          show];
          
          SIAlertView *a = [[SIAlertView alloc] initWithTitle:alertTitle andMessage:alertText];
          [a addButtonWithTitle:NSLocalizedString(@"Ok", nil) type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) { [alertView dismissAnimated:YES];   }];
@@ -170,6 +168,148 @@
     a.backgroundStyle = SIAlertViewBackgroundStyleSolid;
 
     [a show];
+}
+
+#pragma mark - Privacy
+
+- (void)dealWithPrivacy
+{
+    NSString *facebookUsername = [SSKeychain passwordForService:kServiceNameForKeychain account:kAccountNameForKeychainFacebook];
+    
+    if(![facebookUsername length] > 0)
+    {
+        NSString *title = NSLocalizedString(@"PrivacyAlertViewTitle", @"Connect with Take a Hike?");
+        NSString *message = NSLocalizedString(@"PrivacyAlertViewMessage", @"By continuing, you agree with Take a Hike Terms of Use and Privacy Policy.");
+        NSString *termsButtonText = NSLocalizedString(@"PrivacyTermsButtonText", @"View Tems of Use");
+        NSString *privacyButtonText = NSLocalizedString(@"PrivacyButtonText", @"View Provacy Policy");
+        NSString *agreeTerms = NSLocalizedString(@"PrivacyAgree", @"I agree");
+        NSString *dontagreeTerms = NSLocalizedString(@"PrivacyNotAgree", @"I do not agree");
+        
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:title andMessage:message];
+        [alertView addButtonWithTitle:termsButtonText
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TermsOfUseURL"]];
+                                  [[UIApplication sharedApplication] openURL:url];
+                                  
+                              }];
+        [alertView addButtonWithTitle:privacyButtonText
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alertView) {
+                                  NSURL *url = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PrivacyPolicyURL"]];
+                                  [[UIApplication sharedApplication] openURL:url];
+                                  
+                              }];
+        [alertView addButtonWithTitle:dontagreeTerms
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:NO];
+                              }];
+        [alertView addButtonWithTitle:agreeTerms
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alertView) {
+                                  [alertView dismissAnimated:NO];
+                                  [self openSession];
+                              }];
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        alertView.backgroundStyle = SIAlertViewBackgroundStyleSolid;
+        alertView.didDismissHandler = ^(SIAlertView *alertView) {
+        };
+        [alertView show];
+    }
+    else{
+        //user has already opted in before
+        [self openSession];
+        
+    }
+}
+
+#pragma mark - Facebook
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
+{
+    switch (state) {
+        case FBSessionStateOpen: {
+#if DEBUG
+            NSLog(@"facebook session open");
+#endif
+            //first we get the user details
+            [self getUserDetails];
+            
+
+            
+        }
+            break;
+        case FBSessionStateClosed:
+        case FBSessionStateClosedLoginFailed:
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            break;
+        default:
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:NSLocalizedString(@"Facebook Error", @"Facebook Error")
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+
+- (void)getUserDetails
+{
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             if (!error) {
+#if DEBUG
+                 NSLog(@"we got user: %@", user);
+#endif
+                 [SSKeychain setPassword:user.name forService:kServiceNameForKeychain account:kAccountNameForKeychainFacebook];
+                 [self connectUser:user];
+             }
+         }];
+    }
+}
+
+- (void)connectUser:(NSDictionary<FBGraphUser> *)user
+{
+    @try {
+        NSString *username = user.first_name;
+        NSString *FBid = [NSString stringWithFormat:@"%@", user.id];
+        NSString *email = [user objectForKey:@"email"];
+        NSDate *expirationDate = FBSession.activeSession.accessTokenData.expirationDate;
+        NSString *token = FBSession.activeSession.accessTokenData.accessToken;
+        
+        [[GoHikeHTTPClient sharedClient] connectFBId:FBid name:username email:email token:token expDate:expirationDate];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", [exception description]);
+    }
+    @finally {
+        //we finally publish the story
+        [self confirmPublishStory];
+    }
+}
+
+- (void)openSession
+{
+    [FBSession openActiveSessionWithReadPermissions:@[@"email"]
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,
+       FBSessionState state, NSError *error) {
+         [self sessionStateChanged:session state:state error:error];
+     }];
 }
 
 @end
