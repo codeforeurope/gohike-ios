@@ -29,9 +29,20 @@
     return self;
 }
 
+- (void)fixUIForiOS7
+{
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Fix UI for iOS7
+    [self fixUIForiOS7];
+    
     CustomBarButtonViewLeft *backButton = [[CustomBarButtonViewLeft alloc] initWithFrame:CGRectMake(0, 0, 32, 32)
                                                                        imageName:@"icon-back"
                                                                             text:NSLocalizedString(@"Back", nil)
