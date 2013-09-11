@@ -256,9 +256,20 @@
 
 #pragma mark - UIViewController
 
+- (void)fixUIForiOS7
+{
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Fix UI for iOS7
+    [self fixUIForiOS7];
 
     //buttons
     [self customizeButtons];

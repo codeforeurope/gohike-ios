@@ -30,9 +30,20 @@
     return self;
 }
 
+- (void)fixUIForiOS7
+{
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Fix UI for iOS7
+    [self fixUIForiOS7];
 
     self.title = NSLocalizedString(@"Where do you want to play?", @"Where do you want to play?");
     

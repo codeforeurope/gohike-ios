@@ -43,9 +43,19 @@
     return self;
 }
 
+- (void)fixUIForiOS7
+{
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Fix UI for iOS7
+    [self fixUIForiOS7];
     
     //Setup the refreshcontrol
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
