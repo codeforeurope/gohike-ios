@@ -169,11 +169,18 @@
             headerView = [nib objectAtIndex:0];
 
         }
-//        GHProfile *profile = [GHProfile modelObjectWithDictionary:[_catalog objectAtIndex:indexPath.section]];
         GHProfile *profile = [[[[AppState sharedInstance] currentCatalog] GHprofiles] objectAtIndex:indexPath.section];
         headerView.headerLabel.text = [profile GHname];
-//        [headerView.headerImage setImageWithURL:[NSURL URLWithString:profile.image.GHurl]];
-        headerView.headerImage.image = [UIImage imageWithData:[FileUtilities imageDataForProfile:profile]];
+       
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *headerImage = [UIImage imageWithData:[FileUtilities imageDataForProfile:profile]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                headerView.headerImage.image = headerImage;
+                headerView.headerImage.layer.cornerRadius = 6;
+                headerView.headerImage.layer.masksToBounds = YES;
+            });
+        });
+        
         headerView.headerBackgroundImage.image  = [[UIImage imageNamed:@"collectionviewheader"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
         
         reusableview = headerView;
