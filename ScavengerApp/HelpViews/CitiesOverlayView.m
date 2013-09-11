@@ -26,11 +26,11 @@
 {
     // Drawing code
     // Draw a custom gradient
-    UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+    UIColor *color = [Utilities appColor];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = _playButton.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,
-                       (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
+    gradient.colors = [NSArray arrayWithObjects:(id)[color colorWithAlphaComponent:0.9].CGColor,
+                       (id)[color colorWithAlphaComponent:1.0].CGColor,
                        nil];
     
     [_playButton.layer insertSublayer:gradient atIndex:0];

@@ -14,10 +14,10 @@
 #define BUTTON_WIDTH 200
 
 //RGB color macro
-#define UIColorFromRGB(rgbValue) [UIColor \
-colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
-blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+//#define UIColorFromRGB(rgbValue) [UIColor \
+//colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+//green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+//blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 
 @implementation CheckinView
@@ -51,11 +51,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         checkinButton.frame = CGRectMake((self.bounds.size.width - BUTTON_WIDTH)/2, self.bounds.size.height - BUTTON_HEIGHT - 10, BUTTON_WIDTH, BUTTON_HEIGHT);
         checkinButton.titleLabel.text = NSLocalizedString(@"Found!", nil);
         // Draw a custom gradient
-        UIColor *blueColor = [UIColor colorWithRed:0.386 green:0.720 blue:0.834 alpha:1.000];
+        UIColor *color = [Utilities appColor];
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = checkinButton.bounds;
-        gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,
-                                                    (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
+        gradient.colors = [NSArray arrayWithObjects:(id)[color colorWithAlphaComponent:0.9].CGColor,
+                                                    (id)[color colorWithAlphaComponent:1.0].CGColor,
                                                     nil];
         [checkinButton.layer insertSublayer:gradient atIndex:0];
         checkinButton.layer.cornerRadius = 5;
@@ -140,11 +140,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     checkinButton.frame = CGRectMake((self.bounds.size.width - BUTTON_WIDTH)/2, self.bounds.size.height - BUTTON_HEIGHT - 10, BUTTON_WIDTH, BUTTON_HEIGHT);
     checkinButton.titleLabel.text = NSLocalizedString(@"Continue!", nil);
     // Draw a custom gradient
-    UIColor *blueColor = UIColorFromRGB(0x83CEE4);
+    UIColor *color = [Utilities appColor];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = checkinButton.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[blueColor colorWithAlphaComponent:0.9].CGColor,
-                       (id)[blueColor colorWithAlphaComponent:1.0].CGColor,
+    gradient.colors = [NSArray arrayWithObjects:(id)[color colorWithAlphaComponent:0.9].CGColor,
+                       (id)[color colorWithAlphaComponent:1.0].CGColor,
                        nil];
 
     [checkinButton.layer insertSublayer:gradient atIndex:0];
