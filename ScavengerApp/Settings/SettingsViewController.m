@@ -225,7 +225,6 @@
 
 - (void)clearCacheButtonTapped:(id)sender
 {
-    NSLog(@"Clear cache button tapped");
     [SVProgressHUD show];
 //    //delete all data in cache folder
     [Utilities clearDownloadedData];

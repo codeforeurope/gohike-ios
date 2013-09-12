@@ -73,22 +73,32 @@
 
 + (void)clearDownloadedData
 {
-    //TODO
     NSString *cacheDir = [FileUtilities getLibraryPath];
     
-    // check if cache dir exists
+    // directories to clean
+    NSArray *directoriesToClean=@[@"routes", @"profiles", @"catalogs"];
     
-    // get all files in this directory
+    // file manager
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *fileList = [fm contentsOfDirectoryAtPath: cacheDir error: nil];
     
-    // remove
-    for(NSInteger i = 0; i < [fileList count]; ++i)
-    {
-        NSString *fp =  [fileList objectAtIndex: i];
-        NSString *remPath = [cacheDir stringByAppendingPathComponent: fp];
-        [fm removeItemAtPath: remPath error: nil];
-    }
+    [directoriesToClean enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *dirToClean = [cacheDir stringByAppendingPathComponent:obj];
+        // get all files in this directory
+        NSArray *fileList = [fm contentsOfDirectoryAtPath: dirToClean error: nil];
+        // remove
+        for(NSInteger i = 0; i < [fileList count]; ++i)
+        {
+            NSString *fp =  [fileList objectAtIndex: i];
+            NSString *remPath = [dirToClean stringByAppendingPathComponent: fp];
+            __autoreleasing NSError *remError;
+            [fm removeItemAtPath: remPath error: &remError];
+#if DEBUG
+            NSLog(@"Remove file Error: %@", [remError description]);
+#endif
+        }
+        
+    }];
+    
 }
 
 + (UIColor*)appColor
