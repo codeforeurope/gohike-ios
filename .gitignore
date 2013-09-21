@@ -39,3 +39,6 @@ ScavengerApp/Secret.h
 
 #patch files
 **.patch
+
+#xcode 5 xccheckout
+**.xccheckout
