@@ -56,6 +56,8 @@
         [pin setTitle:[waypoint GHname]];
         pin.coordinate = destintation.coordinate;
         
+        
+        
         if (!_singleLocation) {
             if ([waypoint GHrank] == [[[AppState sharedInstance] activeWaypoint] GHrank])
             {
@@ -66,7 +68,7 @@
             {
                 pin.current = NO;
             }
-            if ([waypoint GHrank] > [[[AppState sharedInstance] activeWaypoint] GHrank])
+            if ([[waypoint objectForKey:@"visited"] boolValue] != YES)
             {
                 pin.visited = NO;
             }
