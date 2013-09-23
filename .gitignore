@@ -42,3 +42,7 @@ ScavengerApp/Secret.h
 
 #xcode 5 xccheckout
 **.xccheckout
+
+#cocoapods
+Pods
+Podfile.lock

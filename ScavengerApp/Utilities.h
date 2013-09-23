@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SSKeychain.h"
 
 
 @interface Utilities : NSObject

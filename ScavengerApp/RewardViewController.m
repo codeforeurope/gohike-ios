@@ -12,6 +12,7 @@
 #import "CustomBarButtonViewRight.h"
 #import "SIAlertView.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "SSKeychain.h"
 
 
 @interface RewardViewController () <FBLoginViewDelegate>
