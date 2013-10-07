@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <MBXMapKit/MBXMapKit.h>
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 {
-    MKMapView *map;
+    MBXMapView *map;
 }
 
 @property (nonatomic,strong) NSArray *waypoints;
