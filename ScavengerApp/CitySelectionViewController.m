@@ -13,7 +13,6 @@
 #import "CitiesOverlayView.h"
 #import "SettingsViewController.h"
 
-#define base_url @"http://www.gotakeahike.nl/"
 
 @interface CitySelectionViewController ()
 

@@ -34,8 +34,8 @@
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.locationId] forKey:@"locationId"];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.routeId] forKey:@"routeId"];
+    [mutableDict setValue:[NSNumber numberWithDouble:self.locationId] forKey:@"location_id"];
+    [mutableDict setValue:[NSNumber numberWithDouble:self.routeId] forKey:@"route_id"];
     
     //Use the string for correct conversion to JSON
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
