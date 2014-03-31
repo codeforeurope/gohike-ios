@@ -31,15 +31,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     //map view
-//    map = [[MKMapView alloc] initWithFrame:self.view.bounds];
-    map = [[MBXMapView alloc] initWithFrame:self.view.bounds mapID:kMBXMAPID];
-//    RMMBTilesSource *offlineSource = [[RMMBTilesSource alloc] initWithTileSetResource:@"OSMBrightAmsterdam" ofType:@"mbtiles"];
-    
-//    RMMapView *mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:offlineSource];
-
-    map = [[MBXMapView alloc] initWithFrame:self.view.bounds];
-
-    
+    map = [[MKMapView alloc] initWithFrame:self.view.bounds];
     map.showsUserLocation = YES;
     map.delegate = self;
     [self.view addSubview:map];    
