@@ -28,7 +28,10 @@ DerivedData
 
 .env
 secret
-ScavengerApp/Secret.h
+**Secret.h
+
+#Podfile
+Pods
 
 #Pictures, useful in case covered by copyright
 #So that won't be pushed to github
