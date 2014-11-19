@@ -27,8 +27,6 @@ DerivedData
 .Trashes
 
 .env
-secret
-**Secret.h
 
 #Podfile
 Pods

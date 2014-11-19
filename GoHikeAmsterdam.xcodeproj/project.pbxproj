@@ -290,7 +290,6 @@
 		AC865CB01A1CD6CF001F6062 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC865CB11A1CD6CF001F6062 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC865CB21A1CD6CF001F6062 /* routeme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = routeme.plist; sourceTree = "<group>"; };
-		AC865CB31A1CD6CF001F6062 /* Secret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secret.h; sourceTree = "<group>"; };
 		AC865CB51A1CD6CF001F6062 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		AC865CB61A1CD6CF001F6062 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		AC865CB81A1CD6CF001F6062 /* CannotPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotPlayViewController.h; sourceTree = "<group>"; };
@@ -353,6 +352,7 @@
 		AC865CF51A1CD6CF001F6062 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		AC865CF61A1CD6CF001F6062 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		AC865D491A1CD731001F6062 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		AC865D4B1A1CE5EE001F6062 /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Secret.h; sourceTree = "<group>"; };
 		ACA1B1A217E0A0C40023EA31 /* 19-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear@2x.png"; sourceTree = "<group>"; };
 		ACB534A6175654390065D72D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		ACB534A7175654390065D72D /* cellbackground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellbackground1.png; sourceTree = "<group>"; };
@@ -546,9 +546,9 @@
 				AC865C9B1A1CD6CF001F6062 /* main.m */,
 				AC865C9C1A1CD6CF001F6062 /* Model */,
 				AC865CB21A1CD6CF001F6062 /* routeme.plist */,
-				AC865CB31A1CD6CF001F6062 /* Secret.h */,
 				AC865CB41A1CD6CF001F6062 /* Settings */,
 				AC865CB71A1CD6CF001F6062 /* ViewControllers */,
+				AC865D4B1A1CE5EE001F6062 /* Secret.h */,
 			);
 			path = GoHikeAmsterdam;
 			sourceTree = "<group>";
