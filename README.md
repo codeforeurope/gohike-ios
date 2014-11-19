@@ -1,20 +1,43 @@
-Scavenger App for Code for Europe Amsterdam ( iOS repo )
-
-
-ScavengerApp (Go Take a Hike!) documentation
-============================================
+ScavengerApp (Go Take a Hike!) 
+===========
 
 
 How to build
 -------------
 * Clone the repository
-* Add a file called "secret" containing the secret API Key for the API (not disclosed on GitHub)
+* You wil notice a file called `Secret.h` is missing. That is a file containing the secret API Key for the API (not disclosed on GitHub). Please refer to the template below for knowing how to structure that file.
 * Init and update the submodules with the command 
 > git submodule update --init --recursive
 
 That's it. Build and run.
 
 The Tracker for this project is here: https://www.pivotaltracker.com/projects/820375
+
+### Secret.h file ###
+
+    //
+    //  Secret.h
+    //
+    
+    #ifndef ScavengerApp_Secret_h
+    #define ScavengerApp_Secret_h
+    
+    //Used for communication with API
+    #define kAPISecret @"APP_API_SECRET"
+    
+    //Used for TestFlight
+    #define kTestFlightAPIKey @"YOUR_TESTFLIGHT_API_KEY"
+    
+    //Used for storing app UUID in keychain and retrieve afterwards
+    #define kServiceNameForKeychain @"YOUR_KEYCHAIN_VARIABLE"
+    #define kAccountNameForKeychainDevice @"user"
+    #define kAccountNameForKeychainFacebook @"facebook"
+    
+    //MapBox (if you choose to use it)
+    #define kMBXMAPID @"YOUR_MAPBOX_MAP_ID"
+    
+    #endif
+ 
 
 
 Important remarks
