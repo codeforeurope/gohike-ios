@@ -19,7 +19,7 @@
 @implementation NavigationStatusView
 
 //update the collection of completed checkins
--(void)setCheckinsCompleteWithArray:(NSArray*)array nextLocationId:(int)location_id
+-(void)setCheckinsCompleteWithArray:(NSArray*)array nextLocationId:(NSInteger)location_id
 {
     UIImage * targetImage = [UIImage imageNamed:@"target"];
     UIImage * targetCompleteImage = [UIImage imageNamed:@"target-checked"];
@@ -32,9 +32,9 @@
         [aView removeFromSuperview];
     }
     
-    int total = [array count];
+    NSInteger total = [array count];
     //add subviews
-    for(int i = 0; i < total; i++)
+    for(NSInteger i = 0; i < total; i++)
     {
         UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CHECKIN_SIZE, CHECKIN_SIZE)];
         image.contentMode = UIViewContentModeScaleAspectFill;

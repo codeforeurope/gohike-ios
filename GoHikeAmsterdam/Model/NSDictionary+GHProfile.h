@@ -11,7 +11,7 @@
 
 @interface NSDictionary (GHProfile)
 
-- (int)GHid;
+- (NSInteger)GHid;
 - (NSString*)GHname;
 - (NSArray*)GHroutes;
 - (GHImage*)GHimage;

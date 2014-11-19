@@ -10,15 +10,15 @@
 
 @interface NSDictionary (GHWaypoint)
 
-- (int)GHid;
+- (NSInteger)GHid;
 - (GHImage*)GHimage;
 - (NSString*)GHname;
 - (NSString*)GHdescription;
-- (int)GHlocation_id;
+- (NSInteger)GHlocation_id;
 - (double)GHlatitude;
 - (double)GHlongitude;
-- (int)GHroute_id;
-- (int)GHrank;
+- (NSInteger)GHroute_id;
+- (NSInteger)GHrank;
 
 @end
 

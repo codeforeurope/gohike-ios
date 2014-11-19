@@ -10,7 +10,7 @@
 
 @implementation NSDictionary (GHReward)
 
-- (int)GHid
+- (NSInteger)GHid
 {
     return [[self objectForKey:@"id"] integerValue];
 }

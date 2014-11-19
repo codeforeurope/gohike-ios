@@ -82,7 +82,7 @@ NSString* const kFilePathProfiles = @"profiles";
     }
 }
 
-- (GHWaypoint*)nextCheckinForRoute:(int)routeId startingFromWaypointRank:(int)rank
+- (GHWaypoint*)nextCheckinForRoute:(NSInteger)routeId startingFromWaypointRank:(NSInteger)rank
 {
     NSArray *waypoints = [self waypointsWithCheckinsForRoute:routeId];
     
@@ -105,7 +105,7 @@ NSString* const kFilePathProfiles = @"profiles";
     }
 }
 
-- (NSArray*)checkinsForRoute:(int)routeId
+- (NSArray*)checkinsForRoute:(NSInteger)routeId
 {
     NSIndexSet *indexes = [_checkins indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return ((Checkin*)obj).routeId == routeId ;
@@ -115,7 +115,7 @@ NSString* const kFilePathProfiles = @"profiles";
 
 
 // Returns an array of waypoints for the route, adding a "visited" BOOL value for convenience
-- (NSArray*)waypointsWithCheckinsForRoute:(int)routeId
+- (NSArray*)waypointsWithCheckinsForRoute:(NSInteger)routeId
 {
     NSArray *waypoints = [[self currentRoute] GHwaypoints];
     NSArray *checkinsForRoute = [self checkinsForRoute:routeId] ;
@@ -179,7 +179,7 @@ NSString* const kFilePathProfiles = @"profiles";
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     
     [encoder encodeObject:_checkins forKey:@"checkins"];
-    [encoder encodeInt:_activeRouteId forKey:@"activeRouteId"];
+    [encoder encodeInteger:_activeRouteId forKey:@"activeRouteId"];
     [encoder encodeInteger:_activeTargetId forKey:@"activeTargetId"];
     [encoder encodeBool:_playerIsInCompass forKey:@"playerIsInCompass"];
     [encoder encodeObject:_cities forKey:@"cities"];

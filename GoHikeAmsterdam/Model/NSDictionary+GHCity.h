@@ -10,7 +10,7 @@
 
 @interface NSDictionary (GHCity)
 
-- (int)GHid;
+- (NSInteger)GHid;
 - (NSString*)GHname;
 - (NSString*)GHstate_province;
 - (NSString*)GHcountry_code;

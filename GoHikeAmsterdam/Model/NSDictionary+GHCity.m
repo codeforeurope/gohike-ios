@@ -10,7 +10,7 @@
 
 @implementation NSDictionary (GHCity)
 
-- (int)GHid
+- (NSInteger)GHid
 {
     return [[self objectForKey:@"id"] integerValue];
 }

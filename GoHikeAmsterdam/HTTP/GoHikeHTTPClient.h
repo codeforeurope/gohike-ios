@@ -22,7 +22,7 @@ extern NSString* const kGOHIKE_BASEURL;
 + (id)sharedClient;
 
 - (void)locate;
-- (void)getCatalogForCity:(int)cityID;
+- (void)getCatalogForCity:(NSInteger)cityID;
 - (void)getRoute:(NSInteger)routeId;
 - (void)downloadFileWithUrl:(NSString*)fileUrl savePath:(NSString*)savePath;
 - (void)pushCheckins;

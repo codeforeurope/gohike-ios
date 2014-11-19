@@ -115,7 +115,7 @@
 - (void)publishStory
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    params[@"link"] = [NSString stringWithFormat:@"%@/rewards/%d",kGOHIKE_BASEURL, [_reward GHid] ];
+    params[@"link"] = [NSString stringWithFormat:@"%@/rewards/%ld",kGOHIKE_BASEURL, (long)[_reward GHid] ];
     params[@"name"] = [_reward GHname];
     params[@"description"] = [_reward GHdescription];
 //    params[@"message"] = [NSString stringWithFormat:NSLocalizedString(@"FacebookMessage", nil),_rewardTitle.text];
@@ -132,8 +132,8 @@
          if (error) {
              alertTitle = @"Result";
              alertText = [NSString stringWithFormat:
-                          @"error: domain = %@, code = %d",
-                          error.domain, error.code];
+                          @"error: domain = %@, code = %ld",
+                          error.domain, (long)error.code];
          } else {
              alertTitle = NSLocalizedString(@"Done!", @"Alertview title");
              alertText = NSLocalizedString(@"Posted successfully!", nil);

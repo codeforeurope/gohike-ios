@@ -24,8 +24,8 @@
 
 @interface CatalogViewController ()
 {
-    int receivedFileNotifications;
-    int expectedNotifications;
+    NSInteger receivedFileNotifications;
+    NSInteger expectedNotifications;
 }
 
 @property (nonatomic, strong) OverlayView *overlayView;
@@ -227,7 +227,7 @@
     [self loadCatalogForCity:[[AppState sharedInstance] currentCity].GHid];
 }
 
-- (void)loadCatalogForCity:(int)city
+- (void)loadCatalogForCity:(NSInteger)city
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadCatalogCompleted:) name:kFinishedLoadingCatalog object:nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Updating routes to play", @"Updating routes to play") maskType:SVProgressHUDMaskTypeBlack];
@@ -320,7 +320,7 @@
 {
     // Update the page when more than 50% of the previous/next page is visible
     CGFloat pageWidth = _overlayView.scrollView.frame.size.width;
-    int page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    NSInteger page = floor((_overlayView.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     _overlayView.pageControl.currentPage = page;
     if (page < 3) {
         [_overlayView.playButton setTitle:NSLocalizedString(@"Next", nil) forState:UIControlStateNormal];
@@ -373,7 +373,7 @@
     [_overlayView.playButton setTitle:NSLocalizedString(@"Next", nil) forState:UIControlStateNormal];
 
     
-    for (int i = 0; i < 4; i++) {
+    for (NSInteger i = 0; i < 4; i++) {
         //We'll create a view object in every 'page' of our scrollView.
         CGRect frame;
         frame.origin.x = _overlayView.scrollView.frame.size.width * i;

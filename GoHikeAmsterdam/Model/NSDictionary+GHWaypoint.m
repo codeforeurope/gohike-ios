@@ -10,7 +10,7 @@
 
 @implementation NSDictionary (GHWaypoint)
 
-- (int)GHid
+- (NSInteger)GHid
 {
     return [[self objectForKey:@"id"] integerValue];
 }
@@ -20,7 +20,7 @@
     return [self objectForKey:@"image"];
 }
 
-- (int)GHlocation_id
+- (NSInteger)GHlocation_id
 {
     return [[self objectForKey:@"location_id"] integerValue];
 }
@@ -45,12 +45,12 @@
     return [[self objectForKey:@"longitude"] doubleValue];
 }
 
-- (int)GHroute_id
+- (NSInteger)GHroute_id
 {
     return [[self objectForKey:@"route_id"] integerValue];
 }
 
-- (int)GHrank
+- (NSInteger)GHrank
 {
     return [[self objectForKey:@"rank"] integerValue];
 }

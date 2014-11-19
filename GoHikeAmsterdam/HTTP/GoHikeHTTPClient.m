@@ -92,7 +92,7 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
 }
 
 
-- (void)getCatalogForCity:(int)cityID
+- (void)getCatalogForCity:(NSInteger)cityID
 {
     
     GHCatalog* existingCatalog = [FileUtilities loadCatalogFromFileWithId:cityID];
@@ -115,7 +115,7 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
     }
     
     NSString *locale = [Utilities getCurrentLocale];
-    NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%d", locale, cityID];
+    NSString *path = [NSString stringWithFormat:@"/api/%@/catalog/%ld", locale, (long)cityID];
     NSMutableURLRequest *catalogRequest = [self requestWithMethod:@"GET" path:path parameters:nil];
     [catalogRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:catalogRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -123,11 +123,11 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
             
             GHCatalog *catalog = (GHCatalog*)JSON;
 
-            int expected = [[FileUtilities picturesInCatalog:catalog] count];
+            NSInteger expected = [[FileUtilities picturesInCatalog:catalog] count];
 #if DEBUG
-            NSLog(@"For catalog %d expected %d pictures", cityID, expected);
+            NSLog(@"For catalog %ld expected %ld pictures", (long)cityID, (long)expected);
 #endif
-            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInteger:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingCatalog object:nil userInfo:userInfo];
             
             [FileUtilities saveCatalog:catalog WithId:cityID];
@@ -157,7 +157,7 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
 
 - (void)getRoute:(NSInteger)routeId
 {
-    NSString *path = [NSString stringWithFormat:@"/api/route/%d", routeId];
+    NSString *path = [NSString stringWithFormat:@"/api/route/%ld", (long)routeId];
     NSMutableURLRequest *routeRequest = [self requestWithMethod:@"GET" path:path parameters:nil];
     [routeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:routeRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -167,11 +167,11 @@ NSString* const kFinishedConnectingDevice = @"kFinishedConnectingDevice";
             
             [[AppState sharedInstance] setCurrentRoute:route];
             
-            int expected = [[FileUtilities picturesInRoute:route] count];
+            NSInteger expected = [[FileUtilities picturesInRoute:route] count];
 #if DEBUG
-            NSLog(@"For route %d expected %d pictures", routeId, expected);
+            NSLog(@"For route %ld expected %ld pictures", (long)routeId, (long)expected);
 #endif
-            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInt:expected]};
+            NSDictionary *userInfo = @{ @"expectedFiles" : [NSNumber numberWithInteger:expected]};
             [[NSNotificationCenter defaultCenter] postNotificationName:kFinishedLoadingRoute object:nil userInfo:userInfo];
             [FileUtilities saveRoute:route writeRouteFile:YES];
 

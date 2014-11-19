@@ -10,7 +10,7 @@
 
 @implementation NSDictionary (GHRoute)
 
-- (int)GHid
+- (NSInteger)GHid
 {
     return [[self objectForKey:@"id"] integerValue];
 }

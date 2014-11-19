@@ -25,8 +25,8 @@ extern NSString* const kFilePathProfiles;
 
 @property (nonatomic, strong) NSMutableArray *checkins; //Array of check-ins along current route
 //@property (nonatomic, assign) int activeProfileId; //ID of the active profile
-@property (nonatomic, assign) int activeRouteId; //ID of the active route
-@property (nonatomic, assign) int activeTargetId;   //ID of the active Target where we are navigating to
+@property (nonatomic, assign) NSInteger activeRouteId; //ID of the active route
+@property (nonatomic, assign) NSInteger activeTargetId;   //ID of the active Target where we are navigating to
 @property (nonatomic, assign) BOOL playerIsInCompass; //Is the player in compass mode? If so, when restoring, go there immediately
 //@property (nonatomic, strong) NSDictionary *game; //Dictionary from GHGameData
 @property (nonatomic, strong) GHCatalog *currentCatalog; //Catalog of the game (with profiles, routes)
@@ -46,9 +46,9 @@ extern NSString* const kFilePathProfiles;
 
 - (GHWaypoint*)activeWaypoint;
 
-- (GHWaypoint*)nextCheckinForRoute:(int)routeId startingFromWaypointRank:(int)rank;
-- (NSArray*)checkinsForRoute:(int)routeId;
-- (NSArray*)waypointsWithCheckinsForRoute:(int)routeId;
+- (GHWaypoint*)nextCheckinForRoute:(NSInteger)routeId startingFromWaypointRank:(NSInteger)rank;
+- (NSArray*)checkinsForRoute:(NSInteger)routeId;
+- (NSArray*)waypointsWithCheckinsForRoute:(NSInteger)routeId;
 - (BOOL)isRouteFinished:(NSDictionary*)route;
 
 //Location

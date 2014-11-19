@@ -11,10 +11,10 @@
 @interface FileUtilities : NSObject
 
 //Catalog
-+ (BOOL)saveCatalog:(GHCatalog*)catalog WithId:(int)cityId;
-+ (GHCatalog*)loadCatalogFromFileWithId:(int)cityID;
++ (BOOL)saveCatalog:(GHCatalog*)catalog WithId:(NSInteger)cityId;
++ (GHCatalog*)loadCatalogFromFileWithId:(NSInteger)cityID;
 + (NSArray*)picturesInCatalog:(GHCatalog*)catalog;
-+ (NSDate*)lastModifiedDateForCatalogWithId:(int)cityID;
++ (NSDate*)lastModifiedDateForCatalogWithId:(NSInteger)cityID;
 
 //Profile
 + (NSData*)imageDataForProfile:(GHProfile*)profile;
@@ -25,7 +25,7 @@
 + (NSData*)imageDataForRoute:(GHRoute*)route;
 + (NSData*)iconDataForRoute:(GHRoute*)route;
 + (BOOL)saveRoute:(GHRoute*)route writeRouteFile:(BOOL)writeRouteFile;
-+ (GHRoute*)loadRouteFromFileWithId:(int)routeId;
++ (GHRoute*)loadRouteFromFileWithId:(NSInteger)routeId;
 + (NSArray*)picturesInRoute:(GHRoute*)route;
 
 //Waypoint

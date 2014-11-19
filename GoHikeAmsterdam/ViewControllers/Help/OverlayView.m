@@ -44,7 +44,7 @@
     
 }
 
-- (void)scrollToPage:(int)page
+- (void)scrollToPage:(NSInteger)page
 {
     CGRect frame = self.scrollView.frame;
     frame.origin.x = frame.size.width * page;

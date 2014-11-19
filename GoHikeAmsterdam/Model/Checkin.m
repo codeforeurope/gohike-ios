@@ -24,8 +24,8 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     
-    [aCoder encodeInt:_locationId forKey:@"locationId"];
-    [aCoder encodeInt:_routeId forKey:@"routeId"];
+    [aCoder encodeInteger:_locationId forKey:@"locationId"];
+    [aCoder encodeInteger:_routeId forKey:@"routeId"];
     [aCoder encodeObject:_timestamp forKey:@"timestamp"];
     [aCoder encodeBool:_uploaded forKey:@"uploaded"];
     

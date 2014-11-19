@@ -28,8 +28,8 @@
 @interface RouteStartViewController ()
 
 {
-    int receivedFileNotifications;
-    int expectedNotifications;
+    NSInteger receivedFileNotifications;
+    NSInteger expectedNotifications;
     BOOL routeComplete;
 }
 
@@ -141,7 +141,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int rows = 0;
+    NSInteger rows = 0;
     // Return the number of rows in the section.
     switch (section) {
         case 0:
@@ -395,7 +395,7 @@
     [[AppState sharedInstance] setActiveTargetId:[[nextWaypoint objectForKey:@"location_id"] intValue]];
     [[AppState sharedInstance] save];
 #if DEBUG
-    NSLog(@"Active Target ID = %d",[[AppState sharedInstance] activeTargetId]);
+    NSLog(@"Active Target ID = %ld",(long)[[AppState sharedInstance] activeTargetId]);
 #endif
     CompassViewController *compass = [[CompassViewController alloc] initWithNibName:@"CompassViewController" bundle:nil];
     compass.delegate = self;
